@@ -458,26 +458,48 @@ class Port(object):
 
     def expected_checksum(self, test_name, device_type=None):
         """Returns the checksum of the image we expect the test to produce, or None if it is a text-only test."""
-        png_path = self.expected_filename(test_name, '.png', device_type=device_type)
+        png_path = self.expected_image_path(test_name, device_type=device_type)
+        if png_path is None:
+            return None
+        with self._filesystem.open_binary_file_for_reading(png_path) as filehandle:
+            return read_checksum_from_png.read_checksum(filehandle)
 
-        if self._filesystem.exists(png_path):
-            with self._filesystem.open_binary_file_for_reading(png_path) as filehandle:
-                return read_checksum_from_png.read_checksum(filehandle)
-
-        return None
-
-    def expected_image(self, test_name, device_type=None):
-        """Returns the image we expect the test to produce."""
+    def expected_image_path(self, test_name, device_type=None):
+        """Returns the path to the image we expect the test to produce."""
         baseline_path = self.expected_filename(test_name, '.png', device_type=device_type)
         if not self._filesystem.exists(baseline_path):
             return None
+        return baseline_path
+
+    def expected_image(self, test_name, device_type=None):
+        """Returns the image we expect the test to produce."""
+        baseline_path = self.expected_image_path(test_name, device_type=device_type)
+        if baseline_path is None:
+            return None
         return self._filesystem.read_binary_file(baseline_path)
 
-    def expected_audio(self, test_name, device_type=None):
+    def expected_audio_path(self, test_name, device_type=None):
+        """Returns the path to the audio we expect the test to produce."""
         baseline_path = self.expected_filename(test_name, '.wav', device_type=device_type)
         if not self._filesystem.exists(baseline_path):
             return None
+        return baseline_path
+
+    def expected_audio(self, test_name, device_type=None):
+        """Returns the audio we expect the test to produce."""
+        baseline_path = self.expected_audio_path(test_name, device_type=device_type)
+        if baseline_path is None:
+            return None
         return self._filesystem.read_binary_file(baseline_path)
+
+    def expected_text_path(self, test_name, device_type=None):
+        """Returns the path to the text output we expect the test to produce"""
+        baseline_path = self.expected_filename(test_name, '.txt', device_type=device_type)
+        if not self._filesystem.exists(baseline_path):
+            baseline_path = self.expected_filename(test_name, '.webarchive', device_type=device_type)
+            if not self._filesystem.exists(baseline_path):
+                return None
+        return baseline_path
 
     def expected_text(self, test_name, device_type=None):
         """Returns the text output we expect the test to produce, or None
@@ -486,11 +508,9 @@ class Port(object):
         # FIXME: DRT output is actually utf-8, but since we don't decode the
         # output from DRT (instead treating it as a binary string), we read the
         # baselines as a binary string, too.
-        baseline_path = self.expected_filename(test_name, '.txt', device_type=device_type)
-        if not self._filesystem.exists(baseline_path):
-            baseline_path = self.expected_filename(test_name, '.webarchive', device_type=device_type)
-            if not self._filesystem.exists(baseline_path):
-                return None
+        baseline_path = self.expected_text_path(test_name, device_type=device_type)
+        if baseline_path is None:
+            return None
         text = string_utils.decode(self._filesystem.read_binary_file(baseline_path), target_type=str)
         return text.replace("\r\n", "\n")
 
