@@ -27,6 +27,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+MYPY = False
+if MYPY:
+    # MYPY is True when running Mypy; typing is stdlib only in Py3
+    from typing import (
+        Any,
+        Callable,
+        Container,
+        Dict,
+        Iterable,
+        List,
+        Optional,
+        Set,
+        Tuple,
+        Union,
+    )
+
+
 class Test(object):
     """Data about a test and its expectations.
 
@@ -34,13 +51,14 @@ class Test(object):
 
     def __init__(
         self,
-        test_path,
-        expected_text_path=None,
-        expected_image_path=None,
-        expected_checksum_path=None,
-        expected_audio_path=None,
-        reference_files=None,
+        test_path,  # type: str
+        expected_text_path=None,  # type: Optional[str]
+        expected_image_path=None,  # type: Optional[str]
+        expected_checksum_path=None,  # type: Optional[str]
+        expected_audio_path=None,  # type: Optional[str]
+        reference_files=None,  # type: Optional[str]
     ):
+        # type: (...) -> None
         self.test_path = test_path
         self.expected_text_path = expected_text_path
         self.expected_image_path = expected_image_path
@@ -49,6 +67,7 @@ class Test(object):
         self.reference_files = reference_files
 
     def __repr__(self):
+        # type: () -> str
         return (
             "Test(%r, "
             "expected_text_path=%r, "
@@ -66,11 +85,26 @@ class Test(object):
         )
 
     def __eq__(self, other):
-        return (
+        # type: (object) -> bool
+        if not isinstance(other, Test):
+            return NotImplemented
+
+        return bool(
             self.test_path == other.test_path
             and self.expected_text_path == other.expected_text_path
             and self.expected_image_path == other.expected_image_path
             and self.expected_checksum_path == other.expected_checksum_path
             and self.expected_audio_path == other.expected_audio_path
             and self.reference_files == other.reference_files
+        )
+
+    def __hash__(self):
+        # type: () -> int
+        return (
+            hash(self.test_path) ^
+            hash(self.expected_text_path) ^
+            hash(self.expected_image_path) ^
+            hash(self.expected_checksum_path) ^
+            hash(self.expected_audio_path) ^
+            hash(self.reference_files)
         )

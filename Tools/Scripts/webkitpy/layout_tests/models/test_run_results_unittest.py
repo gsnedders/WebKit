@@ -33,6 +33,7 @@ from webkitpy.layout_tests.models import test_expectations
 from webkitpy.layout_tests.models import test_failures
 from webkitpy.layout_tests.models import test_results
 from webkitpy.layout_tests.models import test_run_results
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.tool.mocktool import MockOptions
 
 from webkitscmpy import mocks
@@ -54,7 +55,7 @@ def get_result(test_name, result_type=test_expectations.PASS, run_time=0):
 def run_results(port):
     tests = ['passes/text.html', 'failures/expected/timeout.html', 'failures/expected/crash.html', 'failures/expected/hang.html',
              'failures/expected/audio.html', 'failures/expected/leak.html']
-    expectations = test_expectations.TestExpectations(port, tests)
+    expectations = test_expectations.TestExpectations(port, [Test(test) for test in tests])
     expectations.parse_all_expectations()
     return test_run_results.TestRunResults(expectations, len(tests))
 

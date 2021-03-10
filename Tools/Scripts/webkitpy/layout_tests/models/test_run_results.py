@@ -35,6 +35,7 @@ import sys
 from webkitpy.common.iteration_compatibility import iteritems
 from webkitpy.layout_tests.models import test_expectations
 from webkitpy.layout_tests.models import test_failures
+from webkitpy.layout_tests.models.test import Test
 
 
 _log = logging.getLogger(__name__)
@@ -243,7 +244,7 @@ def summarize_results(port_obj, expectations_by_type, initial_results, retry_res
         expected = 'SKIP'
         expectations = list(expectations_by_type.values())[0]
         for element in expectations_by_type.values():
-            test_expectation = element.filtered_expectations_for_test(test_name, pixel_tests_enabled, port_obj._options.world_leaks)
+            test_expectation = element.filtered_expectations_for_test(Test(test_name), pixel_tests_enabled, port_obj._options.world_leaks)
             expected = element.model().expectations_to_string(test_expectation)
             if expected != 'SKIP':
                 expectations = element
@@ -266,7 +267,7 @@ def summarize_results(port_obj, expectations_by_type, initial_results, retry_res
         if result.reftest_type:
             test_dict.update(reftest_type=list(result.reftest_type))
 
-        if expectations.model().has_modifier(test_name, test_expectations.WONTFIX):
+        if expectations.model().has_modifier(Test(test_name), test_expectations.WONTFIX):
             test_dict['wontfix'] = True
 
         if result_type == test_expectations.PASS:

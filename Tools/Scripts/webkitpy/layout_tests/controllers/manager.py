@@ -275,11 +275,12 @@ class Manager(object):
             test_names = [test.test_path for test in tests]
 
             self._printer.write_update(u'Parsing expectations {}...'.format(for_device_type))
-            self._expectations[device_type] = test_expectations.TestExpectations(self._port, test_names, force_expectations_pass=self._options.force, device_type=device_type)
+            self._expectations[device_type] = test_expectations.TestExpectations(self._port, tests, force_expectations_pass=self._options.force, device_type=device_type)
             self._expectations[device_type].parse_all_expectations()
 
             aggregate_test_names.update(test_names)
             tests_to_run, tests_to_skip = self._prepare_lists(paths, test_names, device_type=device_type)
+            import pytest; pytest.set_trace()
 
             total_tests.update(tests_to_run)
             total_tests.update(tests_to_skip)

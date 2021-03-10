@@ -36,6 +36,7 @@ import unittest
 from webkitpy.common.host_mock import MockHost
 from webkitpy.layout_tests.controllers.manager import Manager
 from webkitpy.layout_tests.models import test_expectations
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.layout_tests.models.test_run_results import TestRunResults
 from webkitpy.port.test import TestPort
 from webkitpy.thirdparty.mock import Mock
@@ -99,7 +100,7 @@ class ManagerTest(unittest.TestCase):
             return manager
         host = MockHost()
         port = host.port_factory.get('test-mac-leopard')
-        tests = ['failures/expected/crash.html']
+        tests = [Test('failures/expected/crash.html')]
         expectations = test_expectations.TestExpectations(port, tests)
         expectations.parse_all_expectations()
         run_results = TestRunResults(expectations, len(tests))

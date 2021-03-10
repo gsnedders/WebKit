@@ -33,8 +33,10 @@ for layout tests.
 import logging
 import re
 import sys
+from collections import defaultdict
 
 from webkitpy.common.iteration_compatibility import iteritems, itervalues
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.layout_tests.models.test_configuration import (
     TestConfiguration,
     TestConfigurationConverter,
@@ -48,6 +50,7 @@ if MYPY:
         Any,
         Callable,
         Container,
+        DefaultDict,
         Dict,
         Iterable,
         List,
@@ -118,14 +121,16 @@ class TestExpectationParser(object):
 
     MISSING_BUG_WARNING = 'Test lacks BUG modifier.'
 
-    def __init__(self, port, full_test_list, allow_rebaseline_modifier, shorten_filename=lambda x: x):
-        # type: (Port, Optional[List[str]], bool, Callable[[str], str]) -> None
+    def __init__(self, port, tests_by_path, allow_rebaseline_modifier, shorten_filename=lambda x: x):
+        # type: (Port, Optional[List[Test]], bool, Callable[[str], str]) -> None
         self._port = port
         self._test_configuration_converter = TestConfigurationConverter(set(port.all_test_configurations()), port.configuration_specifier_macros())
-        if full_test_list is None:
-            self._full_test_list = None  # type: Optional[Set[str]]
+        if tests_by_path is None:
+            self._tests_by_path = None  # type: Optional[Dict[str, Set[Test]]]
         else:
-            self._full_test_list = set(full_test_list)
+            self._tests_by_path = defaultdict(set)
+            for test in tests_by_path:
+                self._tests_by_path[test.test_path].add(test)
         self._allow_rebaseline_modifier = allow_rebaseline_modifier
         self._shorten_filename = shorten_filename
 
@@ -246,19 +251,21 @@ class TestExpectationParser(object):
         path and make sure directories end with the OS path separator."""
         assert expectation_line.path is not None
 
-        if not self._full_test_list:
-            expectation_line.matching_tests = [expectation_line.path]
+        if not self._tests_by_path:
+            expectation_line.matching_tests = []
             return
 
         if not expectation_line.is_file:
             # this is a test category, return all the tests of the category.
-            expectation_line.matching_tests = [test for test in self._full_test_list if test.startswith(expectation_line.path)]
+            for k, v in iteritems(self._tests_by_path):
+                if k.startswith(expectation_line.path):
+                    expectation_line.matching_tests.extend(v)
             return
 
         # this is a test file, do a quick check if it's in the
         # full test suite.
-        if expectation_line.path in self._full_test_list:
-            expectation_line.matching_tests.append(expectation_line.path)
+        if expectation_line.path in self._tests_by_path:
+            expectation_line.matching_tests.extend(self._tests_by_path[expectation_line.path])
 
     # FIXME: Update the original modifiers and remove this once the old syntax is gone.
     _configuration_tokens_list = [
@@ -439,7 +446,7 @@ class TestExpectationLine(object):
         self.expectations = []  # type: List[str]
         self.parsed_expectations = set()  # type: Set[int]
         self.comment = None  # type: Optional[str]
-        self.matching_tests = []  # type: List[str]
+        self.matching_tests = []  # type: List[Test]
         self.warnings = []  # type: List[str]
         self.related_files = {}  # type: Dict[str, Optional[List[int]]]  # Dictionary of files to lines number in that file which may have caused the list of warnings.
         self.not_applicable_to_current_platform = False
@@ -479,10 +486,11 @@ class TestExpectationLine(object):
 
     @staticmethod
     def create_passing_expectation(test):
-        # type: (str) -> TestExpectationLine
+        # type: (Test) -> TestExpectationLine
+        assert isinstance(test, Test)
         expectation_line = TestExpectationLine()
-        expectation_line.name = test
-        expectation_line.path = test
+        expectation_line.name = test.test_path
+        expectation_line.path = test.test_path
         expectation_line.parsed_expectations = set([PASS])
         expectation_line.expectations = ['PASS']
         expectation_line.matching_tests = [test]
@@ -579,18 +587,21 @@ class TestExpectationsModel(object):
     def __init__(self, shorten_filename=lambda x: x):
         # type: (Callable[[str], str]) -> None
         # Maps a test to its list of expectations.
-        self._test_to_expectations = {}  # type: Dict[str, Set[int]]
+        self._test_to_expectations = {}  # type: Dict[Test, Set[int]]
 
         # Maps a test to list of its modifiers (string values)
-        self._test_to_modifiers = {}  # type: Dict[str, List[str]]
+        self._test_to_modifiers = {}  # type: Dict[Test, List[str]]
 
         # Maps a test to a TestExpectationLine instance.
-        self._test_to_expectation_line = {}  # type: Dict[str, TestExpectationLine]
+        self._test_to_expectation_line = {}  # type: Dict[Test, TestExpectationLine]
 
-        self._modifier_to_tests = self._dict_of_sets(TestExpectations.MODIFIERS)  # type: Dict[int, Set[str]]
-        self._expectation_to_tests = self._dict_of_sets(TestExpectations.EXPECTATIONS)  # type: Dict[int, Set[str]]
-        self._timeline_to_tests = self._dict_of_sets(TestExpectations.TIMELINES)  # type: Dict[int, Set[str]]
-        self._result_type_to_tests = self._dict_of_sets(TestExpectations.RESULT_TYPES)  # type: Dict[int, Set[str]]
+        # Maps a path to a list of tests
+        self._path_to_tests = defaultdict(list)  # type: DefaultDict[str, List[Test]]
+
+        self._modifier_to_tests = self._dict_of_sets(TestExpectations.MODIFIERS)  # type: Dict[int, Set[Test]]
+        self._expectation_to_tests = self._dict_of_sets(TestExpectations.EXPECTATIONS)  # type: Dict[int, Set[Test]]
+        self._timeline_to_tests = self._dict_of_sets(TestExpectations.TIMELINES)  # type: Dict[int, Set[Test]]
+        self._result_type_to_tests = self._dict_of_sets(TestExpectations.RESULT_TYPES)  # type: Dict[int, Set[Test]]
 
         self._shorten_filename = shorten_filename
 
@@ -604,7 +615,7 @@ class TestExpectationsModel(object):
         return d
 
     def get_test_set(self, modifier, expectation=None, include_skips=True):
-        # type: (int, None, bool) -> Set[str]
+        # type: (int, None, bool) -> Set[Test]
         if expectation is None:
             tests = self._modifier_to_tests[modifier]
         else:
@@ -617,7 +628,7 @@ class TestExpectationsModel(object):
         return tests
 
     def get_test_set_for_keyword(self, keyword):
-        # type: (str) -> Set[str]
+        # type: (str) -> Set[Test]
         # FIXME: get_test_set() is an awkward public interface because it requires
         # callers to know the difference between modifiers and expectations. We
         # should replace that with this where possible.
@@ -636,44 +647,76 @@ class TestExpectationsModel(object):
         return matching_tests
 
     def get_tests_with_result_type(self, result_type):
-        # type: (int) -> Set[str]
+        # type: (int) -> Set[Test]
         return self._result_type_to_tests[result_type]
 
     def get_tests_with_timeline(self, timeline):
-        # type: (int) -> Set[str]
+        # type: (int) -> Set[Test]
         return self._timeline_to_tests[timeline]
 
     def get_modifiers(self, test):
-        # type: (str) -> List[str]
+        # type: (Test) -> List[str]
         """This returns modifiers for the given test (the modifiers plus the BUGXXXX identifier). This is used by the LTTF dashboard."""
+        assert isinstance(test, Test)
         return self._test_to_modifiers[test]
 
     def has_modifier(self, test, modifier):
-        # type: (str, int) -> bool
+        # type: (Test, int) -> bool
+        if not isinstance(test, Test):
+            if test not in self._path_to_tests:
+                raise KeyError("non-Test test not a known path: %r" % test)
+            candidates = self._path_to_tests[test]
+            if len(candidates) > 1:
+                raise KeyError("non-Test test is ambiguous: %r" % test)
+            if len(candidates) == 0:
+                assert False, "unreachable"
+            test = candidates[0]
+                
         return test in self._modifier_to_tests[modifier]
 
     def has_keyword(self, test, keyword):
-        # type: (str, str) -> bool
+        # type: (Test, str) -> bool
         return (keyword.upper() in self.get_expectations_string(test) or
                 keyword.lower() in self.get_modifiers(test))
 
     def has_test(self, test):
-        # type: (str) -> bool
+        # type: (Test) -> bool
+        if not isinstance(test, Test):
+            if test not in self._path_to_tests:
+                raise KeyError("non-Test test not a known path: %r" % test)
+            candidates = self._path_to_tests[test]
+            if len(candidates) > 1:
+                raise KeyError("non-Test test is ambiguous: %r" % test)
+            if len(candidates) == 0:
+                assert False, "unreachable"
+            test = candidates[0]
+
         return test in self._test_to_expectation_line
 
     def get_expectation_line(self, test):
-        # type: (str) -> Optional[TestExpectationLine]
+        # type: (Test) -> Optional[TestExpectationLine]
+        assert isinstance(test, Test)
         return self._test_to_expectation_line.get(test)
 
     def get_expectations(self, test):
-        # type: (str) -> Set[int]
+        # type: (Test) -> Set[int]
+        if not isinstance(test, Test):
+            if test not in self._path_to_tests:
+                raise KeyError("non-Test test not a known path: %r" % test)
+            candidates = self._path_to_tests[test]
+            if len(candidates) > 1:
+                raise KeyError("non-Test test is ambiguous: %r" % test)
+            if len(candidates) == 0:
+                assert False, "unreachable"
+            test = candidates[0]
+                
         return self._test_to_expectations[test]
 
     def get_expectations_or_pass(self, test):
-        # type: (str) -> Set[int]
+        # type: (Test) -> Set[int]
         try:
             return self.get_expectations(test)
-        except:
+        except KeyError:
             return set([PASS])
 
     def expectations_to_string(self, expectations):
@@ -686,7 +729,7 @@ class TestExpectationsModel(object):
         return " ".join(retval)
 
     def get_expectations_string(self, test):
-        # type: (str) -> str
+        # type: (Test) -> str
         """Returns the expectations for the given test as an uppercase string.
         If there are no expectations for the test, then "PASS" is returned."""
         try:
@@ -724,12 +767,16 @@ class TestExpectationsModel(object):
             self._add_test(test, expectation_line)
 
     def _add_test(self, test, expectation_line):
-        # type: (str, TestExpectationLine) -> None
+        # type: (Test, TestExpectationLine) -> None
         """Sets the expected state for a given test.
 
         This routine assumes the test has not been added before. If it has,
         use _clear_expectations_for_test() to reset the state prior to
         calling this."""
+        assert isinstance(test, Test)
+
+        self._path_to_tests[test.test_path].append(test)
+        
         self._test_to_expectations[test] = expectation_line.parsed_expectations
         for expectation in expectation_line.parsed_expectations:
             self._expectation_to_tests[expectation].add(test)
@@ -755,11 +802,12 @@ class TestExpectationsModel(object):
             self._result_type_to_tests[FAIL].add(test)
 
     def _clear_expectations_for_test(self, test):
-        # type: (str) -> None
+        # type: (Test) -> None
         """Remove prexisting expectations for this test.
         This happens if we are seeing a more precise path
         than a previous listing.
         """
+        assert isinstance(test, Test)
         if self.has_test(test):
             self._test_to_expectations.pop(test, '')
             self._remove_from_sets(test, self._expectation_to_tests)
@@ -768,23 +816,25 @@ class TestExpectationsModel(object):
             self._remove_from_sets(test, self._result_type_to_tests)
 
     def _remove_from_sets(self, test, dict_of_sets_of_tests):
-        # type: (str, Dict[int, Set[str]]) -> None
+        # type: (Test, Dict[int, Set[Test]]) -> None
         """Removes the given test from the sets in the dictionary.
 
         Args:
           test: test to look for
           dict: dict of sets of files"""
+        assert isinstance(test, Test)
         for set_of_tests in itervalues(dict_of_sets_of_tests):
             if test in set_of_tests:
                 set_of_tests.remove(test)
 
     def _already_seen_better_match(self, test, expectation_line):
-        # type: (str, TestExpectationLine) -> bool
+        # type: (Test, TestExpectationLine) -> bool
         """Returns whether we've seen a better match already in the file.
 
         Returns True if we've already seen a expectation_line.name that matches more of the test
             than this path does
         """
+        assert isinstance(test, Test)
         # FIXME: See comment below about matching test configs and specificity.
         if not self.has_test(test):
             # We've never seen this test before.
@@ -1026,7 +1076,7 @@ class TestExpectations(object):
     def __init__(
         self,
         port,  # type: Port
-        tests=None,  # type: Optional[List[str]]
+        tests=None,  # type: Optional[List[Test]]
         include_generic=True,  # type: bool
         include_overrides=True,  # type: bool
         expectations_to_lint=None,  # type: Optional[Dict[str, str]]
@@ -1034,6 +1084,10 @@ class TestExpectations(object):
         device_type=None,  # type: Optional[str]
     ):
         # type: (...) -> None
+        if tests is not None:
+            for t in tests:
+                assert isinstance(t, Test)
+        
         self._full_test_list = tests
         self._test_config = port.test_configuration()  # type: TestConfiguration
         self._is_lint_mode = expectations_to_lint is not None
@@ -1107,11 +1161,11 @@ class TestExpectations(object):
         return self._model
 
     def get_rebaselining_failures(self):
-        # type: () -> Set[str]
+        # type: () -> Set[Test]
         return self._model.get_test_set(REBASELINE)
 
     def filtered_expectations_for_test(self, test, pixel_tests_are_enabled, world_leaks_are_enabled):
-        # type: (str, bool, bool) -> Set[int]
+        # type: (Test, bool, bool) -> Set[int]
         expected_results = self._model.get_expectations_or_pass(test)
         if not pixel_tests_are_enabled:
             expected_results = self.remove_pixel_failures(expected_results)
@@ -1121,14 +1175,14 @@ class TestExpectations(object):
         return expected_results
 
     def matches_an_expected_result(self, test, result, expected_results):
-        # type: (str, int, Set[int]) -> bool
+        # type: (Test, int, Set[int]) -> bool
         return self.result_was_expected(result,
                                    expected_results,
                                    self.is_rebaselining(test),
                                    self._model.has_modifier(test, SKIP))
 
     def is_rebaselining(self, test):
-        # type: (str) -> bool
+        # type: (Test) -> bool
         return self._model.has_modifier(test, REBASELINE)
 
     def _shorten_filename(self, filename):

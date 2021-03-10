@@ -28,6 +28,7 @@
 
 import unittest
 
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.layout_tests.models.test_results import TestResult
 
 
@@ -39,7 +40,7 @@ class TestResultsTest(unittest.TestCase):
         self.assertEqual(result.test_run_time, 0)
 
     def test_loads(self):
-        result = TestResult(test_name='foo',
+        result = TestResult(test=Test('foo'),
                             failures=[],
                             test_run_time=1.1)
         s = result.dumps()

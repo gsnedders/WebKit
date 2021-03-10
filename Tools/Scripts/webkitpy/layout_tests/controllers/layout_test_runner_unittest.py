@@ -35,6 +35,7 @@ from webkitpy.layout_tests import run_webkit_tests
 from webkitpy.layout_tests.controllers.layout_test_runner import LayoutTestRunner, Sharder, TestRunInterruptedException
 from webkitpy.layout_tests.models import test_expectations
 from webkitpy.layout_tests.models import test_failures
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.layout_tests.models.test_run_results import TestRunResults
 from webkitpy.layout_tests.models.test_input import TestInput
 from webkitpy.layout_tests.models.test_results import TestResult
@@ -91,8 +92,8 @@ class LayoutTestRunnerTests(unittest.TestCase):
         runner = self._runner()
         runner._options.exit_after_n_failures = None
         runner._options.exit_after_n_crashes_or_times = None
-        test_names = ['passes/text.html', 'passes/image.html']
-        runner._test_inputs = [TestInput(test_name, 6000) for test_name in test_names]
+        test_names = [Test('passes/text.html'), Test('passes/image.html')]
+        runner._test_inputs = [TestInput(test.test_path, 6000) for test in test_names]
 
         expectations = TestExpectations(runner._port, test_names)
         expectations.parse_all_expectations()
@@ -125,12 +126,12 @@ class LayoutTestRunnerTests(unittest.TestCase):
         runner._options.world_leaks = False
         test = 'failures/expected/reftest.html'
         leak_test = 'failures/expected/leak.html'
-        expectations = TestExpectations(runner._port, tests=[test, leak_test])
+        expectations = TestExpectations(runner._port, tests=[Test(test), Test(leak_test)])
         expectations.parse_all_expectations()
         runner._expectations = expectations
 
         run_results = TestRunResults(expectations, 1)
-        result = TestResult(test_name=test, failures=[test_failures.FailureReftestMismatchDidNotOccur()], reftest_type=['!='])
+        result = TestResult(test, failures=[test_failures.FailureReftestMismatchDidNotOccur()], reftest_type=['!='])
         runner._update_summary_with_result(run_results, result)
         self.assertEqual(1, run_results.expected)
         self.assertEqual(0, run_results.unexpected)

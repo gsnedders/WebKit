@@ -33,6 +33,7 @@ from collections import OrderedDict
 
 from webkitpy.common.host_mock import MockHost
 
+from webkitpy.layout_tests.models.test import Test
 from webkitpy.layout_tests.models.test_configuration import *
 from webkitpy.layout_tests.models.test_expectations import *
 from webkitpy.layout_tests.models.test_configuration import *
@@ -51,16 +52,16 @@ class Base(unittest.TestCase):
         unittest.TestCase.__init__(self, testFunc)
 
     def get_basic_tests(self):
-        return ['failures/expected/text.html',
-                'failures/expected/image_checksum.html',
-                'failures/expected/crash.html',
-                'failures/expected/leak.html',
-                'failures/expected/flaky-leak.html',
-                'failures/expected/missing_text.html',
-                'failures/expected/image.html',
-                'failures/expected/reftest.html',
-                'failures/expected/leaky-reftest.html',
-                'passes/text.html']
+        return [Test('failures/expected/text.html'),
+                Test('failures/expected/image_checksum.html'),
+                Test('failures/expected/crash.html'),
+                Test('failures/expected/leak.html'),
+                Test('failures/expected/flaky-leak.html'),
+                Test('failures/expected/missing_text.html'),
+                Test('failures/expected/image.html'),
+                Test('failures/expected/reftest.html'),
+                Test('failures/expected/leaky-reftest.html'),
+                Test('passes/text.html')]
 
     def get_basic_expectations(self):
         return """
@@ -86,10 +87,10 @@ Bug(test) failures/expected/leaky-reftest.html [ ImageOnlyFailure Leak ]
         self._exp.parse_all_expectations()
 
     def assert_exp(self, test, result):
-        self.assertEqual(self._exp.model().get_expectations(test), set([result]))
+        self.assertEqual(self._exp.model().get_expectations(Test(test)), set([result]))
 
     def assert_exp_set(self, test, result_set):
-        self.assertEqual(self._exp.model().get_expectations(test), result_set)
+        self.assertEqual(self._exp.model().get_expectations(Test(test)), result_set)
 
     def assert_bad_expectations(self, expectations, overrides=None):
         self.assertRaises(ParseError, self.parse_exp, expectations, is_lint_mode=True, overrides=overrides)
@@ -113,7 +114,7 @@ class MiscTests(Base):
     def test_multiple_results(self):
         self.parse_exp('Bug(x) failures/expected/text.html [ Crash Failure ]')
         self.assertEqual(self._exp.model().get_expectations(
-            'failures/expected/text.html'),
+            Test('failures/expected/text.html')),
             set([FAIL, CRASH]))
 
     def test_result_was_expected(self):
@@ -157,18 +158,17 @@ class MiscTests(Base):
         exp_str = 'Bug(x) failures/expected [ WontFix ]'
         self.parse_exp(exp_str)
         test_name = 'failures/expected/unknown-test.html'
-        unknown_test = test_name
         self.assertRaises(KeyError, self._exp.model().get_expectations,
-                          unknown_test)
+                          Test(test_name))
         self.assert_exp('failures/expected/crash.html', PASS)
 
     def test_get_modifiers(self):
         self.parse_exp(self.get_basic_expectations())
-        self.assertEqual(self._exp.model().get_modifiers('passes/text.html'), [])
+        self.assertEqual(self._exp.model().get_modifiers(Test('passes/text.html')), [])
 
     def test_get_expectations_string(self):
         self.parse_exp(self.get_basic_expectations())
-        self.assertEqual(self._exp.model().get_expectations_string('failures/expected/text.html'), 'FAIL')
+        self.assertEqual(self._exp.model().get_expectations_string(Test('failures/expected/text.html')), 'FAIL')
 
     def test_expectation_to_string(self):
         # Normal cases are handled by other tests.
@@ -180,8 +180,8 @@ class MiscTests(Base):
         self.parse_exp(self.get_basic_expectations())
         s = self._exp.model().get_test_set(WONTFIX)
         self.assertEqual(s,
-            set(['failures/expected/crash.html',
-                 'failures/expected/image_checksum.html']))
+            set([Test('failures/expected/crash.html'),
+                 Test('failures/expected/image_checksum.html')]))
 
     def test_parse_warning(self):
         try:
@@ -237,14 +237,14 @@ class MiscTests(Base):
         self.parse_exp(self.get_basic_expectations())
         pixel_tests_enabled = True
         pixel_tests_disabled = False
-        self.assertTrue(match('failures/expected/text.html', FAIL, pixel_tests_enabled))
-        self.assertTrue(match('failures/expected/text.html', FAIL, pixel_tests_disabled))
-        self.assertFalse(match('failures/expected/text.html', CRASH, pixel_tests_enabled))
-        self.assertFalse(match('failures/expected/text.html', CRASH, pixel_tests_disabled))
-        self.assertTrue(match('failures/expected/image_checksum.html', PASS, pixel_tests_enabled))
-        self.assertTrue(match('failures/expected/image_checksum.html', PASS, pixel_tests_disabled))
-        self.assertTrue(match('failures/expected/crash.html', PASS, pixel_tests_disabled))
-        self.assertTrue(match('passes/text.html', PASS, pixel_tests_disabled))
+        self.assertTrue(match(Test('failures/expected/text.html'), FAIL, pixel_tests_enabled))
+        self.assertTrue(match(Test('failures/expected/text.html'), FAIL, pixel_tests_disabled))
+        self.assertFalse(match(Test('failures/expected/text.html'), CRASH, pixel_tests_enabled))
+        self.assertFalse(match(Test('failures/expected/text.html'), CRASH, pixel_tests_disabled))
+        self.assertTrue(match(Test('failures/expected/image_checksum.html'), PASS, pixel_tests_enabled))
+        self.assertTrue(match(Test('failures/expected/image_checksum.html'), PASS, pixel_tests_disabled))
+        self.assertTrue(match(Test('failures/expected/crash.html'), PASS, pixel_tests_disabled))
+        self.assertTrue(match(Test('passes/text.html'), PASS, pixel_tests_disabled))
 
     def test_world_leaks_flag(self):
         def match(test, result, pixel_tests_enabled, world_leaks_enabled):
@@ -257,20 +257,20 @@ class MiscTests(Base):
         world_leaks_disabled = False
 
         self.parse_exp(self.get_basic_expectations())
-        self.assertTrue(match('failures/expected/leak.html', LEAK, pixel_tests_enabled, world_leaks_enabled))
-        self.assertTrue(match('failures/expected/leak.html', PASS, pixel_tests_enabled, world_leaks_disabled))
-        self.assertTrue(match('failures/expected/flaky-leak.html', FAIL, pixel_tests_enabled, world_leaks_disabled))
+        self.assertTrue(match(Test('failures/expected/leak.html'), LEAK, pixel_tests_enabled, world_leaks_enabled))
+        self.assertTrue(match(Test('failures/expected/leak.html'), PASS, pixel_tests_enabled, world_leaks_disabled))
+        self.assertTrue(match(Test('failures/expected/flaky-leak.html'), FAIL, pixel_tests_enabled, world_leaks_disabled))
 
-        self.assertTrue(match('failures/expected/leaky-reftest.html', LEAK, pixel_tests_disabled, world_leaks_enabled))
-        self.assertTrue(match('failures/expected/leaky-reftest.html', PASS, pixel_tests_disabled, world_leaks_disabled))
+        self.assertTrue(match(Test('failures/expected/leaky-reftest.html'), LEAK, pixel_tests_disabled, world_leaks_enabled))
+        self.assertTrue(match(Test('failures/expected/leaky-reftest.html'), PASS, pixel_tests_disabled, world_leaks_disabled))
 
-        self.assertTrue(match('failures/expected/leaky-reftest.html', IMAGE, pixel_tests_enabled, world_leaks_enabled))
-        self.assertTrue(match('failures/expected/leaky-reftest.html', LEAK, pixel_tests_enabled, world_leaks_enabled))
-        self.assertTrue(match('failures/expected/leaky-reftest.html', IMAGE, pixel_tests_enabled, world_leaks_disabled))
+        self.assertTrue(match(Test('failures/expected/leaky-reftest.html'), IMAGE, pixel_tests_enabled, world_leaks_enabled))
+        self.assertTrue(match(Test('failures/expected/leaky-reftest.html'), LEAK, pixel_tests_enabled, world_leaks_enabled))
+        self.assertTrue(match(Test('failures/expected/leaky-reftest.html'), IMAGE, pixel_tests_enabled, world_leaks_disabled))
 
-        self.assertFalse(match('failures/expected/text.html', PASS, pixel_tests_enabled, world_leaks_enabled))
-        self.assertFalse(match('failures/expected/text.html', CRASH, pixel_tests_enabled, world_leaks_disabled))
-        self.assertTrue(match('passes/text.html', PASS, pixel_tests_enabled, world_leaks_disabled))
+        self.assertFalse(match(Test('failures/expected/text.html'), PASS, pixel_tests_enabled, world_leaks_enabled))
+        self.assertFalse(match(Test('failures/expected/text.html'), CRASH, pixel_tests_enabled, world_leaks_disabled))
+        self.assertTrue(match(Test('passes/text.html'), PASS, pixel_tests_enabled, world_leaks_disabled))
 
     def test_more_specific_override_resets_skip(self):
         self.parse_exp("Bug(x) failures/expected [ Skip ]\n"
@@ -292,13 +292,13 @@ class SkippedTests(Base):
         port.expectations_dict = lambda **kwargs: expectations_dict
         port.skipped_layout_tests = lambda tests, **kwargs: set(skips)
         expectations_to_lint = expectations_dict if lint else None
-        exp = TestExpectations(port, ['failures/expected/text.html'], expectations_to_lint=expectations_to_lint)
+        exp = TestExpectations(port, [Test('failures/expected/text.html')], expectations_to_lint=expectations_to_lint)
         exp.parse_all_expectations()
 
         # Check that the expectation is for SKIP : ... [ Pass ]
-        self.assertEqual(exp.model().get_modifiers('failures/expected/text.html'),
+        self.assertEqual(exp.model().get_modifiers(Test('failures/expected/text.html')),
                           [TestExpectationParser.SKIP_MODIFIER, TestExpectationParser.WONTFIX_MODIFIER])
-        self.assertEqual(exp.model().get_expectations('failures/expected/text.html'), set([PASS]))
+        self.assertEqual(exp.model().get_expectations(Test('failures/expected/text.html')), set([PASS]))
 
     def test_skipped_tests_work(self):
         self.check(expectations='', overrides=None, skips=['failures/expected/text.html'])
@@ -431,7 +431,7 @@ class SemanticTests(Base):
         self._port.warn_if_bug_missing_in_test_expectations = lambda: True
 
         self.parse_exp('failures/expected/text.html [ Failure ]')
-        line = self._exp._model.get_expectation_line('failures/expected/text.html')
+        line = self._exp._model.get_expectation_line(Test('failures/expected/text.html'))
         self.assertFalse(line.is_invalid())
         self.assertEqual(line.warnings, ['Test lacks BUG modifier.'])
 

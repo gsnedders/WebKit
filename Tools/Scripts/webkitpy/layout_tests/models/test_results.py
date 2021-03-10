@@ -33,6 +33,7 @@ else:
     import cPickle as pickle
 
 from webkitpy.layout_tests.models import test_failures
+from webkitpy.layout_tests.models.test import Test
 
 
 class TestResult(object):
@@ -42,8 +43,12 @@ class TestResult(object):
     def loads(string):
         return pickle.loads(string)
 
-    def __init__(self, test_name, failures=None, test_run_time=None, has_stderr=False, reftest_type=None, pid=None, references=None):
-        self.test_name = test_name
+    def __init__(self, test, failures=None, test_run_time=None, has_stderr=False, reftest_type=None, pid=None, references=None):
+
+        if isinstance(test, str):
+            test = Test(test)
+        
+        self.test = test
         self.failures = failures or []
         self.test_run_time = test_run_time or 0  # The time taken to execute the test itself.
         self.has_stderr = has_stderr
@@ -61,8 +66,12 @@ class TestResult(object):
         self.test_number = None
         self.is_other_crash = False
 
+    @property
+    def test_name(self):
+        return self.test.test_path
+
     def __eq__(self, other):
-        return (self.test_name == other.test_name and
+        return (self.test == other.test and
                 self.failures == other.failures and
                 self.test_run_time == other.test_run_time)
 
@@ -70,10 +79,10 @@ class TestResult(object):
         return not (self == other)
 
     def __hash__(self):
-        return self.test_name.__hash__()
+        return self.test.__hash__()
 
     def __str__(self):
-        result = self.test_name
+        result = str(self.test)
         if len(self.failures):
             result += ' failures: ' + ','.join([failure.message() for failure in self.failures])
         if len(self.reftest_type):
