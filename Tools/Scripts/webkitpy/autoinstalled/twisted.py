@@ -24,5 +24,13 @@ import sys
 
 from webkitscmpy import AutoInstall, Package, Version
 
-AutoInstall.register(Package('twisted', Version(15, 5, 0), pypi_name='Twisted'))
+AutoInstall.register(Package('Automat', Version(20, 2, 0)))
+AutoInstall.register(Package('constantly', Version(15, 1, 0)))
+AutoInstall.register(Package('hyperlink', Version(21, 0, 0)))
+AutoInstall.register(Package('idna', Version(2, 10)))
+AutoInstall.register(Package('incremental', Version(21, 3, 0)))
+AutoInstall.register(Package('PyHamcrest', Version(1, 10, 1)))
+AutoInstall.register(Package('twisted', Version(20, 3, 0), pypi_name='Twisted'))
+AutoInstall.register(Package('typing', Version(3, 7, 4, 3)))
+
 sys.modules[__name__] = __import__('twisted')

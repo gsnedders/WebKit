@@ -24,15 +24,25 @@ import sys
 
 from webkitscmpy import AutoInstall, Package, Version
 
-AutoInstall.register(Package('autobahn', Version(20, 7, 1)))
-AutoInstall.register(Package('buildbot', Version(2, 10, 1)))
+from webkitpy.autoinstalled import twisted
+
+AutoInstall.register(Package('MarkupSafe', Version(1, 1, 1)))
+AutoInstall.register(Package('PyYAML', Version(5, 4, 1)))
+AutoInstall.register(Package('Tempita', Version(0, 5, 2)))
+AutoInstall.register(Package('autobahn', Version(21, 3, 1)))
+AutoInstall.register(Package('buildbot', Version(2, 10, 4)))
+AutoInstall.register(Package('cffi', Version(1, 14, 5)))
+AutoInstall.register(Package('cryptography', Version(3, 4, 6)))
 AutoInstall.register(Package('dateutil', Version(2, 8, 1), pypi_name='python-dateutil'))
-AutoInstall.register(Package('jinja2', Version(2, 11, 2), pypi_name='Jinja2'))
-AutoInstall.register(Package('jwt', Version(1, 7, 1), pypi_name='PyJWT'))
-AutoInstall.register(Package('pyyaml', Version(5, 3, 1), pypi_name='PyYAML'))
-AutoInstall.register(Package('sqlalchemy', Version(1, 3, 20), pypi_name='SQLAlchemy'))
+AutoInstall.register(Package('decorator', Version(4, 4, 2)))
+AutoInstall.register(Package('jinja2', Version(2, 11, 3), pypi_name='Jinja2'))
+AutoInstall.register(Package('jwt', Version(2, 0, 1), pypi_name='PyJWT'))
+AutoInstall.register(Package('pbr', Version(5, 5, 1)))
+AutoInstall.register(Package('pycparser', Version(2, 20)))
+AutoInstall.register(Package('pyyaml', Version(5, 4, 1), pypi_name='PyYAML'))
+AutoInstall.register(Package('sqlalchemy', Version(1, 3, 23), pypi_name='SQLAlchemy'))
 AutoInstall.register(Package('sqlalchemy-migrate', Version(0, 13, 0)))
-AutoInstall.register(Package('twisted', Version(20, 3, 0), pypi_name='Twisted'))
-AutoInstall.register(Package('txaio', Version(20, 4, 1)))
+AutoInstall.register(Package('sqlparse', Version(0, 4, 1)))
+AutoInstall.register(Package('txaio', Version(21, 2, 1)))
 
 sys.modules[__name__] = __import__('buildbot')

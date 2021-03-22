@@ -1,3 +1,26 @@
+2021-03-24  Sam Sneddon  <gsnedders@apple.com>
+
+        Update autoinstalled packages
+        https://bugs.webkit.org/show_bug.cgi?id=223609
+
+        Reviewed by NOBODY (OOPS!).
+
+        Additionally, handle the removal of the old plistlib API in 3.9.
+
+        * Scripts/libraries/webkitcorepy/webkitcorepy/__init__.py:
+        * Scripts/libraries/webkitcorepy/webkitcorepy/tests/task_pool_unittest.py:
+        (TaskPoolUnittest.test_invalid_shutdown): increase timeout to reduce flakiness
+        * Scripts/libraries/webkitflaskpy/webkitflaskpy/__init__.py:
+        * Scripts/libraries/webkitscmpy/webkitscmpy/__init__.py:
+        * Scripts/webkitpy/__init__.py:
+        * Scripts/webkitpy/autoinstalled/buildbot.py:
+        * Scripts/webkitpy/autoinstalled/twisted.py:
+        * Scripts/webkitpy/style/checkers/python_unittest.py:
+        (PythonCheckerTest.test_check):
+        * Scripts/webkitpy/xcode/simulated_device.py:
+        (SimulatedDeviceManager._create_device_with_runtime):
+        (SimulatedDevice.state):
+
 2021-03-23  Kate Cheney  <katherine_cheney@apple.com>
 
         Service worker loads are not marked as app-bound

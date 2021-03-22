@@ -60,9 +60,9 @@ class PythonCheckerTest(unittest.TestCase):
         # FIXME: https://bugs.webkit.org/show_bug.cgi?id=204133
         expected_errors = [(4, "pep8/W291", 5, "trailing whitespace")]
         if sys.version_info < (3, 0):
-            expected_errors.append((4, "pylint/E0602", 5, "Undefined variable 'error'"))
+            expected_errors.append((4, "pylint/E0602(undefined-variable)", 5, "[] Undefined variable 'error'"))
 
-        self.assertEqual(errors, expected_errors)
+        self.assertEqual(expected_errors, errors)
 
     def test_pylint_false_positives(self):
         """Test that pylint false positives are suppressed."""

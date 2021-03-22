@@ -41,28 +41,30 @@ version = Version(0, 5, 6)
 
 from webkitcorepy.autoinstall import Package, AutoInstall
 if sys.version_info > (3, 0):
-    AutoInstall.register(Package('mock', Version(4)))
+    AutoInstall.register(Package('mock', Version(4, 0, 3)))
 else:
+    AutoInstall.register(Package('configparser', Version(4, 0, 2)))
     AutoInstall.register(Package('mock', Version(3, 0, 5)))
     if platform.system() == 'Windows':
         AutoInstall.register(Package('win_inet_pton', Version(1, 1, 0), pypi_name='win-inet-pton'))
 
-AutoInstall.register(Package('certifi', Version(2020, 6, 20)))
-AutoInstall.register(Package('chardet', Version(3, 0, 4)))
+AutoInstall.register(Package('certifi', Version(2020, 12, 5)))
+AutoInstall.register(Package('chardet', Version(4, 0, 0)))
 AutoInstall.register(Package('dateutil', Version(2, 8, 1), pypi_name='python-dateutil'))
-AutoInstall.register(Package('entrypoints', Version(0, 3, 0)))
+AutoInstall.register(Package('entrypoints', Version(0, 3)))
 AutoInstall.register(Package('funcsigs', Version(1, 0, 2)))
 AutoInstall.register(Package('idna', Version(2, 10)))
-AutoInstall.register(Package('keyring', Version(7, 3, 1)))
-AutoInstall.register(Package('packaging', Version(20, 4)))
+AutoInstall.register(Package('keyring', Version(18, 0, 1)))
+AutoInstall.register(Package('packaging', Version(20, 9)))
 AutoInstall.register(Package('pyparsing', Version(2, 4, 7)))
-AutoInstall.register(Package('requests', Version(2, 24)))
-AutoInstall.register(Package('setuptools', Version(44, 1,  1)))
-AutoInstall.register(Package('socks', Version(1, 7, 1), pypi_name='PySocks'))
+AutoInstall.register(Package('requests', Version(2, 25, 1)))
+AutoInstall.register(Package('setuptools', Version(44, 1, 1)))
+AutoInstall.register(Package('setuptools_scm', Version(5, 0, 2), pypi_name='setuptools-scm'))
 AutoInstall.register(Package('six', Version(1, 15, 0)))
+AutoInstall.register(Package('socks', Version(1, 7, 1), pypi_name='PySocks'))
 AutoInstall.register(Package('tblib', Version(1, 7, 0)))
-AutoInstall.register(Package('urllib3', Version(1, 25, 10)))
-AutoInstall.register(Package('wheel', Version(0, 35, 1)))
+AutoInstall.register(Package('urllib3', Version(1, 26, 4)))
+AutoInstall.register(Package('wheel', Version(0, 36, 2)))
 
 # This is needed for python-keyring.
 if sys.platform == 'linux':
