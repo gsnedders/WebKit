@@ -81,22 +81,25 @@ class ScriptError(Exception):
         return os.path.basename(command_path)
 
 
+class WrappedPopen(subprocess.Popen):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        if self.stdout:
+            self.stdout.close()
+        if self.stderr:
+            self.stderr.close()
+        try:  # Flushing a BufferedWriter may raise an error
+            if self.stdin:
+                self.stdin.close()
+        finally:
+            # Wait for the process to terminate, to avoid zombies.
+            self.wait()
+
 class Executive(AbstractExecutive):
     PIPE = subprocess.PIPE
     STDOUT = subprocess.STDOUT
-
-    class WrappedPopen(object):
-        def __init__(self, popen):
-            for attribute in dir(popen):
-                if attribute.startswith('__'):
-                    continue
-                setattr(self, attribute, getattr(popen, attribute))
-
-        def __enter__(self):
-            return self
-
-        def __exit__(self, *args):
-            self.wait()
 
     def __init__(self):
         self.pid_to_system_pid = {}
@@ -528,10 +531,11 @@ class Executive(AbstractExecutive):
                     mod_env[key] = value
             env = mod_env
 
-        # Python 3 treats Popen as a context manager, we should allow this in Python 2
-        result = subprocess.Popen(string_args, env=env, **kwargs)
-        if not callable(getattr(result, "__enter__", None)) and not callable(getattr(result, "__exit__", None)):
-            return self.WrappedPopen(result)
+        # Python 3.2+ treats Popen as a context manager, we should allow this in Python 2
+        if sys.version_info >= (3, 2):
+            result = subprocess.Popen(string_args, env=env, **kwargs)
+        else:
+            result = WrappedPopen(string_args, env=env, **kwargs)
         return result
 
     def run_in_parallel(self, command_lines_and_cwds, processes=None):
