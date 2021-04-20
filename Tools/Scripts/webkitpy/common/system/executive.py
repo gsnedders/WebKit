@@ -356,9 +356,9 @@ class Executive(AbstractExecutive):
         # Note: Mac OS X 10.6 requires -SIGNALNAME before -u USER
         command = ["killall", "-TERM", "-u", os.getenv("USER"), process_name]
         # killall returns 1 if no process can be found and 2 on command error.
-        # FIXME: We should pass a custom error_handler to allow only exit_code 1.
-        # We should log in exit_code == 1
-        self.run_command(command, ignore_errors=True)
+        exit_code = self.run_command(command, return_exit_code=True)
+        if exit_code not in (0, 1):
+            raise Exception("killall encountered a command error")
 
     def _compute_stdin(self, input):
         """Returns (stdin, string_to_communicate)"""
