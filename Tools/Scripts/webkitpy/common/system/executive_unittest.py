@@ -171,7 +171,8 @@ class ExecutiveTest(unittest.TestCase):
 
     def serial_test_kill_process(self):
         executive = Executive()
-        with executive.popen(never_ending_command(), stdout=subprocess.PIPE) as process:
+        devnull = os.open(os.devnull, os.O_RDWR)
+        with executive.popen(never_ending_command(), stdout=devnull, stderr=devnull) as process:
             self.assertEqual(process.poll(), None)  # Process is running
             executive.kill_process(process.pid)
             # Note: Can't use a ternary since signal.SIGKILL is undefined for sys.platform == "win32"
@@ -193,7 +194,8 @@ class ExecutiveTest(unittest.TestCase):
 
     def serial_test_kill_all(self):
         executive = Executive()
-        with executive.popen(never_ending_command(), stdout=subprocess.PIPE) as process:
+        devnull = os.open(os.devnull, os.O_RDWR)
+        with executive.popen(never_ending_command(), stdout=devnull, stderr=devnull) as process:
             self.assertIsNone(process.poll())  # Process is running
             executive.kill_all(never_ending_command()[0])
             # Note: Can't use a ternary since signal.SIGTERM is undefined for sys.platform == "win32"
