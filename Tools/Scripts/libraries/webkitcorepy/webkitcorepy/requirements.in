@@ -1,0 +1,9 @@
+keyring==7.3.1
+mock==4 ; python_version>="3"
+mock==3.0.5 ; python_version<"3"
+packaging==20.4
+requests==2.24
+setuptools==44.1.1
+setuptools-scm==5.0.2
+six==1.15.0
+tblib==1.7.0

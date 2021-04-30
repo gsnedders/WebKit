@@ -1,0 +1,5 @@
+-c ../../webkitcorepy/webkitcorepy/requirements.txt
+
+flask==1.1.2
+setuptools
+werkzeug==1.0.1
