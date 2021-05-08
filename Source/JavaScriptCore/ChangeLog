@@ -1,3 +1,14 @@
+2021-05-20  Sam Sneddon  <gsnedders@apple.com>
+
+        Fix Python 3.6+ DeprecationWarnings about unknown escapes
+        https://bugs.webkit.org/show_bug.cgi?id=226018
+
+        Reviewed by NOBODY (OOPS!).
+
+        Fix Python 3.6+ DeprecationWarnings about unknown escapes
+
+        * wasm/generateWasmB3IRGeneratorInlinesHeader.py:
+
 2021-05-19  Mark Lam  <mark.lam@apple.com>
 
         AbstractSlotVisitor::containsOpaqueRoot() should only declare didFindOpaqueRoot if the root is actually found.
