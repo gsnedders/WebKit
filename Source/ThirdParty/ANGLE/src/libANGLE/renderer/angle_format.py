@@ -94,7 +94,7 @@ def get_component_type(format_id):
 
 
 def get_channel_tokens(format_id):
-    r = re.compile(r'([' + kChannels + '][\d]+)')
+    r = re.compile(r'([' + kChannels + r'][\d]+)')
     return filter(r.match, r.split(format_id))
 
 
@@ -139,7 +139,7 @@ def gl_format_channels(internal_format):
     if internal_format.find('INT_10_10_10_2_OES') == 0:
         return 'rgba'
 
-    channels_pattern = re.compile('GL_(COMPRESSED_)?(SIGNED_)?(ETC\d_)?([A-Z]+)')
+    channels_pattern = re.compile(r'GL_(COMPRESSED_)?(SIGNED_)?(ETC\d_)?([A-Z]+)')
     match = re.search(channels_pattern, internal_format)
     channels_string = match.group(4)
 

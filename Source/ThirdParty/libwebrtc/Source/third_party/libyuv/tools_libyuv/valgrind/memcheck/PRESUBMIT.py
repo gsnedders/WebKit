@@ -27,7 +27,7 @@ def CheckChange(input_api, output_api):
   sys.path.append(tools_vg_path)
   import suppressions
 
-  sup_regex = re.compile('suppressions.*\.txt$')
+  sup_regex = re.compile(r'suppressions.*\.txt$')
   suppressions = {}
   errors = []
   check_for_memcheck = False

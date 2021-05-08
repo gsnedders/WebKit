@@ -327,7 +327,7 @@ class ValgrindError:
 
     for frame in range(len(supplines)):
       # Replace the always-changing anonymous namespace prefix with "*".
-      m = re.match("( +fun:)_ZN.*_GLOBAL__N_.*\.cc_" +
+      m = re.match(r"( +fun:)_ZN.*_GLOBAL__N_.*\.cc_" +
                    "[0-9a-fA-F]{8}_[0-9a-fA-F]{8}(.*)",
                    supplines[frame])
       if m:
@@ -475,7 +475,7 @@ class MemcheckAnalyzer:
       # Wait up to three minutes for valgrind to finish writing all files,
       # but after that, just skip incomplete files and warn.
       f = open(file, "r+")
-      pid = re.match(".*\.([0-9]+)$", file)
+      pid = re.match(r".*\.([0-9]+)$", file)
       if pid:
         pid = pid.groups()[0]
       found = False

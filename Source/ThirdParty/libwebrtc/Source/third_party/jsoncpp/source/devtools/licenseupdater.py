@@ -63,7 +63,7 @@ def update_license_in_source_directories(source_dirs, dry_run, show_diff):
             update_license(source, dry_run, show_diff)
 
 def main():
-    usage = """%prog DIR [DIR2...]
+    usage = r"""%prog DIR [DIR2...]
 Updates license text in sources of the project in source files found
 in the directory specified on the command-line.
 

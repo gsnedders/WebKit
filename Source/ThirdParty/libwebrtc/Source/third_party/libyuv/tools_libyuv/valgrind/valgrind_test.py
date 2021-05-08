@@ -394,7 +394,7 @@ class ValgrindTool(BaseTool):
     # "toolname.wrapper_PID.valgrind_PID".
     # Let's extract the list of wrapper_PIDs and name it ppids
     ppids = set([int(f.split(".")[-2]) \
-                for f in filenames if re.search("\.[0-9]+\.[0-9]+$", f)])
+                for f in filenames if re.search(r"\.[0-9]+\.[0-9]+$", f)])
 
     analyzer = self.CreateAnalyzer()
     if len(ppids) == 0:
@@ -424,7 +424,7 @@ class ValgrindTool(BaseTool):
       sys.stdout.flush()
 
       ppid_filenames = [f for f in filenames \
-                        if re.search("\.%d\.[0-9]+$" % ppid, f)]
+                        if re.search(r"\.%d\.[0-9]+$" % ppid, f)]
       # check_sanity won't work with browser wrappers
       assert check_sanity == False
       ret |= analyzer.Report(ppid_filenames, testcase_name)

@@ -20,7 +20,7 @@ def process_test_files(template):
 	generated = [];
 	files = os.listdir(os.getcwd());
 	for file in files:
-		found = re.search('(^[^.].*)\.test$', file);
+		found = re.search(r'(^[^.].*)\.test$', file);
 		if found:
 			generated.append(genHTML(template,found.group(1)));
 	return generated;

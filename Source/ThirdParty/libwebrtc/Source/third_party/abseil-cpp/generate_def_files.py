@@ -42,7 +42,7 @@ if sys.platform == 'win32':
   # This regex is identical inside the () characters except for the ? after .*,
   # which is needed to prevent greedily grabbing the undecorated version of the
   # symbols.
-  ABSL_SYM_RE = '.*External     \| (?P<symbol>(\?+)[^\?].*?absl.*?) \(.*'
+  ABSL_SYM_RE = r'.*External     \| (?P<symbol>(\?+)[^\?].*?absl.*?) \(.*'
   # Typical exported symbols in dumpbin /directives look like:
   #    /EXPORT:?kHexChar@numbers_internal@absl@@3QBDB,DATA
   ABSL_EXPORTED_RE = '.*/EXPORT:(.*),.*'
@@ -78,7 +78,7 @@ def _GenerateDefFile(cpu, is_debug, extra_gn_args=[], suffix=None):
     symbol_dumper = ['dumpbin', '/symbols']
     import shutil
     if not shutil.which('dumpbin'):
-      logging.error('dumpbin not found. Run tools\win\setenv.bat.')
+      logging.error(r'dumpbin not found. Run tools\win\setenv.bat.')
       exit(1)
   with tempfile.TemporaryDirectory() as out_dir:
     logging.info('[%s - %s] Creating tmp out dir in %s', cpu, flavor, out_dir)

@@ -394,7 +394,7 @@ class ClientHandshakeProcessor(ClientHandshakeBase):
             if ch == b'\n':
                 break
 
-        m = re.match(b'HTTP/\\d+\.\\d+ (\\d\\d\\d) .*\r\n', status_line)
+        m = re.match(b'HTTP/\\d+\\.\\d+ (\\d\\d\\d) .*\r\n', status_line)
         if m is None:
             raise ClientHandshakeError('Wrong status line format: %r' %
                                        status_line)

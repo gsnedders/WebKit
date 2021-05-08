@@ -219,7 +219,7 @@ def NormalizeWindowsPath(path):
 
   TODO(rnk): If we ever want to cut out the subprocess invocation, we can use
   _winreg to get the root Cygwin directory from the registry key:
-  HKEY_LOCAL_MACHINE\SOFTWARE\Cygwin\setup\rootdir.
+  HKEY_LOCAL_MACHINE\\SOFTWARE\\Cygwin\\setup\rootdir.
   """
   if sys.platform.startswith("cygwin"):
     p = subprocess.Popen(["cygpath", "-m", path],

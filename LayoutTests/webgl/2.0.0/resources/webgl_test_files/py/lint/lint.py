@@ -56,7 +56,7 @@ def check_filename_space(path):
 
 def check_permission(path):
     bname = os.path.basename(path)
-    if not re.compile('\.py$|\.sh$').search(bname):
+    if not re.compile(r'\.py$|\.sh$').search(bname):
         if os.access(os.path.join(repo_root, path), os.X_OK):
             return [("UNNECESSARY EXECUTABLE PERMISSION", "%s contains unnecessary executable permission" % path, None)]
     return []
@@ -204,7 +204,7 @@ def main():
             run_lint(path, state_fn)
 
         if not os.path.isdir(abs_path):
-            if re.compile('\.html$|\.htm$|\.xhtml$|\.xhtm$|\.frag$|\.vert$|\.js$').search(abs_path):
+            if re.compile(r'\.html$|\.htm$|\.xhtml$|\.xhtm$|\.frag$|\.vert$|\.js$').search(abs_path):
                 with open(abs_path) as f:
                     for file_fn in file_content_lints:
                         run_lint(path, file_fn, f)

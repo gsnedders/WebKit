@@ -45,7 +45,7 @@ import gtest_test_utils
 GTEST_LIST_TESTS_FLAG = '--gtest_list_tests'
 GTEST_OUTPUT_FLAG = '--gtest_output'
 
-EXPECTED_XML = """<\?xml version="1.0" encoding="UTF-8"\?>
+EXPECTED_XML = r"""<\?xml version="1.0" encoding="UTF-8"\?>
 <testsuites tests="16" name="AllTests">
   <testsuite name="FooTest" tests="2">
     <testcase name="Test1" file=".*gtest_list_output_unittest_.cc" line="43" />
@@ -83,11 +83,11 @@ EXPECTED_XML = """<\?xml version="1.0" encoding="UTF-8"\?>
 EXPECTED_JSON = """{
   "tests": 16,
   "name": "AllTests",
-  "testsuites": \[
+  "testsuites": \\[
     {
       "name": "FooTest",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test1",
           "file": ".*gtest_list_output_unittest_.cc",
@@ -98,12 +98,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 45
         }
-      \]
+      \\]
     },
     {
       "name": "FooTestFixture",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test3",
           "file": ".*gtest_list_output_unittest_.cc",
@@ -114,12 +114,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 49
         }
-      \]
+      \\]
     },
     {
       "name": "TypedTest\\\\/0",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test7",
           "type_param": "int",
@@ -132,12 +132,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 61
         }
-      \]
+      \\]
     },
     {
       "name": "TypedTest\\\\/1",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test7",
           "type_param": "bool",
@@ -150,12 +150,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 61
         }
-      \]
+      \\]
     },
     {
       "name": "Single\\\\/TypeParameterizedTestSuite\\\\/0",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test9",
           "type_param": "int",
@@ -168,12 +168,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 67
         }
-      \]
+      \\]
     },
     {
       "name": "Single\\\\/TypeParameterizedTestSuite\\\\/1",
       "tests": 2,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test9",
           "type_param": "bool",
@@ -186,12 +186,12 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 67
         }
-      \]
+      \\]
     },
     {
       "name": "ValueParam\\\\/ValueParamTest",
       "tests": 4,
-      "testsuite": \[
+      "testsuite": \\[
         {
           "name": "Test5\\\\/0",
           "value_param": "33",
@@ -216,9 +216,9 @@ EXPECTED_JSON = """{
           "file": ".*gtest_list_output_unittest_.cc",
           "line": 53
         }
-      \]
+      \\]
     }
-  \]
+  \\]
 }
 """
 

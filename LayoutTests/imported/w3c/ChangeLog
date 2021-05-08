@@ -1,3 +1,32 @@
+2021-05-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Need a short description (OOPS!).
+        Need the bug URL (OOPS!).
+
+        Reviewed by NOBODY (OOPS!).
+
+        * web-platform-tests/html/semantics/embedded-content/the-video-element/timeout_on_seek.py:
+        (parse_range):
+        * web-platform-tests/mathml/tools/operator-dictionary.py:
+        * web-platform-tests/service-workers/tools/blink-import.py:
+        * web-platform-tests/tools/pywebsocket/src/example/echo_client.py:
+        (ClientHandshakeProcessor.handshake):
+        * web-platform-tests/tools/pywebsocket/src/mod_pywebsocket/standalone.py:
+        (_alias_handlers):
+        * web-platform-tests/tools/pywebsocket/src/mod_pywebsocket/util.py:
+        (get_script_interp):
+        * web-platform-tests/tools/third_party/attrs/setup.py:
+        * web-platform-tests/tools/third_party/hyper/hyper/packages/rfc3986/misc.py:
+        * web-platform-tests/tools/third_party/pytest/_pytest/python_api.py:
+        (raises):
+        * web-platform-tests/tools/third_party/pytest/_pytest/recwarn.py:
+        (warns):
+        * web-platform-tests/tools/third_party/pywebsocket3/example/echo_client.py:
+        (ClientHandshakeProcessor.handshake):
+        * web-platform-tests/tools/third_party/pywebsocket3/mod_pywebsocket/websocket_server.py:
+        (_alias_handlers):
+        * web-platform-tests/workers/semantics/encodings/003-1.py:
+
 2021-05-20  Felipe Erias  <felipeerias@igalia.com>
 
         [css-flexbox] Wrong height of an empty table inside an orthogonal flex parent

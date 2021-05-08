@@ -86,7 +86,7 @@ class _DeprecatedCallContext(object):
 
 
 def warns(expected_warning, *args, **kwargs):
-    """Assert that code raises a particular class of warning.
+    r"""Assert that code raises a particular class of warning.
 
     Specifically, the input @expected_warning can be a warning class or
     tuple of warning classes, and the code must return that warning

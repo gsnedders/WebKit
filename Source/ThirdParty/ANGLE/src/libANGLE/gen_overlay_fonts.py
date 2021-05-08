@@ -153,7 +153,7 @@ def main():
 
     font_defs = [('large', 36), ('medium', 23), ('small', 14)]
     chars = ' !"#$%&\'()*+,-./0123456789:;<=>?' + \
-            '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_' + \
+            r'@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_' + \
             '`abcdefghijklmnopqrstuvwxyz{|}~ '
     output_rows = 3
     output_cols = 32

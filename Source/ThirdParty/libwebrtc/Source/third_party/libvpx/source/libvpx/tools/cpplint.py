@@ -872,7 +872,7 @@ class FileInfo:
     return os.path.abspath(self._filename).replace('\\', '/')
 
   def RepositoryName(self):
-    """FullName after removing the local path to the repository.
+    r"""FullName after removing the local path to the repository.
 
     If we have a real absolute path name here we can try to do something smart:
     detecting the root of the checkout and truncating /path/to/checkout from
@@ -2669,7 +2669,7 @@ def CheckSpacing(filename, clean_lines, linenum, nesting_state, error):
   line = clean_lines.elided[linenum]  # get rid of comments and strings
 
   # Don't try to do spacing checks for operator methods
-  line = re.sub(r'operator(==|!=|<|<<|<=|>=|>>|>)\(', 'operator\(', line)
+  line = re.sub(r'operator(==|!=|<|<<|<=|>=|>>|>)\(', r'operator\(', line)
 
   # We allow no-spaces around = within an if: "if ( (a=Foo()) == 0 )".
   # Otherwise not.  Note we only check for non-spaces on *both* sides;
@@ -2871,8 +2871,8 @@ def CheckSpacing(filename, clean_lines, linenum, nesting_state, error):
 
   # In range-based for, we wanted spaces before and after the colon, but
   # not around "::" tokens that might appear.
-  if (Search('for *\(.*[^:]:[^: ]', line) or
-      Search('for *\(.*[^: ]:[^:]', line)):
+  if (Search(r'for *\(.*[^:]:[^: ]', line) or
+      Search(r'for *\(.*[^: ]:[^:]', line)):
     error(filename, linenum, 'whitespace/forcolon', 2,
           'Missing space around colon in range-based for loop')
 

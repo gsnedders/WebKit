@@ -104,7 +104,7 @@ def __translate_interp(interp, cygwin_path):
 
 
 def get_script_interp(script_path, cygwin_path=None):
-    """Gets #!-interpreter command line from the script.
+    r"""Gets #!-interpreter command line from the script.
 
     It also fixes command path.  When Cygwin Python is used, e.g. in WebKit,
     it could run "/usr/bin/perl -wT hello.pl".

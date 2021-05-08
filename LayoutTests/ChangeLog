@@ -1,3 +1,21 @@
+2021-05-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Need a short description (OOPS!).
+        Need the bug URL (OOPS!).
+
+        Reviewed by NOBODY (OOPS!).
+
+        * webgl/1.0.3/resources/webgl_test_files/conformance/ogles/process-ogles2-tests.py:
+        * webgl/2.0.0/resources/webgl_test_files/closure-library/closure/bin/calcdeps.py:
+        * webgl/2.0.0/resources/webgl_test_files/conformance/ogles/process-ogles2-tests.py:
+        * webgl/2.0.0/resources/webgl_test_files/deqp/build.py:
+        (format_target):
+        * webgl/2.0.0/resources/webgl_test_files/deqp/genHTMLfromTest.py:
+        (process_test_files):
+        * webgl/2.0.0/resources/webgl_test_files/py/lint/lint.py:
+        (check_permission):
+        (main):
+
 2021-05-20  Alan Bujtas  <zalan@apple.com>
 
         [LFC][TFC] Available space distribution should account for the top and bottom table spacing

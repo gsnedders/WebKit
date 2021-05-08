@@ -214,7 +214,7 @@ def format_target(target):
     reformat = 'reformatting_tool.py'
     for dep in deps.split('\n'):
         dep = dep.strip()
-        if len(dep) > 0 and not re.search('closure-library.*base\.js', dep):
+        if len(dep) > 0 and not re.search(r'closure-library.*base\.js', dep):
             print fixjsstyle + ' ' + dep
             subprocess.call(['python', fixjsstyle, dep])
             print reformat + ' -f ' + dep

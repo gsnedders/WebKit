@@ -18,7 +18,7 @@ if which('dumpbin'):
     dumpbin_cmd = subprocess.run(['dumpbin', '/linkermember:1', lib_file],
         stdout=subprocess.PIPE)
 
-    pattern = re.compile('\s*[0-9a-fA-F]+ _?(?P<functionname>usrsctp_[^\s]*)')
+    pattern = re.compile(r'\s*[0-9a-fA-F]+ _?(?P<functionname>usrsctp_[^\s]*)')
 
     for line in dumpbin_cmd.stdout.decode('utf-8').splitlines():
         match = pattern.match(line)

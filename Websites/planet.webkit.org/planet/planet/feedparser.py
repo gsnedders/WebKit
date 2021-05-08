@@ -2026,10 +2026,10 @@ _korean_am    = u'\uc624\uc804' # bfc0 c0fc in euc-kr
 _korean_pm    = u'\uc624\ud6c4' # bfc0 c8c4 in euc-kr
 
 _korean_onblog_date_re = \
-    re.compile('(\d{4})%s\s+(\d{2})%s\s+(\d{2})%s\s+(\d{2}):(\d{2}):(\d{2})' % \
+    re.compile(r'(\d{4})%s\s+(\d{2})%s\s+(\d{2})%s\s+(\d{2}):(\d{2}):(\d{2})' % \
                (_korean_year, _korean_month, _korean_day))
 _korean_nate_date_re = \
-    re.compile(u'(\d{4})-(\d{2})-(\d{2})\s+(%s|%s)\s+(\d{,2}):(\d{,2}):(\d{,2})' % \
+    re.compile(u'(\\d{4})-(\\d{2})-(\\d{2})\\s+(%s|%s)\\s+(\\d{,2}):(\\d{,2}):(\\d{,2})' % \
                (_korean_am, _korean_pm))
 def _parse_date_onblog(dateString):
     '''Parse a string according to the OnBlog 8-bit date format'''
@@ -2063,7 +2063,7 @@ def _parse_date_nate(dateString):
 registerDateHandler(_parse_date_nate)
 
 _mssql_date_re = \
-    re.compile('(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})(\.\d+)?')
+    re.compile(r'(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})(\.\d+)?')
 def _parse_date_mssql(dateString):
     '''Parse a string according to the MS SQL date format'''
     m = _mssql_date_re.match(dateString)
@@ -2112,7 +2112,7 @@ _greek_wdays = \
   }
 
 _greek_date_format_re = \
-    re.compile(u'([^,]+),\s+(\d{2})\s+([^\s]+)\s+(\d{4})\s+(\d{2}):(\d{2}):(\d{2})\s+([^\s]+)')
+    re.compile(u'([^,]+),\\s+(\\d{2})\\s+([^\\s]+)\\s+(\\d{4})\\s+(\\d{2}):(\\d{2}):(\\d{2})\\s+([^\\s]+)')
 
 def _parse_date_greek(dateString):
     '''Parse a string according to a Greek 8-bit date format.'''
@@ -2149,7 +2149,7 @@ _hungarian_months = \
   }
 
 _hungarian_date_format_re = \
-  re.compile(u'(\d{4})-([^-]+)-(\d{,2})T(\d{,2}):(\d{2})((\+|-)(\d{,2}:\d{2}))')
+  re.compile(u'(\\d{4})-([^-]+)-(\\d{,2})T(\\d{,2}):(\\d{2})((\\+|-)(\\d{,2}:\\d{2}))')
 
 def _parse_date_hungarian(dateString):
     '''Parse a string according to a Hungarian 8-bit date format.'''
@@ -2254,14 +2254,14 @@ def _parse_date_w3dtf(dateString):
             return -offset
         return offset
 
-    __date_re = ('(?P<year>\d\d\d\d)'
+    __date_re = (r'(?P<year>\d\d\d\d)'
                  '(?:(?P<dsep>-|)'
-                 '(?:(?P<julian>\d\d\d)'
-                 '|(?P<month>\d\d)(?:(?P=dsep)(?P<day>\d\d))?))?')
-    __tzd_re = '(?P<tzd>[-+](?P<tzdhours>\d\d)(?::?(?P<tzdminutes>\d\d))|Z)'
+                 r'(?:(?P<julian>\d\d\d)'
+                 r'|(?P<month>\d\d)(?:(?P=dsep)(?P<day>\d\d))?))?')
+    __tzd_re = r'(?P<tzd>[-+](?P<tzdhours>\d\d)(?::?(?P<tzdminutes>\d\d))|Z)'
     __tzd_rx = re.compile(__tzd_re)
-    __time_re = ('(?P<hours>\d\d)(?P<tsep>:|)(?P<minutes>\d\d)'
-                 '(?:(?P=tsep)(?P<seconds>\d\d(?:[.,]\d+)?))?'
+    __time_re = (r'(?P<hours>\d\d)(?P<tsep>:|)(?P<minutes>\d\d)'
+                 r'(?:(?P=tsep)(?P<seconds>\d\d(?:[.,]\d+)?))?'
                  + __tzd_re)
     __datetime_re = '%s(?:T%s)?' % (__date_re, __time_re)
     __datetime_rx = re.compile(__datetime_re)
@@ -2422,7 +2422,7 @@ def _getCharacterEncoding(http_headers, xml_data):
         else:
             # ASCII-compatible
             pass
-        xml_encoding_match = re.compile('^<\?.*encoding=[\'"](.*?)[\'"].*\?>').match(xml_data)
+        xml_encoding_match = re.compile('^<\\?.*encoding=[\'"](.*?)[\'"].*\\?>').match(xml_data)
     except:
         xml_encoding_match = None
     if xml_encoding_match:
@@ -2493,7 +2493,7 @@ def _toUTF8(data, encoding):
         data = data[4:]
     newdata = unicode(data, encoding)
     if _debug: sys.stderr.write('successfully converted %s data to unicode\n' % encoding)
-    declmatch = re.compile('^<\?xml[^>]*?>')
+    declmatch = re.compile(r'^<\?xml[^>]*?>')
     newdecl = '''<?xml version='1.0' encoding='utf-8'?>'''
     if declmatch.search(newdata):
         newdata = declmatch.sub(newdecl, newdata)

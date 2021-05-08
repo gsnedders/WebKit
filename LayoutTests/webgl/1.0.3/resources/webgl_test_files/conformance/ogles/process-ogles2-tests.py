@@ -53,9 +53,9 @@ LICENSE = """
 */
 """
 
-COMMENT_RE = re.compile("/\*\n\*\*\s+Copyright.*?\*/",
+COMMENT_RE = re.compile("/\\*\n\\*\\*\\s+Copyright.*?\\*/",
                         re.IGNORECASE | re.DOTALL)
-REMOVE_COPYRIGHT_RE = re.compile("\/\/\s+Copyright.*?\n",
+REMOVE_COPYRIGHT_RE = re.compile("\\/\\/\\s+Copyright.*?\n",
                                  re.IGNORECASE | re.DOTALL)
 MATRIX_RE = re.compile("Matrix(\\d)")
 

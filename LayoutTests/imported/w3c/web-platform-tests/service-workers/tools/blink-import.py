@@ -14,18 +14,18 @@ def get_extra_files(chromium_root):
     return [(os.path.join(chromium_root, "LayoutTests", "http", "tests", "resources", "testharness-helpers.js"),
              os.path.join("resources", "testharness-helpers.js"))]
 
-resources_re = re.compile("/?(?:\.\./)*resources/(testharness(?:report)?)\.js")
+resources_re = re.compile(r"/?(?:\.\./)*resources/(testharness(?:report)?)\.js")
 
 def resources_path(line, depth):
     return False, resources_re.sub(r"/resources/\1.js", line)
 
-php_re = re.compile("\.php")
+php_re = re.compile(r"\.php")
 
 def python_to_php(line, depth):
     return False, php_re.sub(".py", line)
 
 abs_testharness_helpers_re = re.compile("([\"'])/resources/testharness-helpers.js")
-testharness_helpers_re = re.compile("\.\./((?:\.\./)*)resources/testharness-helpers.js")
+testharness_helpers_re = re.compile(r"\.\./((?:\.\./)*)resources/testharness-helpers.js")
 
 def testharness_helpers(line, depth):
     if abs_testharness_helpers_re.findall(line):
@@ -37,7 +37,7 @@ def service_worker_path(line, depth):
     return False, serviceworker_path_re.sub("/service-workers/", line)
 
 localhost_re = re.compile("localhost")
-alt_host_re = re.compile("127\.0\.0\.1")
+alt_host_re = re.compile(r"127\.0\.0\.1")
 port_http_re = re.compile("8000")
 port_https_re = re.compile("8000")
 

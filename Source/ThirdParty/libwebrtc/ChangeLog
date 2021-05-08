@@ -1,3 +1,35 @@
+2021-05-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Need a short description (OOPS!).
+        Need the bug URL (OOPS!).
+
+        Reviewed by NOBODY (OOPS!).
+
+        * Source/third_party/abseil-cpp/generate_def_files.py:
+        (_GenerateDefFile):
+        * Source/third_party/googletest/googlemock/scripts/gmock_doctor.py:
+        (_NeedToUseReturnNullDiagnoser):
+        * Source/third_party/googletest/googlemock/scripts/upload.py:
+        (MercurialVCS.GenerateDiff):
+        * Source/third_party/googletest/googletest/scripts/upload.py:
+        (MercurialVCS.GenerateDiff):
+        * Source/third_party/googletest/googletest/test/gtest_output_test.py:
+        (NormalizeToCurrentPlatform):
+        * Source/third_party/jsoncpp/source/devtools/licenseupdater.py:
+        * Source/third_party/libvpx/source/libvpx/tools/cpplint.py:
+        (FileInfo.RepositoryName):
+        (CheckSpacing):
+        * Source/third_party/libyuv/tools_libyuv/valgrind/common.py:
+        (NormalizeWindowsPath):
+        * Source/third_party/libyuv/tools_libyuv/valgrind/memcheck/PRESUBMIT.py:
+        (CheckChange):
+        * Source/third_party/libyuv/tools_libyuv/valgrind/memcheck_analyze.py:
+        (ValgrindError.__str__):
+        (MemcheckAnalyzer.Report):
+        * Source/third_party/libyuv/tools_libyuv/valgrind/valgrind_test.py:
+        (ValgrindTool.GetAnalyzeResults):
+        * Source/third_party/usrsctp/usrsctplib/gen-def.py:
+
 2021-05-11  Youenn Fablet  <youenn@apple.com>
 
         Improve usrsctp restart handling

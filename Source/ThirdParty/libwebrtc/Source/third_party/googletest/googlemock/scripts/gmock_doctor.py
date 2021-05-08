@@ -417,7 +417,7 @@ def _NeedToUseReturnNullDiagnoser(msg):
   """Diagnoses the NRNULL disease, given the error messages by the compiler."""
 
   gcc_regex = ('instantiated from \'testing::internal::ReturnAction<R>'
-               '::operator testing::Action<Func>\(\) const.*\n' +
+               '::operator testing::Action<Func>\\(\\) const.*\n' +
                _GCC_FILE_LINE_RE + r'instantiated from here\n'
                r'.*error: no matching function for call to \'ImplicitCast_\('
                r'(:?long )?int&\)')

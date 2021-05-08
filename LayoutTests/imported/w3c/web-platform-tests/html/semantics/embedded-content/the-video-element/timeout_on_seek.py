@@ -8,7 +8,7 @@ def parse_range(header_value, file_size):
         # HTTP Range header range end is inclusive
         return 0, file_size - 1
 
-    match = re.match("bytes=(\d*)-(\d*)", header_value)
+    match = re.match(r"bytes=(\d*)-(\d*)", header_value)
     start = int(match.group(1)) if match.group(1).strip() != "" else 0
     last = int(match.group(2)) if match.group(2).strip() != "" else file_size - 1
     return start, last

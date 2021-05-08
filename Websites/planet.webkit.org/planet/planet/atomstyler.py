@@ -75,7 +75,7 @@ def retype(parent):
         elif len(node.childNodes)==1:
 
           # replace html entity defs with utf-8
-          chunks=re.split('&(\w+);', node.childNodes[0].nodeValue)
+          chunks=re.split(r'&(\w+);', node.childNodes[0].nodeValue)
           for i in range(1,len(chunks),2):
              if chunks[i] in ['amp', 'lt', 'gt', 'apos', 'quot']:
                chunks[i] ='&' + chunks[i] +';'

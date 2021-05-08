@@ -449,7 +449,7 @@ def _is_numpy_array(obj):
 # builtin pytest.raises helper
 
 def raises(expected_exception, *args, **kwargs):
-    """
+    r"""
     Assert that a code block/function call raises ``expected_exception``
     and raise a failure exception otherwise.
 

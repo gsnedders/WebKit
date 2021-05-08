@@ -1,3 +1,23 @@
+2021-05-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Need a short description (OOPS!).
+        Need the bug URL (OOPS!).
+
+        Reviewed by NOBODY (OOPS!).
+
+        * CISupport/ews-app/ews/thirdparty/BeautifulSoup.py:
+        (Tag.__init__):
+        (Tag):
+        (BeautifulStoneSoup):
+        (BeautifulSoup):
+        (UnicodeDammit._detectEncoding):
+        * Scripts/webkitpy/thirdparty/BeautifulSoup_legacy.py:
+        (Tag.__init__):
+        (Tag):
+        (BeautifulStoneSoup):
+        (BeautifulSoup):
+        (UnicodeDammit._detectEncoding):
+
 2021-05-20  Sam Sneddon  <gsnedders@apple.com>
 
         Fix Python 3.6+ DeprecationWarnings about unknown escapes

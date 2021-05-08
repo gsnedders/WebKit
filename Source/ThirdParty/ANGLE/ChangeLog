@@ -1,3 +1,16 @@
+2021-05-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Need a short description (OOPS!).
+        Need the bug URL (OOPS!).
+
+        Reviewed by NOBODY (OOPS!).
+
+        * src/libANGLE/gen_overlay_fonts.py:
+        (main):
+        * src/libANGLE/renderer/angle_format.py:
+        (get_channel_tokens):
+        (gl_format_channels):
+
 2021-05-19  Kyle Piddington  <kpiddington@apple.com>
 
         ASSERT(!toType.isArray()) failure in sh::CoerceSimple due to vector array dereference

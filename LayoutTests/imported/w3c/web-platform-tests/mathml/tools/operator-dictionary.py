@@ -71,7 +71,7 @@ xsltTransform = etree.XSLT(etree.parse("./operator-dictionary.xsl"))
 inlineAxisOperators = {}
 with open(inlineAxisOperatorsTXT, mode="r") as f:
     for line in f:
-        hexaString = re.match("^U\+([0-9A-F]+)", line).group(1)
+        hexaString = re.match(r"^U\+([0-9A-F]+)", line).group(1)
         inlineAxisOperators[parseHexaNumber(hexaString)] = True
 
 operatorDictionary = {}
