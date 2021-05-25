@@ -496,15 +496,27 @@ class TestImporter(object):
 
                 if not(self.filesystem.exists(self.filesystem.dirname(new_filepath))):
                     self.filesystem.maybe_make_directory(self.filesystem.dirname(new_filepath))
+                elif not self.filesystem.isdir(self.filesystem.dirname(new_filepath)):
+                    if self.options.overwrite:
+                        self.filesystem.remove(self.filesystem.dirname(new_filepath))
+                    else:
+                        _log.info('Skipping import as parent directory isn\'t a directory: ' + new_filepath)
+                        continue
 
-                if not self.options.overwrite and self.filesystem.exists(new_filepath):
-                    _log.info('Skipping import of existing file ' + new_filepath)
-                else:
-                    # FIXME: Maybe doing a file diff is in order here for existing files?
-                    # In other words, there's no sense in overwriting identical files, but
-                    # there's no harm in copying the identical thing.
-                    _log.info('Importing: %s', orig_filepath)
-                    _log.info('       As: %s', new_filepath)
+                if self.filesystem.exists(new_filepath):
+                    if not self.options.overwrite:
+                        _log.info('Skipping import of existing file ' + new_filepath)
+                        continue
+                    elif self.filesystem.isdir(new_filepath):
+                        self.filesystem.rmtree(new_filepath)
+                    elif not self.filesystem.isfile(new_filepath):
+                        self.filesystem.remove(new_filepath)
+
+                # FIXME: Maybe doing a file diff is in order here for existing files?
+                # In other words, there's no sense in overwriting identical files, but
+                # there's no harm in copying the identical thing.
+                _log.info('Importing: %s', orig_filepath)
+                _log.info('       As: %s', new_filepath)
 
                 # Only html, xml, or css should be converted
                 # FIXME: Eventually, so should js when support is added for this type of conversion
@@ -518,7 +530,7 @@ class TestImporter(object):
                         _log.warn('Failed converting %s', orig_filepath)
                         failed_conversion_files.append(orig_filepath)
                         converted_file = None
-
+                        
                     if not converted_file:
                         self.filesystem.copyfile(orig_filepath, new_filepath)  # The file was unmodified.
                     else:
