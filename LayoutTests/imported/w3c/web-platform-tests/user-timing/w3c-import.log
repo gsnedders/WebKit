@@ -16,6 +16,7 @@ None
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/user-timing/META.yml
 /LayoutTests/imported/w3c/web-platform-tests/user-timing/buffered-flag.any.js
+/LayoutTests/imported/w3c/web-platform-tests/user-timing/case-sensitivity.any.js
 /LayoutTests/imported/w3c/web-platform-tests/user-timing/clearMarks.html
 /LayoutTests/imported/w3c/web-platform-tests/user-timing/clearMeasures.html
 /LayoutTests/imported/w3c/web-platform-tests/user-timing/clear_all_marks.any.js

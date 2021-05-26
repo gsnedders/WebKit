@@ -16,7 +16,6 @@ None
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-no-change.jpg
 /LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-none.jpg
-/LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-preapplied-hires.jpg
 /LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-preapplied-lores.jpg
 /LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-preapplied-non-uniform.jpg
 /LayoutTests/imported/w3c/web-platform-tests/density-size-correction/resources/exif-resolution-valid-hires.jpg

@@ -14,12 +14,11 @@
 <link rel="help" href="https://mathml-refresh.github.io/mathml-core/#operator-fence-separator-or-accent-mo">
 <meta name="assert" content="Spacing is added around operators inside mrow-like elements.">
 <script src="/mathml/support/feature-detection.js"></script>
-<script src="/mathml/support/fonts.js"></script>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script type="text/javascript">
   setup({ explicit_done: true });
-  window.addEventListener("load", () => { loadAllFonts().then(runTests); });
+  window.addEventListener("load", () => { document.fonts.ready.then(runTests); });
   function runTests()
   {
       ["Mrow", "Sqrt", "Style", "Error", "Phantom", "Math", "Menclose", "Mpadded", "Unknown"].forEach((tag) => {

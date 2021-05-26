@@ -1,0 +1,44 @@
+The tests in this directory were imported from the W3C repository.
+Do NOT modify these tests directly in WebKit.
+Instead, create a pull request on the WPT github:
+	https://github.com/web-platform-tests/wpt
+
+Then run the Tools/Scripts/import-w3c-tests in WebKit to reimport
+
+Do NOT modify or remove this file.
+
+------------------------------------------------------------------------
+Properties requiring vendor prefixes:
+None
+Property values requiring vendor prefixes:
+None
+------------------------------------------------------------------------
+List of files:
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-background-size.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-bg-image-set.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-bg-image-two-steps.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-canvas-context.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-gradient.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-iframe.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-ignore-from-subframe.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-invisible-3d-rotate-descendant.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-invisible-3d-rotate.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-invisible-scale-transition.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-invisible-scale.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-invisible-text.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-opacity-descendant.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-opacity.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-out-of-bounds-translate.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-out-of-bounds.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-pseudo-element-display.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-pseudo-element-image.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-pseudo-element-opacity.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-pseudo-element-text.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-pseudo-element-visibility.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-svg.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-text-input.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-typographic-pseudo.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-video-frame.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-video-poster.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-whitespace.html
+/LayoutTests/imported/w3c/web-platform-tests/paint-timing/fcp-only/fcp-with-rtl.html

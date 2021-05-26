@@ -24,6 +24,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/mediastream.html
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/picture-in-picture-element.html
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/picture-in-picture-window.html
+/LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/removed-from-document.html
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/request-picture-in-picture-twice.html
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/request-picture-in-picture.html
 /LayoutTests/imported/w3c/web-platform-tests/picture-in-picture/shadow-dom.html

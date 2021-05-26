@@ -34,3 +34,4 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/protocol/split.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/protocol/unknown-mediatypes.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/protocol/video-codecs.https.html
+/LayoutTests/imported/w3c/web-platform-tests/webrtc/protocol/vp8-fmtp.html

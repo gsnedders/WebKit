@@ -18,7 +18,8 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/SyntheticResponse.py
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/TAO-case-insensitive-null-opaque-origin.sub.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/TAO-crossorigin-port.sub.html
-/LayoutTests/imported/w3c/web-platform-tests/resource-timing/TAO-null-opaque-origin.sub.html
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/TAO-null-opaque-origin.html
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/__init__.py
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/buffer-full-add-after-full-event.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/buffer-full-add-entries-during-callback-that-drop.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/buffer-full-add-entries-during-callback.html
@@ -38,7 +39,10 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/crossorigin-sandwich-no-TAO.sub.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/crossorigin-sandwich-partial-TAO.sub.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/document-domain-no-impact-loader.sub.html
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/fetch-cross-origin-redirect.https.html
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/font-timestamps.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/idlharness.any.js
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/iframe-failed-commit.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/nested-context-navigations-embed.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/nested-context-navigations-iframe.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/nested-context-navigations-object.html

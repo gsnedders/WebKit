@@ -23,13 +23,13 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-allow-star.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-allow.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-cors-safelisted-request-headers.py
+/LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-cors-safelisted-response-headers.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-denied.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-options-not-supported.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-preflight-cache-invalidation.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-preflight-cache-timeout.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-preflight-cache.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-put-allow.py
-/LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-basic-whitelist-response-headers.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-cookie.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-origin-header.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/access-control-preflight-denied.py
@@ -51,6 +51,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/empty-div-utf8-html.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/folder.txt
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/form.py
+/LayoutTests/imported/w3c/web-platform-tests/xhr/resources/get-set-cookie.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/gzip.py
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/header-content-length-twice.asis
 /LayoutTests/imported/w3c/web-platform-tests/xhr/resources/header-content-length.asis

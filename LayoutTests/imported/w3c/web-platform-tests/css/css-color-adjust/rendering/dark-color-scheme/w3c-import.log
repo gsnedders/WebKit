@@ -27,7 +27,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-iframe-background-mismatch-opaque.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-iframe-background.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-root-background.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-system-colors.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-visited-link-initial-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/color-scheme-visited-link-initial.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-color-adjust/rendering/dark-color-scheme/svg-as-image.html

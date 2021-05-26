@@ -60,6 +60,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-angle-values.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-background-position-002.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-background-position-003.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-catch-divide-by-0.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-ch-ex-lang-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-ch-ex-lang.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-in-calc-expected.html
@@ -74,6 +75,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-in-media-queries-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-in-media-queries-002-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-in-media-queries-002.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-infinity-nan.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-integer.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-invalid-range-clamping-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-invalid-range-clamping.html
@@ -91,6 +93,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-rem-lang.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-rgb-percent-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-rounding-001.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-rounds-to-integer.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-serialization-002.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-serialization.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/calc-time-values.html
@@ -234,5 +237,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-relative-lengths-scaled-viewport.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-unit-011-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-unit-011.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-units-001-print-expected.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-units-001-print.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-units-after-font-load.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-values/viewport-units-css2-001.html

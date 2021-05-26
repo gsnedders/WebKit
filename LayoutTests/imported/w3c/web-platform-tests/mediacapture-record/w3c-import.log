@@ -24,8 +24,8 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-error.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-events-and-exceptions.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-mimetype.html
-/LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-no-sink.https.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-pause-resume.html
+/LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-peerconnection-no-sink.https.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-peerconnection.https.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/MediaRecorder-stop.html
 /LayoutTests/imported/w3c/web-platform-tests/mediacapture-record/idlharness.window.js

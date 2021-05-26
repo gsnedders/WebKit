@@ -15,9 +15,11 @@ None
 ------------------------------------------------------------------------
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/bad-import.css
+/LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/basic-large.css
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/basic.css
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/css-module-at-import-iframe.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/css-module-basic-iframe.html
+/LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/css-module-basic-large-iframe.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/malformed-iframe.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/malformed.css
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/scripting-1/the-script-element/css-module/resources/utf8.css

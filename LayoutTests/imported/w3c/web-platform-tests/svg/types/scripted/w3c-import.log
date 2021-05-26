@@ -39,8 +39,12 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGAnimatedNumberList.html
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGAnimatedPreserveAspectRatio.html
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGAnimatedRect.html
+/LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGElement.className-01.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getPointAtLength-01.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getPointAtLength-02.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getPointAtLength-03.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getPointAtLength-04.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getPointAtLength-05.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.getTotalLength-01.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.isPointInFill-01.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/types/scripted/SVGGeometryElement.isPointInStroke-01.svg

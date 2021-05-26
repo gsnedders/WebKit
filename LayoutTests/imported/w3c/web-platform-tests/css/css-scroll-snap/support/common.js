@@ -19,7 +19,14 @@ async function keyPress(target, key) {
     code = KEY_CODE_MAP[key];
 
   // First move pointer on target and click to ensure it receives the key.
-  return test_driver.send_keys(target, code);
+  let actions = new test_driver.Actions()
+    .pointerMove(0, 0, {origin: target})
+    .pointerDown()
+    .pointerUp()
+    .keyDown(code)
+    .keyUp(code);
+
+  return actions.send();
 }
 
 // Use rAF to wait for the value of the getter function passed to not change for
@@ -52,31 +59,6 @@ function waitForAnimationEnd(getValue) {
       }
     }
     tick(0, start_time);
-  });
-}
-
-function waitForScrollEvent(eventTarget) {
-  return new Promise((resolve, reject) => {
-    const scrollListener = () => {
-      eventTarget.removeEventListener('scroll', scrollListener);
-      resolve();
-    };
-    eventTarget.addEventListener('scroll', scrollListener);
-  });
-}
-
-function waitForScrollEnd(eventTarget, getValue, targetValue) {
-  return new Promise((resolve, reject) => {
-    const scrollListener = () => {
-      if (getValue() == targetValue) {
-        eventTarget.removeEventListener('scroll', scrollListener);
-        resolve();
-      }
-    };
-    if (getValue() == targetValue)
-      resolve();
-    else
-      eventTarget.addEventListener('scroll', scrollListener);
   });
 }
 

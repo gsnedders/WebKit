@@ -52,7 +52,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrDevice_requestSession_requiredFeatures_unknown.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrFrame_getPose.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrFrame_getViewerPose_getPose.https.html
-/LayoutTests/imported/w3c/web-platform-tests/webxr/xrFrame_getViewerPose_getPose_identities.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrFrame_lifetime.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrFrame_session_sameObject.https.html
 /LayoutTests/imported/w3c/web-platform-tests/webxr/xrInputSource_add_remove.https.html

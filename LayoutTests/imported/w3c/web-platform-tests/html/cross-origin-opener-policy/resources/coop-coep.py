@@ -1,54 +1,44 @@
 def main(request, response):
-    coop = request.GET.first("coop")
-    coopReportOnly = request.GET.first("coop-report-only") if "coop-report-only" in request.GET else ""
-    coep = request.GET.first("coep")
-    coepReportOnly = request.GET.first("coep-report-only") if "coep-report-only" in request.GET else ""
-    redirect = request.GET.first("redirect", None)
-    if coop != "":
-        response.headers.set("Cross-Origin-Opener-Policy", coop)
-    if coop != "":
-        response.headers.set("Cross-Origin-Opener-Policy-Report-Only", coopReportOnly)
-    if coep != "":
-        response.headers.set("Cross-Origin-Embedder-Policy", coep)
-    if coep != "":
-         response.headers.set("Cross-Origin-Embedder-Policy-Report-Only", coepReportOnly)
-    if 'cache' in request.GET:
-        response.headers.set('Cache-Control', 'max-age=3600')
+    coop = request.GET.first(b"coop")
+    coopReportOnly = request.GET.first(b"coop-report-only", None)
+    coep = request.GET.first(b"coep")
+    coepReportOnly = request.GET.first(b"coep-report-only", None)
+    redirect = request.GET.first(b"redirect", None)
+    if coop != b"":
+        response.headers.set(b"Cross-Origin-Opener-Policy", coop)
+    if coopReportOnly is not None:
+        response.headers.set(b"Cross-Origin-Opener-Policy-Report-Only", coopReportOnly)
+    if coep != b"":
+        response.headers.set(b"Cross-Origin-Embedder-Policy", coep)
+    if coepReportOnly is not None:
+        response.headers.set(b"Cross-Origin-Embedder-Policy-Report-Only", coepReportOnly)
+    if b'cache' in request.GET:
+        response.headers.set(b'Cache-Control', b'max-age=3600')
     host = request.url_parts[1]
 
     if redirect != None:
         response.status = 302
-        response.headers.set("Location", redirect)
+        response.headers.set(b"Location", redirect)
         return
 
     # This uses an <iframe> as BroadcastChannel is same-origin bound.
-    response.content = """
+    response.content = b"""
 <!doctype html>
 <meta charset=utf-8>
 <script src="/common/get-host-info.sub.js"></script>
-<body></body>
+<script src="/html/cross-origin-opener-policy/resources/common.js"></script>
+<body>
 <script>
   const params = new URL(location).searchParams;
   const navHistory = params.get("navHistory");
   const avoidBackAndForth = params.get("avoidBackAndForth");
   const navigate = params.get("navigate");
-  // Need to wait until the page is fully loaded before navigating
-  // so that it creates a history entry properly.
-  const fullyLoaded = new Promise((resolve, reject) => {
-    addEventListener('load', () => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          resolve();
-        });
-      });
-    });
-  });
   if (navHistory !== null) {
-    fullyLoaded.then(() => {
+    fullyLoaded().then(() => {
       history.go(Number(navHistory));
     });
   } else if (navigate !== null && (history.length === 1 || !avoidBackAndForth)) {
-    fullyLoaded.then(() => {
+    fullyLoaded().then(() => {
       self.location = navigate;
     });
   } else {
@@ -70,8 +60,9 @@ def main(request, response):
       iframe.contentWindow.postMessage(payload, "*");
     };
     const channelName = new URL(location).searchParams.get("channel");
-    iframe.src = `${get_host_info().HTTPS_ORIGIN}/html/cross-origin-opener-policy/resources/postback.html?channel=${channelName}`;
+    iframe.src = `${get_host_info().HTTPS_ORIGIN}/html/cross-origin-opener-policy/resources/postback.html?channel=${encodeURIComponent(channelName)}`;
     document.body.appendChild(iframe);
   }
 </script>
+</body>
 """

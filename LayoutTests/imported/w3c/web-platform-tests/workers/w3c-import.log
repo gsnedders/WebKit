@@ -41,6 +41,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-replace-self.any.js
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-simultaneous-errors.html
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-structure-message.html
+/LayoutTests/imported/w3c/web-platform-tests/workers/Worker-terminate-forever-during-evaluation.html
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-terminate-forever.html
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-termination-with-port-messages.html
 /LayoutTests/imported/w3c/web-platform-tests/workers/Worker-timeout-cancel-order.html

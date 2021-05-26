@@ -15,4 +15,7 @@ None
 ------------------------------------------------------------------------
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/mathml/crashtests/display-and-column-properties.html
+/LayoutTests/imported/w3c/web-platform-tests/mathml/crashtests/fixed-pos-children.html
+/LayoutTests/imported/w3c/web-platform-tests/mathml/crashtests/mmultiscripts-with-two-prescripts.html
 /LayoutTests/imported/w3c/web-platform-tests/mathml/crashtests/multicol-on-token-elements.html
+/LayoutTests/imported/w3c/web-platform-tests/mathml/crashtests/operator-and-first-letter.html

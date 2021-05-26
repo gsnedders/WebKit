@@ -7,7 +7,7 @@
   <script>
   'use strict';
   run_all_fp_tests_allow_self(
-      'https://{{domains[www]}}:{{ports[https][0]}}',
+      'https://{{hosts[alt][]}}:{{ports[https][0]}}',
       'encrypted-media',
       'SecurityError',
       function() {

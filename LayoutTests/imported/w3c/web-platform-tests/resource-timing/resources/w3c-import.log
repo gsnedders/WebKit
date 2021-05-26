@@ -14,6 +14,7 @@ Property values requiring vendor prefixes:
 None
 ------------------------------------------------------------------------
 List of files:
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/200_empty.asis
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/TAOResponse.py
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/all_resource_types.htm
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/blank-with-tao.html
@@ -25,6 +26,8 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/blue.png
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/buffer-full-utilities.js
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/cors-ahem.py
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/csp-default-none.html
+/LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/csp-default-none.html.headers
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/document-domain-no-impact.sub.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/document-navigated.html
 /LayoutTests/imported/w3c/web-platform-tests/resource-timing/resources/document-that-navigates.html

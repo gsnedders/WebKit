@@ -33,6 +33,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/CSSStyleSheet-constructable-replace-on-regular-sheet.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/CSSStyleSheet-constructable.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/CSSStyleSheet-modify-after-removal.html
+/LayoutTests/imported/w3c/web-platform-tests/css/cssom/CSSStyleSheet-template-adoption.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/CSSStyleSheet.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/HTMLLinkElement-disabled-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/HTMLLinkElement-disabled-002.html
@@ -85,6 +86,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/cssstyledeclaration-setter-form-controls.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/cssstyledeclaration-setter-logical.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/escape.html
+/LayoutTests/imported/w3c/web-platform-tests/css/cssom/flex-serialization.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/font-family-serialization-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/font-shorthand-serialization.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/getComputedStyle-animations-replaced-into-ib-split.html
@@ -135,6 +137,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/selectorText-modification-restyle-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/selectorText-modification-restyle-002.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/serialization-CSSDeclaration-with-important.html
+/LayoutTests/imported/w3c/web-platform-tests/css/cssom/serialize-custom-props.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/serialize-media-rule.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/serialize-namespaced-type-selectors.html
 /LayoutTests/imported/w3c/web-platform-tests/css/cssom/serialize-values.html

@@ -7,7 +7,6 @@
 <meta name="assert" content="Element mo correctly uses the axis height parameter from the MATH table.">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
-<script src="/mathml/support/fonts.js"></script>
 <style>
   math, mspace {
     font-size: 10px;
@@ -26,7 +25,7 @@
   }
 
   setup({ explicit_done: true });
-  window.addEventListener("load", () => { loadAllFonts().then(runTests); });
+  window.addEventListener("load", () => { document.fonts.ready.then(runTests); });
 
   function runTests() {
     test(function() {

@@ -44,3 +44,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/svg/painting/marker-009.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/painting/marker-orient-001-ref.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/painting/marker-orient-001.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/painting/mask-containing-image-with-clip-path.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/painting/svg-child-will-change-transform-invalidation-expected.html
+/LayoutTests/imported/w3c/web-platform-tests/svg/painting/svg-child-will-change-transform-invalidation.html

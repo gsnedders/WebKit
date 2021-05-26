@@ -16,5 +16,4 @@ None
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/audio-output/META.yml
 /LayoutTests/imported/w3c/web-platform-tests/audio-output/idlharness.https.window.js
-/LayoutTests/imported/w3c/web-platform-tests/audio-output/setSinkId-manual.https.html
 /LayoutTests/imported/w3c/web-platform-tests/audio-output/setSinkId.https.html

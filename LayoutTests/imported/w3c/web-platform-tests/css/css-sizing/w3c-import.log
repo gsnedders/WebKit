@@ -10,6 +10,7 @@ Do NOT modify or remove this file.
 ------------------------------------------------------------------------
 Properties requiring vendor prefixes:
 box-decoration-break
+appearance
 Property values requiring vendor prefixes:
 None
 ------------------------------------------------------------------------
@@ -23,6 +24,26 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/block-fit-content-as-initial.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/block-image-percentage-max-height-inside-inline-expected.xht
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/block-image-percentage-max-height-inside-inline.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-001-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-001.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-002-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-002.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-003-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-003.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-004-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-border-box-004.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-001-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-001.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-002-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-002.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-003-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-content-box-003.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-001-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-001.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-002-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-002.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-003-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/box-sizing-replaced-003.xht
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/button-min-width.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/canvas-intrinsic-dynamic-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/canvas-intrinsic-dynamic.html
@@ -84,6 +105,8 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-007.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-008-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-008.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-009-expected.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-009.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-001-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-002-expected.html
@@ -104,6 +127,9 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-009.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-010-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-percent-replaced-dynamic-010.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/intrinsic-size-fallback-replaced.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/max-content-input-001-expected.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/max-content-input-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/min-content-negative-margin-crash.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/min-max-content-orthogonal-flow-crash-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-sizing/ortho-writing-mode-001-expected.xht

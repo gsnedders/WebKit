@@ -21,7 +21,6 @@
     width: 100%;
   }
 </style>
-<script src="/mathml/support/fonts.js"></script>
 <script>
   function runTests() {
     var div = document.getElementById("frame");
@@ -30,7 +29,7 @@
     div.style.height = `${refBox.height-4}px`;
     document.documentElement.classList.remove('reftest-wait');
   }
-  window.addEventListener("load", () => { loadAllFonts().then(runTests); });
+  window.addEventListener("load", () => { document.fonts.ready.then(runTests); });
 </script>
 </head>
 <body>

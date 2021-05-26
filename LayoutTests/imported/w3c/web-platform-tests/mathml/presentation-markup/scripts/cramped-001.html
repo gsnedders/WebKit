@@ -12,7 +12,6 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script src="/mathml/support/feature-detection.js"></script>
-<script src="/mathml/support/fonts.js"></script>
 <script src="/mathml/support/box-navigation.js"></script>
 <style>
   math {
@@ -49,7 +48,7 @@
   }
 
   setup({ explicit_done: true });
-  window.addEventListener("load", () => { loadAllFonts().then(runTests); });
+  window.addEventListener("load", () => { document.fonts.ready.then(runTests); });
 
   function runTests() {
       test(function() {

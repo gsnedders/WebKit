@@ -9,7 +9,6 @@
     <script src="/resources/testharness.js"></script>
     <script src="/resources/testharnessreport.js"></script>
     <script src="/mathml/support/feature-detection.js"></script>
-    <script src="/mathml/support/fonts.js"></script>
     <style type="text/css">
       @font-face {
         font-family: TestFont;
@@ -30,7 +29,7 @@
       }
 
       setup({ explicit_done: true });
-      window.addEventListener("load", () => { loadAllFonts().then(runTests); });
+      window.addEventListener("load", () => { document.fonts.ready.then(runTests); });
 
       function runTests() {
         var defaultRuleThickness = 100;

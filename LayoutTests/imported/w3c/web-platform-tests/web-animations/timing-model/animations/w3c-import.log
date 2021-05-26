@@ -35,8 +35,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/the-current-time-of-an-animation.html
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-fast-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-fast.html
-/LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-slow-expected.html
-/LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-slow.html
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-zero-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/update-playback-rate-zero.html
 /LayoutTests/imported/w3c/web-platform-tests/web-animations/timing-model/animations/updating-the-finished-state.html

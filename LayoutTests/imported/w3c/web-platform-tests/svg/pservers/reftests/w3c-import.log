@@ -32,6 +32,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/meshgradient-complex-001.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/pattern-inheritance-not-in-rendertree-01.tentative.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/pattern-inheritance-not-in-rendertree-02.tentative.svg
+/LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/pattern-inheritance-template-pattern-removed.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/radialgradient-basic-002-ref.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/radialgradient-basic-002.svg
 /LayoutTests/imported/w3c/web-platform-tests/svg/pservers/reftests/radialgradient-fully-overlapping.svg

@@ -33,6 +33,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/changing-while-transition-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/changing-while-transition-002.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/changing-while-transition-003.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/changing-while-transition-004.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/currentcolor-animation-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/disconnected-element-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/event-dispatch.tentative.html
@@ -72,6 +73,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-base-response-003.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-delay-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-duration-001.html
+/LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-duration-shorthand.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-property-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-property-002.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-transitions/transition-reparented.html

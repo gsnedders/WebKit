@@ -32,8 +32,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/9grid40-30-20-10-red-old.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/9grid40-30-20-10-red.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/a-green.css
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/aqua-yellow-32x32.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/aqua-yellow-37x37.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/aqua_color.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/b-green.css
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/bg.jpg
@@ -64,7 +62,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/import-green.css
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/import-red.css
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/new-red-diamond-27x27.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/orange-intrinsic-none.svg
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/orange_color.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/outline-5px-10px-15px-20px-green.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/pattern-grg-rgr-grg.png
@@ -74,16 +71,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/red-diamond.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/red.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/red_color.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-bl.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-bo.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-br.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-ct.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-le.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-ri.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-tl.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-to.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule-tr.png
-/LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/reticule.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/ruler-h-50%.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/ruler-h-50px.png
 /LayoutTests/imported/w3c/web-platform-tests/css/css-backgrounds/support/ruler-v-100px.png

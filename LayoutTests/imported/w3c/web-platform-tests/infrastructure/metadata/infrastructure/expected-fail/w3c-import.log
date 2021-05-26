@@ -15,4 +15,14 @@ None
 ------------------------------------------------------------------------
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/failing-test.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/precondition-in-promise.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/precondition-in-setup.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/precondition-without-setup.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/precondition.html.ini
 /LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/timeout.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/uncaught-exception-following-subtest.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/uncaught-exception-single-test.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/uncaught-exception.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/unhandled-rejection-following-subtest.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/unhandled-rejection-single-test.html.ini
+/LayoutTests/imported/w3c/web-platform-tests/infrastructure/metadata/infrastructure/expected-fail/unhandled-rejection.html.ini

@@ -31,6 +31,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-binaryType.window.js
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-bufferedAmount.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-close.html
+/LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-iceRestart.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-id.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-send-blob-order.html
 /LayoutTests/imported/w3c/web-platform-tests/webrtc/RTCDataChannel-send.html

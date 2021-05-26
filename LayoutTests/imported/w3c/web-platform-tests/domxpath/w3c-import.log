@@ -19,7 +19,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/META.yml
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/README.md
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/booleans.html
-/LayoutTests/imported/w3c/web-platform-tests/domxpath/callback-interface.html
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/document.tentative.html
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/evaluator-constructor.html
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/fn-concat.html
@@ -36,3 +35,5 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/node-sets.html
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/numbers.html
 /LayoutTests/imported/w3c/web-platform-tests/domxpath/predicates.html
+/LayoutTests/imported/w3c/web-platform-tests/domxpath/resolver-callback-interface.html
+/LayoutTests/imported/w3c/web-platform-tests/domxpath/resolver-non-string-result.html

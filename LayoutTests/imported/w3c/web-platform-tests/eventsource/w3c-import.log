@@ -56,7 +56,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/format-newlines.htm
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/format-null-character.html
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/format-utf-8.htm
-/LayoutTests/imported/w3c/web-platform-tests/eventsource/idlharness.html
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/request-accept.htm
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/request-cache-control.htm
 /LayoutTests/imported/w3c/web-platform-tests/eventsource/request-credentials.htm

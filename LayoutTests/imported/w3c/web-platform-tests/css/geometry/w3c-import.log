@@ -37,7 +37,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/geometry/WebKitCSSMatrix.html
 /LayoutTests/imported/w3c/web-platform-tests/css/geometry/WebKitCSSMatrix.worker.js
 /LayoutTests/imported/w3c/web-platform-tests/css/geometry/historical.html
-/LayoutTests/imported/w3c/web-platform-tests/css/geometry/idlharness.html
-/LayoutTests/imported/w3c/web-platform-tests/css/geometry/idlharness.worker.js
+/LayoutTests/imported/w3c/web-platform-tests/css/geometry/idlharness.any.js
 /LayoutTests/imported/w3c/web-platform-tests/css/geometry/spec-examples.html
 /LayoutTests/imported/w3c/web-platform-tests/css/geometry/structured-serialization.html

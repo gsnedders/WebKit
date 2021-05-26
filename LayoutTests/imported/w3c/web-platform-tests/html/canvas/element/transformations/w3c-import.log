@@ -27,6 +27,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.scale.negative.html
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.scale.nonfinite.html
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.scale.zero.html
+/LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.setTransform.3d.html
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.setTransform.multiple.html
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.setTransform.nonfinite.html
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/element/transformations/2d.transformation.setTransform.skewed.html

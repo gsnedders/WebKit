@@ -17,12 +17,12 @@ test(function() {
   performance.clearMarks();
   performance.clearMeasures();
   const markEntry = performance.mark("mark", {startTime: 123});
-  const endMin = Number(performance.now().toFixed(2));
+  const endMin = performance.now();
   const measureEntry = performance.measure("A", "mark", undefined);
-  const endMax = Number(performance.now().toFixed(2));
+  const endMax = performance.now();
   assert_equals(measureEntry.startTime, markEntry.startTime);
-  assert_greater_than_equal(Number(endTime(measureEntry).toFixed(2)), endMin);
-  assert_greater_than_equal(endMax, Number(endTime(measureEntry).toFixed(2)));
+  assert_greater_than_equal(endTime(measureEntry), endMin);
+  assert_greater_than_equal(endMax, endTime(measureEntry));
 }, "When the start mark is given and the end is unprovided, the start time of the measure entry should be the start mark's time, the end should be now.");
 
 test(function() {

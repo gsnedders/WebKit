@@ -15,3 +15,5 @@ None
 ------------------------------------------------------------------------
 List of files:
 /LayoutTests/imported/w3c/web-platform-tests/fetch/cors-rfc1918/idlharness.tentative.any.js
+/LayoutTests/imported/w3c/web-platform-tests/fetch/cors-rfc1918/non-secure-context.window.js
+/LayoutTests/imported/w3c/web-platform-tests/fetch/cors-rfc1918/secure-context.https.window.js

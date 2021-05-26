@@ -82,10 +82,10 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-fullwidth-008.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-fullwidth-009-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-fullwidth-009.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-001-expected.xht
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-001.xht
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-002-expected.xht
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-002.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-101-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-101.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-102-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-lowercase-102.xht
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-multiple-001-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-multiple-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-none-001-expected.xht
@@ -108,8 +108,8 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-tailoring-004.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-tailoring-005-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-tailoring-005.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-uppercase-001-expected.xht
-/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-uppercase-001.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-uppercase-101-expected.xht
+/LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-uppercase-101.xht
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-upperlower-001-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-upperlower-001.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-text/text-transform/text-transform-upperlower-002-expected.html

@@ -19,9 +19,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/nested-scrollIntoView-snaps.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/no-snap-position.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/overflowing-snap-areas.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-margin-visibility-check.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-margin.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-padding-and-margin.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-padding.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-snap-root-001-expected.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scroll-snap-root-001.html
@@ -63,7 +61,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/scrollTo-scrollBy-snaps.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-area-capturing-add-scroll-container.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-area-capturing-remove-scroll-container.html
-/LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-at-user-scroll-end.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-inline-block.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-to-transformed-target.html
 /LayoutTests/imported/w3c/web-platform-tests/css/css-scroll-snap/snap-to-visible-areas-both.html

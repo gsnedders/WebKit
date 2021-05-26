@@ -8,13 +8,6 @@
   </head>
   <body>
     <p>You should see green/yellow gradient boxes</p>
-    <style>
-      canvas {
-        width: 120px;
-        height: 120px;
-        margin: 10px;
-      }
-    </style>
     <script id="shader-fs" type="x-shader/x-fragment">
         precision mediump float;
         uniform sampler2D u_image;
@@ -93,7 +86,6 @@
       function createCanvasWithImage(src, contextType, srcRect) {
         const canvas = document.createElement('canvas')
         canvas.width = canvas.height = dim
-        document.body.appendChild(canvas)
         const image = new Image()
         image.src = src
         return new Promise(resolve => {

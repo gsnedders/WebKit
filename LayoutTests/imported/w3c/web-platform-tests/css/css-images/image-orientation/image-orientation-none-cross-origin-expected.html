@@ -8,6 +8,7 @@
 <style>
     body {
         overflow: hidden;
+        image-orientation: none;
     }
     div {
         display: inline-block;
@@ -20,10 +21,10 @@
     <p>The following images should not be identical.</p>
     <p>The image should not rotate respecting their EXIF orientation because
        image-orientation: none is specified.</p>
-    <div><img src="support/exif-orientation-3-lr.jpg" style="image-orientation: none" /></div>
+    <div><img src="support/exif-orientation-3-lr.jpg"/></div>
 
     <p>This image should rotate respecting their EXIF orientation because
        image-orientation: none should be effectively ignored for opaque (cross-origin) images.</p>
-    <div><img src="support/exif-orientation-3-lr.jpg" /></div>
+    <div><img src="support/exif-orientation-3-lr.jpg" style="image-orientation: from-image" /></div>
 </body>
 </html>

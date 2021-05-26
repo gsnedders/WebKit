@@ -38,8 +38,9 @@ def check_args(**kwargs):
     pass
 
 
-def browser_kwargs(test_type, run_info_data, config, **kwargs):
-    return {"package_name": kwargs["package_name"],
+def browser_kwargs(logger, test_type, run_info_data, config, **kwargs):
+    return {"adb_binary": kwargs["adb_binary"],
+            "package_name": kwargs["package_name"],
             "device_serial": kwargs["device_serial"],
             "prefs_root": kwargs["prefs_root"],
             "extra_prefs": kwargs["extra_prefs"],
@@ -87,10 +88,10 @@ def env_options():
 
 
 class ProfileCreator(FirefoxProfileCreator):
-    def __init__(self, logger, prefs_root, config, test_type, extra_prefs, e10s,
+    def __init__(self, logger, prefs_root, config, test_type, extra_prefs,
                  enable_fission, browser_channel, certutil_binary, ca_certificate_path):
         super(ProfileCreator, self).__init__(logger, prefs_root, config, test_type, extra_prefs,
-                                             e10s, enable_fission, browser_channel, None,
+                                             True, enable_fission, browser_channel, None,
                                              certutil_binary, ca_certificate_path)
 
     def _set_required_prefs(self, profile):
@@ -100,10 +101,8 @@ class ProfileCreator(FirefoxProfileCreator):
             "places.history.enabled": False,
             "dom.send_after_paint_to_content": True,
             "network.preload": True,
+            "browser.tabs.remote.autostart": True,
         })
-
-        if self.e10s:
-            profile.set_preferences({"browser.tabs.remote.autostart": True})
 
         if self.test_type == "reftest":
             self.logger.info("Setting android reftest preferences")
@@ -130,7 +129,8 @@ class FirefoxAndroidBrowser(Browser):
                  ca_certificate_path=None, e10s=False, enable_webrender=False, stackfix_dir=None,
                  binary_args=None, timeout_multiplier=None, leak_check=False, asan=False,
                  stylo_threads=1, chaos_mode_flags=None, config=None, browser_channel="nightly",
-                 install_fonts=False, tests_root=None, specialpowers_path=None, **kwargs):
+                 install_fonts=False, tests_root=None, specialpowers_path=None, adb_binary=None,
+                 **kwargs):
 
         super(FirefoxAndroidBrowser, self).__init__(logger)
         self.prefs_root = prefs_root
@@ -142,7 +142,7 @@ class FirefoxAndroidBrowser(Browser):
         self.stackwalk_binary = stackwalk_binary
         self.certutil_binary = certutil_binary
         self.ca_certificate_path = ca_certificate_path
-        self.e10s = e10s
+        self.e10s = True
         self.enable_webrender = enable_webrender
         self.stackfix_dir = stackfix_dir
         self.binary_args = binary_args
@@ -156,13 +156,13 @@ class FirefoxAndroidBrowser(Browser):
         self.install_fonts = install_fonts
         self.tests_root = tests_root
         self.specialpowers_path = specialpowers_path
+        self.adb_binary = adb_binary
 
         self.profile_creator = ProfileCreator(logger,
                                               prefs_root,
                                               config,
                                               test_type,
                                               extra_prefs,
-                                              e10s,
                                               False,
                                               browser_channel,
                                               certutil_binary,
@@ -225,7 +225,9 @@ class FirefoxAndroidBrowser(Browser):
                                            symbols_path=self.symbols_path,
                                            serial=self.device_serial,
                                            # TODO - choose appropriate log dir
-                                           logdir=os.getcwd())
+                                           logdir=os.getcwd(),
+                                           adb_path=self.adb_binary,
+                                           explicit_cleanup=True)
 
         self.logger.debug("Starting %s" % self.package_name)
         # connect to a running emulator
@@ -257,7 +259,7 @@ class FirefoxAndroidBrowser(Browser):
                     self.logger.warning("Failed to remove forwarded or reversed ports: %s" % e)
             # We assume that stopping the runner prompts the
             # browser to shut down.
-            self.runner.stop()
+            self.runner.cleanup()
         self.logger.debug("stopped")
 
     def pid(self):

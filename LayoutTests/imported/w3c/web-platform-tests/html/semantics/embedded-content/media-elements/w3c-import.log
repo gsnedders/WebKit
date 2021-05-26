@@ -14,7 +14,6 @@ Property values requiring vendor prefixes:
 None
 ------------------------------------------------------------------------
 List of files:
-/LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/audio_loop_base.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/audio_volume_check.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/autoplay-allowed-by-feature-policy-attribute-redirect-on-load.https.sub.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/autoplay-allowed-by-feature-policy-attribute.https.sub.html
@@ -53,7 +52,6 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/historical.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/media_fragment_seek.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/networkState_during_loadstart.html
-/LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/networkState_during_progress.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/networkState_initial.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/paused_false_during_play.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/paused_true_during_pause.html
@@ -69,6 +67,5 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/src_object_blob.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/src_reflects_attribute_not_source_elements.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/video_008.htm
-/LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/video_loop_base.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/video_volume_check.html
 /LayoutTests/imported/w3c/web-platform-tests/html/semantics/embedded-content/media-elements/volume_nonfinite.html

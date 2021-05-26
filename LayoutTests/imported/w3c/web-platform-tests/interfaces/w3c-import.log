@@ -123,6 +123,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/payment-handler.idl
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/payment-method-basic-card.idl
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/payment-request.idl
+/LayoutTests/imported/w3c/web-platform-tests/interfaces/performance-measure-memory.idl
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/performance-timeline.idl
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/periodic-background-sync.idl
 /LayoutTests/imported/w3c/web-platform-tests/interfaces/permissions-policy.idl

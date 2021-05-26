@@ -20,6 +20,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/common/PrefixedPostMessage.js
 /LayoutTests/imported/w3c/web-platform-tests/common/PrefixedPostMessage.js.headers
 /LayoutTests/imported/w3c/web-platform-tests/common/README.md
+/LayoutTests/imported/w3c/web-platform-tests/common/__init__.py
 /LayoutTests/imported/w3c/web-platform-tests/common/arrays.js
 /LayoutTests/imported/w3c/web-platform-tests/common/blank.html
 /LayoutTests/imported/w3c/web-platform-tests/common/domain-setter.sub.html
@@ -41,6 +42,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/common/rendering-utils.js
 /LayoutTests/imported/w3c/web-platform-tests/common/sab.js
 /LayoutTests/imported/w3c/web-platform-tests/common/slow.py
+/LayoutTests/imported/w3c/web-platform-tests/common/square.png
 /LayoutTests/imported/w3c/web-platform-tests/common/stringifiers.js
 /LayoutTests/imported/w3c/web-platform-tests/common/stringifiers.js.headers
 /LayoutTests/imported/w3c/web-platform-tests/common/subset-tests-by-key.js

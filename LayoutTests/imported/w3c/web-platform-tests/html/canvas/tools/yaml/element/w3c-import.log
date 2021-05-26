@@ -24,6 +24,7 @@ List of files:
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/meta.yaml
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/path-objects.yaml
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/pixel-manipulation.yaml
+/LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/reset.yaml
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/scroll.yaml
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/shadows.yaml
 /LayoutTests/imported/w3c/web-platform-tests/html/canvas/tools/yaml/element/text-styles.yaml

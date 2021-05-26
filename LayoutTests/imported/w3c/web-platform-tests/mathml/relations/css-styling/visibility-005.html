@@ -75,9 +75,8 @@
       </math>
     </div>
   </div>
-  <script src="/mathml/support/fonts.js"></script>
   <script>
-    window.addEventListener("load", () => loadAllFonts().then(() => {
+    window.addEventListener("load", () => document.fonts.ready.then(() => {
         document.getElementById("dynamic").style.visibility = "hidden";
         document.documentElement.classList.remove("reftest-wait");
     }));
