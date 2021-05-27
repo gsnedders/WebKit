@@ -1,0 +1,29 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=&id=Cross+origin+iframe+with+an+empty+Allow-CSP-From+header+gets+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?id=Cross+origin+iframe+without+Allow-CSP-From+header+gets+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=http%3A%2F%2Flocalhost%3A8800&id=Cross+origin+iframe+with+correct+Allow-CSP-From+header+is+allowed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=*+%C3%82%C2%A2%C3%82%C2%A5%C3%82%C2%A7&id=Iframe+with+improper+Allow-CSP-From+header+gets+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=*&id=Allow-CSP-From+header+with+a+star+value+allows+cross+origin+frame.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=*&id=Star+Allow-CSP-From+header+enforces+EmbeddingCSP.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-allow-csp-from.py?allow_csp_from=http%3A%2F%2Flocalhost%3A8800&id=Allow-CSP-From+header+enforces+EmbeddingCSP.
+
+
+Harness Error (TIMEOUT), message = null
+
+PASS Same origin iframes are always allowed.
+PASS Same origin iframes are allowed even if the Allow-CSP-From is empty.
+PASS Same origin iframes are allowed even if the Allow-CSP-From is not present.
+PASS Same origin iframes are allowed even if Allow-CSP-From does not match origin.
+FAIL Cross origin iframe with an empty Allow-CSP-From header gets blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Cross origin iframe without Allow-CSP-From header gets blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Cross origin iframe with correct Allow-CSP-From header is allowed. Test timed out
+FAIL Iframe with improper Allow-CSP-From header gets blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Allow-CSP-From header with a star value allows cross origin frame. Test timed out
+TIMEOUT Star Allow-CSP-From header enforces EmbeddingCSP. Test timed out
+TIMEOUT Allow-CSP-From header enforces EmbeddingCSP. Test timed out
+

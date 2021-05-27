@@ -1,5 +1,5 @@
 2d.pattern.paint.repeaty.basic
 
 
-PASS OffscreenCanvas test: 2d.pattern.paint.repeaty.basic
+FAIL OffscreenCanvas test: 2d.pattern.paint.repeaty.basic Can't find variable: OffscreenCanvas
 

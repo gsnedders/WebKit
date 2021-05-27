@@ -1,0 +1,28 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=b1d36f4e-97a5-419a-8ddb-dc961174e591&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=b1d36f4e-97a5-419a-8ddb-dc961174e591&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=a5985805-d535-4c27-8fb2-2bfee790673b&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=a5985805-d535-4c27-8fb2-2bfee790673b&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=c664d277-c127-4a19-adc5-c9508d8724f9&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=c664d277-c127-4a19-adc5-c9508d8724f9&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=7a4a579a-a4ac-416b-85bc-f5298fab6323&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=7a4a579a-a4ac-416b-85bc-f5298fab6323&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=2a04f8c0-72ed-43ff-a4ca-c62657632dd9&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=2a04f8c0-72ed-43ff-a4ca-c62657632dd9&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=84b816d2-eb75-4e5b-86c4-f6935e9cf141&path=%2Fmixed-content
+CONSOLE MESSAGE: Fetch API cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=84b816d2-eb75-4e5b-86c4-f6935e9cf141&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?action=purge&key=476fd75e-9cc6-4fd0-8263-73d51ebf1f6c&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?action=purge&key=c00bd218-0742-49bf-80c3-b67af1e2ed7c&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Referrer Policy: Expects stripped-referrer for fetch to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: Type error"
+PASS Referrer Policy: Expects stripped-referrer for fetch to same-http origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for fetch to same-http origin and no-redirect redirection from http context.
+FAIL Referrer Policy: Expects stripped-referrer for fetch to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: cancelled"
+PASS Referrer Policy: Expects stripped-referrer for fetch to same-https origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for fetch to same-https origin and no-redirect redirection from http context.
+FAIL Referrer Policy: Expects stripped-referrer for fetch to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "TypeError: cancelled"
+

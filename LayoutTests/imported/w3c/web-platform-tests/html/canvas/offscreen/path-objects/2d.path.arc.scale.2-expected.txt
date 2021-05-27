@@ -3,5 +3,5 @@
 Highly scaled arcs are the right shape
 
 
-PASS Highly scaled arcs are the right shape
+FAIL Highly scaled arcs are the right shape Can't find variable: OffscreenCanvas
 

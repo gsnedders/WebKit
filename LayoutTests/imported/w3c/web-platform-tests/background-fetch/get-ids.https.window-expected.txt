@@ -1,0 +1,4 @@
+
+FAIL BackgroundFetchManager.getIds() does not require an activated worker promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'serviceWorkerRegistration.backgroundFetch.getIds')"
+FAIL The BackgroundFetchManager exposes active fetches promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.getIds')"
+

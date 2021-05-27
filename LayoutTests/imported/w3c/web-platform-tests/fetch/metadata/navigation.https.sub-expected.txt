@@ -1,0 +1,32 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 800x600
+  RenderBlock {HTML} at (0,0) size 800x600
+    RenderBody {BODY} at (8,8) size 784x579
+      RenderBlock {PRE} at (0,0) size 784x375
+        RenderText {#text} at (0,0) size 781x375
+          text run at (0,0) width 656: "{\"error\": {\"message\": \"'sec-fetch-mode'\\nTraceback (most recent call last):\\n  File "
+          text run at (0,15) width 749: "\\\"/Volumes/gsnedders/projects/Safari-WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,30) width 734: "tests/tools/wptserve/wptserve/server.py\\\", line 287, in finish_handling\\n    handler(request, "
+          text run at (0,45) width 430: "response)\\n  File \\\"/Volumes/gsnedders/projects/Safari-"
+          text run at (0,60) width 461: "WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,75) width 648: "tests/tools/wptserve/wptserve/handlers.py\\\", line 230, in __call__\\n    response = "
+          text run at (0,90) width 656: "wrap_pipeline(path, request, response)\\n  File \\\"/Volumes/gsnedders/projects/Safari-"
+          text run at (0,105) width 461: "WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,120) width 687: "tests/tools/wptserve/wptserve/handlers.py\\\", line 166, in wrap_pipeline\\n    response = "
+          text run at (0,135) width 671: "Pipeline(pipe_string)(request, response)\\n  File \\\"/Volumes/gsnedders/projects/Safari-"
+          text run at (0,150) width 781: "WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-tests/tools/wptserve/wptserve/pipes.py\\\", "
+          text run at (0,165) width 593: "line 41, in __call__\\n    response = func(request, response, *args)\\n  File "
+          text run at (0,180) width 749: "\\\"/Volumes/gsnedders/projects/Safari-WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,195) width 734: "tests/tools/wptserve/wptserve/pipes.py\\\", line 134, in inner\\n    return f(request, response, "
+          text run at (0,210) width 453: "*arg_values)\\n  File \\\"/Volumes/gsnedders/projects/Safari-"
+          text run at (0,225) width 781: "WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-tests/tools/wptserve/wptserve/pipes.py\\\", "
+          text run at (0,240) width 749: "line 392, in sub\\n    new_content = template(request, content, escape_type=escape_type)\\n  File "
+          text run at (0,255) width 749: "\\\"/Volumes/gsnedders/projects/Safari-WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,270) width 648: "tests/tools/wptserve/wptserve/pipes.py\\\", line 537, in template\\n    new_content = "
+          text run at (0,285) width 734: "template_regexp.sub(config_replacement, content)\\n  File \\\"/Volumes/gsnedders/projects/Safari-"
+          text run at (0,300) width 781: "WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-tests/tools/wptserve/wptserve/pipes.py\\\", "
+          text run at (0,315) width 515: "line 511, in config_replacement\\n    value = value[field]\\n  File "
+          text run at (0,330) width 749: "\\\"/Volumes/gsnedders/projects/Safari-WPTImport/OpenSource/LayoutTests/imported/w3c/web-platform-"
+          text run at (0,345) width 648: "tests/tools/wptserve/wptserve/request.py\\\", line 402, in __getitem__\\n    values = "
+          text run at (0,360) width 632: "dict.__getitem__(self, key.lower())\\nKeyError: 'sec-fetch-mode'\\n\", \"code\": 500}}"

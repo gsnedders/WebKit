@@ -3,5 +3,5 @@
 strokeRect draws shadows
 
 
-PASS strokeRect draws shadows
+FAIL strokeRect draws shadows Can't find variable: OffscreenCanvas
 

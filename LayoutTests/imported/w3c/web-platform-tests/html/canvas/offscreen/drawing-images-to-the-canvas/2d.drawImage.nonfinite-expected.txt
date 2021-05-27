@@ -3,5 +3,5 @@
 drawImage() with Infinity/NaN is ignored
 
 
-PASS drawImage() with Infinity/NaN is ignored
+FAIL drawImage() with Infinity/NaN is ignored Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,16 @@
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=5b988b31-9d67-490e-ab32-124fe92d2bf4
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=c3552b5c-fb77-466e-805b-269d96431777
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=550adbd0-c6f8-4890-a2a1-b8adb8e4818b&max_age=
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=87aef73a-fc5c-4c0b-a0f5-25a294247d36&max_age=0
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=8fcef78d-3ae7-492d-b70e-3ea5ac8e010a&max_age=-1
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?max_age=1&token=b8d05144-94de-4e42-99df-e44b5e16551c
+Preflight cache
+
+
+FAIL Test preflight  A network error occurred.
+FAIL preflight for x-print should be cached  A network error occurred.
+FAIL age = blank, should be cached  A network error occurred.
+FAIL age = 0, should not be cached  A network error occurred.
+FAIL age = -1, should not be cached  A network error occurred.
+FAIL preflight first request, second from cache, wait, third should preflight again assert_unreached: Got unexpected error event on the XHR object Reached unreachable code
+

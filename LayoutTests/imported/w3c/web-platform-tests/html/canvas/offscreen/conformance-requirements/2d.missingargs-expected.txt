@@ -3,5 +3,5 @@
 Missing arguments cause TypeError
 
 
-PASS Missing arguments cause TypeError
+FAIL Missing arguments cause TypeError Can't find variable: OffscreenCanvas
 

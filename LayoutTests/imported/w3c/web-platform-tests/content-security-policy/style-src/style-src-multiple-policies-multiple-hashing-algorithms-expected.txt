@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.
+
+FAIL Test that style loads if allowed by proper hash values assert_unreached: Should not have triggered a security event Reached unreachable code
+FAIL Violation report status OK. assert_unreached: CSP report sent, but not expecting one: {"document-uri":"http://localhost:8800/content-security-policy/style-src/style-src-multiple-policies-multiple-hashing-algorithms.html","referrer":"","violated-directive":"style-src 'sha384-DAShdG5sejEaOdWfT+TQMRP5mHssKiUNjFggNnElIvIoj048XQlacVRs+za2AM1a'","effective-directive":"style-src","original-policy":" style-src 'sha384-DAShdG5sejEaOdWfT+TQMRP5mHssKiUNjFggNnElIvIoj048XQlacVRs+za2AM1a'; script-src 'unsafe-inline' 'self'; report-uri ../support/report.py?op=put&reportID=0e1fdf68-6744-4f0d-bb01-87ae97154a59","blocked-uri":"","status-code":200} Reached unreachable code
+

@@ -1,0 +1,7 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/support/ChildWindowPostMessage.htm
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Test Description: Objects listed in transfer are transferred, not just cloned, meaning that they are no longer usable on the sending side. Test timed out
+PASS MessageChannel is supported.
+

@@ -1,0 +1,5 @@
+
+FAIL Fetch with an upload should work promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL Progress event includes uploaded bytes promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL Duplicate upload requests work and can be distinguished. promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+

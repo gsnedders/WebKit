@@ -1,3 +1,3 @@
 
-FAIL unexpected members/interface objects/constructors Can't find variable: SharedWorker
+FAIL Test unexpected properties are not in global scope Can't find variable: SharedWorker
 

@@ -1,0 +1,22 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=800154f1-90aa-4cd4-b352-4806e5bcf1a1&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=810cca91-1e51-4a71-ab94-6ba10882c8f9&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=833f40b2-8aa5-4c12-bcc4-1c5261054584&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=3f32b0cb-eb02-49fa-980e-9a50fd35880f&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=4823c711-6513-4b87-b175-2e89d2e16bfe&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=61b1c8de-e013-40f1-bc73-74293a4109a3&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?action=purge&key=2380b160-b02c-4417-9816-bd349e8e7d9f&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?action=purge&key=69a5f18c-638b-451f-9f27-2c568d98439e&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+

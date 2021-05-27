@@ -1,0 +1,22 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=a63576d7-b81f-4bff-b7d2-8700bb2124f1&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=90fe0b78-2ec3-45de-8ef8-43e3e917b401&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=51dda2cd-f834-4e4b-9513-b689aa29f088&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=e53afa30-512e-4af0-b8f8-f74497ccfb5a&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=1a12317f-927f-4720-9ef6-e3d923f75add&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=203f2813-c0b6-4422-8f08-f0aac0e45a90&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?action=purge&key=5d6b9fe7-ae67-49d4-ba86-7e9abc0bade3&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?action=purge&key=d326c431-0505-48a1-901a-630e8528fb36&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and no-redirect redirection from http context.
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and no-redirect redirection from http context.
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+

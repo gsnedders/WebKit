@@ -1,21 +1,16 @@
 
 
-PASS PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":false} with format [passthrough].
-PASS PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":false} with format [passthrough].
-PASS PeerConnection MediaRecorder receives data after onstart, {"video":false,"audio":true} with format [passthrough].
-PASS PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":false,"audio":true} with format [passthrough].
-PASS PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":true} with format [passthrough].
-PASS PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":true} with format [passthrough].
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":false,"audio":true} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":false,"audio":true} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":false} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":false} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":true} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":true} with format video/webm;codecs=vp8. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":false,"audio":true} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":false,"audio":true} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":false} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":false} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder receives data after onstart, {"video":true,"audio":true} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
-FAIL PeerConnection MediaRecorder gets ondata on stopping recorded tracks {"video":true,"audio":true} with format video/webm;codecs=vp9. promise_test: Unhandled rejection with value: object "NotSupportedError: mimeType is not supported"
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT PeerConnection MediaRecorder receives data after onstart, {"video":{}} mimeType "" Test timed out
+NOTRUN PeerConnection MediaRecorder gets ondata on stopping tracks, {"video":{}} mimeType ""
+NOTRUN PeerConnection MediaRecorder receives data after onstart, {"audio":{}} mimeType ""
+NOTRUN PeerConnection MediaRecorder gets ondata on stopping tracks, {"audio":{}} mimeType ""
+NOTRUN PeerConnection MediaRecorder receives data after onstart, {"video":{},"audio":{}} mimeType ""
+NOTRUN PeerConnection MediaRecorder gets ondata on stopping tracks, {"video":{},"audio":{}} mimeType ""
+NOTRUN MediaRecorder constructor throws on no support, {"audio":{}} mimeType "audio/webm;codecs=opus"
+NOTRUN MediaRecorder constructor throws on no support, {"video":{}} mimeType "video/webm;codecs=vp8"
+NOTRUN MediaRecorder constructor throws on no support, {"video":{},"audio":{}} mimeType "video/webm;codecs=vp8,opus"
+NOTRUN MediaRecorder constructor throws on no support, {"video":{}} mimeType "video/webm;codecs=vp9"
+NOTRUN MediaRecorder constructor throws on no support, {"video":{},"audio":{}} mimeType "video/webm;codecs=vp9,opus"
 

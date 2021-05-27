@@ -1,0 +1,22 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=fe43c697-5faf-4455-82d0-61d23a94f94e&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=cc4ffabc-e12b-47dc-a8f0-4ad0c804c56d&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=e594c314-e098-4d48-9474-ada2449e67b7&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=357085fb-096e-46af-9322-52eea2ae7323&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=7cb2cf6c-cfac-4d98-abea-c6b681da5faa&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=99668453-a0c0-49a2-838b-7bab9e4a0791&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?action=purge&key=48e5c85e-728a-4621-a129-2ec2ea90e191&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?action=purge&key=876640ba-046d-4197-8128-19ec82550551&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects origin for script-tag to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+PASS Referrer Policy: Expects origin for script-tag to same-https origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects origin for script-tag to same-https origin and no-redirect redirection from http context.
+FAIL Referrer Policy: Expects origin for script-tag to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and no-redirect redirection from http context.
+

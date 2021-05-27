@@ -1,5 +1,5 @@
 2d.composite.canvas.lighter
 
 
-PASS OffscreenCanvas test: 2d.composite.canvas.lighter
+FAIL OffscreenCanvas test: 2d.composite.canvas.lighter Can't find variable: OffscreenCanvas
 

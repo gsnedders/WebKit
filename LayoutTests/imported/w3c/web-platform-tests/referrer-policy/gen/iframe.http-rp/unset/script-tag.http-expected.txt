@@ -1,0 +1,23 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=5cab2d55-3bfa-4590-9be2-0794ca3033e8&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=aa1558ba-6628-49da-86e1-985c4dccbf7e&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=fcd8af9b-1648-46d2-9c06-ae7ecde71b82&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=keep-origin&action=purge&key=b62852bc-903b-40ac-8b50-da8fca5bdefa&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=no-redirect&action=purge&key=02958b2e-ff4c-487b-92b7-bf61cdcf2ec2&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?redirection=swap-origin&action=purge&key=74e9ac42-c48c-45fd-9c5a-9e4be965b631&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/script.py?action=purge&key=2f633f95-a579-49a5-ae50-f19bbdcdef59&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/script.py?action=purge&key=4a71ae26-9911-49fe-a2d0-a3a0d03500e9&path=%2Fmixed-content
+
+
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for script-tag to same-https origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for script-tag to same-https origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for script-tag to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'stripped-referrer'. expected (string) "http://localhost:8800/common/security-features/scope/document.py?policyDeliveries=%5B%5D" but got (undefined) undefined
+FAIL Referrer Policy: Expects stripped-referrer for script-tag to same-http origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'stripped-referrer'. expected (string) "http://localhost:8800/common/security-features/scope/document.py?policyDeliveries=%5B%5D" but got (undefined) undefined
+

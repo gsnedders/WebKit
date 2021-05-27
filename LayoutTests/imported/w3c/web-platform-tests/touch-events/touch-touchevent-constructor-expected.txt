@@ -1,7 +1,14 @@
 
-PASS Touch constructor with insufficient properties
-PASS Touch constructor with non-EventTarget target
-FAIL Touch constructor exists and creates a Touch object with minimum properties Illegal constructor
-FAIL Touch constructor exists and creates a Touch object with requested properties Illegal constructor
-FAIL TouchEvent constructor exists and creates a TouchEvent object with requested properties Illegal constructor
+FAIL Touch constructor with insufficient properties assert_throws_js: Touch constructor with no argument function "function () {new Touch();}" threw object "ReferenceError: Can't find variable: Touch" ("ReferenceError") expected instance of function "function TypeError() {
+    [native code]
+}" ("TypeError")
+FAIL Touch constructor with non-EventTarget target assert_throws_js: Touch constructor with null target function "function () {new Touch({
+        identifier: testIdentifier,
+        target: null
+    });}" threw object "ReferenceError: Can't find variable: Touch" ("ReferenceError") expected instance of function "function TypeError() {
+    [native code]
+}" ("TypeError")
+FAIL Touch constructor exists and creates a Touch object with minimum properties Can't find variable: Touch
+FAIL Touch constructor exists and creates a Touch object with requested properties Can't find variable: Touch
+FAIL TouchEvent constructor exists and creates a TouchEvent object with requested properties Can't find variable: Touch
 

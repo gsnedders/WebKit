@@ -1,0 +1,4 @@
+
+FAIL drm support for empty HDCP version. promise_test: Unhandled rejection with value: object "NotSupportedError: The operation is not supported."
+FAIL drm support for HDCP 1.0. promise_test: Unhandled rejection with value: object "NotSupportedError: The operation is not supported."
+

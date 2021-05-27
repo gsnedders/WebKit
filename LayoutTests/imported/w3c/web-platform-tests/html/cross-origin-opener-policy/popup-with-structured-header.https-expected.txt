@@ -1,0 +1,5 @@
+
+FAIL same-origin with structured headers document opening popup to https://localhost:9443 with COOP: "unsafe-none; report-to=endpoint" Can't find variable: BroadcastChannel
+FAIL same-origin with structured headers document opening popup to https://localhost:9443 with COOP: "same-origin; report-to=endpoint" Can't find variable: BroadcastChannel
+FAIL same-origin with structured headers document opening popup to https://localhost:9443 with COOP: "same-origin-allow-popups; report-to=endpoint" Can't find variable: BroadcastChannel
+

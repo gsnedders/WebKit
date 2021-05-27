@@ -1,0 +1,24 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=keep-origin&action=purge&key=93d5070d-6aba-4df3-8f2c-036ef0c95fb0&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=no-redirect&action=purge&key=fb3d4134-69fe-4579-b47f-466ff57df1a5&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=swap-origin&action=purge&key=89c9f43e-0eae-49df-b8c3-3e7eabd30909&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=keep-origin&action=purge&key=ef9d2e45-5791-46a0-9404-a3cc9f4e280e&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=no-redirect&action=purge&key=de287114-d514-4859-a6df-e212f8819915&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=swap-origin&action=purge&key=bc742007-0f52-4f5b-82bf-35562eaf12f7&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?action=purge&key=56c0f8a8-6f6e-481d-82ab-34824bf90d8a&path=%2Fmixed-content
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "[object Event]"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to same-http origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+FAIL Referrer Policy: Expects stripped-referrer for img-tag to same-http origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected "http://localhost:8800/" but got "http://localhost:8800"
+TIMEOUT Referrer Policy: Expects stripped-referrer for img-tag to same-http origin and swap-origin redirection from http context. Test timed out
+NOTRUN Referrer Policy: Expects stripped-referrer for img-tag to same-https origin and keep-origin redirection from http context.
+NOTRUN Referrer Policy: Expects stripped-referrer for img-tag to same-https origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects stripped-referrer for img-tag to same-https origin and swap-origin redirection from http context.
+

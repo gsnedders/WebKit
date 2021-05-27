@@ -1,0 +1,8 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT request Picture-in-Picture consumes user gesture Test timed out
+NOTRUN request Picture-in-Picture does not require user gesture if document.pictureInPictureElement is set
+

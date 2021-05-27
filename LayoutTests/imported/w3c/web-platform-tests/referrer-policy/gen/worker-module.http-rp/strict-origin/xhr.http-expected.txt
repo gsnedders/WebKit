@@ -1,0 +1,22 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=4002a0aa-ec22-4475-a478-905ea8804c5d&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=c155e006-33a5-4428-a5e7-bebb485a7d37&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=ace51b91-cf07-4ec0-b7ef-a8e76148ad18&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=079f6128-6c7f-4f87-90ff-d29c24d1a7a7&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=c90b5ec7-78f3-4310-9518-1a39561dfb90&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=c877ca6f-b6cf-4db1-a34c-7b7e5be16f6a&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?action=purge&key=31b59895-92f1-4f4f-b311-0467f14a3317&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?action=purge&key=d3192a64-eaac-48fa-a566-4e640b27ac6a&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects origin for xhr to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to same-http origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for xhr to same-http origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for xhr to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+FAIL Referrer Policy: Expects origin for xhr to same-https origin and keep-origin redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for xhr to same-https origin and no-redirect redirection from http context. assert_equals: Reported Referrer URL is 'origin'. expected (string) "http://localhost:8800/" but got (undefined) undefined
+FAIL Referrer Policy: Expects origin for xhr to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Network Error"
+

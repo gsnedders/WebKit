@@ -1,5 +1,5 @@
 2d.path.rect.winding
 
 
-PASS OffscreenCanvas test: 2d.path.rect.winding
+FAIL OffscreenCanvas test: 2d.path.rect.winding Can't find variable: OffscreenCanvas
 

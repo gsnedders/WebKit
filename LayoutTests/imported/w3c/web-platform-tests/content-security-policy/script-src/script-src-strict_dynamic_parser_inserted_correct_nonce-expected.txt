@@ -1,0 +1,13 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+Parser-inserted scripts with a correct nonce are allowed with `strict-dynamic` in the script-src directive.
+
+
+PASS Parser-inserted script via `document.write` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted script via `document.writeln` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted deferred script via `document.write` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted deferred script via `document.writeln` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted async script via `document.write` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted async script via `document.writeln` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted deferred async script via `document.write` with a correct nonce is allowed with `strict-dynamic`.
+PASS Parser-inserted deferred async script via `document.writeln` with a correct nonce is allowed with `strict-dynamic`.
+

@@ -1,0 +1,55 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=&id=Empty+required+csp+subsumes+empty+list+of+returned+policies.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fexample.com&id=Empty+required+csp+subsumes+any+list+of+policies.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27none%27&id=Empty+required+csp+subsumes+a+policy+with+%60none%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=&id=Required+policy+that+allows+%60none%60+does+not+subsume+empty+list+of+policies.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fexample.com&id=Required+csp+with+effective+%60none%60+does+not+subsume+a+host+source+expression.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fexample.com&id=Required+csp+with+%60none%60+does+not+subsume+a+host+source+expression.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+%27none%27&id=Required+csp+with+effective+%60none%60+does+not+subsume+%60none%60+of+another+directive.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+%27none%27&id=Required+csp+with+%60none%60+does+not+subsume+%60none%60+of+another+directive.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2F*.one.com&policy2=frame-src+https%3A%2F%2Ftwo.com&id=Required+csp+with+%60none%60+does+not+subsume+%60none%60+of+different+directives.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2F*.one.com&policy2=img-src+https%3A%2F%2Ftwo.com&id=Required+csp+with+%60none%60+subsumes+effective+list+of+%60none%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2F*.one.com&policy2=img-src+%27self%27&id=Required+csp+with+%60none%60+subsumes+effective+list+of+%60none%60+despite+other+keywords.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fexample.com&id=Source+list+with+exprssions+other+than+%60none%60+make+%60none%60+ineffective.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27none%27&id=Returned+csp+with+%60none%60+is+subsumed+by+any+required+csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fexample.com&policy2=img-src+http%3A%2F%2Fnon-example.com&id=Returned+csp+with+effective+%60none%60+is+subsumed+by+any+required+csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27none%27&policy2=img-src+http%3A%2F%2Fnon-example.com&id=Both+required+and+returned+csp+are+%60none%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27none%27&policy2=script-src+%27unsafe-inline%27&id=Both+required+and+returned+csp+are+%60none%60+for+only+one+directive.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+&id=Both+required+and+returned+csp+are+empty.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fa.com&policy2=img-src+http%3A%2F%2Fb.com&id=Both+required+and+returned+csp+are+effectively+%27none%27.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Empty required csp subsumes empty list of returned policies. Test timed out
+TIMEOUT Empty required csp subsumes any list of policies. Test timed out
+TIMEOUT Empty required csp subsumes a policy with `none`. Test timed out
+FAIL Required policy that allows `none` does not subsume empty list of policies. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Required csp with effective `none` does not subsume a host source expression. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Required csp with `none` does not subsume a host source expression. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Required csp with effective `none` does not subsume `none` of another directive. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Required csp with `none` does not subsume `none` of another directive. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Required csp with `none` does not subsume `none` of different directives. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Required csp with `none` subsumes effective list of `none`. Test timed out
+TIMEOUT Required csp with `none` subsumes effective list of `none` despite other keywords. Test timed out
+TIMEOUT Source list with exprssions other than `none` make `none` ineffective. Test timed out
+TIMEOUT Returned csp with `none` is subsumed by any required csp. Test timed out
+TIMEOUT Returned csp with effective `none` is subsumed by any required csp. Test timed out
+TIMEOUT Both required and returned csp are `none`. Test timed out
+FAIL Both required and returned csp are `none` for only one directive. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Both required and returned csp are empty. Test timed out
+TIMEOUT Both required and returned csp are effectively 'none'. Test timed out
+

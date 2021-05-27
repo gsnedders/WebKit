@@ -1,0 +1,4 @@
+
+FAIL Ensures free-floating anchor creation failure is handled correctly - webgl promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Ensures free-floating anchor creation failure is handled correctly - webgl2 promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+

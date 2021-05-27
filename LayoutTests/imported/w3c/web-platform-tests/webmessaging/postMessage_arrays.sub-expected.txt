@@ -1,0 +1,3 @@
+
+PASS Test Description: Messages can be structured objects, e.g., arrays.
+

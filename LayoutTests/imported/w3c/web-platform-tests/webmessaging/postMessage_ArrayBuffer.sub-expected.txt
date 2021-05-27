@@ -1,0 +1,4 @@
+
+PASS Test Description: postMessage with ArrayBuffer object.
+PASS ArrayBuffer is supported.
+

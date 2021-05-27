@@ -1,0 +1,6 @@
+
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN TestDriver click on a document in an iframe
+

@@ -1,0 +1,3 @@
+
+PASS Test that decreasing the buffer limit during the callback does not drop entries
+

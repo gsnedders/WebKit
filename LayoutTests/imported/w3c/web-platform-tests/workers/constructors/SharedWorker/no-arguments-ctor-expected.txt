@@ -1,5 +1,7 @@
 
-FAIL no arguments assert_throws: function "function () {
-    var worker = new SharedWorker();
-  }" threw object "ReferenceError: Can't find variable: SharedWorker" ("ReferenceError") expected object "TypeError" ("TypeError")
+FAIL no arguments assert_throws_js: function "() => {
+    const worker = new SharedWorker();
+  }" threw object "ReferenceError: Can't find variable: SharedWorker" ("ReferenceError") expected instance of function "function TypeError() {
+    [native code]
+}" ("TypeError")
 

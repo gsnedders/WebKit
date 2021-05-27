@@ -3,5 +3,5 @@
 lineJoin 'round' is rendered correctly
 
 
-PASS lineJoin 'round' is rendered correctly
+FAIL lineJoin 'round' is rendered correctly Can't find variable: OffscreenCanvas
 

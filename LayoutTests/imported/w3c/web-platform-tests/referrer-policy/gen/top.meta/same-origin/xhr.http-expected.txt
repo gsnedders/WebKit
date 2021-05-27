@@ -1,0 +1,26 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=f8d30398-09dd-401c-a1da-08cf96b6e809&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=f8d30398-09dd-401c-a1da-08cf96b6e809&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=32865299-467e-408e-8443-0565f70db233&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=32865299-467e-408e-8443-0565f70db233&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=74fb9688-f223-4bdc-a113-11d861437172&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load http://www1.localhost:8800/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=74fb9688-f223-4bdc-a113-11d861437172&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=76f07aaa-ffaa-475b-9926-3199dff2a37b&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=keep-origin&action=purge&key=76f07aaa-ffaa-475b-9926-3199dff2a37b&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=5ca1c7b4-f951-4973-83d5-5592357322a4&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=no-redirect&action=purge&key=5ca1c7b4-f951-4973-83d5-5592357322a4&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=5e6e2266-0a01-4e3b-9987-a9a91e9ae236&path=%2Fmixed-content
+CONSOLE MESSAGE: XMLHttpRequest cannot load https://www1.localhost:9443/common/security-features/subresource/xhr.py?redirection=swap-origin&action=purge&key=5e6e2266-0a01-4e3b-9987-a9a91e9ae236&path=%2Fmixed-content due to access control checks.
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/xhr.py?action=purge&key=f5889329-0416-46d0-83d0-e863fc10b6f6&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/xhr.py?action=purge&key=1f3bbc31-306a-4451-a1f6-81ba3ff78248&path=%2Fmixed-content
+
+FAIL Referrer Policy: Expects omitted for xhr to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to same-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+FAIL Referrer Policy: Expects omitted for xhr to same-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: object "Error: Network Error"
+PASS Referrer Policy: Expects stripped-referrer for xhr to same-http origin and keep-origin redirection from http context.
+PASS Referrer Policy: Expects stripped-referrer for xhr to same-http origin and no-redirect redirection from http context.
+

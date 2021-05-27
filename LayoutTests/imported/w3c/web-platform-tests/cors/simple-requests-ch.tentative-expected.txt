@@ -1,0 +1,12 @@
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=eac1cb4d-c6fd-4775-a495-5f5e673dcd8b
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=8413f7c0-deca-4d92-b7be-167b2516caec
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=eff9eefb-07e5-43f8-8838-9058ca62312b
+Simple requests
+
+Simple requests shouldn't trigger preflight
+
+
+FAIL No preflight GET and {"save-data":"on","device-memory":"2.0","dpr":"3.0","width":"1200","viewport-width":"1300"}  A network error occurred.
+FAIL No preflight HEAD and {"save-data":"on","device-memory":"2.0","dpr":"3.0","width":"1200","viewport-width":"1300"}  A network error occurred.
+FAIL No preflight POST and {"save-data":"on","device-memory":"2.0","dpr":"3.0","width":"1200","viewport-width":"1300"}  A network error occurred.
+

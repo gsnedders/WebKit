@@ -3,5 +3,5 @@
 strokeRect is affected by clipping regions
 
 
-PASS strokeRect is affected by clipping regions
+FAIL strokeRect is affected by clipping regions Can't find variable: OffscreenCanvas
 

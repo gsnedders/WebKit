@@ -1,0 +1,5 @@
+
+FAIL Background Fetch updateUI resolves promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL Background Fetch updateUI called twice fails promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL Background Fetch updateUI fails when event is not active promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+

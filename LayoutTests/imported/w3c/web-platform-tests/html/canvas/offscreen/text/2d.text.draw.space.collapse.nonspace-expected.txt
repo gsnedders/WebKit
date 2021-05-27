@@ -3,5 +3,5 @@
 Non-space characters are not converted to U+0020 and collapsed
 
 
-PASS Non-space characters are not converted to U+0020 and collapsed
+FAIL Non-space characters are not converted to U+0020 and collapsed Can't find variable: OffscreenCanvas
 

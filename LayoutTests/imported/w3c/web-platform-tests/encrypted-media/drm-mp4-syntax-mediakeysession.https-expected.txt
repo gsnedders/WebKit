@@ -1,0 +1,9 @@
+
+FAIL drm test MediaKeySession generateRequest() exceptions. assert_true: initDataType not supported expected true got false
+FAIL drm test MediaKeySession load() exceptions. assert_true: initDataType not supported expected true got false
+FAIL drm test if MediaKeySession generateRequest() resolves for various sessions assert_true: initDataType should be supported expected true got false
+FAIL drm test MediaKeySession update() exceptions. assert_true: initDataType not supported expected true got false
+FAIL drm test MediaKeySession close() exceptions. assert_true: initDataType not supported expected true got false
+FAIL drm test MediaKeySession remove() exceptions. assert_true: initDataType not supported expected true got false
+FAIL drm test MediaKeySession attribute syntax. assert_true: initDataType not supported expected true got false
+

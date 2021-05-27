@@ -1,0 +1,6 @@
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Parser properly ignores a UTF-8 BOM character at the beginning of a file and all other cues are properly parsed Test timed out
+

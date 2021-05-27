@@ -1,0 +1,13 @@
+This test requires user interaction.
+Please click here to allow empty.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT functions in the absence of a `body` element Test timed out
+NOTRUN user activation
+NOTRUN no action function provided
+NOTRUN synchronous return value
+NOTRUN synchronous error
+NOTRUN asynchronous return value
+NOTRUN asynchronous error
+

@@ -1,5 +1,5 @@
 2d.path.beginPath
 
 
-PASS OffscreenCanvas test: 2d.path.beginPath
+FAIL OffscreenCanvas test: 2d.path.beginPath Can't find variable: OffscreenCanvas
 

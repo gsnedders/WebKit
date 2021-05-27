@@ -1,0 +1,4 @@
+
+
+FAIL fetch() in SharedWorker should be intercepted after the client is claimed. promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'worker.port')"
+

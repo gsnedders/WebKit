@@ -1,3 +1,7 @@
+CONSOLE MESSAGE: [Report Only] Refused to load ftp://blah.test/ because it does not appear in the img-src directive of the Content Security Policy.
+CONSOLE MESSAGE: [Report Only] Refused to load ftp://blah.test/ because it does not appear in the img-src directive of the Content Security Policy.
+CONSOLE MESSAGE: [Report Only] Refused to load ftp://blah.test/ because it does not appear in the img-src directive of the Content Security Policy.
+CONSOLE MESSAGE: [Report Only] Refused to load ftp://blah.test/ because it does not appear in the img-src directive of the Content Security Policy.
 
 
 PASS 1-Violation report status OK

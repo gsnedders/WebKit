@@ -1,0 +1,4 @@
+
+PASS drm test requestMediaKeySystemAccess() exceptions.
+FAIL drm test MediaKeySystemAccess attribute syntax. assert_true: initDataType not supported expected true got false
+

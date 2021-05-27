@@ -1,0 +1,23 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=Host+must+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=Hosts+without+wildcards+must+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Finner.b.com&id=More+specific+subdomain+should+not+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2F*.b.com&id=Specified+host+should+not+match+a+wildcard+host.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Finner.b.com&id=A+wildcard+host+should+match+a+more+specific+host.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Host must match. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Hosts without wildcards must match. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL More specific subdomain should not match. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Specified host should not match a wildcard host. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT A wildcard host should match a more specific host. Test timed out
+

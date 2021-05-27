@@ -3,5 +3,5 @@
 Testing fontBoundingBox for OffscreenCanvas
 
 
-PASS Testing fontBoundingBox for OffscreenCanvas
+FAIL Testing fontBoundingBox for OffscreenCanvas Can't find variable: OffscreenCanvas
 

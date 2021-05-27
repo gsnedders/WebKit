@@ -1,5 +1,5 @@
 2d.composite.image.copy
 
 
-PASS OffscreenCanvas test: 2d.composite.image.copy
+FAIL OffscreenCanvas test: 2d.composite.image.copy Can't find variable: OffscreenCanvas
 

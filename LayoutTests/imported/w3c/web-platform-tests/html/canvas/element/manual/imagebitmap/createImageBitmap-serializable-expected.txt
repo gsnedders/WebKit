@@ -7,10 +7,10 @@ PASS Serialize ImageBitmap created from an HTMLVideoElement from a data URL
 FAIL Serialize ImageBitmap created from a bitmap HTMLImageElement promise_test: Unhandled rejection with value: object "TypeError: Type error"
 FAIL Serialize ImageBitmap created from a vector HTMLImageElement promise_test: Unhandled rejection with value: object "TypeError: Type error"
 FAIL Serialize ImageBitmap created from a bitmap SVGImageElement promise_test: Unhandled rejection with value: object "TypeError: Type error"
-FAIL Serialize ImageBitmap created from a vector SVGImageElement promise_test: Unhandled rejection with value: object "TypeError: Type error"
-FAIL Serialize ImageBitmap created from an OffscreenCanvas promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: OffscreenCanvas"
-FAIL Serialize ImageBitmap created from an ImageData promise_test: Unhandled rejection with value: object "TypeError: Type error"
-FAIL Serialize ImageBitmap created from an ImageBitmap promise_test: Unhandled rejection with value: object "InvalidStateError: Cannot create ImageBitmap from canvas that can't be rendered"
-FAIL Serialize ImageBitmap created from a Blob promise_test: Unhandled rejection with value: object "TypeError: Type error"
-TIMEOUT Serializing a non-origin-clean ImageBitmap throws. Test timed out
+TIMEOUT Serialize ImageBitmap created from a vector SVGImageElement Test timed out
+NOTRUN Serialize ImageBitmap created from an OffscreenCanvas
+NOTRUN Serialize ImageBitmap created from an ImageData
+NOTRUN Serialize ImageBitmap created from an ImageBitmap
+NOTRUN Serialize ImageBitmap created from a Blob
+NOTRUN Serializing a non-origin-clean ImageBitmap throws.
 

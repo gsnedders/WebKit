@@ -1,3 +1,6 @@
 
-FAIL Sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+FAIL <iframe sandbox="allow-popups allow-scripts allow-same-origin"> Sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+FAIL <iframe sandbox="allow-popups allow-scripts"> Sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+FAIL <iframe sandbox="allow-popups allow-scripts allow-popups-to-escape-sandbox"> Sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+FAIL Iframe with sandbox and COOP must load. Can't find variable: BroadcastChannel
 

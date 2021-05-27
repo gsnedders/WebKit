@@ -1,5 +1,5 @@
 
-PASS Touch events in GlobalEventHandlers
-PASS Touch events are GlobalEventHandlers' own property
+FAIL Touch events in GlobalEventHandlers assert_true: Touch event ontouchstart in Window expected true got false
+FAIL Touch events are GlobalEventHandlers' own property assert_true: GlobalEventHandler Window hasOwnProperty ontouchstart expected true got false
 PASS Touch events not in Element.prototype
 

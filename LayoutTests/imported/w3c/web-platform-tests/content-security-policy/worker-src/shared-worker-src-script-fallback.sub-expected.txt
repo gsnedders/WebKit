@@ -1,0 +1,3 @@
+
+FAIL Same-origin shared worker allowed by script-src 'self'. Can't find variable: SharedWorker
+

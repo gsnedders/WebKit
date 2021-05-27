@@ -1,6 +1,6 @@
 
 
-Harness Error (FAIL), message = Error: assert_array_equals: property 1, expected false but got true
+Harness Error (FAIL), message = Error: assert_array_equals: expected property 1 to be false but got true (expected array ["visible", false, "https://localhost:9443/service-workers/service-worker/resources/blank.html?clients-matchall-includeUncontrolled#1", "window", "nested"] got ["visible", true, "https://localhost:9443/service-workers/service-worker/resources/blank.html?clients-matchall-includeUncontrolled#1", "window", "nested"])
 
 TIMEOUT Verify matchAll() with windows respect includeUncontrolled Test timed out
 NOTRUN Verify matchAll() with shared workers respect includeUncontrolled

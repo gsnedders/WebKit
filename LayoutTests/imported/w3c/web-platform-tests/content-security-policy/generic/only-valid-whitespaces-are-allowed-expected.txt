@@ -16,9 +16,13 @@ CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/s
 CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/support/pass.png because it does not appear in the img-src directive of the Content Security Policy.
 CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/support/pass.png because it does not appear in the img-src directive of the Content Security Policy.
 CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/support/pass.png because it does not appear in the img-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Unrecognized Content-Security-Policy directive 'img-srcÂ 'none''.
 
+CONSOLE MESSAGE: Unrecognized Content-Security-Policy directive 'img-srcÂ 'none''.
 
-Harness Error (TIMEOUT), message = null
+CONSOLE MESSAGE: The value for Content Security Policy directive 'img-src' contains an invalid character: 'http://example.comÂ http://example2.com'. Non-whitespace characters outside ASCII 0x21-0x7E must be percent-encoded, as described in RFC 3986, section 2.1: http://tools.ietf.org/html/rfc3986#section-2.1.
+CONSOLE MESSAGE: The value for Content Security Policy directive 'img-src' contains an invalid character: 'http://example.comÂ http://example2.com'. Non-whitespace characters outside ASCII 0x21-0x7E must be percent-encoded, as described in RFC 3986, section 2.1: http://tools.ietf.org/html/rfc3986#section-2.1.
+
 
 PASS Should load image without any CSP - meta tag
 PASS Should load image without any CSP - HTTP header
@@ -40,8 +44,8 @@ PASS U+000A LF    should be properly parsed inside directive value - meta tag
 PASS U+000D CR    should be properly parsed inside directive value - meta tag
 PASS U+0020 SPACE should be properly parsed inside directive value - meta tag
 PASS U+0020 SPACE should be properly parsed inside directive value - HTTP header
-TIMEOUT U+00A0 NBSP  should not be parsed between directive name and value - meta tag Test timed out
-TIMEOUT U+00A0 NBSP  should not be parsed between directive name and value - HTTP header Test timed out
-TIMEOUT U+00A0 NBSP  should not be parsed inside directive value - meta tag Test timed out
-TIMEOUT U+00A0 NBSP  should not be parsed inside directive value - HTTP header Test timed out
+PASS U+00A0 NBSP  should not be parsed between directive name and value - meta tag
+PASS U+00A0 NBSP  should not be parsed between directive name and value - HTTP header
+PASS U+00A0 NBSP  should not be parsed inside directive value - meta tag
+PASS U+00A0 NBSP  should not be parsed inside directive value - HTTP header
 

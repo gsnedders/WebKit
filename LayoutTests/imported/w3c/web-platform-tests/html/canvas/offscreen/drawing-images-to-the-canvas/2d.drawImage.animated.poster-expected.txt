@@ -3,5 +3,5 @@
 drawImage() of an APNG draws the poster frame
 
 
-PASS drawImage() of an APNG draws the poster frame
+FAIL drawImage() of an APNG draws the poster frame Can't find variable: OffscreenCanvas
 

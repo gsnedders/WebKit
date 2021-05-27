@@ -1,0 +1,4 @@
+
+FAIL Grant Permission for one realm promise_test: Unhandled rejection with value: object "Error: unimplemented"
+FAIL Deny Permission, omit one realm promise_test: Unhandled rejection with value: object "Error: unimplemented"
+

@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - wsocket.binaryType should be set to 'blob' after connection is established - Connection should be opened
+PASS Create Secure WebSocket - wsocket.binaryType should be set to 'blob' after connection is established - Connection should be closed
+

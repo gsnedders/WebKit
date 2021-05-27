@@ -1,13 +1,13 @@
 CONSOLE MESSAGE: WebSocket connection to 'ws://localhost:49001/echo-query?%C3%A5' failed: WebSocket is closed before the connection is established.
-CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=9dc074e3-b3ce-4944-8afd-323ab9d45433' because non CSS MIME types are not allowed in strict mode.
-CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
-CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
-CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
-CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=35031706-5814-4867-86b1-99004c34c68e' because non CSS MIME types are not allowed in strict mode.
-CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=12e578b2-8f30-4ed7-a1a9-63f4916d6d1b' because non CSS MIME types are not allowed in strict mode.
 CONSOLE MESSAGE: SyntaxError: Invalid character '\u2020'
 CONSOLE MESSAGE: SyntaxError: Invalid character '\u2020'
 CONSOLE MESSAGE: SyntaxError: Invalid character '\u2020'
+CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
+CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
+CONSOLE MESSAGE: ApplicationCache is deprecated. Please use ServiceWorkers instead.
+CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=1d219782-f95e-44cc-acae-ef799a7e775e' because non CSS MIME types are not allowed in strict mode.
+CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=4fb72fd8-c091-4694-a4b2-4f03f6261a52' because non CSS MIME types are not allowed in strict mode.
+CONSOLE MESSAGE: Did not parse stylesheet at 'http://localhost:8800/html/infrastructure/urls/resolving-urls/query-encoding/resources/stash.py?q=%C3%A5&action=put&id=c544de55-eafb-4848-845a-32889c22e022' because non CSS MIME types are not allowed in strict mode.
 
 Harness Error (FAIL), message = SyntaxError: Invalid character '\u2020'
 

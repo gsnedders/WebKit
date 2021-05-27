@@ -1,0 +1,4 @@
+
+
+FAIL Attaching a media element again to the document, having a child track that failed loading doesn't block video from playing assert_equals: expected 3 but got 0
+

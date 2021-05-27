@@ -1,3 +1,3 @@
 
-PASS createRadialGradient() throws TypeError if arguments are not finite
+FAIL createRadialGradient() throws TypeError if arguments are not finite Can't find variable: OffscreenCanvas
 

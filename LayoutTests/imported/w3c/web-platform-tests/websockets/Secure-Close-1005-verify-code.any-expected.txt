@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - Close the Connection - close() - Connection should be opened
+PASS Create Secure WebSocket - Close the Connection - close() - return close code is 1005 - Connection should be closed
+

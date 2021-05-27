@@ -1,0 +1,10 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/support/ChildWindowPostMessage.htm
+CONSOLE MESSAGE: Unable to post message to http://www1.localhost:8800. Recipient has origin http://localhost:8800.
+
+CONSOLE MESSAGE: Unable to post message to http://www.invalid-domain.com. Recipient has origin http://localhost:8800.
+
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Test Description: Cross-origin: If the origin of the target window doesn't match the given origin, the message is discarded.
+

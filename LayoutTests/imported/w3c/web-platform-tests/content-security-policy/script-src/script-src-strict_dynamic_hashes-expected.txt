@@ -1,0 +1,7 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+CONSOLE MESSAGE: Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.
+`strict-dynamic` allows scripts matching hashes present in the policy.
+
+
+PASS Script matching SHA256 hash is allowed with `strict-dynamic`.
+

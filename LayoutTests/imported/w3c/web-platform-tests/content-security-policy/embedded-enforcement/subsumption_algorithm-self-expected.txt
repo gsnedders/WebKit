@@ -1,0 +1,23 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27self%27+http%3A%2F%2Fb.com%3A*&id=%27self%27+keywords+should+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%3A*&id=Returned+CSP+does+not+have+to+specify+%27self%27.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27self%27+http%3A%2F%2Fb.com%3A*&id=Returned+CSP+must+not+allow+%27self%27+if+required+CSP+does+not.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2F&id=Returned+%27self%27+should+match+to+an+origin%27s+url.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27self%27&id=Required+%27self%27+should+match+to+a+origin%27s+url.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2F&id=Required+%27self%27+should+subsume+a+more+secure+version+of+origin%27s+url.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27self%27&id=Returned+%27self%27+should+not+be+subsumed+by+a+more+secure+version+of+origin%27s+url.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT 'self' keywords should match. Test timed out
+TIMEOUT Returned CSP does not have to specify 'self'. Test timed out
+FAIL Returned CSP must not allow 'self' if required CSP does not. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Returned 'self' should match to an origin's url. Test timed out
+TIMEOUT Required 'self' should match to a origin's url. Test timed out
+TIMEOUT Required 'self' should subsume a more secure version of origin's url. Test timed out
+FAIL Returned 'self' should not be subsumed by a more secure version of origin's url. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+

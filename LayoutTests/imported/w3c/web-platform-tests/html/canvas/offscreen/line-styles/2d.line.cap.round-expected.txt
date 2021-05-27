@@ -3,5 +3,5 @@
 lineCap 'round' is rendered correctly
 
 
-PASS lineCap 'round' is rendered correctly
+FAIL lineCap 'round' is rendered correctly Can't find variable: OffscreenCanvas
 

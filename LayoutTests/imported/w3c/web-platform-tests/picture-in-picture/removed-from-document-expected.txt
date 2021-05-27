@@ -1,0 +1,7 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Picture-in-Picture video does not pause when removed from document Test timed out
+

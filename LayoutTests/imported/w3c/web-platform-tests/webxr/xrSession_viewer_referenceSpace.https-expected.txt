@@ -1,6 +1,6 @@
 
 PASS Identity reference space provides correct poses for inline sessions - webgl
-FAIL Identity reference space provides correct poses for inline sessions - webgl2 assert_implements: webgl2 not supported. undefined
-PASS Identity reference space provides correct poses for immersive sessions - webgl
-FAIL Identity reference space provides correct poses for immersive sessions - webgl2 assert_implements: webgl2 not supported. undefined
+PASS Identity reference space provides correct poses for inline sessions - webgl2
+FAIL Identity reference space provides correct poses for immersive sessions - webgl promise_test: Unhandled rejection with value: object "TypeError: null is not an object (evaluating 'sessionObjects.gl.makeXRCompatible')"
+FAIL Identity reference space provides correct poses for immersive sessions - webgl2 promise_test: Unhandled rejection with value: object "TypeError: null is not an object (evaluating 'sessionObjects.gl.makeXRCompatible')"
 

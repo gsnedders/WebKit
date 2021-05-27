@@ -1,6 +1,4 @@
 
-Harness Error (TIMEOUT), message = null
-
 PASS Prepare a service worker.
 PASS Prepare a normal iframe.
 FAIL Prepare an iframe sandboxed by <iframe sandbox="allow-scripts">. assert_equals: expected 0 but got 1
@@ -13,21 +11,21 @@ PASS Request for an iframe in the normal iframe
 FAIL Request for an sandboxed iframe with allow-scripts flag in the normal iframe assert_equals: The request should NOT be handled by SW. expected 0 but got 1
 PASS Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the normal iframe
 FAIL Fetch request from iframe sandboxed by an attribute with allow-scripts flag assert_equals: The fetch request should NOT be handled by SW. expected 0 but got 1
-TIMEOUT Fetch request from a worker in iframe sandboxed by an attribute with allow-scripts flag Test timed out
-NOTRUN Request for an iframe in the iframe sandboxed by an attribute with allow-scripts flag
-NOTRUN Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by an attribute with allow-scripts flag
-NOTRUN Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by an attribute with allow-scripts flag
-NOTRUN Fetch request from iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
-NOTRUN Fetch request from a worker in iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
-NOTRUN Request for an iframe in the iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
-NOTRUN Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by attribute with allow-scripts and allow-same-origin flag
-NOTRUN Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by attribute with allow-scripts and allow-same-origin flag
-NOTRUN Fetch request from iframe sandboxed by CSP HTTP header with allow-scripts flag
-NOTRUN Request for an iframe in the iframe sandboxed by CSP HTTP header with allow-scripts flag
-NOTRUN Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by CSP HTTP header with allow-scripts flag
-NOTRUN Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by CSP HTTP header with allow-scripts flag
-NOTRUN Fetch request from iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
-NOTRUN Request for an iframe in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
-NOTRUN Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
-NOTRUN Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
+FAIL Fetch request from a worker in iframe sandboxed by an attribute with allow-scripts flag assert_equals: The fetch request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an iframe in the iframe sandboxed by an attribute with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by an attribute with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by an attribute with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+PASS Fetch request from iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
+PASS Fetch request from a worker in iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
+PASS Request for an iframe in the iframe sandboxed by an attribute with allow-scripts and allow-same-origin flag
+FAIL Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by attribute with allow-scripts and allow-same-origin flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+PASS Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by attribute with allow-scripts and allow-same-origin flag
+FAIL Fetch request from iframe sandboxed by CSP HTTP header with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an iframe in the iframe sandboxed by CSP HTTP header with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by CSP HTTP header with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+FAIL Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by CSP HTTP header with allow-scripts flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+PASS Fetch request from iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
+PASS Request for an iframe in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
+FAIL Request for an sandboxed iframe with allow-scripts flag in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag assert_equals: The request should NOT be handled by SW. expected 0 but got 1
+PASS Request for an sandboxed iframe with allow-scripts and allow-same-origin flag in the iframe sandboxed by CSP HTTP header with allow-scripts and allow-same-origin flag
 

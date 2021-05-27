@@ -1,3 +1,5 @@
 
-PASS org.w3.clearkey, temporary, mp4, playback two videos
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT org.w3.clearkey, temporary, mp4, playback two videos Test timed out
 

@@ -1,4 +1,4 @@
 
-PASS Test seeking beyond updated media duration.
-PASS Test seeking beyond media duration.
+FAIL Test seeking beyond updated media duration. assert_equals: Current time equals duration. expected 1.5 but got 1.8
+FAIL Test seeking beyond media duration. assert_equals: Current time equals duration. expected 6.5481179138322 but got 6.549
 

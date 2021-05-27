@@ -3,5 +3,5 @@
 Shadows are drawn for images
 
 
-PASS Shadows are drawn for images
+FAIL Shadows are drawn for images Can't find variable: OffscreenCanvas
 

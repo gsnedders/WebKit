@@ -1,3 +1,3 @@
 
-PASS Shadows take account of transformations
+FAIL Shadows take account of transformations Can't find variable: OffscreenCanvas
 

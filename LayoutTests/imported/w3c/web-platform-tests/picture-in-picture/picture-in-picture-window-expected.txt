@@ -1,0 +1,11 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Picture-in-Picture window dimensions are set after entering Picture-in-Picture Test timed out
+NOTRUN Picture-in-Picture window dimensions are set to 0 after entering Picture-in-Picture for another video
+NOTRUN Picture-in-Picture window is unchanged after entering Picture-in-Picture for video already in Picture-in-Picture
+NOTRUN Picture-in-Picture window dimensions are set to 0 after exiting Picture-in-Picture
+NOTRUN Picture-in-Picture window dimensions are set to 0 if disablePictureInPicture becomes true
+

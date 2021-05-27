@@ -1,5 +1,5 @@
 2d.composite.transparent.destination-out
 
 
-PASS OffscreenCanvas test: 2d.composite.transparent.destination-out
+FAIL OffscreenCanvas test: 2d.composite.transparent.destination-out Can't find variable: OffscreenCanvas
 

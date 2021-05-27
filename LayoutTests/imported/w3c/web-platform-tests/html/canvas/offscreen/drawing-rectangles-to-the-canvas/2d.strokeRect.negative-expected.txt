@@ -3,5 +3,5 @@
 strokeRect of negative sizes works
 
 
-PASS strokeRect of negative sizes works
+FAIL strokeRect of negative sizes works Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,7 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Test Picture-in-Picture element Test timed out
+

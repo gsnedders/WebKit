@@ -1,3 +1,5 @@
 
-PASS org.w3.clearkey, setmediakeys again after playback
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT org.w3.clearkey, setmediakeys again after playback Test timed out
 

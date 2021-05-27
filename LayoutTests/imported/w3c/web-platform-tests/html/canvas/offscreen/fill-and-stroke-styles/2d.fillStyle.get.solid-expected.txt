@@ -1,5 +1,5 @@
 2d.fillStyle.get.solid
 
 
-PASS OffscreenCanvas test: 2d.fillStyle.get.solid
+FAIL OffscreenCanvas test: 2d.fillStyle.get.solid Can't find variable: OffscreenCanvas
 

@@ -1,5 +1,5 @@
 2d.text.baseline.invalid
 
 
-PASS OffscreenCanvas test: 2d.text.baseline.invalid
+FAIL OffscreenCanvas test: 2d.text.baseline.invalid Can't find variable: OffscreenCanvas
 

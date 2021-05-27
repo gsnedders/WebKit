@@ -1,0 +1,4 @@
+
+PASS document.createElement() in SVG documents should not create autonomous custom elements.
+PASS document.createElement() in SVG documents should not create custom built-in elements.
+

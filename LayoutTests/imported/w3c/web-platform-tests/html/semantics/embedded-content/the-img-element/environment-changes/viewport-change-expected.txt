@@ -1,7 +1,7 @@
 
 PASS img (no src), onload, narrow
 PASS img (no src), resize to wide
-FAIL img (empty src), onload, narrow assert_equals: expected "" but got "http://localhost:8800/html/semantics/embedded-content/the-img-element/environment-changes/iframed.sub.html?id=6b6a65ef-6480-4d7d-980d-f2fc5a60eb11"
+FAIL img (empty src), onload, narrow assert_equals: expected "" but got "http://localhost:8800/html/semantics/embedded-content/the-img-element/environment-changes/iframed.sub.html?id=21ffdd6c-3c19-41d6-858a-b65631e6c9f5"
 PASS img (empty src), resize to wide
 PASS img (src only) broken image, onload, narrow
 PASS img (src only) broken image, resize to wide
@@ -23,7 +23,7 @@ PASS picture: same URL in source (max-width:500px) and img, onload, narrow
 PASS picture: same URL in source (max-width:500px) and img, resize to wide
 PASS img (no src), onload, wide
 PASS img (no src), resize to narrow
-FAIL img (empty src), onload, wide assert_equals: expected "" but got "http://localhost:8800/html/semantics/embedded-content/the-img-element/environment-changes/iframed.sub.html?id=98e69ec3-972c-4a1f-ace3-55a19ff922c2"
+FAIL img (empty src), onload, wide assert_equals: expected "" but got "http://localhost:8800/html/semantics/embedded-content/the-img-element/environment-changes/iframed.sub.html?id=86b61634-e4e6-45f0-aa14-cb17db3f6bc5"
 PASS img (empty src), resize to narrow
 PASS img (src only) broken image, onload, wide
 PASS img (src only) broken image, resize to narrow

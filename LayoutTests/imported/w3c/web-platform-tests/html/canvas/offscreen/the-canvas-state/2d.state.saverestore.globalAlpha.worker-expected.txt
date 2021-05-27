@@ -1,3 +1,3 @@
 
-PASS save()/restore() works for globalAlpha
+FAIL save()/restore() works for globalAlpha Can't find variable: OffscreenCanvas
 

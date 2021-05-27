@@ -1,0 +1,35 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=%60https%60+is+more+restrictive+than+%60http%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com&id=The+reverse+allows+iframe+be+to+be+loaded.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com&id=Matching+%60https%60+protocols.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fc.com%3A*+https%3A%2F%2Fb.com+http%3A%2F%2Fc.com&id=%60http%3A%60+should+subsume+all+host+source+expressions+with+this+protocol.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fc.com%3A*+https%3A%2F%2Fb.com+http%3A%2F%2Fc.com&id=%60http%3A%60+should+subsume+all+host+source+expressions+with+%60https%3A%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fc.com%3A*+wss%3A%2F%2Fb.com+http%3A%2F%2Fc.com&id=%60http%3A%60+does+not+subsume+other+protocols.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A&id=If+scheme+source+is+present+in+returned+csp%2C+it+must+be+specified+in+required+csp+too.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A+https%3A%2F%2Fc.com%3A*+https%3A%2F%2Fb.com+http%3A%2F%2Fc.com&id=%60http%3A%60+subsumes+other+%60http%3A%60+source+expression.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A+https%3A%2F%2Fc.com%3A*+http%3A%2F%2Fb.com&id=%60http%3A%60+subsumes+other+%60https%3A%60+source+expression+and+expressions+with+%60http%3A%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A+ws%3A&id=All+scheme+sources+must+be+subsumed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A+wss%3A&id=All+scheme+sources+are+subsumed+by+their+stronger+variants.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL `https` is more restrictive than `http`. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT The reverse allows iframe be to be loaded. Test timed out
+TIMEOUT Matching `https` protocols. Test timed out
+TIMEOUT `http:` should subsume all host source expressions with this protocol. Test timed out
+TIMEOUT `http:` should subsume all host source expressions with `https:`. Test timed out
+FAIL `http:` does not subsume other protocols. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL If scheme source is present in returned csp, it must be specified in required csp too. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT `http:` subsumes other `http:` source expression. Test timed out
+TIMEOUT `http:` subsumes other `https:` source expression and expressions with `http:`. Test timed out
+FAIL All scheme sources must be subsumed. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT All scheme sources are subsumed by their stronger variants. Test timed out
+

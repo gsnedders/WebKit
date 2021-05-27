@@ -1,0 +1,15 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?appendChild because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?appendChild-incorrectNonce because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to execute a script because its hash, its nonce, or 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.
+A `strict-dynamic` policy can be served in a META tag.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Script injected via `appendChild` is allowed with `strict-dynamic`. assert_unreached: Error should not be triggered. Reached unreachable code
+FAIL Script injected via `appendChild` is allowed with `strict-dynamic`, even if it carries an incorrect nonce. assert_unreached: Error should not be triggered. Reached unreachable code
+TIMEOUT Script injected via `appendChild` populated via `textContent` is allowed with `strict-dynamic`. Test timed out
+TIMEOUT Script injected via `appendChild` populated via `textContent` is allowed with `strict-dynamic`, even if it carries an incorrect nonce. Test timed out
+

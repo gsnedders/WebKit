@@ -3,5 +3,5 @@
 putImageData(getImageData(...), ...) has no effect
 
 
-PASS putImageData(getImageData(...), ...) has no effect
+FAIL putImageData(getImageData(...), ...) has no effect Can't find variable: OffscreenCanvas
 

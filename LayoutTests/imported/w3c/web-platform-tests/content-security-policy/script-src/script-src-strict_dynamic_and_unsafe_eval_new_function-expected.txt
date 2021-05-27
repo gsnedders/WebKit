@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+Scripts injected via `new Function()` are allowed with `strict-dynamic` with `unsafe-eval`.
+
+
+PASS Script injected via `new Function()` is allowed with `strict-dynamic` with `unsafe-eval`.
+

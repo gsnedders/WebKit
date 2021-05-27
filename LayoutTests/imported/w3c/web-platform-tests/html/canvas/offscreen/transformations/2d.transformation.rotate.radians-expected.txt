@@ -3,5 +3,5 @@
 rotate() uses radians
 
 
-PASS rotate() uses radians
+FAIL rotate() uses radians Can't find variable: OffscreenCanvas
 

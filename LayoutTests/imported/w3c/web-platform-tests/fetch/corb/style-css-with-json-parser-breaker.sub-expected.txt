@@ -1,0 +1,9 @@
+Blocked access to external URL http://www1.localhost:8800/fetch/corb/resources/css-with-json-parser-breaker.css
+Blocked access to external URL http://www1.localhost:8800/fetch/corb/resources/css-with-json-parser-breaker.css
+Header example
+
+Paragraph body
+
+
+FAIL CORB doesn't block a stylesheet that has a proper Content-Type and begins with a JSON parser breaker assert_equals: expected "rgb(255, 0, 0)" but got "rgb(0, 128, 0)"
+

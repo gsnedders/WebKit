@@ -3,5 +3,5 @@
 createLinearGradient() throws TypeError if arguments are not finite
 
 
-PASS createLinearGradient() throws TypeError if arguments are not finite
+FAIL createLinearGradient() throws TypeError if arguments are not finite Can't find variable: OffscreenCanvas
 

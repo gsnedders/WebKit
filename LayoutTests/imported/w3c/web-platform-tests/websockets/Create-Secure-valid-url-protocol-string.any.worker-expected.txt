@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - Check readyState is 1
+PASS Create Secure WebSocket - Pass a valid URL and protocol string - Connection should be closed
+

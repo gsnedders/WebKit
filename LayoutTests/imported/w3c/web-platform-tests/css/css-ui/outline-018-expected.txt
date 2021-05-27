@@ -1,0 +1,3 @@
+
+PASS outline-style is animated as a discrete type
+

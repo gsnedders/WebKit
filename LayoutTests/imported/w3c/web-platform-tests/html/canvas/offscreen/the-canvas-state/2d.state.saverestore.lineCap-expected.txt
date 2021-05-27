@@ -3,5 +3,5 @@
 save()/restore() works for lineCap
 
 
-PASS save()/restore() works for lineCap
+FAIL save()/restore() works for lineCap Can't find variable: OffscreenCanvas
 

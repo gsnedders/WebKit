@@ -3,5 +3,5 @@
 Incorrect image types in drawImage do not match any defined overloads, so WebIDL throws a TypeError
 
 
-PASS Incorrect image types in drawImage do not match any defined overloads, so WebIDL throws a TypeError
+FAIL Incorrect image types in drawImage do not match any defined overloads, so WebIDL throws a TypeError Can't find variable: OffscreenCanvas
 

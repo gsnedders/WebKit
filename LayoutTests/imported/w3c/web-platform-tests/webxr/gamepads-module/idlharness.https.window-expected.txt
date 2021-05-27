@@ -1,0 +1,7 @@
+
+PASS idl_test setup
+PASS idl_test validation
+PASS Partial interface XRInputSource: original interface defined
+PASS Partial interface XRInputSource: member names are unique
+PASS XRInputSource interface: attribute gamepad
+

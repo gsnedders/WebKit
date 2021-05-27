@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - Pass a valid URL  - Connection should be opened
+PASS Create Secure WebSocket - Pass a valid URL - Connection should be closed
+

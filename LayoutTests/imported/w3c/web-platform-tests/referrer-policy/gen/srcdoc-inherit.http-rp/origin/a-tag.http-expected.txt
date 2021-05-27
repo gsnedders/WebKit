@@ -1,0 +1,9 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/document.py?redirection=no-redirect&action=purge&key=c1fdd702-0237-4a22-9428-a1350f746a72&path=%2Fmixed-content
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Referrer Policy: Expects origin for a-tag to cross-http origin and no-redirect redirection from http context. Test timed out
+NOTRUN Referrer Policy: Expects origin for a-tag to cross-https origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for a-tag to same-http origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for a-tag to same-https origin and no-redirect redirection from http context.
+

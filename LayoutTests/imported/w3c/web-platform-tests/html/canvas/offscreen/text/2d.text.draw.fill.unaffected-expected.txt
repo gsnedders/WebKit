@@ -3,5 +3,5 @@
 fillText does not start a new path or subpath
 
 
-PASS fillText does not start a new path or subpath
+FAIL fillText does not start a new path or subpath Can't find variable: OffscreenCanvas
 

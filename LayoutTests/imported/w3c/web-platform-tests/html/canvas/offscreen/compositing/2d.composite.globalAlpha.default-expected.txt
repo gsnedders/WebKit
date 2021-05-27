@@ -1,5 +1,5 @@
 2d.composite.globalAlpha.default
 
 
-PASS OffscreenCanvas test: 2d.composite.globalAlpha.default
+FAIL OffscreenCanvas test: 2d.composite.globalAlpha.default Can't find variable: OffscreenCanvas
 

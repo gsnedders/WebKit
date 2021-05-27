@@ -1,0 +1,39 @@
+
+
+PASS Test CRLF: \r\n character after directive name
+PASS Test CRLF: \r\n character in directive value
+PASS Test CRLF: \n character after directive name
+PASS Test CRLF: \n character in directive value
+PASS Test CRLF: \r character after directive name
+PASS Test CRLF: \r character in directive value
+PASS Test CRLF: %0D%0A character after directive name
+PASS Test CRLF: %0D%0A character in directive value
+PASS Test CRLF: %0A character after directive name
+PASS Test CRLF: %0A character in directive value
+PASS Test CRLF: %0D character after directive name
+PASS Test CRLF: %0D character in directive value
+PASS Test CRLF: Attempt injecting after directive name using \r\n
+PASS Test CRLF: Attempt injecting after directive name using \r
+PASS Test CRLF: Attempt injecting after directive name using \n
+PASS Test CRLF: Attempt injecting after directive value using \r\n
+PASS Test CRLF: Attempt injecting after directive value using \r
+PASS Test CRLF: Attempt injecting after directive value using \n
+PASS Test CRLF: Attempt injecting after semicolon using \r\n
+PASS Test CRLF: Attempt injecting after semicolon using \r
+PASS Test CRLF: Attempt injecting after semicolon using \n
+PASS Test CRLF: Attempt injecting after space between name and value using \r\n
+PASS Test CRLF: Attempt injecting after space between name and value using \r
+PASS Test CRLF: Attempt injecting after space between name and value using \n
+PASS Test CRLF: Attempt injecting after directive name using %0D%0A
+PASS Test CRLF: Attempt injecting after directive name using %0D
+PASS Test CRLF: Attempt injecting after directive name using %0A
+PASS Test CRLF: Attempt injecting after directive value using %0D%0A
+PASS Test CRLF: Attempt injecting after directive value using %0D
+PASS Test CRLF: Attempt injecting after directive value using %0A
+PASS Test CRLF: Attempt injecting after semicolon using %0D%0A
+PASS Test CRLF: Attempt injecting after semicolon using %0D
+PASS Test CRLF: Attempt injecting after semicolon using %0A
+PASS Test CRLF: Attempt injecting after space between name and value using %0D%0A
+PASS Test CRLF: Attempt injecting after space between name and value using %0D
+PASS Test CRLF: Attempt injecting after space between name and value using %0A
+

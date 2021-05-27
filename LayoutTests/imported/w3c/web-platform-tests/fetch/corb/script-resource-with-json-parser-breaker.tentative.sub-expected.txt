@@ -1,0 +1,32 @@
+Blocked access to external URL http://www1.localhost:8800/fetch/corb/resources/sniffable-resource.py?type=text/html&body=)%5D%7D%27
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT CORB-blocks 'text/html' that starts with the following JSON parser breaker: )]}' Test timed out
+NOTRUN CORB-blocks 'text/html' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'text/html' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'text/xml' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'text/xml' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'text/xml' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'text/json' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'text/json' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'text/json' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'text/plain' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'text/plain' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'text/plain' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'application/javascript' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'application/javascript' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'application/javascript' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'image/png' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'image/png' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'image/png' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'image/svg+xml' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'image/svg+xml' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'image/svg+xml' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'application/pdf' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'application/pdf' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'application/pdf' that starts with the following JSON parser breaker: {} &&
+NOTRUN CORB-blocks 'application/zip' that starts with the following JSON parser breaker: )]}'
+NOTRUN CORB-blocks 'application/zip' that starts with the following JSON parser breaker: {}&&
+NOTRUN CORB-blocks 'application/zip' that starts with the following JSON parser breaker: {} &&
+

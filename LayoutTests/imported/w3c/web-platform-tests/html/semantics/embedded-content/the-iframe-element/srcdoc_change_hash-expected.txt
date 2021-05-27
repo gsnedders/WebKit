@@ -3,5 +3,5 @@ Please click here to allow hash = '1'.
 
 Harness Error (TIMEOUT), message = null
 
-NOTRUN Untitled
+TIMEOUT same-document navigation inside an srcdoc iframe using location.hash Test timed out
 

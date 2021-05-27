@@ -3,5 +3,5 @@
 Zero-length line segments from rect and strokeRect are removed before stroking
 
 
-PASS Zero-length line segments from rect and strokeRect are removed before stroking
+FAIL Zero-length line segments from rect and strokeRect are removed before stroking Can't find variable: OffscreenCanvas
 

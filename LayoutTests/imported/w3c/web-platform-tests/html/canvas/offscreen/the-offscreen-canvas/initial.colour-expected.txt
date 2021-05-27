@@ -3,5 +3,5 @@ initial.colour
 Initial state is transparent black
 
 
-PASS Initial state is transparent black
+FAIL Initial state is transparent black Can't find variable: OffscreenCanvas
 

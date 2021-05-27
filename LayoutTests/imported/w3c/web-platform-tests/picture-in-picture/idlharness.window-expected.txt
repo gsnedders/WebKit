@@ -1,0 +1,7 @@
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT idl_test setup Test timed out
+PASS idl_test validation
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.

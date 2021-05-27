@@ -1,0 +1,4 @@
+
+PASS XML parser should create autonomous custom elements.
+FAIL XML parser should create custom built-in elements. assert_true: expected true got false
+

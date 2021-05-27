@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events touch-action attribute support
 
 Test Description: Press and hold your touch. Try to scroll text in any direction. Then release your touch and try to scroll again. Expected: no panning.
@@ -70,9 +71,9 @@ Lorem ipsum dolor sit amet...
 
 touch-action: auto to none
 
-The following pointer types were detected: touch.
+The following pointer types were detected: (none).
 
 
-PASS touch-action was changed
-PASS scroll should be received before the test finishes
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
 

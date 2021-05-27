@@ -1,0 +1,49 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?id=If+there+is+no+required+csp%2C+iframe+should+load.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?id=Iframe+with+empty+returned+CSP+should+be+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27none%27%3B+script-src+%27unsafe-inline%27&id=Iframe+with+matching+CSP+should+load.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27nonce-abc%27&id=Iframe+with+more+restricting+CSP+should+load.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27none%27%3B+script-src+%27self%27+%27nonce-abc%27&id=Iframe+with+less+restricting+CSP+should+be+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27none%27&id=Iframe+with+a+different+CSP+should+be+blocked.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+http%3A%2F%2Fb.com%3A80+http%3A%2F%2Fc.com%3A443&id=Iframe+with+a+matching+and+more+restrictive+ports+should+load.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+http%3A%2F%2Fa.com&id=Host+wildcard+*.a.com+does+not+match+a.com
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+http%3A%2F%2Fa.com&policy2=frame-src+http%3A%2F%2F*.a.com&id=Host+intersection+with+wildcards+is+computed+correctly.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=child-src+https%3A%2F%2Fb.com%3A443&id=Iframe+should+load+even+if+the+ports+are+different+but+are+default+for+the+protocols.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2F*.com%3A*&policy2=style-src+http%3A%2F%2F*.com+http%3A%2F%2F*.example.com%3A*&id=Iframe+should+block+if+intersection+allows+sources+which+are+not+in+required_csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2F*.com%3A*&policy2=style-src+http%3A%2F%2F*.example.com%3A*+http%3A%2F%2F*.com&id=Iframe+should+block+if+intersection+allows+sources+which+are+not+in+required_csp+%28other+ordering%29.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2F*.example.com%3A*&policy2=style-src+http%3A%2F%2F*.com&id=Iframe+should+load+if+intersection+allows+only+sources+which+are+in+required_csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?id=Iframe+should+block+if+plugin-types+directive+is+not+subsumed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=plugin-types+application%2Fpdf&id=Iframe+should+load+if+plugin-types+directive+is+subsumed.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT If there is no required csp, iframe should load. Test timed out
+FAIL Iframe with empty returned CSP should be blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Iframe with matching CSP should load. Test timed out
+TIMEOUT Iframe with more restricting CSP should load. Test timed out
+FAIL Iframe with less restricting CSP should be blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Iframe with a different CSP should be blocked. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Iframe with a matching and more restrictive ports should load. Test timed out
+FAIL Host wildcard *.a.com does not match a.com assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Host intersection with wildcards is computed correctly. Test timed out
+TIMEOUT Iframe should load even if the ports are different but are default for the protocols. Test timed out
+FAIL Iframe should block if intersection allows sources which are not in required_csp. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Iframe should block if intersection allows sources which are not in required_csp (other ordering). assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Iframe should load if intersection allows only sources which are in required_csp. Test timed out
+FAIL Iframe should block if plugin-types directive is not subsumed. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Iframe should load if plugin-types directive is subsumed. Test timed out
+

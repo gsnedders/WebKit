@@ -1,0 +1,3 @@
+
+FAIL Cross-Origin-Opener-Policy and a blob URL popup Can't find variable: BroadcastChannel
+

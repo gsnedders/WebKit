@@ -1,0 +1,18 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/document.py?redirection=keep-origin&action=purge&key=ae2289e0-c24a-43b7-91b9-73c1ac6cfd85&path=%2Fmixed-content
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Referrer Policy: Expects origin for iframe-tag to cross-http origin and keep-origin redirection from http context. Test timed out
+NOTRUN Referrer Policy: Expects origin for iframe-tag to cross-http origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to cross-http origin and swap-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to cross-https origin and keep-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to cross-https origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to cross-https origin and swap-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-http origin and keep-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-http origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-http origin and swap-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-https origin and keep-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-https origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for iframe-tag to same-https origin and swap-origin redirection from http context.
+

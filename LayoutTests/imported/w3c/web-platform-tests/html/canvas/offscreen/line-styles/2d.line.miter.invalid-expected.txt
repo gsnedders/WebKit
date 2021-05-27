@@ -3,5 +3,5 @@
 Setting miterLimit to invalid values is ignored
 
 
-PASS Setting miterLimit to invalid values is ignored
+FAIL Setting miterLimit to invalid values is ignored Can't find variable: OffscreenCanvas
 

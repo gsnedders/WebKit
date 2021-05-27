@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 pointerout
 
 Test Description: This test checks if pointerout event triggers after pointercancel. Start touch on the black rectangle and move your touch to scroll in any direction.
@@ -6,8 +7,10 @@ Note: this test is for touch devices only
 
 Pointer Events pointerout tests
 
-The following pointer types were detected: touch.
+The following pointer types were detected: (none).
 
 
-PASS pointerout event received
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointerout event received
 

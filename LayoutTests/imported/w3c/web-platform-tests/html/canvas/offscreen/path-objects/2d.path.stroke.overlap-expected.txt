@@ -3,5 +3,5 @@
 Stroked subpaths are combined before being drawn
 
 
-PASS Stroked subpaths are combined before being drawn
+FAIL Stroked subpaths are combined before being drawn Can't find variable: OffscreenCanvas
 

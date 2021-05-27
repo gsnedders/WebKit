@@ -1,0 +1,8 @@
+
+FAIL Anchor creation succeeds if the feature was requested - webgl promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Anchor creation succeeds if the feature was requested - webgl2 promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Anchor creation fails if the feature was not requested - webgl promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Anchor creation fails if the feature was not requested - webgl2 promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Anchor creation fails if the feature was requested but the session already ended - webgl promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+FAIL Anchor creation fails if the feature was requested but the session already ended - webgl2 promise_test: Unhandled rejection with value: object "TypeError: Member FakeXRDeviceInit.supportsImmersive is required and must be an instance of boolean"
+

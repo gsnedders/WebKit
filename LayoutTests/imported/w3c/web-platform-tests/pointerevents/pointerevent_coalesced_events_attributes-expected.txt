@@ -1,0 +1,17 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Events coalesced events count and properties
+
+Follow the test instructions with touch. If you don't have the device skip it.
+
+Test Description: This test checks the coalesced events of all types of pointer events.
+Pointer down in the black square and drag inside the black square immediately
+Release the pointer.
+Pointer down in the purple square and drag inside the purple square immediately
+Release the pointer and move out of the purple square
+Test passes if the proper behavior of the events is observed.
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN touch coalesced events attributes in pointerevents
+

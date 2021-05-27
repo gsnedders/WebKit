@@ -1,0 +1,25 @@
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=keep-origin&action=purge&key=4cbd6e98-0fea-4149-b1ad-f4424a038bed&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=no-redirect&action=purge&key=e55fc34f-8ec0-493d-9b72-2bd464f2bde9&path=%2Fmixed-content
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?redirection=swap-origin&action=purge&key=05403d00-4e60-45c8-9689-9e64b17d3b0f&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=keep-origin&action=purge&key=fdd71c0c-ab00-4458-a444-2a369d722e40&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=no-redirect&action=purge&key=983feb9d-9f89-4a12-9405-432fcdb0d1b0&path=%2Fmixed-content
+Blocked access to external URL https://www1.localhost:9443/common/security-features/subresource/image.py?redirection=swap-origin&action=purge&key=0ecdeeb3-c5ac-4c68-b9cb-952d5d1ff861&path=%2Fmixed-content
+CONSOLE MESSAGE: Unable to get image data from canvas. Requested size was 37 x 37
+CONSOLE MESSAGE: Unable to get image data from canvas. Requested size was 37 x 37
+Blocked access to external URL http://www1.localhost:8800/common/security-features/subresource/image.py?action=purge&key=8352ba07-428d-4dd1-80bf-28e93521601e&path=%2Fmixed-content
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Referrer Policy: Expects origin for img-tag to cross-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to cross-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to cross-http origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to cross-https origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to cross-https origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to cross-https origin and swap-origin redirection from http context. promise_test: Unhandled rejection with value: "Error"
+FAIL Referrer Policy: Expects origin for img-tag to same-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "The object is in an invalid state."
+FAIL Referrer Policy: Expects origin for img-tag to same-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "The object is in an invalid state."
+TIMEOUT Referrer Policy: Expects origin for img-tag to same-http origin and swap-origin redirection from http context. Test timed out
+NOTRUN Referrer Policy: Expects origin for img-tag to same-https origin and keep-origin redirection from http context.
+NOTRUN Referrer Policy: Expects origin for img-tag to same-https origin and no-redirect redirection from http context.
+NOTRUN Referrer Policy: Expects origin for img-tag to same-https origin and swap-origin redirection from http context.
+

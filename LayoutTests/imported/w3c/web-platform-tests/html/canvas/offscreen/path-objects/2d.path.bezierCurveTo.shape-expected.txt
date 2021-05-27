@@ -1,5 +1,5 @@
 2d.path.bezierCurveTo.shape
 
 
-PASS OffscreenCanvas test: 2d.path.bezierCurveTo.shape
+FAIL OffscreenCanvas test: 2d.path.bezierCurveTo.shape Can't find variable: OffscreenCanvas
 

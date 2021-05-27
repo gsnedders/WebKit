@@ -1,0 +1,8 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Exit Picture-in-Picture resolves when there is a Picture-in-Picture video Test timed out
+NOTRUN Exit Picture-in-Picture rejects when there is no Picture-in-Picture video
+

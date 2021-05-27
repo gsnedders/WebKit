@@ -3,5 +3,5 @@
 drawImage() of an SVG image
 
 
-PASS drawImage() of an SVG image
+FAIL drawImage() of an SVG image Can't find variable: OffscreenCanvas
 

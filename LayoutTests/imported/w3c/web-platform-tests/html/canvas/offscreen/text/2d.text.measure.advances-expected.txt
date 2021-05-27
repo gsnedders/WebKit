@@ -3,5 +3,5 @@
 Testing width advances for OffscreenCanvas
 
 
-FAIL Testing width advances for OffscreenCanvas undefined is not an object (evaluating 'ctx.measureText('Hello').advances[0]')
+FAIL Testing width advances for OffscreenCanvas Can't find variable: OffscreenCanvas
 

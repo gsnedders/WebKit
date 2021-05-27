@@ -1,0 +1,54 @@
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=a9aec8aa-bb7c-4036-b328-d1dcf25c4872
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=fad66f5f-98e4-46b9-b537-d983062ba668
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=16775b87-40d2-4512-b2d6-0fbb6d80637c
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=6805a70f-6728-4a77-9d57-60d2b0053e69
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=f6eaca9f-c715-4514-bea0-061d395a185c
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=1e4af70c-b17d-44a8-84af-b36145bb1a53
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=2726cb11-f2b0-438f-a12e-fa72f69425a4
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=1e5fa00c-dc68-48b4-9e08-dd4bb7c0c788
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=3a078a45-0802-4ab1-8a2c-bee9a782c5e8
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=bfa4f3fd-05e0-45c8-933f-5993f041c4f3
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=d88cbc18-3e7a-48ae-b549-1103a15c2fe0
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=55545b91-fc34-48a7-bdb6-db61ab9e9caf
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=7b60f124-8f21-444e-a78a-f064b7620b31
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=d91db0b1-a6af-430a-8f4f-e1bd4ada4a41
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=1d9c239b-97c9-4a28-90aa-5f342fd00176
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=5e0e5b70-da36-4c17-88c7-3fec055266c1
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=63608ed7-4473-4f73-900b-d6be2aacd510
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=debecf74-a670-422d-b2fb-52b5b1128d07
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=da21a45c-0426-4da5-83a1-e30b93ef8487
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=1c958488-0ed8-4acc-a604-27ff4f78ea9a
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=5d202514-01ac-41e7-a5f3-de15437dca15
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=df62575e-aa5d-4782-a20e-a734e6c9f9d7
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=52747b0c-bcb5-4282-b268-1769901487c2
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=8ce6315e-d65d-405c-b4f6-cfd76a2cac90
+Simple requests
+
+Simple requests shouldn't trigger preflight
+
+
+FAIL No preflight GET and {"Accept":"test"}  A network error occurred.
+FAIL No preflight HEAD and {"Accept":"test"}  A network error occurred.
+FAIL No preflight POST and {"Accept":"test"}  A network error occurred.
+FAIL No preflight GET and {"accept-language":"test"}  A network error occurred.
+FAIL No preflight HEAD and {"accept-language":"test"}  A network error occurred.
+FAIL No preflight POST and {"accept-language":"test"}  A network error occurred.
+FAIL No preflight GET and {"CONTENT-language":"test"}  A network error occurred.
+FAIL No preflight HEAD and {"CONTENT-language":"test"}  A network error occurred.
+FAIL No preflight POST and {"CONTENT-language":"test"}  A network error occurred.
+FAIL No preflight GET and {"Content-Type":"application/x-www-form-urlencoded"}  A network error occurred.
+FAIL No preflight HEAD and {"Content-Type":"application/x-www-form-urlencoded"}  A network error occurred.
+FAIL No preflight POST and {"Content-Type":"application/x-www-form-urlencoded"}  A network error occurred.
+FAIL No preflight GET and {"content-type":"multipart/form-data"}  A network error occurred.
+FAIL No preflight HEAD and {"content-type":"multipart/form-data"}  A network error occurred.
+FAIL No preflight POST and {"content-type":"multipart/form-data"}  A network error occurred.
+FAIL No preflight GET and {"content-type":"text/plain"}  A network error occurred.
+FAIL No preflight HEAD and {"content-type":"text/plain"}  A network error occurred.
+FAIL No preflight POST and {"content-type":"text/plain"}  A network error occurred.
+FAIL No preflight GET and {"accept":"test","accept-language":"test","content-language":"test","content-type":"text/plain; parameter=whatever"}  A network error occurred.
+FAIL No preflight HEAD and {"accept":"test","accept-language":"test","content-language":"test","content-type":"text/plain; parameter=whatever"}  A network error occurred.
+FAIL No preflight POST and {"accept":"test","accept-language":"test","content-language":"test","content-type":"text/plain; parameter=whatever"}  A network error occurred.
+FAIL No preflight Get and {"content-type":"text/plain; parameter=extra_bonus"}  A network error occurred.
+FAIL No preflight post and {"content-type":"text/plain"}  A network error occurred.
+FAIL Check simple headers (async) assert_unreached: onerror Reached unreachable code
+

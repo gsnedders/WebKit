@@ -1,0 +1,5 @@
+
+FAIL Same-origin shared worker allowed by child-src 'self'. assert_throws_dom: function "function () {
+      var w = new SharedWorker(url);
+    }" threw object "ReferenceError: Can't find variable: SharedWorker" that is not a DOMException SecurityError: property "code" is equal to undefined, expected 18
+

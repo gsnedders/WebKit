@@ -1,5 +1,5 @@
 2d.composite.operation.unrecognised
 
 
-PASS OffscreenCanvas test: 2d.composite.operation.unrecognised
+FAIL OffscreenCanvas test: 2d.composite.operation.unrecognised Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,13 @@
+
+Harness Error (FAIL), message = Test named 'unsafe-none with SAME_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin"' specified 1 'cleanup' function, and 1 failed.
+
+FAIL unsafe-none with SAME_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin" Can't find variable: BroadcastChannel
+NOTRUN unsafe-none with SAME_SITE iframe opening popup a SAME_ORIGIN with COOP: "same-origin"
+NOTRUN unsafe-none with CROSS_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin"
+NOTRUN unsafe-none with SAME_ORIGIN iframe opening popup a SAME_SITE with COOP: "same-origin"
+NOTRUN unsafe-none with SAME_SITE iframe opening popup a SAME_SITE with COOP: "same-origin"
+NOTRUN unsafe-none with CROSS_ORIGIN iframe opening popup a SAME_SITE with COOP: "same-origin"
+NOTRUN unsafe-none with SAME_ORIGIN iframe opening popup a CROSS_ORIGIN with COOP: "same-origin"
+NOTRUN unsafe-none with SAME_SITE iframe opening popup a CROSS_ORIGIN with COOP: "same-origin"
+NOTRUN unsafe-none with CROSS_ORIGIN iframe opening popup a CROSS_ORIGIN with COOP: "same-origin"
+

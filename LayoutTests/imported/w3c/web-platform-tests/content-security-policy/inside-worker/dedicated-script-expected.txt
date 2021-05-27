@@ -1,0 +1,17 @@
+
+Harness Error (TIMEOUT), message = null
+
+PASS Filesystem and blob.
+FAIL Cross-origin `importScripts()` blocked in http: assert_throws_dom: importScripts should throw `NetworkError` function "_ => importScripts("http://127.0.0.1:8801/content-security-policy/support/var-a.js")" did not throw
+FAIL Cross-origin `importScripts()` blocked in http:?pipe=sub|header(Content-Security-Policy,default-src%20*) assert_throws_dom: importScripts should throw `NetworkError` function "_ => importScripts("http://127.0.0.1:8801/content-security-policy/support/var-a.js")" did not throw
+PASS Cross-origin `importScripts()` blocked in blob:
+FAIL Cross-origin `importScripts()` blocked in http:?pipe=sub|header(Content-Security-Policy,script-src%20*) assert_throws_dom: importScripts should throw `NetworkError` function "_ => importScripts("http://127.0.0.1:8801/content-security-policy/support/var-a.js")" did not throw
+PASS `eval()` blocked in blob:
+TIMEOUT `setTimeout([string])` blocked in blob: Test timed out
+FAIL `eval()` blocked in http: assert_throws_js: `eval()` should throw 'EvalError'. function "_ => eval("1 + 1")" did not throw
+FAIL `setTimeout([string])` blocked in http: assert_equals: expected 0 but got 1
+PASS `eval()` blocked in http:?pipe=sub|header(Content-Security-Policy,script-src%20*)
+PASS `eval()` blocked in http:?pipe=sub|header(Content-Security-Policy,default-src%20*)
+TIMEOUT `setTimeout([string])` blocked in http:?pipe=sub|header(Content-Security-Policy,script-src%20*) Test timed out
+TIMEOUT `setTimeout([string])` blocked in http:?pipe=sub|header(Content-Security-Policy,default-src%20*) Test timed out
+

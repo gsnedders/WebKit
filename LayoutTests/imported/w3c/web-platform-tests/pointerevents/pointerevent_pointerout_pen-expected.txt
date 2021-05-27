@@ -1,0 +1,16 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+pointerout
+
+Test Description: This test checks if pointerout event triggers for pen. Place your pen over the black rectangle and then pull the pen out of the digitizer's detectable range.
+
+Note: this test is for devices that support hover - for pen only
+
+Pointer Events pointerout tests
+
+The following pointer types were detected: (none).
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointerout event received
+

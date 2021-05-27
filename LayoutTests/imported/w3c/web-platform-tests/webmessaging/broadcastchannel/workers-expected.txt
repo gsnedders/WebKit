@@ -1,0 +1,18 @@
+CONSOLE MESSAGE: ReferenceError: Can't find variable: BroadcastChannel
+
+Harness Error (FAIL), message = ReferenceError: Can't find variable: BroadcastChannel
+
+FAIL BroadcastChannel works in workers Can't find variable: BroadcastChannel
+FAIL BroadcastChannel works in shared workers Can't find variable: BroadcastChannel
+FAIL Closing and re-opening a channel works. Can't find variable: BroadcastChannel
+TIMEOUT BroadcastChannel created after a worker self.close() Test timed out
+FAIL BroadcastChannel used after a worker self.close() Can't find variable: BroadcastChannel
+
+Harness Error (FAIL), message = ReferenceError: Can't find variable: BroadcastChannel
+
+FAIL BroadcastChannel works in workers Can't find variable: BroadcastChannel
+FAIL BroadcastChannel works in shared workers Can't find variable: BroadcastChannel
+FAIL Closing and re-opening a channel works. Can't find variable: BroadcastChannel
+TIMEOUT BroadcastChannel created after a worker self.close() Test timed out
+FAIL BroadcastChannel used after a worker self.close() Can't find variable: BroadcastChannel
+

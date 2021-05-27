@@ -1,0 +1,32 @@
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=1bd76cbc-c2ca-451d-b6c5-36702bb14019
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=9bb7ec9a-9715-424d-9114-d24c92b50520
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=c19a63d0-2782-401c-b3d2-8a273abf876c
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=c511d5ce-b423-4a40-9bd5-5c8309f71446
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=6862b2fc-bce4-4362-b382-c24468c37229
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=07549b7f-4821-424c-9669-f0b1ce0103c7
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=b104f875-90fb-4ace-880c-d6cec886a179
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=4936c263-01f1-45ed-9466-cdaa87bdd582
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=9bbc8cee-05fc-412f-bab6-5f95001a8351
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=485776ef-05f0-488f-8543-189824aa3dca
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=4d6dec44-58a5-49bf-831d-abe75cd02429
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=c7ac806f-7992-47a4-9197-f7b9080bf94b
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=55e3ef9a-0d5d-4a48-b579-4407505fa909
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=969c4e60-e590-43eb-9628-bd176b8f0b6b
+Blocked access to external URL http://www1.localhost:8800/cors/resources/preflight.py?token=c1e3aa94-0e16-49fd-85d1-586b9265ebf7
+
+FAIL Preflight for {"content-type":"text /plain"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text\t/\tplain"} assert_equals: expected "1" but got "0"
+FAIL No preflight for {"content-type":"text/plain;"} promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL No preflight for {"content-type":"text/plain;garbage"} promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Preflight for {"content-type":"text/plain;garbage\u0001\u0002"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text/plain,"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":",text/plain"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text/plain,text/plain"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text/plain,x/x"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text/plain\u000b"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"text/plain\f"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"application/www-form-urlencoded"} assert_equals: expected "1" but got "0"
+FAIL Preflight for {"content-type":"application/x-www-form-urlencoded;"} assert_equals: expected "1" but got "0"
+FAIL No preflight for {"content-type":"multipart/form-data"} promise_test: Unhandled rejection with value: object "TypeError: Type error"
+FAIL Preflight for {"content-type":"multipart/form-data;\""} assert_equals: expected "1" but got "0"
+

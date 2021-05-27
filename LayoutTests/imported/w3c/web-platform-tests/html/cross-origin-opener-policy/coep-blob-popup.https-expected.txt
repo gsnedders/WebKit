@@ -1,0 +1,5 @@
+
+FAIL COOP+COEP blob URL popup: window.open() Can't find variable: BroadcastChannel
+FAIL COOP+COEP blob URL popup: <a> Can't find variable: BroadcastChannel
+FAIL COOP+COEP blob URL popup: <a rel=noopener> Can't find variable: BroadcastChannel
+

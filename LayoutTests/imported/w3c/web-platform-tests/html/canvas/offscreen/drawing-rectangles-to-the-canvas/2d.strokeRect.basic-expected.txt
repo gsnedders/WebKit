@@ -3,5 +3,5 @@
 strokeRect works
 
 
-PASS strokeRect works
+FAIL strokeRect works Can't find variable: OffscreenCanvas
 

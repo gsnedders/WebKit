@@ -3,5 +3,5 @@
 clearRect does not draw shadows
 
 
-PASS clearRect does not draw shadows
+FAIL clearRect does not draw shadows Can't find variable: OffscreenCanvas
 

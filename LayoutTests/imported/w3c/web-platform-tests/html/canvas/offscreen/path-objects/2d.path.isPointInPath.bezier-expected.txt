@@ -3,5 +3,5 @@
 isPointInPath() works on Bezier curves
 
 
-PASS isPointInPath() works on Bezier curves
+FAIL isPointInPath() works on Bezier curves Can't find variable: OffscreenCanvas
 

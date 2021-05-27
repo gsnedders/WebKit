@@ -1,3 +1,5 @@
+Blocked access to external URL http://example.not/
+Blocked access to external URL http://example.not/
 
 PASS XMLHttpRequest: send() - Redirects (bogus Location header) (302: http://example.not)
 PASS XMLHttpRequest: send() - Redirects (bogus Location header) (302: mailto:someone@example.org)

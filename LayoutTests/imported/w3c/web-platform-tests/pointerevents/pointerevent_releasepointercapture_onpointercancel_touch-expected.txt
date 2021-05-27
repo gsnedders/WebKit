@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events Capture Test - release capture on pointercancel
 
 Test Description: This test checks if setCapture/releaseCapture functions works properly. Complete the following actions:
@@ -9,10 +10,12 @@ Pointer Events Capture Test
 
 Test complete: Scroll to Summary to view Pass/Fail Results.
 
-The following pointer types were detected: touch.
+The following pointer types were detected: (none).
 
-The following events were logged: gotpointercapture@target0, pointercancel@target0, lostpointercapture@target0.
+The following events were logged: (none).
 
 
-PASS pointer capture is released on pointercancel
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointer capture is released on pointercancel
 

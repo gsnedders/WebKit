@@ -3,5 +3,5 @@
 arcTo() does not draw anything from P1 to P2
 
 
-PASS arcTo() does not draw anything from P1 to P2
+FAIL arcTo() does not draw anything from P1 to P2 Can't find variable: OffscreenCanvas
 

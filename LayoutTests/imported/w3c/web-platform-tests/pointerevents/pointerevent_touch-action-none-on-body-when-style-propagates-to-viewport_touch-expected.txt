@@ -1,0 +1,95 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Events touch-action none on body when style propagates from body to viewport
+
+Test Description: Try to touch scroll. You shouldn't be able to.
+
+Note: this test is for touch only
+
+Body with touch-action=none.
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+Paragraph with touch-action=none
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+TIMEOUT touch-action none on body when style propagates to viewport Test timed out
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+TIMEOUT touch-action none on body when style propagates to viewport Test timed out
+

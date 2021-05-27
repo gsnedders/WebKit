@@ -1,0 +1,24 @@
+CONSOLE MESSAGE: WebSocket connection to 'ws://www2.localhost:49001/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'ws://xn--n8j6ds53lwwkrqhv28a.localhost:49001/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'wss://www2.localhost:58035/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'wss://xn--n8j6ds53lwwkrqhv28a.localhost:58035/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'ws://www1.localhost:49001/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'wss://xn--lve-6lad.localhost:58035/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'wss://www1.localhost:58035/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'wss://www1.localhost:58035/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'ws://www1.localhost:49001/echo' failed: A server with the specified hostname could not be found.
+CONSOLE MESSAGE: WebSocket connection to 'ws://xn--lve-6lad.localhost:49001/echo' failed: A server with the specified hostname could not be found.
+
+PASS WS protocol, no subdomain
+FAIL WS protocol, www subdomain #1 assert_true: expected true got false
+FAIL WS protocol, www subdomain #2 assert_true: expected true got false
+FAIL WS protocol, www subdomain #3 assert_true: expected true got false
+FAIL WS protocol, punycode subdomain #1 assert_true: expected true got false
+FAIL WS protocol, punycode subdomain #2 assert_true: expected true got false
+PASS WSS protocol, no subdomain
+FAIL WSS protocol, www subdomain #1 assert_true: expected true got false
+FAIL WSS protocol, www subdomain #2 assert_true: expected true got false
+FAIL WSS protocol, www subdomain #3 assert_true: expected true got false
+FAIL WSS protocol, punycode subdomain #1 assert_true: expected true got false
+FAIL WSS protocol, punycode subdomain #2 assert_true: expected true got false
+

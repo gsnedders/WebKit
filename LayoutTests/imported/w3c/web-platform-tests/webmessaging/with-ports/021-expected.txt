@@ -1,0 +1,8 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/without-ports/020-1.html
+
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN cross-origin test
+
+

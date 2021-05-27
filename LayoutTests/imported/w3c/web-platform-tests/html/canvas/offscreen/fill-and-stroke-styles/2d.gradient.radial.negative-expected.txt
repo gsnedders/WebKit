@@ -3,5 +3,5 @@
 createRadialGradient() throws INDEX_SIZE_ERR if either radius is negative
 
 
-PASS createRadialGradient() throws INDEX_SIZE_ERR if either radius is negative
+FAIL createRadialGradient() throws INDEX_SIZE_ERR if either radius is negative Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,20 @@
+Blocked access to external URL http://www1localhost:8800/cors/resources/cors-makeheader.py?get_value=hest_er_best&origin=none&5ca43e60-8926-4621-923c-b82a17e402c3
+Blocked access to external URL http://www1localhost:8800/cors/resources/cors-makeheader.py?get_value=hest_er_best&29e85a63-88cd-4754-86aa-72418dbe2957
+Blocked access to external URL http://www1localhost:8801/cors/resources/cors-makeheader.py?get_value=hest_er_best&origin=none&9e4169b5-7c19-46f3-b344-d26ac50021a5
+Blocked access to external URL http://www1localhost:8801/cors/resources/cors-makeheader.py?get_value=hest_er_best&0338c681-5540-434d-97c4-bd37365a9a65
+Blocked access to external URL https://www1localhost:9443/cors/resources/cors-makeheader.py?get_value=hest_er_best&origin=none&ca2398e3-d49b-4918-a866-7ebc7ef9c867
+Blocked access to external URL https://www1localhost:9443/cors/resources/cors-makeheader.py?get_value=hest_er_best&bad597e4-83c9-4d4b-b2a3-e2886c095ff5
+
+PASS Same domain basic usage, origin: none
+PASS Same domain basic usage, origin: echo
+PASS Cross domain basic usage, origin: none
+FAIL Cross domain basic usage, origin: echo assert_unreached: Should be accepted Reached unreachable code
+PASS Same domain different port, origin: none
+PASS Same domain different port, origin: echo
+PASS Cross domain different port, origin: none
+FAIL Cross domain different port, origin: echo assert_unreached: Should be accepted Reached unreachable code
+PASS Cross domain different protocol, origin: none
+FAIL Cross domain different protocol, origin: echo assert_unreached: Should be accepted Reached unreachable code
+PASS Same domain different protocol different port, origin: none
+PASS Same domain different protocol different port, origin: echo
+

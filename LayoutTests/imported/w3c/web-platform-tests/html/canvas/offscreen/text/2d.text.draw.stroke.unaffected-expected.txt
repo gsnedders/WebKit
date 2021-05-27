@@ -3,5 +3,5 @@
 strokeText does not start a new path or subpath
 
 
-PASS strokeText does not start a new path or subpath
+FAIL strokeText does not start a new path or subpath Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,7 @@
+
+
+FAIL Shared worker Can't find variable: SharedWorker
+FAIL Nested worker in shared worker Can't find variable: SharedWorker
+FAIL Shared worker from https subframe assert_false: expected false got true
+FAIL Nested worker from shared worker from https subframe assert_false: expected false got true
+

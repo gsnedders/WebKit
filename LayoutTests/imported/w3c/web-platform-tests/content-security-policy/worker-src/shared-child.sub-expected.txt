@@ -1,0 +1,4 @@
+
+FAIL Same-origin dedicated worker allowed by 'self'. Can't find variable: SharedWorker
+FAIL blob: dedicated worker allowed by 'blob:'. Can't find variable: SharedWorker
+

@@ -3,5 +3,5 @@
 The width of character is same as font used for OffscreenCanvas
 
 
-PASS The width of character is same as font used for OffscreenCanvas
+FAIL The width of character is same as font used for OffscreenCanvas Can't find variable: OffscreenCanvas
 

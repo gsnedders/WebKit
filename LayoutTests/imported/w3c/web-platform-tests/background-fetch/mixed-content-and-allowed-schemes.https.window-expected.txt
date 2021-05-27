@@ -1,0 +1,10 @@
+
+FAIL https: fetch should register ok promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL loopback IPv4 http: fetch should register ok promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL loopback IPv6 http: fetch should register ok promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL localhost http: fetch should register ok promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL wss: fetch should reject promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL file: fetch should reject promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL data: fetch should reject promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+FAIL unknown scheme fetch should reject promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'bgFetch.fetch')"
+

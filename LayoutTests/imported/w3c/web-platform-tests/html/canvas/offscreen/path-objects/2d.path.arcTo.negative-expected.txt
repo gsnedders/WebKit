@@ -3,5 +3,5 @@
 arcTo() with negative radius throws an exception
 
 
-PASS arcTo() with negative radius throws an exception
+FAIL arcTo() with negative radius throws an exception Can't find variable: OffscreenCanvas
 

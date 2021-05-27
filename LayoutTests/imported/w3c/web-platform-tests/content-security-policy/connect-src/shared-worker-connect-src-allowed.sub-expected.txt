@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: TypeError: undefined is not an object (evaluating 't_alert.NOTRUN')
+
+Harness Error (FAIL), message = TypeError: undefined is not an object (evaluating 't_alert.NOTRUN')
+
+FAIL Expecting logs: ["xhr allowed","TEST COMPLETE"] assert_unreached: Logging timeout, expected logs xhr allowed,TEST COMPLETE not sent. Reached unreachable code
+

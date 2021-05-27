@@ -1,0 +1,8 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/support/ChildWindowPostMessage.htm
+CONSOLE MESSAGE: Unable to post message to http://www1.localhost:8800. Recipient has origin http://localhost:8800.
+
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Test Description: Cross-origin: event.source returns the WindowProxy of the source window.
+

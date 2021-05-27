@@ -1,0 +1,9 @@
+To test manually, click the blue rectangle.
+
+
+DON'T CLICK ME
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Click element with href
+

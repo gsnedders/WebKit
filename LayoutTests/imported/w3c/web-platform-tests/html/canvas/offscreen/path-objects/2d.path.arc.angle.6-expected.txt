@@ -3,5 +3,5 @@
 arc() draws a full circle when anticlockwise and start > end+2pi
 
 
-PASS arc() draws a full circle when anticlockwise and start > end+2pi
+FAIL arc() draws a full circle when anticlockwise and start > end+2pi Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,14 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Event: pointerevents fire to disabled form controls
+
+Follow the test instructions with mouse. If you don't have the device skip it.
+
+Test Description: Pointerevents are dispatched to disabled form controls.
+
+Use the mouse or pen to press on the purple button. Or with touch, tap on the purple box.
+Disabled button
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse pointerevent attributes
+

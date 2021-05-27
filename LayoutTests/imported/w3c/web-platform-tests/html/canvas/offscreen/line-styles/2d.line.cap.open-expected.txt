@@ -3,5 +3,5 @@
 Line caps are drawn at the corners of an unclosed rectangle
 
 
-PASS Line caps are drawn at the corners of an unclosed rectangle
+FAIL Line caps are drawn at the corners of an unclosed rectangle Can't find variable: OffscreenCanvas
 

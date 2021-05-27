@@ -1,4 +1,4 @@
 Text
 
-PASS First contentful paint fires due to its ancestor getting rotating into view.
+FAIL First contentful paint fires due to its ancestor getting rotating into view. assert_equals: First contentful paint marked too early.  expected 0 but got 1
 

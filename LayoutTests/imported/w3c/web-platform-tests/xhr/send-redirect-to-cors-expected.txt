@@ -1,6 +1,32 @@
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
+Blocked access to external URL http://www2.localhost:8800/xhr/resources/corsenabled.py
 
-PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (301)
-PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (302)
-PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (303)
-PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (307)
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (301) assert_equals: expected 200 but got 0
+PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (301 GET with explicit Content-Type)
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (301 GET with explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (303 GET with explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (302) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (303) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (302 FOO with string and explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (303 FOO with string and explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (307) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 post with null) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 post with string) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 post with typed array) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (301 POST with string and explicit Content-Type) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (301 POST with string and explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (302 POST with string and explicit Content-Type) assert_equals: expected 200 but got 0
+PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 POST with string and explicit Content-Type)
+PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 FOO with string and explicit Content-Type)
+PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (308 POST with string and explicit Content-Type)
+PASS XMLHttpRequest: send() - Redirect to CORS-enabled resource (308 FOO with string and explicit Content-Type)
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (308 FOO with string and explicit Content-Type text/plain) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (308 FOO with string and explicit Content-Type multipart/form-data) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (308 FOO with string and explicit Content-Type safelisted) assert_equals: expected 200 but got 0
+FAIL XMLHttpRequest: send() - Redirect to CORS-enabled resource (307 POST with string and explicit Content-Type safelisted) assert_equals: expected 200 but got 0
 

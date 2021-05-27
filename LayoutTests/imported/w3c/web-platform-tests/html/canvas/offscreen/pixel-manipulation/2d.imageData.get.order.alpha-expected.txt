@@ -3,5 +3,5 @@
 getImageData() returns A in the fourth component
 
 
-PASS getImageData() returns A in the fourth component
+FAIL getImageData() returns A in the fourth component Can't find variable: OffscreenCanvas
 

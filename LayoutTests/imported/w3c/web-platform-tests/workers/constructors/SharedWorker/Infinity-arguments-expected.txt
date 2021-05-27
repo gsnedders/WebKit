@@ -1,0 +1,3 @@
+
+FAIL Test constructing a shared worker with Infinity Can't find variable: SharedWorker
+

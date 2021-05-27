@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - Close the Connection - close(3000, reason) - Connection should be opened
+PASS Create Secure WebSocket - Close the Connection - close(3000, reason) - verify return code is 3000 - Connection should be closed
+

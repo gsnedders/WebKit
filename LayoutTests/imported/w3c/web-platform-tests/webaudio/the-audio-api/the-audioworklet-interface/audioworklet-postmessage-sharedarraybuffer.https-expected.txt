@@ -1,8 +1,10 @@
 
-Harness Error (TIMEOUT), message = null
-
 PASS # AUDIT TASK RUNNER STARTED.
-TIMEOUT Executing "Test postMessage from AudioWorkletProcessor to AudioWorkletNode" Test timed out
-NOTRUN Audit report
+PASS Executing "Test postMessage from AudioWorkletProcessor to AudioWorkletNode"
+PASS Audit report
 PASS > [Test postMessage from AudioWorkletProcessor to AudioWorkletNode]
+FAIL X event.data.sab from worklet is an instance of SharedArrayBuffer is not true. Got false. assert_true: expected true got false
+FAIL X event.data from main thread is an instance of SharedArrayBuffer is not true. Got false. assert_true: expected true got false
+FAIL < [Test postMessage from AudioWorkletProcessor to AudioWorkletNode] 2 out of 2 assertions were failed. assert_true: expected true got false
+FAIL # AUDIT TASK RUNNER FINISHED: 1 out of 1 tasks were failed. assert_true: expected true got false
 

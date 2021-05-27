@@ -1,0 +1,6 @@
+
+FAIL <iframe> has a 'csp' attibute which is an empty string if undefined. assert_equals: expected (undefined) undefined but got (string) ""
+FAIL <iframe>'s csp attribute is always a string. assert_equals: expected (undefined) undefined but got (string) "123456"
+FAIL <iframe>'s 'csp content attribute reflects the IDL attribute. assert_equals: expected (object) null but got (string) "value"
+FAIL <iframe>'s IDL attribute reflects the DOM attribute. assert_equals: expected (undefined) undefined but got (string) "value"
+

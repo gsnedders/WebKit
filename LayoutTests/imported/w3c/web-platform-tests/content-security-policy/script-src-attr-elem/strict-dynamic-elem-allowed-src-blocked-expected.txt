@@ -1,0 +1,8 @@
+CONSOLE MESSAGE: Unrecognized Content-Security-Policy directive 'script-src-elem'.
+
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src-attr-elem/support/t_done.js because it does not appear in the script-src directive of the Content Security Policy.
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Should not fire a security policy violation event
+

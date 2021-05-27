@@ -1,0 +1,4 @@
+
+FAIL CSP: sandbox allow-popups allow-scripts allow-same-origin; CSP sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+FAIL CSP: sandbox allow-popups allow-scripts; CSP sandboxed Cross-Origin-Opener-Policy popup should result in a network error Can't find variable: BroadcastChannel
+

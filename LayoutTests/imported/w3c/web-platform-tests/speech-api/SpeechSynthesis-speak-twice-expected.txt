@@ -1,3 +1,7 @@
+This test requires user interaction.
+Please click here to allow speechSynthesis.speak.
 
-PASS Using the same SpeechSynthesisUtterance twice for speechSynthesis.speak()
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Using the same SpeechSynthesisUtterance twice for speechSynthesis.speak() Test timed out
 

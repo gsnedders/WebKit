@@ -1,0 +1,7 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Entering and leaving Picture-in-Picture toggles CSS selector Test timed out
+

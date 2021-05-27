@@ -1,0 +1,8 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT leavepictureinpicture event is fired if document.exitPictureInPicture Test timed out
+NOTRUN leavepictureinpicture event is fired if video.disablePictureInPicture is set to true
+

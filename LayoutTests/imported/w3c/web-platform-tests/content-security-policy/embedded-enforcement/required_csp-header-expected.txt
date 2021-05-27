@@ -1,0 +1,115 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Flocalhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/redirect.py?location=http%3A%2F%2Fxn--n8j6ds53lwwkrqhv28a.localhost%3A8800%2Fcontent-security-policy%2Fembedded-enforcement%2Fsupport%2Fecho-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-required-csp.py
+
+
+Harness Error (TIMEOUT), message = null
+
+PASS Test same origin: Sec-Required-CSP is not sent if `csp` attribute is not set on <iframe>.
+PASS Test same origin redirect: Sec-Required-CSP is not sent if `csp` attribute is not set on <iframe>.
+TIMEOUT Test cross origin redirect: Sec-Required-CSP is not sent if `csp` attribute is not set on <iframe>. Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Sec-Required-CSP is not sent if `csp` attribute is not set on <iframe>. Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Sec-Required-CSP is not sent if `csp` attribute is not set on <iframe>. Test timed out
+FAIL Test same origin: Send Sec-Required-CSP when `csp` attribute of <iframe> is not empty. assert_unreached: Child iframes have unexpected csp:"null" Reached unreachable code
+FAIL Test same origin redirect: Send Sec-Required-CSP when `csp` attribute of <iframe> is not empty. assert_unreached: Child iframes have unexpected csp:"null" Reached unreachable code
+TIMEOUT Test cross origin redirect: Send Sec-Required-CSP when `csp` attribute of <iframe> is not empty. Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Send Sec-Required-CSP when `csp` attribute of <iframe> is not empty. Test timed out
+FAIL Test Required-CSP value on `csp` change: Send Sec-Required-CSP when `csp` attribute of <iframe> is not empty. assert_equals: expected (string) "script-src 'unsafe-inline'" but got (object) null
+FAIL Test same origin: Send Sec-Required-CSP Header on change of `src` attribute on iframe. assert_unreached: Child iframes have unexpected csp:"null" Reached unreachable code
+FAIL Test same origin redirect: Send Sec-Required-CSP Header on change of `src` attribute on iframe. assert_unreached: Child iframes have unexpected csp:"null" Reached unreachable code
+TIMEOUT Test cross origin redirect: Send Sec-Required-CSP Header on change of `src` attribute on iframe. Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Send Sec-Required-CSP Header on change of `src` attribute on iframe. Test timed out
+FAIL Test Required-CSP value on `csp` change: Send Sec-Required-CSP Header on change of `src` attribute on iframe. assert_equals: expected (string) "script-src 'unsafe-inline'" but got (object) null
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - gibberish csp
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - gibberish csp
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - gibberish csp Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - gibberish csp Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - gibberish csp Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name in multiple directives
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name in multiple directives
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name in multiple directives Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name in multiple directives Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - unknown policy name in multiple directives Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - misspeled 'none'
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - misspeled 'none'
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - misspeled 'none' Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - misspeled 'none' Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - misspeled 'none' Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - query values in path
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - query values in path
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - query values in path Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - query values in path Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - query values in path Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - missing semicolon
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - missing semicolon
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - missing semicolon Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - missing semicolon Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - missing semicolon Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - comma separated
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - comma separated
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - comma separated Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - comma separated Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - comma separated Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - html encoded string
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - html encoded string
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - html encoded string Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - html encoded string Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - html encoded string Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - url encoded string
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - url encoded string
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - url encoded string Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - url encoded string Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - url encoded string Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-uri present
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-uri present
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-uri present Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-uri present Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-uri present Test timed out
+PASS Test same origin: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-to present
+PASS Test same origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-to present
+TIMEOUT Test cross origin redirect: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-to present Test timed out
+TIMEOUT Test cross origin redirect of cross origin iframe: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-to present Test timed out
+TIMEOUT Test Required-CSP value on `csp` change: Wrong value of `csp` should not trigger sending Sec-Required-CSP Header - report-to present Test timed out
+

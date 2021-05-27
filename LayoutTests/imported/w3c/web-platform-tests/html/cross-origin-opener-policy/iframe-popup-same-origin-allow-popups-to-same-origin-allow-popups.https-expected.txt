@@ -1,0 +1,13 @@
+
+Harness Error (FAIL), message = Test named 'same-origin-allow-popups with SAME_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin-allow-popups"' specified 1 'cleanup' function, and 1 failed.
+
+FAIL same-origin-allow-popups with SAME_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin-allow-popups" Can't find variable: BroadcastChannel
+NOTRUN same-origin-allow-popups with SAME_SITE iframe opening popup a SAME_ORIGIN with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with CROSS_ORIGIN iframe opening popup a SAME_ORIGIN with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with SAME_ORIGIN iframe opening popup a SAME_SITE with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with SAME_SITE iframe opening popup a SAME_SITE with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with CROSS_ORIGIN iframe opening popup a SAME_SITE with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with SAME_ORIGIN iframe opening popup a CROSS_ORIGIN with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with SAME_SITE iframe opening popup a CROSS_ORIGIN with COOP: "same-origin-allow-popups"
+NOTRUN same-origin-allow-popups with CROSS_ORIGIN iframe opening popup a CROSS_ORIGIN with COOP: "same-origin-allow-popups"
+

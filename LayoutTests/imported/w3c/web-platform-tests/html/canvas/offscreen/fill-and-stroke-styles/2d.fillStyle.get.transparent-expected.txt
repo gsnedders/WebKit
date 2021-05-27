@@ -1,5 +1,5 @@
 2d.fillStyle.get.transparent
 
 
-PASS OffscreenCanvas test: 2d.fillStyle.get.transparent
+FAIL OffscreenCanvas test: 2d.fillStyle.get.transparent Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,9 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/common/blank.html
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/executor.html
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Document blocked by embedded enforcement and its parent are cross-origin assert_throws_dom: function "() => iframe.contentWindow.document" did not throw
+TIMEOUT Two same-origin iframes must appear as cross-origin when one is blocked Test timed out
+

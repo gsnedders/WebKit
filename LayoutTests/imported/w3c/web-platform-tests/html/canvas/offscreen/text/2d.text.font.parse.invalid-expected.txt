@@ -1,5 +1,5 @@
 2d.text.font.parse.invalid
 
 
-PASS OffscreenCanvas test: 2d.text.font.parse.invalid
+FAIL OffscreenCanvas test: 2d.text.font.parse.invalid Can't find variable: OffscreenCanvas
 

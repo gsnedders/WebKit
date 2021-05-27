@@ -1,5 +1,5 @@
 2d.composite.globalAlpha.canvaspattern
 
 
-PASS OffscreenCanvas test: 2d.composite.globalAlpha.canvaspattern
+FAIL OffscreenCanvas test: 2d.composite.globalAlpha.canvaspattern Can't find variable: OffscreenCanvas
 

@@ -1,0 +1,5 @@
+
+FAIL BackgroundFetchManager.get() does not require an activated worker promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'serviceWorkerRegistration.backgroundFetch.get')"
+FAIL Getting non-existing registrations yields `undefined` promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.get')"
+FAIL Getting an existing registration has the expected values promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+

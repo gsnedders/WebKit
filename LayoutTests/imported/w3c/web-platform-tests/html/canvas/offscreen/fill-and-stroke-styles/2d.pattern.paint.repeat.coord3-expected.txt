@@ -1,5 +1,5 @@
 2d.pattern.paint.repeat.coord3
 
 
-PASS OffscreenCanvas test: 2d.pattern.paint.repeat.coord3
+FAIL OffscreenCanvas test: 2d.pattern.paint.repeat.coord3 Can't find variable: OffscreenCanvas
 

@@ -1,5 +1,5 @@
 2d.text.align.default
 
 
-PASS OffscreenCanvas test: 2d.text.align.default
+FAIL OffscreenCanvas test: 2d.text.align.default Can't find variable: OffscreenCanvas
 

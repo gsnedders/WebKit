@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Refused to load http://www.localhost:8800/content-security-policy/generic/unreached.js because it does not appear in the script-src directive of the Content Security Policy.
 'self' fails with a different host (including sub-host e.g. foo.com as self with content from bar.foo.com)
 
 

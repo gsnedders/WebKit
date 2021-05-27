@@ -1,0 +1,10 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+FAIL request Picture-in-Picture requires a user gesture promise_rejects_dom: function "function () { throw e }" threw object "InvalidStateError: The video element does not have a video track or it has not detected a video track yet." that is not a DOMException NotAllowedError: property "code" is equal to 11, expected 0
+TIMEOUT request Picture-in-Picture requires loaded metadata for the video element Test timed out
+NOTRUN request Picture-in-Picture requires video track for the video element
+NOTRUN request Picture-in-Picture resolves on user click
+

@@ -1,0 +1,4 @@
+
+
+FAIL A track appended after the initial track configuration does not change other tracks assert_equals: expected "showing" but got "disabled"
+

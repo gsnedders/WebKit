@@ -1,0 +1,7 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/support/ChildWindowPostMessage.htm
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Test Description: postMessage to cross-origin iframe with MessagePort array containing 100 ports.
+PASS MessageChannel is supported.
+

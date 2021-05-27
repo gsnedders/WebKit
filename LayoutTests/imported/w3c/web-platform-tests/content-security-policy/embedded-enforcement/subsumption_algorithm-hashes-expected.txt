@@ -1,0 +1,43 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27sha256-abc123%27&id=%27sha256-abc123%27+is+properly+subsumed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27sha256-abc123%27&id=Returned+should+not+include+hashes+not+present+in+required+csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html+%27sha256-abc123%27&id=%27sha256-abc123%27+is+properly+subsumed+with+other+sources.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F&id=Hashes+do+not+have+to+be+present+in+returned+csp.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27unsafe-inline%27&id=Hashes+do+not+have+to+be+present+in+returned+csp+but+must+not+allow+all+inline+behavior.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27unsafe-eval%27+%27sha256-abc123%27&id=Other+expressions+have+to+be+subsumed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27unsafe-inline%27+%27sha256-abc123%27&id=Other+expressions+have+to+be+subsumed+but+%27unsafe-inline%27+gets+ignored.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27unsafe-hashed-attributes%27+%27sha256-abc123%27&policy2=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27self%27+%27sha256-abc123%27&id=Effective+policy+is+properly+found.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27self%27++%27sha256-abc123%27&id=Required+csp+must+allow+%27sha256-abc123%27.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27unsafe-hashed-attributes%27+%27sha256-abc123%27&policy2=style-src+%27sha256-abc123%27+%27unsafe-inline%27&id=Effective+policy+is+properly+found+where+%27sha256-abc123%27+is+not+subsumed.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27unsafe-hashed-attributes%27+%27sha256-abc123%27&policy2=style-src+%27sha256-abc123%27+%27unsafe-inline%27&id=%27sha256-abc123%27+is+not+subsumed+by+%27sha256-abc456%27.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27unsafe-hashed-attributes%27+%27sha256-abc123%27+%27sha256-abc456%27&policy2=style-src+%27sha256-abc456%27+%27unsafe-inline%27&id=Effective+policy+now+does+not+allow+%27sha256-abc123%27.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27unsafe-hashed-attributes%27+%27self%27&policy2=style-src+%27sha256-abc123%27+%27self%27&id=Effective+policy+is+properly+found+where+%27sha256-abc123%27+is+not+part+of+it.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT 'sha256-abc123' is properly subsumed. Test timed out
+FAIL Returned should not include hashes not present in required csp. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT 'sha256-abc123' is properly subsumed with other sources. Test timed out
+TIMEOUT Hashes do not have to be present in returned csp. Test timed out
+FAIL Hashes do not have to be present in returned csp but must not allow all inline behavior. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Other expressions have to be subsumed. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Other expressions have to be subsumed but 'unsafe-inline' gets ignored. Test timed out
+TIMEOUT Effective policy is properly found. Test timed out
+FAIL Required csp must allow 'sha256-abc123'. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Effective policy is properly found where 'sha256-abc123' is not subsumed. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL 'sha256-abc123' is not subsumed by 'sha256-abc456'. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Effective policy now does not allow 'sha256-abc123'. Test timed out
+TIMEOUT Effective policy is properly found where 'sha256-abc123' is not part of it. Test timed out
+

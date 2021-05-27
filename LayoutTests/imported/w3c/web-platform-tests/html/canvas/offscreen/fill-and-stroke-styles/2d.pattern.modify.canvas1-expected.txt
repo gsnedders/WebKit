@@ -1,5 +1,5 @@
 2d.pattern.modify.canvas1
 
 
-PASS OffscreenCanvas test: 2d.pattern.modify.canvas1
+FAIL OffscreenCanvas test: 2d.pattern.modify.canvas1 Can't find variable: OffscreenCanvas
 

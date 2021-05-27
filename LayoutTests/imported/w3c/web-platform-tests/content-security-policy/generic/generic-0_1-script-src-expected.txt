@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Refused to load http://www1.localhost:8800/content-security-policy/generic/fail-0_1.js because it appears in neither the script-src directive nor the default-src directive of the Content Security Policy.
 default-src should cascade to script-src directive
 
 

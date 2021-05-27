@@ -3,5 +3,5 @@
 fillRect draws shadows
 
 
-PASS fillRect draws shadows
+FAIL fillRect draws shadows Can't find variable: OffscreenCanvas
 

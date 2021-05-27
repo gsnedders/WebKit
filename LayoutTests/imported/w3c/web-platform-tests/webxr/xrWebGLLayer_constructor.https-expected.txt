@@ -1,4 +1,13 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: ReferenceError: Can't find variable: reject
+CONSOLE MESSAGE: WebGL: INVALID_OPERATION: deleteFramebuffer: An opaque framebuffer's attachments cannot be inspected or changed
+
+Harness Error (FAIL), message = Test named 'Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl2' specified 1 'cleanup' function, and 1 failed.
 
 PASS Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl
-FAIL Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl2 assert_implements: webgl2 not supported. undefined
+TIMEOUT Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl2 Test timed out
+
+Harness Error (FAIL), message = Test named 'Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl2' specified 1 'cleanup' function, and 1 failed.
+
+PASS Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl
+TIMEOUT Ensure that XRWebGLLayer's constructor throws appropriate errors using webgl2 Test timed out
 

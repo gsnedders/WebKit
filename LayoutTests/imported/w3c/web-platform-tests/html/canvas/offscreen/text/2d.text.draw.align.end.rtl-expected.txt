@@ -3,5 +3,5 @@
 textAlign end with rtl is the left edge
 
 
-PASS textAlign end with rtl is the left edge
+FAIL textAlign end with rtl is the left edge Can't find variable: OffscreenCanvas
 

@@ -11,6 +11,4 @@ PASS tasks without document.open() (MessagePort)
 PASS document.open() and tasks (MessagePort)
 TIMEOUT tasks without document.open() (Promise rejection) Test timed out
 TIMEOUT document.open() and tasks (Promise rejection) Test timed out
-TIMEOUT tasks without document.open() (marquee start) Test timed out
-TIMEOUT document.open() and tasks (marquee start) Test timed out
 

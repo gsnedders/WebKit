@@ -1,5 +1,5 @@
 2d.pattern.repeat.unrecognised
 
 
-PASS OffscreenCanvas test: 2d.pattern.repeat.unrecognised
+FAIL OffscreenCanvas test: 2d.pattern.repeat.unrecognised Can't find variable: OffscreenCanvas
 

@@ -1,3 +1,5 @@
 
-PASS Tests webm audio bitrate changes in multiplexed content.
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Tests webm audio bitrate changes in multiplexed content. Test timed out
 

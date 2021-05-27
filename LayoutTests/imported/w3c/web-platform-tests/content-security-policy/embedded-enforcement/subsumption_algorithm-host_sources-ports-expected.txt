@@ -1,0 +1,43 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%3A36&id=Specified+ports+must+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=Returned+CSP+should+be+subsumed+even+if+the+port+is+not+specified+but+is+a+default+port+for+a+scheme.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com&id=Returned+CSP+should+be+subsumed+even+if+the+port+is+not+specified+but+is+a+default+port+for+a+more+secure+scheme.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+wss%3A%2F%2Fb.com&id=The+same+should+hold+for+%60ws%60+case.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com&id=Unspecified+ports+must+match+if+schemes+match.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%3A80&id=Returned+CSP+should+be+subsumed+if+the+port+is+specified.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com%3A443&id=Returned+CSP+should+be+subsumed+if+the+port+is+specified+but+the+scheme+is+more+secure.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com%3A36&id=Returned+CSP+should+be+subsumed+if+the+port+is+specified+but+is+not+default+for+a+more+secure+scheme.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+https%3A%2F%2Fb.com%3A36&id=Returned+CSP+should+be+subsumed+if+the+ports+match+but+schemes+are+not+identical.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+wss%3A%2F%2Fb.com%3A36&id=Returned+CSP+should+be+subsumed+if+the+ports+match+but+schemes+are+not+identical+for+%60ws%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+wss%3A%2F%2Fb.com&id=Wildcard+port+should+match+unspecified+port.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+wss%3A%2F%2Fb.com%3A36&id=Wildcard+port+should+match+any+specific+port.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+wss%3A%2F%2Fb.com%3A*&id=Wildcard+port+should+match+a+wildcard.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+ws%3A%2F%2Fb.com%3A*&id=Wildcard+port+should+not+be+subsumed+by+a+default+port.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+ws%3A%2F%2Fb.com%3A*&id=Wildcard+port+should+not+be+subsumed+by+a+spcified+port.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Specified ports must match. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Returned CSP should be subsumed even if the port is not specified but is a default port for a scheme. Test timed out
+TIMEOUT Returned CSP should be subsumed even if the port is not specified but is a default port for a more secure scheme. Test timed out
+TIMEOUT The same should hold for `ws` case. Test timed out
+TIMEOUT Unspecified ports must match if schemes match. Test timed out
+TIMEOUT Returned CSP should be subsumed if the port is specified. Test timed out
+TIMEOUT Returned CSP should be subsumed if the port is specified but the scheme is more secure. Test timed out
+FAIL Returned CSP should be subsumed if the port is specified but is not default for a more secure scheme. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Returned CSP should be subsumed if the ports match but schemes are not identical. Test timed out
+TIMEOUT Returned CSP should be subsumed if the ports match but schemes are not identical for `ws`. Test timed out
+TIMEOUT Wildcard port should match unspecified port. Test timed out
+TIMEOUT Wildcard port should match any specific port. Test timed out
+TIMEOUT Wildcard port should match a wildcard. Test timed out
+FAIL Wildcard port should not be subsumed by a default port. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL Wildcard port should not be subsumed by a spcified port. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+

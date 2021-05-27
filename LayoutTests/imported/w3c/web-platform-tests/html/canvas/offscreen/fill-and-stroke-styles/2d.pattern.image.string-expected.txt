@@ -1,5 +1,5 @@
 2d.pattern.image.string
 
 
-PASS OffscreenCanvas test: 2d.pattern.image.string
+FAIL OffscreenCanvas test: 2d.pattern.image.string Can't find variable: OffscreenCanvas
 

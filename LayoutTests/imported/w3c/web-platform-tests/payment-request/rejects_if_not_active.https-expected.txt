@@ -1,0 +1,7 @@
+ This test requires user interaction.
+Please click here to allow show payment request.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT If a payment request is showing, but its document is navigated away (so no longer fully active), the payment sheet is dismissed. Test timed out
+

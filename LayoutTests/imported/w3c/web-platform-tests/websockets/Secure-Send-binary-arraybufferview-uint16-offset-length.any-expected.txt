@@ -1,0 +1,5 @@
+
+PASS Send binary data on a WebSocket - ArrayBufferView - Uint16Array with offset and length - Connection should be opened
+PASS Send binary data on a WebSocket - ArrayBufferView - Uint16Array with offset and length - Message should be received
+PASS Send binary data on a WebSocket - ArrayBufferView - Uint16Array with offset and length - Connection should be closed
+

@@ -3,5 +3,5 @@
 putImageData() does not accept non-ImageData objects
 
 
-PASS putImageData() does not accept non-ImageData objects
+FAIL putImageData() does not accept non-ImageData objects Can't find variable: OffscreenCanvas
 

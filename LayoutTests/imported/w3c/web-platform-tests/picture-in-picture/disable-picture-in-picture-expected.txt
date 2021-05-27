@@ -1,0 +1,12 @@
+This test requires user interaction.
+Please click here to allow request Picture-in-Picture.
+
+Harness Error (TIMEOUT), message = null
+
+PASS Test disablePictureInPicture IDL attribute
+TIMEOUT Request Picture-in-Picture rejects if disablePictureInPicture is true Test timed out
+NOTRUN Request Picture-in-Picture rejects if disablePictureInPicture becomes true before promise resolves.
+NOTRUN pictureInPictureElement is unset if disablePictureInPicture becomes true
+NOTRUN pictureInPictureElement is unchanged if disablePictureInPicture becomes false
+NOTRUN pictureInPictureElement is unchanged if disablePictureInPicture becomes true for another video
+

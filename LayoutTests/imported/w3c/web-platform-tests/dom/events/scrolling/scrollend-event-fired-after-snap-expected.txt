@@ -1,4 +1,7 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 
-FAIL Tests that scrollend is fired after scroll snap animation completion. promise_test: Unhandled rejection with value: "Reaches the maximum frames."
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+FAIL Tests that scrollend is fired after scroll snap animation completion. promise_test: Unhandled rejection with value: object "Error: unimplemented"
 FAIL Tests that scrollend is fired after fling snap animation completion. promise_test: Unhandled rejection with value: "Reaches the maximum frames."
 

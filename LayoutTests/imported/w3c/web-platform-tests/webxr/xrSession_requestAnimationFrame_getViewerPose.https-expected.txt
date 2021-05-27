@@ -1,6 +1,6 @@
 
 PASS XRFrame getViewerPose updates on the next frame for non-immersive sessions - webgl
-FAIL XRFrame getViewerPose updates on the next frame for non-immersive sessions - webgl2 assert_implements: webgl2 not supported. undefined
-PASS XRFrame getViewerPose updates on the next frame for immersive sessions - webgl
-FAIL XRFrame getViewerPose updates on the next frame for immersive sessions - webgl2 assert_implements: webgl2 not supported. undefined
+FAIL XRFrame getViewerPose updates on the next frame for non-immersive sessions - webgl2 promise_test: Unhandled rejection with value: object "TypeError: null is not an object (evaluating 'sessionObjects.gl.makeXRCompatible')"
+FAIL XRFrame getViewerPose updates on the next frame for immersive sessions - webgl promise_test: Unhandled rejection with value: object "TypeError: null is not an object (evaluating 'sessionObjects.gl.makeXRCompatible')"
+FAIL XRFrame getViewerPose updates on the next frame for immersive sessions - webgl2 promise_test: Unhandled rejection with value: object "TypeError: null is not an object (evaluating 'sessionObjects.gl.makeXRCompatible')"
 

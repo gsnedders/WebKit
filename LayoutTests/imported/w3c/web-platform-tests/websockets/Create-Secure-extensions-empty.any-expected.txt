@@ -1,0 +1,4 @@
+
+PASS Create Secure WebSocket - wsocket.extensions should be set to '' after connection is established - Connection should be opened
+PASS Create Secure WebSocket - wsocket.extensions should be set to '' after connection is established - Connection should be closed
+

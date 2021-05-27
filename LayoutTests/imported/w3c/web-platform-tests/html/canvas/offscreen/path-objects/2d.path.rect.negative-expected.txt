@@ -1,5 +1,5 @@
 2d.path.rect.negative
 
 
-PASS OffscreenCanvas test: 2d.path.rect.negative
+FAIL OffscreenCanvas test: 2d.path.rect.negative Can't find variable: OffscreenCanvas
 

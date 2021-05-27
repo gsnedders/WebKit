@@ -1,0 +1,5 @@
+
+PASS Send binary data on a WebSocket - ArrayBufferView - Int32Array - Connection should be opened
+PASS Send binary data on a WebSocket - ArrayBufferView - Int32Array - Message should be received
+PASS Send binary data on a WebSocket - ArrayBufferView - Int32Array - Connection should be closed
+

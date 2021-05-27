@@ -3,5 +3,5 @@
 clearRect is not affected by globalAlpha
 
 
-PASS clearRect is not affected by globalAlpha
+FAIL clearRect is not affected by globalAlpha Can't find variable: OffscreenCanvas
 

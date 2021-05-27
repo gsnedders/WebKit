@@ -1,0 +1,10 @@
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Set up a service worker for navigation preload tests. promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'registration.navigationPreload.enable')"
+TIMEOUT Navigation Preload for same site cookies (None). Test timed out
+NOTRUN Navigation Preload for same site cookies (Strict).
+NOTRUN Navigation Preload for same site cookies (Lax).
+NOTRUN Unregister a service worker.
+

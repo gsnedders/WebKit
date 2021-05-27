@@ -1,5 +1,5 @@
 2d.pattern.repeat.nullsuffix
 
 
-PASS OffscreenCanvas test: 2d.pattern.repeat.nullsuffix
+FAIL OffscreenCanvas test: 2d.pattern.repeat.nullsuffix Can't find variable: OffscreenCanvas
 

@@ -1,4 +1,6 @@
 
+Harness Error (TIMEOUT), message = null
+
 PASS Loading data…
 PASS text/html;charset=gbk
 PASS TEXT/HTML;CHARSET=GBK
@@ -24,7 +26,7 @@ PASS text/html;test=;charset=gbk
 PASS text/html;';charset=gbk
 PASS text/html;";charset=gbk
 PASS text/html ; ; charset=gbk
-PASS text/html;;;;charset=gbk
+TIMEOUT text/html;;;;charset=gbk Test timed out
 FAIL text/html;charset= ";charset=GBK assert_equals: expected "GBK" but got "UTF-8"
 FAIL text/html;charset=";charset=foo";charset=GBK assert_equals: expected "GBK" but got "UTF-8"
 PASS text/html;charset="gbk"

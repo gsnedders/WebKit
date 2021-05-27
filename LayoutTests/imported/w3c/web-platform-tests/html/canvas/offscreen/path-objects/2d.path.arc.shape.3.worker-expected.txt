@@ -1,3 +1,3 @@
 
-PASS arc() from 0 to -pi/2 does not draw anything in the wrong quadrant
+FAIL arc() from 0 to -pi/2 does not draw anything in the wrong quadrant Can't find variable: OffscreenCanvas
 

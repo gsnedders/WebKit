@@ -1,13 +1,15 @@
 
-
-FAIL Frame location should update on successful navigation assert_unreached: unexpected rejection: assert_equals: expected "https://localhost:9443/service-workers/service-worker/resources/client-navigated-frame.html" but got "" Reached unreachable code
-FAIL Frame location should not be accessible after redirect assert_unreached: unexpected rejection: assert_throws: function "function () { return frame.contentWindow.location.href }" did not throw Reached unreachable code
-FAIL Frame location should not be accessible after cross-origin navigation assert_unreached: unexpected rejection: assert_throws: function "function () { return frame.contentWindow.location.href }" did not throw Reached unreachable code
+FAIL Frame location should update on successful navigation assert_equals: expected "https://localhost:9443/service-workers/service-worker/resources/client-navigated-frame.html" but got ""
+FAIL Frame location should not be accessible after redirect assert_throws_dom: function "function () { return iframe.contentWindow.location.href }" did not throw
+FAIL Frame location should not be accessible after cross-origin navigation assert_throws_dom: function "function () { return iframe.contentWindow.location.href }" did not throw
 PASS Frame location should not update on failed about:blank navigation
-PASS Frame location should not update on failed mixed-content navigation
+TIMEOUT Frame location should not update on failed mixed-content navigation Test timed out
 FAIL Return value should be instance of WindowClient assert_unreached: unexpected rejection: windowClient.navigate() is not yet supported Reached unreachable code
 FAIL Redirecting to another origin should resolve with null assert_unreached: unexpected rejection: windowClient.navigate() is not yet supported Reached unreachable code
-FAIL Navigating to different origin should resolve with null assert_unreached: unexpected rejection: windowClient.navigate() is not yet supported Reached unreachable code
-FAIL Navigating to about:blank should reject with TypeError assert_unreached: unexpected rejection: assert_throws: function "function () { throw e }" threw object "NotSupportedError: windowClient.navigate() is not yet supported" ("NotSupportedError") expected object "TypeError" ("TypeError") Reached unreachable code
-FAIL Navigating to mixed-content iframe should reject with TypeError assert_unreached: unexpected rejection: assert_throws: function "function () { throw e }" threw object "NotSupportedError: windowClient.navigate() is not yet supported" ("NotSupportedError") expected object "TypeError" ("TypeError") Reached unreachable code
+FAIL Navigating to different origin should resolve with null assert_unreached: unexpected rejection: promise_rejects_js: function "function () { throw e }" threw object "NotSupportedError: windowClient.navigate() is not yet supported" ("NotSupportedError") expected instance of function "function TypeError() {
+    [native code]
+}" ("TypeError") Reached unreachable code
+FAIL Navigating to about:blank should reject with TypeError assert_unreached: unexpected rejection: promise_rejects_js: function "function () { throw e }" threw object "NotSupportedError: windowClient.navigate() is not yet supported" ("NotSupportedError") expected instance of function "function TypeError() {
+    [native code]
+}" ("TypeError") Reached unreachable code
 

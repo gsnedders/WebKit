@@ -1,0 +1,14 @@
+CONSOLE MESSAGE: Ignoring duplicate Content-Security-Policy directive 'img-src'.
+
+Blocked access to external URL http://www1.localhost:8800/content-security-policy/support/pass.png
+CONSOLE MESSAGE: Refused to load http://www2.localhost:8800/content-security-policy/support/fail.png because it does not appear in the img-src directive of the Content Security Policy.
+Blocked access to external URL http://www1.localhost:8800/content-security-policy/support/pass.png
+CONSOLE MESSAGE: Refused to load http://www2.localhost:8800/content-security-policy/support/fail.png because it does not appear in the img-src directive of the Content Security Policy.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Test that the www1 image is allowed to load assert_unreached: www1 image should have loaded Reached unreachable code
+PASS Test that the www2 image is not allowed to load
+NOTRUN Test that the www2 image throws a violation event
+

@@ -1,0 +1,3 @@
+
+FAIL The navigationPreload attribute must return service worker registration's NavigationPreloadManager object. promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: NavigationPreloadManager"
+

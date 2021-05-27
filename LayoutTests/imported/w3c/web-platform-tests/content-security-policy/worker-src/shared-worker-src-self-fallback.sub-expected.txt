@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: Unrecognized Content-Security-Policy directive 'worker-src'.
+
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''none''. It will be ignored. Note that 'none' has no effect unless it is the only expression in the source list.
+
+FAIL Same-origin shared worker allowed by worker-src 'self'. Can't find variable: SharedWorker
+

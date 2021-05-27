@@ -3,5 +3,5 @@
 setTransform() with Infinity/NaN is ignored
 
 
-PASS setTransform() with Infinity/NaN is ignored
+FAIL setTransform() with Infinity/NaN is ignored Can't find variable: OffscreenCanvas
 

@@ -3,5 +3,5 @@
 isPointInPath() handles transformations correctly
 
 
-PASS isPointInPath() handles transformations correctly
+FAIL isPointInPath() handles transformations correctly Can't find variable: OffscreenCanvas
 

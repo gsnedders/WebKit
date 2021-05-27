@@ -1,0 +1,18 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Events boundary events in capturing
+
+Follow the test instructions with mouse. If you don't have the device skip it.
+
+Test Description: This test checks the boundary events of pointer events while the capturing changes. If you are using hoverable pen don't leave the range of digitizer while doing the instructions.
+Move your pointer over the black square
+Press down the pointer (i.e. press left button with mouse or touch the screen with finger or pen).
+Drag the pointer within the black square.
+Release the pointer.
+Test passes if the proper behavior of the events is observed.
+
+Do not hover over or touch this element.
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse pointerevent boundary events in capturing
+

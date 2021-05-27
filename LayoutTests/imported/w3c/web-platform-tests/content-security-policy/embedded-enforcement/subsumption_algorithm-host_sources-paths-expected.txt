@@ -1,0 +1,29 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=Returned+CSP+must+specify+a+path.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2Fexample.html&id=Returned+CSP+has+a+more+specific+path.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2Fexample.html&id=Matching+paths.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2F&id=Empty+path+is+not+subsumed+by+specified+paths.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2Fpage2.html+http%3A%2F%2Fb.com%2Fpage3.html+http%3A%2F%2Fb.com%2Fpage1.html&id=All+specific+paths+match+except+the+order.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2Fpage2.html&id=Returned+CSP+allows+only+one+path.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com%2F&id=%60%2F%60+path+should+be+subsumed+by+an+empty+path.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=Unspecified+path+should+be+subsumed+by+%60%2F%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+http%3A%2F%2Fb.com&id=That+should+not+be+true+when+required+csp+specifies+a+specific+page.
+
+
+Harness Error (TIMEOUT), message = null
+
+FAIL Returned CSP must specify a path. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Returned CSP has a more specific path. Test timed out
+TIMEOUT Matching paths. Test timed out
+FAIL Empty path is not subsumed by specified paths. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT All specific paths match except the order. Test timed out
+TIMEOUT Returned CSP allows only one path. Test timed out
+TIMEOUT `/` path should be subsumed by an empty path. Test timed out
+TIMEOUT Unspecified path should be subsumed by `/`. Test timed out
+FAIL That should not be true when required csp specifies a specific page. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+

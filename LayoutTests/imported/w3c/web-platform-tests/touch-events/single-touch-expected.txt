@@ -1,0 +1,13 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Touch Events: single-touch tests
+
+Touch this box with one finger (or other pointing device)...
+...then drag to this box and lift your finger.
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN touchstart event received
+NOTRUN touchmove event received
+NOTRUN touchend event received
+NOTRUN Interaction with mouse events
+

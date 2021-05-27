@@ -1,5 +1,5 @@
 2d.composite.solid.source-over
 
 
-PASS OffscreenCanvas test: 2d.composite.solid.source-over
+FAIL OffscreenCanvas test: 2d.composite.solid.source-over Can't find variable: OffscreenCanvas
 

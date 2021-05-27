@@ -1,0 +1,27 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27nonce-abc%27&id=Exact+nonce+subsumes.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27nonce-xyz%27&id=Any+nonce+subsumes.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo&id=A+nonce+has+to+be+returned+if+required+by+the+embedder.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27nonce-xyz%27+%27nonce-abc%27&id=Multiples+nonces+returned+subsume.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27nonce-def%27&policy2=style-src+%27nonce-xyz%27&id=Nonce+intersection+is+still+done+on+exact+match+-+non-matching+nonces.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27nonce-def%27&policy2=style-src+%27nonce-def%27+%27nonce-xyz%27&id=Nonce+intersection+is+still+done+on+exact+match+-+matching+nonces.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fexample1.com%2Ffoo%2F+%27nonce-xyz%27&id=Other+expressions+still+have+to+be+subsumed+-+positive+test.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+http%3A%2F%2Fnot-example1.com%2Ffoo%2F+%27nonce-xyz%27&id=Other+expressions+still+have+to+be+subsumed+-+negative+test
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Exact nonce subsumes. Test timed out
+TIMEOUT Any nonce subsumes. Test timed out
+FAIL A nonce has to be returned if required by the embedder. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Multiples nonces returned subsume. Test timed out
+TIMEOUT Nonce intersection is still done on exact match - non-matching nonces. Test timed out
+FAIL Nonce intersection is still done on exact match - matching nonces. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT Other expressions still have to be subsumed - positive test. Test timed out
+FAIL Other expressions still have to be subsumed - negative test assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+

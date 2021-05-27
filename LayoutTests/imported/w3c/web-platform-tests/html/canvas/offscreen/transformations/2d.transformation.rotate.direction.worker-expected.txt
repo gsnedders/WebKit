@@ -1,3 +1,3 @@
 
-PASS rotate() is clockwise
+FAIL rotate() is clockwise Can't find variable: OffscreenCanvas
 

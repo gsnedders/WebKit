@@ -3,5 +3,5 @@
 save()/restore() works for lineWidth
 
 
-PASS save()/restore() works for lineWidth
+FAIL save()/restore() works for lineWidth Can't find variable: OffscreenCanvas
 

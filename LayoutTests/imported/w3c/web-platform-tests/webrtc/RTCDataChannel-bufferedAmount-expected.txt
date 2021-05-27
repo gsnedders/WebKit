@@ -1,13 +1,28 @@
 
 Harness Error (TIMEOUT), message = null
 
-FAIL bufferedAmount should increase to byte length of encoded unicode string sent assert_equals: Expect bufferedAmount to be the byte length of the unicode string expected 12 but got 0
-FAIL bufferedAmount should increase to byte length of buffer sent assert_equals: Expect bufferedAmount to increase to byte length of sent buffer expected 5 but got 0
-FAIL bufferedAmount should increase to size of blob sent promise_test: Unhandled rejection with value: object "NotSupportedError: The operation is not supported."
-FAIL bufferedAmount should increase by byte length for each message sent assert_unreached: Unexpected promise rejection: Error: assert_equals: Expect bufferedAmount to be the total length of all messages queued to send expected 5 but got 0 Reached unreachable code
-TIMEOUT Data channel bufferedamountlow event fires after send() is complete Test timed out
-NOTRUN Data channel bufferedamount is data.length on send(data)
-NOTRUN Data channel bufferedamount returns the same amount if no more data is sent on the channel
-NOTRUN Data channel bufferedamountlow event fires only once after multiple consecutive send() calls
-NOTRUN Data channel bufferedamountlow event fires after each sent message
+TIMEOUT datachannel bufferedAmount initial value should be 0 for both peers Test timed out
+NOTRUN datachannel bufferedAmount should increase to byte length of encodedunicode string sent
+NOTRUN datachannel bufferedAmount should increase to byte length of buffer sent
+NOTRUN datachannel bufferedAmount should increase to size of blob sent
+NOTRUN datachannel bufferedAmount should increase by byte length for each message sent
+NOTRUN datachannel bufferedAmount should not decrease immediately after initiating closure
+NOTRUN datachannel bufferedAmount should not decrease after closing the peer connection
+NOTRUN datachannel bufferedamountlow event fires after send() is complete
+NOTRUN datachannel bufferedamount is data.length on send(data)
+NOTRUN datachannel bufferedamount returns the same amount if no more data is
+NOTRUN datachannel bufferedamountlow event fires only once after multiple consecutive send() calls
+NOTRUN datachannel bufferedamountlow event fires after each sent message
+NOTRUN negotiated datachannel bufferedAmount initial value should be 0 for both peers
+NOTRUN negotiated datachannel bufferedAmount should increase to byte length of encodedunicode string sent
+NOTRUN negotiated datachannel bufferedAmount should increase to byte length of buffer sent
+NOTRUN negotiated datachannel bufferedAmount should increase to size of blob sent
+NOTRUN negotiated datachannel bufferedAmount should increase by byte length for each message sent
+NOTRUN negotiated datachannel bufferedAmount should not decrease immediately after initiating closure
+NOTRUN negotiated datachannel bufferedAmount should not decrease after closing the peer connection
+NOTRUN negotiated datachannel bufferedamountlow event fires after send() is complete
+NOTRUN negotiated datachannel bufferedamount is data.length on send(data)
+NOTRUN negotiated datachannel bufferedamount returns the same amount if no more data is
+NOTRUN negotiated datachannel bufferedamountlow event fires only once after multiple consecutive send() calls
+NOTRUN negotiated datachannel bufferedamountlow event fires after each sent message
 

@@ -1,0 +1,3 @@
+
+PASS Test Description: event.data returns the data of the message.
+

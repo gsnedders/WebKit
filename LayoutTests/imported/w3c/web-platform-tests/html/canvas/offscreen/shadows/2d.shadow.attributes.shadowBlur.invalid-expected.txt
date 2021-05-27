@@ -1,5 +1,5 @@
 2d.shadow.attributes.shadowBlur.invalid
 
 
-PASS OffscreenCanvas test: 2d.shadow.attributes.shadowBlur.invalid
+FAIL OffscreenCanvas test: 2d.shadow.attributes.shadowBlur.invalid Can't find variable: OffscreenCanvas
 

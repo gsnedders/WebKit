@@ -3,5 +3,5 @@
 strokeRect does not affect the current path
 
 
-PASS strokeRect does not affect the current path
+FAIL strokeRect does not affect the current path Can't find variable: OffscreenCanvas
 

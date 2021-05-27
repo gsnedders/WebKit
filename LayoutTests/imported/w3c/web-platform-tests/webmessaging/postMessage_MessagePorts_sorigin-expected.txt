@@ -1,0 +1,4 @@
+
+PASS Test Description: postMessage to same-origin iframe with MessagePort array containing 100 ports.
+PASS MessageChannel is supported.
+

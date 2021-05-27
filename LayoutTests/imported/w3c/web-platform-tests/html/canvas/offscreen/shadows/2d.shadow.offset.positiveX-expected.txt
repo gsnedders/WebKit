@@ -3,5 +3,5 @@
 Shadows can be offset with positive x
 
 
-PASS Shadows can be offset with positive x
+FAIL Shadows can be offset with positive x Can't find variable: OffscreenCanvas
 

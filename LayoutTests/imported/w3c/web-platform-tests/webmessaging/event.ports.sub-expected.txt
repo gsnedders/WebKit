@@ -1,0 +1,7 @@
+Blocked access to external URL http://www1.localhost:8800/webmessaging/support/ChildWindowPostMessage.htm
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN Test Description: event.ports returns the MessagePort array sent with the message.
+PASS MessageChannel is supported.
+

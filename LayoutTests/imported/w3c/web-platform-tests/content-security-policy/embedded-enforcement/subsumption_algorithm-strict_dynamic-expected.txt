@@ -1,0 +1,33 @@
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=style-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html&id=%27strict-dynamic%27+is+ineffective+for+%60style-src%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=img-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html&id=%27strict-dynamic%27+is+ineffective+for+%60img-src%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=frame-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html&id=%27strict-dynamic%27+is+ineffective+for+%60frame-src%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=child-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html&id=%27strict-dynamic%27+is+ineffective+for+%60child-src%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html+%27nonce-abc%27&id=%27strict-dynamic%27+is+effective+only+for+%60script-src%60.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27strict-dynamic%27+http%3A%2F%2Fexample1.com%2Ffoo%2Fbar.html+%27nonce-abc%27&policy2=script-src+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+is+properly+handled+for+finding+effective+policy.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+http%3A%2F%2Fexample.com+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+makes+host+source+expressions+ineffective.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+http%3A+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+makes+scheme+source+expressions+ineffective.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27self%27+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+makes+%27self%27+ineffective.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27unsafe-inline%27+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+makes+%27unsafe-inline%27+ineffective.
+Blocked access to external URL http://xn--n8j6ds53lwwkrqhv28a.localhost:8800/content-security-policy/embedded-enforcement/support/echo-policy-multiple.py?policy=script-src+%27strict-dynamic%27+%27nonce-abc%27&id=%27strict-dynamic%27+has+to+be+allowed+by+required+csp+if+it+is+present+in+returned+csp.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT 'strict-dynamic' is ineffective for `style-src`. Test timed out
+TIMEOUT 'strict-dynamic' is ineffective for `img-src`. Test timed out
+TIMEOUT 'strict-dynamic' is ineffective for `frame-src`. Test timed out
+TIMEOUT 'strict-dynamic' is ineffective for `child-src`. Test timed out
+FAIL 'strict-dynamic' is effective only for `script-src`. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+FAIL 'strict-dynamic' is properly handled for finding effective policy. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+TIMEOUT 'strict-dynamic' makes host source expressions ineffective. Test timed out
+TIMEOUT 'strict-dynamic' makes scheme source expressions ineffective. Test timed out
+TIMEOUT 'strict-dynamic' makes 'self' ineffective. Test timed out
+TIMEOUT 'strict-dynamic' makes 'unsafe-inline' ineffective. Test timed out
+FAIL 'strict-dynamic' has to be allowed by required csp if it is present in returned csp. assert_throws_dom: function "() => {
+        var x = i.contentWindow.location.href;
+      }" did not throw
+

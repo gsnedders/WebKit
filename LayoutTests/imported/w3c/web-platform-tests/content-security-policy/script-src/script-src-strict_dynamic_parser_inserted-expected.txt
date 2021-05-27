@@ -1,0 +1,27 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWrite because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWriteln because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWrite-deferred because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWriteln-deferred because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWrite-async because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWriteln-async because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWrite-deferred-async because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to load http://localhost:8800/content-security-policy/script-src/simpleSourcedScript.js?documentWriteln-deferred-async because it does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to execute a script for an inline event handler because 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.
+CONSOLE MESSAGE: Refused to execute a script for an inline event handler because 'unsafe-inline' does not appear in the script-src directive of the Content Security Policy.
+Parser-inserted scripts without a correct nonce are not allowed with `strict-dynamic` in the script-src directive.
+
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Parser-inserted script via `document.write` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted script via `document.writeln` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted deferred script via `document.write` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted deferred script via `document.writeln` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted async script via `document.write` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted async script via `document.writeln` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted deferred async script via `document.write` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Parser-inserted deferred async script via `document.writeln` without a correct nonce is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Script injected via `innerHTML` is not allowed with `strict-dynamic`. Test timed out
+TIMEOUT Script injected via `insertAdjacentHTML` is not allowed with `strict-dynamic`. Test timed out
+

@@ -1,0 +1,10 @@
+Blocked access to external URL https://www.localhost:9443/fetch/metadata/resources/record-header.py?file=prefetch4ecb4159-dbfe-49cc-be59-91ee12147c8b
+Blocked access to external URL https://www.127.0.0.1:9443/fetch/metadata/resources/record-header.py?file=prefetch3f98d013-6d93-4470-91b3-d4dfd52eda9b
+
+Harness Error (TIMEOUT), message = null
+
+PASS Browser supports prefetch.
+TIMEOUT <link rel='prefetch' href='https://localhost:9443/...'> Test timed out
+TIMEOUT <link rel='prefetch' href='https://www.localhost:9443/...'> Test timed out
+TIMEOUT <link rel='prefetch' href='https://www.127.0.0.1:9443/...'> Test timed out
+

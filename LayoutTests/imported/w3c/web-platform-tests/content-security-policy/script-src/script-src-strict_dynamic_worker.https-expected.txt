@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: The source list for Content Security Policy directive 'script-src' contains an invalid source: ''strict-dynamic''. It will be ignored.
+
+PASS Dedicated worker is allowed via 'strict-dynamic'
+FAIL Shared worker is allowed via 'strict-dynamic' Can't find variable: SharedWorker
+PASS Service worker is allowed via 'strict-dynamic'
+

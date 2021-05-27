@@ -1,0 +1,5 @@
+
+FAIL Aborting the same registration twice fails promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL Calling BackgroundFetchRegistration.abort sets the correct fields and responses are still available promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+FAIL An aborted fetch throws a DOM exception when accessing an incomplete record promise_test: Unhandled rejection with value: object "TypeError: undefined is not an object (evaluating 'backgroundFetch.fetch')"
+

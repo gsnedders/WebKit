@@ -1,0 +1,26 @@
+
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same%FForigin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin;" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "\vsame-origin\v" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "\fsame-origin\f" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "\rsame-origin\r" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "Same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin;\tfoo=bar" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin ;foo=bar" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin; foo=bar;" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "\"same-origin\"" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: ":c2FtZS1vcmlnaW4=:" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "?1" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "1" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "$same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin,same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "*same-origin " Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: " same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin " Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "\tsame-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin\t" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin;same-origin" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with COOP: "same-origin; foo=bar" Can't find variable: BroadcastChannel
+FAIL unspecified document opening popup to https://localhost:9443 with repeated COOP header Can't find variable: BroadcastChannel
+

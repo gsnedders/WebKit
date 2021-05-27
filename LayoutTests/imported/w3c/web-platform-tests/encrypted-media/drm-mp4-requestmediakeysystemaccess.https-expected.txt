@@ -1,0 +1,8 @@
+CONSOLE MESSAGE: TypeError: undefined is not an object (evaluating 'config.keysystem.toUpperCase')
+
+Harness Error (FAIL), message = TypeError: undefined is not an object (evaluating 'config.keysystem.toUpperCase')
+
+PASS drm, requestMediaKeySystemAccess: Empty Key System should result in TypeError
+PASS drm, requestMediaKeySystemAccess: Unsupported Key System should result in NotSupportedError
+PASS drm, requestMediaKeySystemAccess: Key System ending in "." should result in NotSupportedError
+
