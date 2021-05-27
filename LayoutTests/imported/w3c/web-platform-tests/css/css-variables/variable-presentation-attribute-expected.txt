@@ -11,7 +11,7 @@ FAIL Testing 'color-interpolation-filters'. assert_equals: Default value. expect
 PASS Testing 'cursor'.
 PASS Testing 'direction'.
 FAIL Testing 'display'. assert_equals: Value Test. expected "block" but got "inline"
-FAIL Testing 'dominant-baseline'. assert_equals: Value Test. expected "use-script" but got "auto"
+FAIL Testing 'dominant-baseline'. assert_equals: Value Test. expected "ideographic" but got "auto"
 FAIL Testing 'fill'. assert_equals: Default value. expected "black" but got "rgb(0, 0, 0)"
 FAIL Testing 'fill-opacity'. assert_equals: Value Test. expected "0.8" but got "0.800000011920929"
 PASS Testing 'fill-rule'.
@@ -43,7 +43,8 @@ PASS Testing 'stroke-miterlimit'.
 FAIL Testing 'stroke-opacity'. assert_equals: Value Test. expected "0.221" but got "0.22100000083446503"
 PASS Testing 'stroke-width'.
 PASS Testing 'text-anchor'.
-FAIL Testing 'text-decoration'. assert_equals: Value Test. expected "underline" but got "none"
+FAIL Testing 'text-decoration-line'. assert_equals: Value Test. expected "underline" but got "none"
+FAIL Testing 'text-decoration-style'. assert_equals: Value Test. expected "double" but got "solid"
 PASS Testing 'visibility'.
 PASS Testing 'word-spacing'.
 FAIL Testing 'writing-mode'. assert_equals: Default value. expected "lr-tb" but got "horizontal-tb"

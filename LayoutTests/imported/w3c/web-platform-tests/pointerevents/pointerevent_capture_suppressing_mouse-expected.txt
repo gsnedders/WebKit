@@ -1,0 +1,37 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Events capture test
+
+Test Description: This test checks if setCapture/releaseCapture functions works properly. Complete the following actions:
+Put your mouse over the black rectangle. pointerover and pointerenter should be logged inside of it.
+Move your mouse out of the black rectangle. pointerout and pointerleave should be logged inside of it
+Put your mouse over the purple rectangle. pointerover and pointerenter should be logged inside of it.
+Move your mouse out of the purple rectangle. pointerout and pointerleave should be logged inside of it
+Press and hold left mouse button over "Set Capture" button and move mouse a litte inside the button. "gotpointercapture", "pointerover", and "pointerenter" should be logged in the black rectangle
+Put your mouse over the purple rectangle and then move it out. Nothing should happen
+Put your mouse over the black rectangle and then move it out. Nothing should happen.
+Put your mouse over the purple rectangle and then release left mouse button. "lostpointercapture" should be logged in the black rectangle. Move your mouse in the purple rectangle a little. "pointerout" and "pointerleave" should be logged in the black rectangle. Also "pointerover" and "pointerenter" should be logged in the purple rectangle"
+
+Test passes if the proper behaviour of the events is observed.
+
+
+
+Pointer Events Capture Test
+
+The following pointer types were detected: (none).
+
+The following events were logged: (none).
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN gotpointercapture event received
+NOTRUN lostpointercapture event received
+NOTRUN pointerover event without capture received
+NOTRUN pointerover event with capture received
+NOTRUN pointerout event without capture received
+NOTRUN pointerout event after lostpointercapture received
+NOTRUN pointerenter event without capture received
+NOTRUN pointerenter event with capture received
+NOTRUN pointerleave event without capture received
+NOTRUN pointerleave event after lostpointercapture received
+

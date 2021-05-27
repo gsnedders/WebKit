@@ -1,15 +1,15 @@
 
-PASS i32, mutable
-PASS i32, immutable
-PASS i64, mutable
-PASS i64, immutable
-PASS f32, mutable
-PASS f32, immutable
-PASS f64, mutable
-PASS f64, immutable
-PASS anyref, mutable
-PASS anyref, immutable
-PASS funcref, mutable
-PASS funcref, immutable
-PASS key ordering
+FAIL i32, mutable assert_equals: expected (string) "i32" but got (undefined) undefined
+FAIL i32, immutable assert_equals: expected (string) "i32" but got (undefined) undefined
+FAIL i64, mutable assert_equals: expected (string) "i64" but got (undefined) undefined
+FAIL i64, immutable assert_equals: expected (string) "i64" but got (undefined) undefined
+FAIL f32, mutable assert_equals: expected (string) "f32" but got (undefined) undefined
+FAIL f32, immutable assert_equals: expected (string) "f32" but got (undefined) undefined
+FAIL f64, mutable assert_equals: expected (string) "f64" but got (undefined) undefined
+FAIL f64, immutable assert_equals: expected (string) "f64" but got (undefined) undefined
+FAIL anyref, mutable assert_equals: expected (string) "externref" but got (undefined) undefined
+FAIL anyref, immutable assert_equals: expected (string) "externref" but got (undefined) undefined
+FAIL funcref, mutable assert_equals: expected (string) "funcref" but got (undefined) undefined
+FAIL funcref, immutable assert_equals: expected (string) "funcref" but got (undefined) undefined
+FAIL key ordering assert_equals: expected "mutable" but got "length"
 

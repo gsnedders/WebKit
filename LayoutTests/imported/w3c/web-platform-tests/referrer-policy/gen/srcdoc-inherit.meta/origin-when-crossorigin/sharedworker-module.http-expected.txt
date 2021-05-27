@@ -1,0 +1,5 @@
+CONSOLE MESSAGE: Failed to set referrer policy: The value 'origin-when-crossorigin' is not one of 'no-referrer', 'no-referrer-when-downgrade', 'same-origin', 'origin', 'strict-origin', 'origin-when-cross-origin', 'strict-origin-when-cross-origin' or 'unsafe-url'.
+
+FAIL Referrer Policy: Expects stripped-referrer for sharedworker-module to same-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Can't find variable: SharedWorker"
+FAIL Referrer Policy: Expects stripped-referrer for sharedworker-module to same-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Can't find variable: SharedWorker"
+

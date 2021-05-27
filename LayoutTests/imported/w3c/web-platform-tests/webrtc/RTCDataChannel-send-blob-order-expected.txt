@@ -1,4 +1,6 @@
 
-PASS Datachannel should send data following the order of the send call
-PASS Negotiated datachannel should send data following the order of the send call
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Datachannel should send data following the order of the send call Test timed out
+NOTRUN Negotiated datachannel should send data following the order of the send call
 

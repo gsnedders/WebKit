@@ -1,16 +1,18 @@
 
-PASS [audio] getSynchronizationSources() eventually returns a non-empty list
-PASS [audio] RTCRtpSynchronizationSource.timestamp is a number
-PASS [audio] RTCRtpSynchronizationSource.rtpTimestamp is a number [0, 2^32-1]
-PASS [audio] getSynchronizationSources() does not contain SSRCs older than 10 seconds
-FAIL [audio] RTCRtpSynchronizationSource.timestamp is comparable to performance.timeOrigin + performance.now() assert_true: expected true got false
-PASS [audio] RTCRtpSynchronizationSource.source is a number
-PASS [video] getSynchronizationSources() eventually returns a non-empty list
-PASS [video] RTCRtpSynchronizationSource.timestamp is a number
-PASS [video] RTCRtpSynchronizationSource.rtpTimestamp is a number [0, 2^32-1]
-PASS [video] getSynchronizationSources() does not contain SSRCs older than 10 seconds
-FAIL [video] RTCRtpSynchronizationSource.timestamp is comparable to performance.timeOrigin + performance.now() assert_true: expected true got false
-PASS [video] RTCRtpSynchronizationSource.source is a number
-PASS [audio-only] RTCRtpSynchronizationSource.audioLevel is a number [0, 1]
-FAIL [audio-only] RTCRtpSynchronizationSource.voiceActivityFlag is a boolean assert_equals: expected "boolean" but got "undefined"
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT [audio] getSynchronizationSources() eventually returns a non-empty list Test timed out
+NOTRUN [audio] RTCRtpSynchronizationSource.timestamp is a number
+NOTRUN [audio] RTCRtpSynchronizationSource.rtpTimestamp is a number [0, 2^32-1]
+NOTRUN [audio] getSynchronizationSources() does not contain SSRCs older than 10 seconds
+NOTRUN [audio] RTCRtpSynchronizationSource.timestamp is comparable to performance.timeOrigin + performance.now()
+NOTRUN [audio] RTCRtpSynchronizationSource.source is a number
+NOTRUN [video] getSynchronizationSources() eventually returns a non-empty list
+NOTRUN [video] RTCRtpSynchronizationSource.timestamp is a number
+NOTRUN [video] RTCRtpSynchronizationSource.rtpTimestamp is a number [0, 2^32-1]
+NOTRUN [video] getSynchronizationSources() does not contain SSRCs older than 10 seconds
+NOTRUN [video] RTCRtpSynchronizationSource.timestamp is comparable to performance.timeOrigin + performance.now()
+NOTRUN [video] RTCRtpSynchronizationSource.source is a number
+NOTRUN [audio-only] RTCRtpSynchronizationSource.audioLevel is a number [0, 1]
+NOTRUN [audio-only] RTCRtpSynchronizationSource.voiceActivityFlag is a boolean
 

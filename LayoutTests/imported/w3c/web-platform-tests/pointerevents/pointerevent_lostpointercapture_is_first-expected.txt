@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events capture test - lostpointercapture order
 
 Test Description: This test checks if lostpointercapture is handled asynchronously and prior to all subsequent events. Complete the following actions:
@@ -9,10 +10,12 @@ Test passes if lostpointercapture is dispatched after releasing the mouse button
 
 Pointer Events Capture Test
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
-The following events were logged: gotpointercapture@target0, lostpointercapture@target0.
+The following events were logged: (none).
 
 
-PASS lostpointercapture is dispatched prior to subsequent events
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN lostpointercapture is dispatched prior to subsequent events
 

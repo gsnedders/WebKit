@@ -1,0 +1,13 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+User activation with 'contextmenu' event
+
+Tests that a 'contextmenu' event is treated like a user activation.
+
+Right-click or long-press on green.
+Click or tap on Done.
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN 'contextmenu' can call vibrate.
+

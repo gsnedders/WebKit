@@ -1,0 +1,18 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 500x500
+  RenderSVGRoot {svg} at (9,12) size 482x479
+    RenderSVGText {text} at (10,12) size 97x23 contains 1 chunk(s)
+      RenderSVGInlineText {#text} at (0,0) size 97x23
+        chunk 1 text run 1 at (10.00,30.00) startOffset 0 endOffset 10 width 96.26 RTL override: "\x{202E}FAIL|SSAP"
+        chunk 1 text run 1 at (106.26,30.00) startOffset 0 endOffset 1 width 0.00: "\x{202C}"
+    RenderSVGText {text} at (10,42) size 308x23 contains 1 chunk(s)
+      RenderSVGInlineText {#text} at (0,0) size 308x23
+        chunk 1 text run 1 at (10.00,60.00) startOffset 0 endOffset 39 width 307.67: "Select text above and drag selection to"
+    RenderSVGText {text} at (10,72) size 367x23 contains 1 chunk(s)
+      RenderSVGInlineText {#text} at (0,0) size 367x23
+        chunk 1 text run 1 at (10.00,90.00) startOffset 0 endOffset 45 width 366.60: "the box below. Content of selection should be"
+    RenderSVGText {text} at (10,102) size 282x23 contains 1 chunk(s)
+      RenderSVGInlineText {#text} at (0,0) size 282x23
+        chunk 1 text run 1 at (10.00,120.00) startOffset 0 endOffset 36 width 281.88: "copies once it's dropped in the box."
+    RenderSVGRect {rect} at (9,129) size 482x362 [stroke={[type=SOLID] [color=#000000]}] [x=10.00] [y=130.00] [width=480.00] [height=360.00]

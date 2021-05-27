@@ -3,5 +3,7 @@ slotted below
 slotted above
 belowHost
 
-PASS Order when all tabindex=0 is and delegatesFocus = true
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Order when all tabindex=0 is and delegatesFocus = true Test timed out
 

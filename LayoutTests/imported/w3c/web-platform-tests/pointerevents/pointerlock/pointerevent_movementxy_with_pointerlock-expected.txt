@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events movement with pointerlock test
 
 Follow the test instructions with mouse. If you don't have the device skip it.
@@ -12,5 +13,7 @@ Click left button again to end the test.
 Test passes if the proper behavior of the events is observed.
 
 
-FAIL mouse pointerevent movementX/Y with pointerlock test assert_equals: expected 0 but got 10
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse pointerevent movementX/Y with pointerlock test
 

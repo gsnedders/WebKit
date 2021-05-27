@@ -1,0 +1,4 @@
+
+FAIL Referrer Policy: Expects origin for sharedworker-classic to same-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: SharedWorker"
+FAIL Referrer Policy: Expects origin for sharedworker-classic to same-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: SharedWorker"
+

@@ -1,4 +1,6 @@
 
 
-FAIL maxlength doesn't apply to input type=number assert_equals: expected "1234" but got ""
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT maxlength doesn't apply to input type=number Test timed out
 

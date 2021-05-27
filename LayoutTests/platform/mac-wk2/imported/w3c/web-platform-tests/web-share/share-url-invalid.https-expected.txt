@@ -1,10 +1,14 @@
+This test requires user interaction.
+Please click here to allow undefined.
 
-PASS share() rejects when URL is invalid
-PASS share() rejects file:// URLs
-PASS share() rejects wss: URLs
-PASS share() rejects about: URLs
-PASS share() rejects chrome: URLs
-PASS share() rejects javascript: URLs
-PASS share() rejects blob: URLs
-FAIL share() rejects data: URLs assert_unreached: Should have rejected: undefined Reached unreachable code
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT share() rejects when URL is invalid Test timed out
+NOTRUN share() rejects file:// URLs
+NOTRUN share() rejects wss: URLs
+NOTRUN share() rejects about: URLs
+NOTRUN share() rejects chrome: URLs
+NOTRUN share() rejects javascript: URLs
+NOTRUN share() rejects blob: URLs
+NOTRUN share() rejects data: URLs
 

@@ -5,5 +5,7 @@ If the element has a red background, then the test result is FAILURE. If the ele
 
 Focus me.
 
-PASS Keyboard focus should match :focus-visible
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Keyboard focus should match :focus-visible Test timed out
 

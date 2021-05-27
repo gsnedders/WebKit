@@ -1,0 +1,4 @@
+
+PASS getUserMedia() in a discarded browsing context
+FAIL enumerateDevices() in a discarded browsing context assert_true: should have returned a pending promise. expected true got false
+

@@ -1,5 +1,8 @@
 
-FAIL Default "autoplay" feature policy ["self"] allows the top-level document. Can't find variable: simulateGesture
-FAIL Default "autoplay" feature policy ["self"] allows same-origin iframes. Can't find variable: simulateGesture
-FAIL Default "autoplay" feature policy ["self"] disallows cross-origin iframes. Can't find variable: simulateGesture
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Default "autoplay" feature policy ["self"] allows the top-level document. Test timed out
+TIMEOUT Default "autoplay" feature policy ["self"] allows same-origin iframes. Test timed out
+TIMEOUT Default "autoplay" feature policy ["self"] disallows cross-origin iframes. Test timed out
 

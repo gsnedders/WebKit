@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 pointerleave
 
 Test Description: This test checks if pointerleave event works properly.
@@ -6,10 +7,12 @@ Put your mouse over the black rectangle and then move it out through purple rect
 
 Pointer Events pointerleave tests
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 Refresh the page to run the tests again with a different pointer type.
 
 
-PASS pointerleave event received
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointerleave event received
 

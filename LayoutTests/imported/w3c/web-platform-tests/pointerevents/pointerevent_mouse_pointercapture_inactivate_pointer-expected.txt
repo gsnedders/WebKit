@@ -1,0 +1,5 @@
+
+
+FAIL setPointerCapture: pointer active in outer frame, set capture to inner frame promise_test: Unhandled rejection with value: object "Error: unimplemented"
+FAIL setPointerCapture: pointer active in inner frame, set capture to outer frame promise_test: Unhandled rejection with value: object "Error: unimplemented"
+

@@ -1,0 +1,7 @@
+This test requires user interaction.
+Please click here to allow speechSynthesis.speak.
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT speechSynthesis.pause() and resume() state and events Test timed out
+

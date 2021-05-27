@@ -1,0 +1,14 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+iframe touch-action:none attribute
+
+Follow the test instructions with touch. If you don't have the device skip it.
+
+Test Description: Drag your finger in the green rectangle below then tap the "Done" button.
+
+
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN touch iframe received pointercancel
+

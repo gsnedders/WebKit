@@ -1,5 +1,7 @@
 Initial
 
 
-PASS :focus-visible always match on text inputs
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT :focus-visible always match on text inputs Test timed out
 

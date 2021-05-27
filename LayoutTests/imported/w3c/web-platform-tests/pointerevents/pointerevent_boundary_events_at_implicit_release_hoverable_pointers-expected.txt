@@ -1,8 +1,13 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Event: Boundary event sequence at implicit capture release
+
+Follow the test instructions with mouse. If you don't have the device skip it.
 
 When a captured pointer is implicitly released after a click, the boundary events should follow the lostpointercapture event.
 
 Click on the black box with mouse and do not move the mouse after or during the click.
 
-PASS mouse Event sequence at implicit release on click
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse Event sequence at implicit release on click
 

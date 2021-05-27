@@ -1,0 +1,11 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 800x600
+  RenderSVGRoot {svg} at (0,0) size 156x155
+    RenderSVGResourceMarker {marker} [id="m"] [markerUnits=userSpaceOnUse] [ref at (50,50)] [angle=auto]
+      RenderSVGPath {path} at (0,0) size 105x50 [fill={[type=SOLID] [color=#008000]}] [data="M 50 -5 L 105 50 L -5 50 Z"]
+    RenderSVGContainer {g} at (0,0) size 156x155 [start marker=m]
+      RenderSVGPath {path} at (50,0) size 55x55 [fill={[type=SOLID] [color=#000000]}] [start marker=m] [data="M 50 0 L 50 50 Z"]
+      RenderSVGPath {path} at (45,49) size 111x57 [fill={[type=SOLID] [color=#000000]}] [start marker=m] [data="M 100 50 L 50 50 Z"]
+      RenderSVGPath {path} at (0,45) size 50x110 [fill={[type=SOLID] [color=#000000]}] [start marker=m] [data="M 50 100 L 50 50 Z"]
+      RenderSVGPath {path} at (0,0) size 55x50 [fill={[type=SOLID] [color=#000000]}] [start marker=m] [data="M 0 50 L 50 50 Z"]

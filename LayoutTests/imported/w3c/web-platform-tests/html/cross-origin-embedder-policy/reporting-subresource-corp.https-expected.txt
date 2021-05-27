@@ -41,4 +41,5 @@ NOTRUN [between service worker and page] same-origin
 NOTRUN [between service worker and page] blocked by CORP: same-origin
 NOTRUN [between service worker and page] blocked due to COEP
 NOTRUN [between service worker and page] blocked during redirect
+NOTRUN destination: script
 

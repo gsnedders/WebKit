@@ -21,7 +21,7 @@ PASS combined text/javascript
 FAIL separate text/javascript error assert_unreached: Reached unreachable code
 PASS combined text/javascript error
 PASS separate text/javascript;charset=windows-1252 x/x text/javascript
-FAIL combined text/javascript;charset=windows-1252 x/x text/javascript assert_equals: expected "€" but got "â‚¬"
+FAIL combined text/javascript;charset=windows-1252 x/x text/javascript assert_unreached: Reached unreachable code
 FAIL separate text/javascript;charset=windows-1252 error text/javascript assert_equals: expected "â‚¬" but got "€"
 PASS combined text/javascript;charset=windows-1252 error text/javascript
 FAIL separate text/javascript;charset=windows-1252  text/javascript assert_equals: expected "â‚¬" but got "€"

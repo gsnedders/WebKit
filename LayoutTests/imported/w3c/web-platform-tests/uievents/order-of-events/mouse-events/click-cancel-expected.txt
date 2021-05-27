@@ -1,5 +1,7 @@
 Check me!
 Button
 
-PASS Default action is canceled if the click event is canceled.
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Default action is canceled if the click event is canceled. Test timed out
 

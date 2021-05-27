@@ -1,0 +1,18 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+Pointer Events coordinates support fractional value
+
+Follow the test instructions with mouse. If you don't have the device skip it.
+
+Test Description: This test checks pointer events has fractional client coordinates
+Move your pointer over one black square
+Press down the pointer (i.e. press left button with mouse or touch the screen with finger or pen).
+Release the pointer.
+Move to next black square and repreat 2 and 3
+Test passes if pointer events has fractional coordinates.
+
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse pointerevent events in capturing
+

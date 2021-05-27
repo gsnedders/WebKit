@@ -1,7 +1,10 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Test Description: Tests that the mouseover event is fired and the element has a hover effect when the element underneath the mouse cursor is changed.
 Put your mouse over the red rectangle
 Click the primary mouse button
 
 
-FAIL Tests that the mouseover event is fired and the element has a hover effect when the element underneath the mouse cursor is changed. assert_equals: expected "mouseover,mouseenter" but got ""
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN Tests that the mouseover event is fired and the element has a hover effect when the element underneath the mouse cursor is changed.
 

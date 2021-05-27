@@ -1,0 +1,7 @@
+
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT MediaRecorder records from PeerConnection without sinks, {"audio":{}} Test timed out
+NOTRUN MediaRecorder records from PeerConnection without sinks, {"video":{}}
+NOTRUN MediaRecorder records from PeerConnection without sinks, {"audio":{},"video":{}}
+

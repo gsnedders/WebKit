@@ -1,4 +1,6 @@
 
-FAIL not negotiating BUNDLE creates two separate ice and dtls transports assert_not_equals: got disallowed value undefined
-FAIL bundles on the first transport and closes the second assert_not_equals: got disallowed value undefined
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT not negotiating BUNDLE creates two separate ice and dtls transports Test timed out
+NOTRUN bundles on the first transport and closes the second
 

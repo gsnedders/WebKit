@@ -1,7 +1,7 @@
 click me!
 
 PASS Redispatching DOMContentLoaded event after being dispatched
-PASS Redispatching mouseup event whose default action dispatches a click event
+FAIL Redispatching mouseup event whose default action dispatches a click event assert_true: Failed to send mouse click due to Error: unimplemented expected true got false
 PASS Redispatching event which is being dispatched
 PASS Synthesizing click on button...
 

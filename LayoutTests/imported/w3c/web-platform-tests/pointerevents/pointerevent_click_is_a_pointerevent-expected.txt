@@ -1,0 +1,8 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
+
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+TIMEOUT click using mouse is a PointerEvent Test timed out
+NOTRUN click using pen is a PointerEvent
+

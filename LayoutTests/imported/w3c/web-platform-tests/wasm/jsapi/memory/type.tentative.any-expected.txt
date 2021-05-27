@@ -1,8 +1,8 @@
 
-PASS Zero initial, no maximum
-PASS Non-zero initial, no maximum
-PASS Zero maximum
-PASS None-zero maximum
-PASS non-shared memory
-PASS shared memory
+FAIL Zero initial, no maximum assert_equals: expected (number) 0 but got (undefined) undefined
+FAIL Non-zero initial, no maximum assert_equals: expected (number) 5 but got (undefined) undefined
+FAIL Zero maximum assert_equals: expected (number) 0 but got (undefined) undefined
+FAIL None-zero maximum assert_equals: expected (number) 0 but got (undefined) undefined
+FAIL non-shared memory assert_equals: expected (number) 0 but got (undefined) undefined
+FAIL shared memory assert_equals: expected (number) 0 but got (undefined) undefined
 

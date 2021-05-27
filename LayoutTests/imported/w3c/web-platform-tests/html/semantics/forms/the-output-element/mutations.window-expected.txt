@@ -1,4 +1,4 @@
 
-PASS Descendant mutations and output.value and .defaultValue
+FAIL Descendant mutations and output.value and .defaultValue assert_equals: .value after setting textContent again expected "y" but got "some"
 PASS output and output.form.reset()
 

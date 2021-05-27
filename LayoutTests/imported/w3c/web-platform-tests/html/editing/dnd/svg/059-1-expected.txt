@@ -1,0 +1,5 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 500x500
+  RenderSVGRoot {svg} at (10,220) size 480x270
+    RenderSVGRect {rect} at (10,220) size 480x270 [fill={[type=SOLID] [color=#808080]}] [x=10.00] [y=220.00] [width=480.00] [height=270.00]

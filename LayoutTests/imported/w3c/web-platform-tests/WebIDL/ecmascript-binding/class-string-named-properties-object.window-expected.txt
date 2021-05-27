@@ -1,4 +1,7 @@
 
+Harness Error (FAIL), message = Test named 'Object.prototype.toString applied after modifying @@toStringTag' specified 1 'cleanup' function, and 1 failed.
+
 PASS @@toStringTag exists with the appropriate descriptor
 PASS Object.prototype.toString
+FAIL Object.prototype.toString applied after modifying @@toStringTag Defining a property on a WindowProperties object is not allowed.
 

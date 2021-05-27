@@ -1,5 +1,7 @@
 
 PASS Static import.
+FAIL Static import (cross-origin). promise_test: Unhandled rejection with value: object "TypeError: Importing a module script failed."
+PASS Static import (redirect).
 PASS Nested static import.
 FAIL Static import and then dynamic import. assert_array_equals: value is "Failed to do dynamic import: TypeError: Dynamic-import is not available in Worklets or ServiceWorkers", expected array
 FAIL Dynamic import. assert_array_equals: value is "Failed to do dynamic import: TypeError: Dynamic-import is not available in Worklets or ServiceWorkers", expected array

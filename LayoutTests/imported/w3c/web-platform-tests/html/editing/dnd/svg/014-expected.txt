@@ -1,0 +1,6 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 500x500
+  RenderSVGRoot {svg} at (10,120) size 480x380
+    RenderSVGContainer {switch} at (10,120) size 480x380
+      RenderSVGForeignObject {foreignObject} at (10,120) size 480x380

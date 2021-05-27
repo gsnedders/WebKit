@@ -1,0 +1,4 @@
+CONSOLE MESSAGE: Error: error outside any setup or test
+
+FAIL Uncaught exception in single-page test Error: error outside any setup or test
+

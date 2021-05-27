@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events movement in locked state test
 
 Follow the test instructions with mouse. If you don't have the device skip it.
@@ -9,5 +10,7 @@ Click left mouse button again.
 Test passes if the proper behavior of the events is observed.
 
 
-FAIL mouse Test pointerevent coordinates when pointer is locked assert_equals: clientX expected 41 but got 183
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse Test pointerevent coordinates when pointer is locked
 

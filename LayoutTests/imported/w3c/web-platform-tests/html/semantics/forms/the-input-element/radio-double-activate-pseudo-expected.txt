@@ -1,4 +1,6 @@
 
 
-PASS <input type=radio> shouldn't have the :active pseudo element after pressing the spacebar twice.
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT <input type=radio> shouldn't have the :active pseudo element after pressing the spacebar twice. Test timed out
 

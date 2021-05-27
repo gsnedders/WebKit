@@ -1,0 +1,3 @@
+
+PASS First contentful paint should not fire for canvas type none
+

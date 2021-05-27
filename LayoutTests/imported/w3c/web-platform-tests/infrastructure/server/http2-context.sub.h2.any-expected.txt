@@ -1,0 +1,5 @@
+
+PASS Use of .h2. file name flag implies secure context
+FAIL Use of .h2. file name flag implies HTTPS scheme assert_equals: expected "https:" but got "http:"
+FAIL Use of .h2. file name flag implies correct port assert_equals: expected "9000" but got "8800"
+

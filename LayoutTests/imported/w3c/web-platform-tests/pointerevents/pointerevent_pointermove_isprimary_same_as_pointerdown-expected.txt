@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Event: pointermove has the same isPrimary as last pointerdown with the same pointerId
 
 Test Description: The isPrimary attribute of a pointermove event must have the same value as the isPrimary attribute of the last pointerdown event with the same pointerId attribute.
@@ -7,10 +8,12 @@ Lift off of the element to complete the test.
 
 Test complete: Scroll to Summary to view Pass/Fail Results.
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 Refresh the page to run the tests again with a different pointer type.
 
 
-PASS pointermove has same isPrimary as last pointerdown
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointermove has same isPrimary as last pointerdown
 

@@ -1,5 +1,12 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Double-click on the green box with the left mouse button.
 
 
-PASS dblclick event for the mouse pointer type
+Harness Error (FAIL), message = Test named 'dblclick event for the mouse pointer type' specified 1 'cleanup' function, and 1 failed.
+
+TIMEOUT dblclick event for the mouse pointer type Test timed out
+
+Harness Error (FAIL), message = Test named 'dblclick event for the mouse pointer type' specified 1 'cleanup' function, and 1 failed.
+
+TIMEOUT dblclick event for the mouse pointer type Test timed out
 

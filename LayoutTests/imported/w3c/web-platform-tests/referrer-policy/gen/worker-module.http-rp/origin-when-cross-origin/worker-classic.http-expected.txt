@@ -1,0 +1,4 @@
+
+FAIL Referrer Policy: Expects stripped-referrer for worker-classic to same-http origin and keep-origin redirection from http context. promise_test: Unhandled rejection with value: "Can't find variable: Worker"
+FAIL Referrer Policy: Expects stripped-referrer for worker-classic to same-http origin and no-redirect redirection from http context. promise_test: Unhandled rejection with value: "Can't find variable: Worker"
+

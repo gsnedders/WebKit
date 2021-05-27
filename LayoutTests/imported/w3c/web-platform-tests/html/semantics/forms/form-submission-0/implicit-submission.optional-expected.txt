@@ -1,7 +1,8 @@
 
 
 
+Harness Error (TIMEOUT), message = null
 
-FAIL Submit event with a submit button promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: SubmitEvent"
-FAIL Submit event with no submit button assert_equals: expected (object) null but got (undefined) undefined
+TIMEOUT Submit event with a submit button Test timed out
+NOTRUN Submit event with no submit button
 

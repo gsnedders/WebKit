@@ -8,5 +8,5 @@ PASS background-repeat
 PASS background-size
 PASS background-image-url
 PASS background-image-linear-gradient
-PASS background-image-radial-gradient
+FAIL background-image-radial-gradient assert_equals: Expected Value should match actual value expected "radial-gradient(at 25px 25px, rgb(0, 0, 0) 10%, rgb(0, 128, 0) 90%)" but got "radial-gradient(at 25px 25px, black 10%, green 90%)"
 

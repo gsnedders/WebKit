@@ -1,16 +1,33 @@
 
+FAIL SVGAltGlyphElement interface must be removed assert_false: expected false got true
+FAIL SVGAltGlyphDefElement interface must be removed assert_false: expected false got true
+FAIL SVGAltGlyphItemElement interface must be removed assert_false: expected false got true
 PASS SVGAnimatedPathData interface must be removed
 PASS SVGColor interface must be removed
+PASS SVGColorProfileElement interface must be removed
+PASS SVGColorProfileRule interface must be removed
+FAIL SVGCursorElement interface must be removed assert_false: expected false got true
 FAIL SVGDocument interface must be removed assert_false: expected false got true
 PASS SVGElementInstanceList interface must be removed
 PASS SVGExternalResourcesRequired interface must be removed
+FAIL SVGFontElement interface must be removed assert_false: expected false got true
+FAIL SVGFontFaceElement interface must be removed assert_false: expected false got true
+FAIL SVGFontFaceSrcElement interface must be removed assert_false: expected false got true
+FAIL SVGFontFaceUriElement interface must be removed assert_false: expected false got true
+FAIL SVGFontFaceFormatElement interface must be removed assert_false: expected false got true
+FAIL SVGGlyphElement interface must be removed assert_false: expected false got true
+FAIL SVGGlyphRefElement interface must be removed assert_false: expected false got true
+FAIL SVGHKernElement interface must be removed assert_false: expected false got true
 PASS SVGICCColor interface must be removed
 PASS SVGLangSpace interface must be removed
 PASS SVGLocatable interface must be removed
+FAIL SVGMissingGlyphElement interface must be removed assert_false: expected false got true
 PASS SVGTransformable interface must be removed
+FAIL SVGTRefElement interface must be removed assert_false: expected false got true
 PASS SVGPaint interface must be removed
 FAIL SVGPathSeg interface must be removed assert_false: expected false got true
 PASS SVGStylable interface must be removed
+FAIL SVGVKernElement interface must be removed assert_false: expected false got true
 FAIL SVGViewSpec interface must be removed assert_false: expected false got true
 FAIL SVGZoomEvent interface must be removed assert_false: expected false got true
 PASS GetSVGDocument mixin interface must not be exposed

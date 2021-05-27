@@ -1,5 +1,7 @@
 
+Harness Error (TIMEOUT), message = null
+
 PASS Negotiation methods fire signalingstatechange events
-FAIL Closing a PeerConnection should not fire signalingstatechange event assert_unreached: Reached unreachable code
-PASS signalingstatechange is the first event to fire
+TIMEOUT Closing a PeerConnection should not fire signalingstatechange event Test timed out
+NOTRUN signalingstatechange is the first event to fire
 

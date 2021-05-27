@@ -4,5 +4,5 @@ Actual output:
 Expected output:
 
 
-PASS Default lineWidth strokes are affected by scale transformations
+FAIL Default lineWidth strokes are affected by scale transformations assert_equals: Red channel of the pixel at (25, 25) expected 0 but got 128
 

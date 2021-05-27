@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 PointerMove getCoalescedEvent in locked state test
 
 Follow the test instructions with mouse. If you don't have the device skip it.
@@ -8,5 +9,7 @@ Move the mouse
 Test passes if the proper behavior of the events is observed.
 
 
-FAIL mouse pointermove getCoalescedEvents when lock test event.getCoalescedEvents is not a function. (In 'event.getCoalescedEvents()', 'event.getCoalescedEvents' is undefined)
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse pointermove getCoalescedEvents when lock test
 

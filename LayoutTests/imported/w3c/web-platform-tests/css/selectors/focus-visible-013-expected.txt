@@ -8,5 +8,7 @@ If the element that says "Target" has a green outline, then the test result is a
 Initial
 Target
 
-PASS :focus-visible does not match after mouse click even if previous focused element was matching :focus-visible
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT :focus-visible does not match after mouse click even if previous focused element was matching :focus-visible Test timed out
 

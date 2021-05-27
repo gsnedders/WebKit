@@ -1,5 +1,7 @@
 
 PASS Check if browser supports enough test media types and pairs of audio-only or video-only media with same bytestream format
+FAIL Test audio-only implicit changeType for audio/webm; codecs="vorbis" <-> audio/webm; codecs="vorbis" assert_less_than: expected a number less than 2.066575963718821 but got 2.1
+FAIL Test audio-only implicit changeType for audio/webm; codecs="vorbis" <-> audio/webm; codecs="vorbis" (using types without codecs parameters for addSourceBuffer) assert_less_than: expected a number less than 2.066575963718821 but got 2.1
 PASS Test audio-only implicit changeType for audio/mp4; codecs="mp4a.40.2" <-> audio/mp4; codecs="mp4a.40.2"
 PASS Test audio-only implicit changeType for audio/mp4; codecs="mp4a.40.2" <-> audio/mp4; codecs="mp4a.40.2" (using types without codecs parameters for addSourceBuffer)
 PASS Test audio-only implicit changeType for audio/mpeg <-> audio/mpeg

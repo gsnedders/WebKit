@@ -1,3 +1,3 @@
 
-PASS Use of SVGAnimatedEnumeration within SVGMarkerElement
+FAIL Use of SVGAnimatedEnumeration within SVGMarkerElement Type error
 

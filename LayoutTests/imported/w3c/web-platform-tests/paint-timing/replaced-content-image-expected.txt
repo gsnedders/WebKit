@@ -1,0 +1,4 @@
+
+
+PASS Replaced content image triggers First Contentful Paint.
+

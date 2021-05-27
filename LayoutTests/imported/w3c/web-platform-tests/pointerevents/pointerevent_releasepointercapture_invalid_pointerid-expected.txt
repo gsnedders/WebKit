@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Event: releasePointerCapture() DOMException - NotFoundError
 
 Test Description: Upon invocation of the releasePointerCapture method, if the provided pointerId value does not match any of the active pointers, a DOMException with the name NotFoundError must be thrown.
@@ -6,10 +7,12 @@ Test Description: Upon invocation of the releasePointerCapture method, if the pr
 Use the mouse, touch or pen to move over or contact this box.
 Test complete: Scroll to Summary to view Pass/Fail Results.
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 Refresh the page to run the tests again with a different pointer type.
 
 
-PASS releasePointerCapture: DOMException NotFoundError
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN releasePointerCapture: DOMException NotFoundError
 

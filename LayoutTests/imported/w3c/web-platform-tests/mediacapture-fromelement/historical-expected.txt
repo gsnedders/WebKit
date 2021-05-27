@@ -1,0 +1,3 @@
+
+PASS the deprecated MediaStream `onactive` event handler property is not available
+

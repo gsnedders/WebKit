@@ -1,0 +1,4 @@
+
+FAIL Test fetch for a cross-origin redirect URL assert_greater_than: duration should be greater than 0 in redirects. expected a number greater than 0 but got 0
+PASS Test fetch for a same-origin redirect URL
+

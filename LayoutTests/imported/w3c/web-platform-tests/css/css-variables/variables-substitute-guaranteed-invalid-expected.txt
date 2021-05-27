@@ -1,0 +1,5 @@
+
+PASS Custom properties in a cycle are guaranteed-invalid
+PASS A custom property referencing a cycle is treated as unset
+PASS A custom property referencing a non-existent variable is treated as unset
+

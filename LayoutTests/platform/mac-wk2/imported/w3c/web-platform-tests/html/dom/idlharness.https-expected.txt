@@ -4331,8 +4331,7 @@ PASS Window interface: attribute parent
 PASS Window interface: attribute frameElement
 PASS Window interface: operation open(optional USVString, optional DOMString, optional DOMString)
 PASS Window interface: attribute navigator
-PASS Window interface: attribute applicationCache
-FAIL Window interface: attribute originIsolated assert_own_property: The global object must have a property "originIsolated" expected property "originIsolated" missing
+FAIL Window interface: attribute originAgentCluster assert_own_property: The global object must have a property "originAgentCluster" expected property "originAgentCluster" missing
 PASS Window interface: operation alert()
 PASS Window interface: operation alert(DOMString)
 PASS Window interface: operation confirm(optional DOMString)
@@ -4477,8 +4476,7 @@ PASS Window interface: window must inherit property "frameElement" with the prop
 PASS Window interface: window must inherit property "open(optional USVString, optional DOMString, optional DOMString)" with the proper type
 PASS Window interface: calling open(optional USVString, optional DOMString, optional DOMString) on window with too few arguments must throw TypeError
 PASS Window interface: window must inherit property "navigator" with the proper type
-PASS Window interface: window must inherit property "applicationCache" with the proper type
-FAIL Window interface: window must inherit property "originIsolated" with the proper type assert_own_property: expected property "originIsolated" missing
+FAIL Window interface: window must inherit property "originAgentCluster" with the proper type assert_own_property: expected property "originAgentCluster" missing
 PASS Window interface: window must inherit property "alert()" with the proper type
 PASS Window interface: window must inherit property "alert(DOMString)" with the proper type
 PASS Window interface: calling alert(DOMString) on window with too few arguments must throw TypeError
@@ -4693,56 +4691,6 @@ PASS BeforeUnloadEvent interface: existence and properties of interface prototyp
 PASS BeforeUnloadEvent interface: existence and properties of interface prototype object's "constructor" property
 PASS BeforeUnloadEvent interface: existence and properties of interface prototype object's @@unscopables property
 PASS BeforeUnloadEvent interface: attribute returnValue
-PASS ApplicationCache interface: existence and properties of interface object
-PASS ApplicationCache interface object length
-PASS ApplicationCache interface object name
-PASS ApplicationCache interface: existence and properties of interface prototype object
-PASS ApplicationCache interface: existence and properties of interface prototype object's "constructor" property
-PASS ApplicationCache interface: existence and properties of interface prototype object's @@unscopables property
-PASS ApplicationCache interface: constant UNCACHED on interface object
-PASS ApplicationCache interface: constant UNCACHED on interface prototype object
-PASS ApplicationCache interface: constant IDLE on interface object
-PASS ApplicationCache interface: constant IDLE on interface prototype object
-PASS ApplicationCache interface: constant CHECKING on interface object
-PASS ApplicationCache interface: constant CHECKING on interface prototype object
-PASS ApplicationCache interface: constant DOWNLOADING on interface object
-PASS ApplicationCache interface: constant DOWNLOADING on interface prototype object
-PASS ApplicationCache interface: constant UPDATEREADY on interface object
-PASS ApplicationCache interface: constant UPDATEREADY on interface prototype object
-PASS ApplicationCache interface: constant OBSOLETE on interface object
-PASS ApplicationCache interface: constant OBSOLETE on interface prototype object
-PASS ApplicationCache interface: attribute status
-PASS ApplicationCache interface: operation update()
-PASS ApplicationCache interface: operation abort()
-PASS ApplicationCache interface: operation swapCache()
-PASS ApplicationCache interface: attribute onchecking
-PASS ApplicationCache interface: attribute onerror
-PASS ApplicationCache interface: attribute onnoupdate
-PASS ApplicationCache interface: attribute ondownloading
-PASS ApplicationCache interface: attribute onprogress
-PASS ApplicationCache interface: attribute onupdateready
-PASS ApplicationCache interface: attribute oncached
-PASS ApplicationCache interface: attribute onobsolete
-PASS ApplicationCache must be primary interface of window.applicationCache
-PASS Stringification of window.applicationCache
-PASS ApplicationCache interface: window.applicationCache must inherit property "UNCACHED" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "IDLE" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "CHECKING" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "DOWNLOADING" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "UPDATEREADY" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "OBSOLETE" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "status" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "update()" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "abort()" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "swapCache()" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onchecking" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onerror" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onnoupdate" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "ondownloading" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onprogress" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onupdateready" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "oncached" with the proper type
-PASS ApplicationCache interface: window.applicationCache must inherit property "onobsolete" with the proper type
 PASS ErrorEvent interface: existence and properties of interface object
 PASS ErrorEvent interface object length
 PASS ErrorEvent interface object name
@@ -5134,9 +5082,6 @@ PASS HTMLMarqueeElement interface: attribute scrollDelay
 PASS HTMLMarqueeElement interface: attribute trueSpeed
 PASS HTMLMarqueeElement interface: attribute vspace
 PASS HTMLMarqueeElement interface: attribute width
-FAIL HTMLMarqueeElement interface: attribute onbounce assert_true: The prototype object must have a property "onbounce" expected true got false
-FAIL HTMLMarqueeElement interface: attribute onfinish assert_true: The prototype object must have a property "onfinish" expected true got false
-FAIL HTMLMarqueeElement interface: attribute onstart assert_true: The prototype object must have a property "onstart" expected true got false
 PASS HTMLMarqueeElement interface: operation start()
 PASS HTMLMarqueeElement interface: operation stop()
 PASS HTMLMarqueeElement must be primary interface of document.createElement("marquee")
@@ -5152,9 +5097,6 @@ PASS HTMLMarqueeElement interface: document.createElement("marquee") must inheri
 PASS HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "trueSpeed" with the proper type
 PASS HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "vspace" with the proper type
 PASS HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "width" with the proper type
-FAIL HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "onbounce" with the proper type assert_inherits: property "onbounce" not found in prototype chain
-FAIL HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "onfinish" with the proper type assert_inherits: property "onfinish" not found in prototype chain
-FAIL HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "onstart" with the proper type assert_inherits: property "onstart" not found in prototype chain
 PASS HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "start()" with the proper type
 PASS HTMLMarqueeElement interface: document.createElement("marquee") must inherit property "stop()" with the proper type
 PASS HTMLFrameSetElement interface: existence and properties of interface object

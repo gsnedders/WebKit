@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 setPointerCapture
 
 Test Description: This test checks if setPointerCapture works properly.
@@ -6,8 +7,8 @@ Move you mouse out to complete the test
 
 Pointer Events setPointerCapture Tests
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 
-PASS setPointerCapture + inactive button state
+FAIL setPointerCapture + inactive button state Unhandled rejection: unimplemented
 

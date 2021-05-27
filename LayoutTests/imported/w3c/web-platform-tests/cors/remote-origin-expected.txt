@@ -1,51 +1,52 @@
+Blocked access to external URL http://www1.localhost:8800/cors/resources/remote-xhrer.html
 Access-Control-Allow-Origin handling
 
 
-Harness Error (FAIL), message = 1 duplicate test name: "Disallow origin: HTTP://127.0.0.1"
+Harness Error (TIMEOUT), message = null
 
-FAIL Allow origin: * assert_equals: Request Origin: should be http://127.0.0.1 expected "http://127.0.0.1" but got "http://127.0.0.1:8800"
-FAIL Allow origin: _*__ assert_equals: Request Origin: should be http://127.0.0.1 expected "http://127.0.0.1" but got "http://127.0.0.1:8800"
-FAIL Allow origin: [tab]* assert_equals: Request Origin: should be http://127.0.0.1 expected "http://127.0.0.1" but got "http://127.0.0.1:8800"
-FAIL Allow origin: http://127.0.0.1 assert_equals: expected "load" but got "error"
-FAIL Allow origin: _http://127.0.0.1 assert_equals: expected "load" but got "error"
-FAIL Allow origin: _http://127.0.0.1___[tab]_ assert_equals: expected "load" but got "error"
-FAIL Allow origin: [tab]http://127.0.0.1 assert_equals: expected "load" but got "error"
-PASS Disallow origin: http://localhost:8800
-PASS Disallow origin: //127.0.0.1
-PASS Disallow origin: ://127.0.0.1
-PASS Disallow origin: ftp://127.0.0.1
-PASS Disallow origin: http:://127.0.0.1
-PASS Disallow origin: http:/127.0.0.1
-PASS Disallow origin: http:127.0.0.1
-PASS Disallow origin: 127.0.0.1
-PASS Disallow origin: http://127.0.0.1?
-PASS Disallow origin: http://127.0.0.1/
-PASS Disallow origin: http://127.0.0.1_/
-PASS Disallow origin: http://127.0.0.1#
-PASS Disallow origin: http://127.0.0.1%23
-PASS Disallow origin: http://127.0.0.1:80
-PASS Disallow origin: http://127.0.0.1,_*
-PASS Disallow origin: http://127.0.0.1\0
-PASS Disallow origin: HTTP://127.0.0.1
-PASS Disallow origin: HTTP://127.0.0.1
-PASS Disallow origin: http://127.0.0.1
-PASS Disallow origin: -
-PASS Disallow origin: **
-PASS Disallow origin: \0*
-PASS Disallow origin: *\0
-PASS Disallow origin: '*'
-PASS Disallow origin: "*"
-PASS Disallow origin: *_*
-PASS Disallow origin: *http://*
-PASS Disallow origin: *http://127.0.0.1
-PASS Disallow origin: *_http://127.0.0.1
-PASS Disallow origin: *,_http://127.0.0.1
-PASS Disallow origin: \0http://127.0.0.1
-PASS Disallow origin: null_http://127.0.0.1
-PASS Disallow origin: http://example.net
-PASS Disallow origin: null
-PASS Disallow origin:
-PASS Disallow origin: http://localhost:8800/cors/remote-origin.htm
-PASS Disallow origin: http://localhost:8800/cors/
-PASS Disallow origin: http://127.0.0.1:8800/cors/
+TIMEOUT Allow origin: * Test timed out
+TIMEOUT Allow origin: _*__ Test timed out
+TIMEOUT Allow origin: [tab]* Test timed out
+TIMEOUT Allow origin: http://www1.localhost:8800 Test timed out
+TIMEOUT Allow origin: _http://www1.localhost:8800 Test timed out
+TIMEOUT Allow origin: _http://www1.localhost:8800___[tab]_ Test timed out
+TIMEOUT Allow origin: [tab]http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http://localhost:8800 Test timed out
+TIMEOUT Disallow origin: //www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: ://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: ftp://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http:://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http:/www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http:www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800? Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800/ Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800_/ Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800# Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800%23 Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800:80 Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800,_* Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800\0 Test timed out
+TIMEOUT Disallow origin: HTTP://WWW1.LOCALHOST:8800 Test timed out
+TIMEOUT Disallow origin: HTTP://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http://WWW1.LOCALHOST:8800 Test timed out
+TIMEOUT Disallow origin: - Test timed out
+TIMEOUT Disallow origin: ** Test timed out
+TIMEOUT Disallow origin: \0* Test timed out
+TIMEOUT Disallow origin: *\0 Test timed out
+TIMEOUT Disallow origin: '*' Test timed out
+TIMEOUT Disallow origin: "*" Test timed out
+TIMEOUT Disallow origin: *_* Test timed out
+TIMEOUT Disallow origin: *http://* Test timed out
+TIMEOUT Disallow origin: *http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: *_http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: *,_http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: \0http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: null_http://www1.localhost:8800 Test timed out
+TIMEOUT Disallow origin: http://example.net Test timed out
+TIMEOUT Disallow origin: null Test timed out
+TIMEOUT Disallow origin:  Test timed out
+TIMEOUT Disallow origin: http://localhost:8800/cors/remote-origin.htm Test timed out
+TIMEOUT Disallow origin: http://localhost:8800/cors/ Test timed out
+TIMEOUT Disallow origin: http://www1.localhost:8800/cors/ Test timed out
 

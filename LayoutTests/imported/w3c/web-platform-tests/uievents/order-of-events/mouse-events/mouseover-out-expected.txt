@@ -1,7 +1,10 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Steps:
 
 Move your mouse over the blue <div> element, later over the green one, later over the yellow one.
 Move the mouse from the yellow element to the green one, later to the blue one, and later over this paragraph.
 
-PASS Mouseover/out events
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN Mouseover/out events
 

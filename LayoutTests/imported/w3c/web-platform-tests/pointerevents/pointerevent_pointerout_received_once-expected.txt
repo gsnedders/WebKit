@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 pointerout received just once
 
 Test Description: This test checks if pointerout event dispatched properly.
@@ -6,10 +7,11 @@ Move your mouse out of the black rectangle
 
 Pointer Events pointerout received once test
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 Refresh the page to run the tests again with a different pointer type.
 
 
-PASS pointerout received just once
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
 

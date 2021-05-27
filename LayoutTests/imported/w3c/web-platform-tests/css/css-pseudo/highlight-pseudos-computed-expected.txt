@@ -1,0 +1,6 @@
+
+FAIL getComputedStyle() for ::selection assert_equals: Background color is green. expected "rgb(0, 128, 0)" but got "rgba(0, 0, 0, 0)"
+FAIL getComputedStyle() for ::target-text assert_equals: Background color is green. expected "rgb(0, 128, 0)" but got "rgba(0, 0, 0, 0)"
+FAIL getComputedStyle() for ::spelling-error assert_equals: Background color is green. expected "rgb(0, 128, 0)" but got "rgba(0, 0, 0, 0)"
+FAIL getComputedStyle() for ::grammar-error assert_equals: Background color is green. expected "rgb(0, 128, 0)" but got "rgba(0, 0, 0, 0)"
+

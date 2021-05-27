@@ -1,0 +1,4 @@
+
+PASS scroll size should match that of size specified by overflow: clip
+FAIL scroll size should take into account border size and overflow-clip-margin assert_equals: expected 104 but got 202
+

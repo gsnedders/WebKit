@@ -1,4 +1,7 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Pointer Events pointer lock test
+
+Follow the test instructions with mouse. If you don't have the device skip it.
 
 Test Description: This test checks that we release the exsiting pointer capture when any element in the page gets a pointer lock.
 Press left button down on the green rectangle and hold it.
@@ -8,5 +11,7 @@ Keep moving the mouse inside the green rectangle.
 Test passes if the pointer capture is released on the yellow rectangle when the green rectangle gets the pointer lock.
 
 
-PASS mouse no pointercapture while pointerlock
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse no pointercapture while pointerlock
 

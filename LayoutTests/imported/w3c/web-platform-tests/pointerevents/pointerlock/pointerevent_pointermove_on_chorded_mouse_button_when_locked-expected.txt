@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 PointerMove
 
 Test Description: This test checks if pointermove event are triggered by button state changes
@@ -9,10 +10,12 @@ Release the first button to complete the test
 
 Pointer Lock Pointer Events pointermove on button state changes Tests
 
-The following pointer types were detected: mouse.
+The following pointer types were detected: (none).
 
 Refresh the page to run the tests again.
 
 
-PASS pointer locked pointermove events received for button state changes
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN pointer locked pointermove events received for button state changes
 

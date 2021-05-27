@@ -1,4 +1,6 @@
 
-PASS Can set up a basic WebRTC call without announcing ssrcs.
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Can set up a basic WebRTC call without announcing ssrcs. Test timed out
 
 

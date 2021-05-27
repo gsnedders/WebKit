@@ -2,5 +2,5 @@ Verifies that pointerup/down are fired correctly for corresponding mouse events 
 
 
 PASS Test point (103,136.875) is on the scrollbar
-PASS Verifies that pointerup/down are fired correctly for corresponding mouse events on the scollbar.
+FAIL Verifies that pointerup/down are fired correctly for corresponding mouse events on the scollbar. promise_test: Unhandled rejection with value: object "Error: unimplemented"
 

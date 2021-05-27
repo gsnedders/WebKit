@@ -1,3 +1,5 @@
 
-PASS Signal detector detects track change within reasonable time
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Signal detector detects track change within reasonable time Test timed out
 

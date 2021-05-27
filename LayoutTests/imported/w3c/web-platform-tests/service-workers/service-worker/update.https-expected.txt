@@ -1,7 +1,7 @@
 
 PASS update() should succeed when new script is available.
 PASS update() should fail when mime type is invalid.
-FAIL update() should fail when a response for the main script is redirect. promise_rejects_js: function "function () { throw e }" threw object "SecurityError: Script https://localhost:9443/service-workers/service-worker/resources/update-worker.py?Key=48e2907e-b632-491a-b285-2fd2b666386a&Mode=redirect load failed" ("SecurityError") expected instance of function "function TypeError() {
+FAIL update() should fail when a response for the main script is redirect. promise_rejects_js: function "function () { throw e }" threw object "SecurityError: Script https://localhost:9443/service-workers/service-worker/resources/update-worker.py?Key=4f61846d-3302-42c8-82bb-6c51251d9678&Mode=redirect load failed" ("SecurityError") expected instance of function "function TypeError() {
     [native code]
 }" ("TypeError")
 PASS update() should fail when a new script contains a syntax error.

@@ -1,6 +1,9 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Clicking on input type=text element when placeholder changes
 
 
 
-PASS Test click and auxclick on input element
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN Test click and auxclick on input element
 

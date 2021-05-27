@@ -450,6 +450,8 @@ PASS list-style-position: inherit
 PASS list-style-type: disc
 PASS list-style-type: circle
 PASS list-style-type: square
+FAIL list-style-type: disclosure-open assert_equals: list-style-type raw inline style declaration expected "disclosure-open" but got ""
+FAIL list-style-type: disclosure-closed assert_equals: list-style-type raw inline style declaration expected "disclosure-closed" but got ""
 PASS list-style-type: decimal
 PASS list-style-type: decimal-leading-zero
 PASS list-style-type: lower-roman

@@ -1,6 +1,5 @@
-$
 
-FAIL subresource CORP assert_unreached: A report whose blocked-url is https://127.0.0.1:9443/common/text-plain.txt?5b94c235-d74d-4e80-b363-aa9bd466b1a6 and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
-FAIL navigation CORP assert_unreached: A report whose blocked-url is https://127.0.0.1:9443/common/blank.html?6f615216-f22f-41cb-a707-0b977efc3d6d and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
-FAIL COEP violation on nested frame navigation assert_unreached: A report whose blocked-url is https://localhost:9443/common/blank.html?f967cac2-4283-4ea6-8667-040244e52336 and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
+FAIL subresource CORP assert_unreached: A report whose blockedURL is https://127.0.0.1:9443/common/text-plain.txt?e3fbd649-e035-4e31-9c19-f304c09d79cb and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
+FAIL navigation CORP assert_unreached: A report whose blockedURL is https://127.0.0.1:9443/common/blank.html?e24f0bd2-97ee-48db-a52b-1a10c18fa70f and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
+FAIL COEP violation on nested frame navigation assert_unreached: A report whose blockedURL is https://localhost:9443/common/blank.html?4c8f4335-b533-4700-8fd9-7aefbc9aabbb and url is https://localhost:9443/html/cross-origin-embedder-policy/resources/reporting-empty-frame.html is not found. Reached unreachable code
 

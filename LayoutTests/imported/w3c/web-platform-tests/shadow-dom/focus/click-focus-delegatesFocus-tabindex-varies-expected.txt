@@ -1,5 +1,7 @@
 slotted
 outside
 
-PASS click on host with delegatesFocus, #aboveSlot tabindex = 2, #slot and #slotted tabindex = 1
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT click on host with delegatesFocus, #aboveSlot tabindex = 2, #slot and #slotted tabindex = 1 Test timed out
 

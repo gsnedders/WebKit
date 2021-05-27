@@ -1,5 +1,7 @@
 slotted
 outside
 
-PASS click on host with delegatesFocus, all tabindex=0 except spacer
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT click on host with delegatesFocus, all tabindex=0 except spacer Test timed out
 

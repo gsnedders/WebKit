@@ -1,0 +1,3 @@
+
+FAIL Test worker MediaSource construction, attachment, buffering and basic playback assert_true: MediaSource hasOwnProperty 'canConstructInDedicatedWorker' expected true got false
+

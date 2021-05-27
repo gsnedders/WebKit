@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Mouse Events
 
 Test Description: This test checks if mouse events set button property correctly
@@ -7,5 +8,7 @@ Drag mouse to blue rectangle
 Release mouse button
 
 
-PASS mouse events fired without button state
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+NOTRUN mouse events fired without button state
 

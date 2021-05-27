@@ -1,0 +1,5 @@
+
+PASS Declaration changes on 'color' propagate to all variable references
+FAIL Declaration changes on 'background-color' propagate to all variable references assert_equals: case2-1 expected "rgb(0, 128, 0)" but got "rgb(255, 0, 0)"
+PASS Declaration changes on 'white-space' propagate to all variable references
+

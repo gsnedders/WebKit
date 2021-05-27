@@ -3,5 +3,7 @@ slotted below
 slotted above
 belowHost
 
-PASS Order with various tabindex values
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Order with various tabindex values Test timed out
 

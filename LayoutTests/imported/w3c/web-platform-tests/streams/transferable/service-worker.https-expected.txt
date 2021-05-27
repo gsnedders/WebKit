@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: The object can not be cloned.
+
+PASS service-worker
+FAIL serviceWorker.controller.postMessage should be able to transfer a ReadableStream The object can not be cloned.
+FAIL postMessage in a service worker should be able to transfer ReadableStream promise_test: Unhandled rejection with value: "The object can not be cloned."
+

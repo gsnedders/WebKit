@@ -1,0 +1,4 @@
+
+FAIL Test main context revocation of DedicatedWorker MediaSource object URL assert_true: MediaSource hasOwnProperty 'canConstructInDedicatedWorker' expected true got false
+PASS MediaSource construction in DedicatedWorker context must fail if Window context did not claim MSE supported in DedicatedWorker
+

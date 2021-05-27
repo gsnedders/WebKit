@@ -1,0 +1,4 @@
+CONSOLE MESSAGE: WebSocket connection to 'wss://localhost:9000/echo' failed: Could not connect to the server.
+
+FAIL WSS over h2 assert_true: expected true got false
+

@@ -1,0 +1,4 @@
+
+FAIL worker.postMessage should be able to transfer a ReadableStream Can't find variable: SharedWorker
+FAIL postMessage in a worker should be able to transfer a ReadableStream Can't find variable: SharedWorker
+

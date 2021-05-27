@@ -1,3 +1,20 @@
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: TypeError: 'handleEvent' property of event listener should be callable
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
+CONSOLE MESSAGE: Error
 
 PASS Exception in error event handler on request
 PASS Exception in error event handler on request, with preventDefault

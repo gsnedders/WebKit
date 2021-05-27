@@ -1,0 +1,4 @@
+
+FAIL History navigation reuses original policy. assert_equals: History navigation reuses original policy. expected (undefined) undefined but got (string) "http://localhost:8800/custom"
+PASS New srcdoc iframe uses new policy.
+

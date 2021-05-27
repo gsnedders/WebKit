@@ -1,4 +1,6 @@
 
 
-FAIL Saves and loads back File objects from IndexedDB assert_equals: expected 1 but got 0
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Saves and loads back File objects from IndexedDB Test timed out
 

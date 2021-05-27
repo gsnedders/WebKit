@@ -3,5 +3,7 @@ slotted below
 slotted above
 belowHost
 
-PASS Order when all tabindex=0 except scrollable host (tabindex not set)
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Order when all tabindex=0 except scrollable host (tabindex not set) Test timed out
 

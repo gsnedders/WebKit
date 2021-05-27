@@ -1,0 +1,14 @@
+
+FAIL Form newline normalization: \n in the value becomes \r\n assert_equals: expected "b\r\nc" but got "b\nc"
+FAIL Form newline normalization: \r in the value becomes \r\n assert_equals: expected "b\r\nc" but got "b\rc"
+PASS Form newline normalization: \r\n in the value stays unchanged
+FAIL Form newline normalization: \n\r in the value becomes \r\n\r\n assert_equals: expected "b\r\n\r\nc" but got "b\n\rc"
+FAIL Form newline normalization: \n in the name becomes \r\n assert_equals: expected "a\r\nb" but got "a\nb"
+FAIL Form newline normalization: \r in the name becomes \r\n assert_equals: expected "a\r\nb" but got "a\rb"
+PASS Form newline normalization: \r\n in the name stays unchanged
+FAIL Form newline normalization: \n\r in the name becomes \r\n\r\n assert_equals: expected "a\r\n\r\nb" but got "a\n\rb"
+PASS Form newline normalization: \n in the filename stays unchanged
+PASS Form newline normalization: \r in the filename stays unchanged
+PASS Form newline normalization: \r\n in the filename stays unchanged
+PASS Form newline normalization: \n\r in the filename stays unchanged
+

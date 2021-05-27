@@ -1,0 +1,6 @@
+CONSOLE MESSAGE: TypeError: undefined is not an object (evaluating 'performance.getEntriesByType('navigation')[0].serverTiming')
+
+
+Harness Error (TIMEOUT), message = null
+
+

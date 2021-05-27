@@ -1,4 +1,6 @@
 
-FAIL Two connected iceTransports should has matching local/remote candidates returned promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: RTCSctpTransport"
-FAIL Unconnected iceTransport should have empty remote candidates and selected pair promise_test: Unhandled rejection with value: object "ReferenceError: Can't find variable: RTCSctpTransport"
+Harness Error (TIMEOUT), message = null
+
+TIMEOUT Two connected iceTransports should has matching local/remote candidates returned Test timed out
+NOTRUN Unconnected iceTransport should have empty remote candidates and selected pair
 

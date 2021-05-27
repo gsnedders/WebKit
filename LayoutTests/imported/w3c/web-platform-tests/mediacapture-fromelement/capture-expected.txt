@@ -1,11 +1,13 @@
-CONSOLE MESSAGE: Unhandled Promise Rejection: [object DOMError]
-CONSOLE MESSAGE: Unhandled Promise Rejection: [object DOMError]
-CONSOLE MESSAGE: Unhandled Promise Rejection: [object DOMError]
+CONSOLE MESSAGE: Unhandled Promise Rejection: NotSupportedError: The operation is not supported.
+CONSOLE MESSAGE: Unhandled Promise Rejection: NotSupportedError: The operation is not supported.
+CONSOLE MESSAGE: Unhandled Promise Rejection: NotSupportedError: The operation is not supported.
+
+Harness Error (FAIL), message = Unhandled rejection: The operation is not supported.
 
 PASS video-only
-FAIL Untitled video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)
+FAIL capture promise_test: Unhandled rejection with value: object "TypeError: video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)"
 PASS audio-only
-FAIL Untitled 1 video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)
+FAIL capture 1 promise_test: Unhandled rejection with value: object "TypeError: video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)"
 PASS video+audio
-FAIL Untitled 2 video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)
+FAIL capture 2 promise_test: Unhandled rejection with value: object "TypeError: video.captureStream is not a function. (In 'video.captureStream()', 'video.captureStream' is undefined)"
 

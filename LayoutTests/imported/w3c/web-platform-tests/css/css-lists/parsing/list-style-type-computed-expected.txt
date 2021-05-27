@@ -3,6 +3,8 @@ PASS Property list-style-type value 'none'
 PASS Property list-style-type value 'disc'
 PASS Property list-style-type value 'circle'
 PASS Property list-style-type value 'square'
+FAIL Property list-style-type value 'disclosure-open' assert_true: 'disclosure-open' is a supported value for list-style-type. expected true got false
+FAIL Property list-style-type value 'disclosure-closed' assert_true: 'disclosure-closed' is a supported value for list-style-type. expected true got false
 PASS Property list-style-type value 'decimal'
 PASS Property list-style-type value 'decimal-leading-zero'
 PASS Property list-style-type value 'lower-roman'

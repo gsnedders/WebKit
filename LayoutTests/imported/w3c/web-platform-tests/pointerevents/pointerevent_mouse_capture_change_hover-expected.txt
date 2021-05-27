@@ -1,5 +1,5 @@
 
-PASS Mouse down and capture to green.
-PASS Mouse down at green and capture to blue.
-PASS Mouse down and capture to green, move to blue and release capture
+FAIL Mouse down and capture to green. promise_test: Unhandled rejection with value: object "Error: unimplemented"
+FAIL Mouse down at green and capture to blue. promise_test: Unhandled rejection with value: object "Error: unimplemented"
+FAIL Mouse down and capture to green, move to blue and release capture promise_test: Unhandled rejection with value: object "Error: unimplemented"
 

@@ -1,0 +1,7 @@
+
+Harness Error (TIMEOUT), message = null
+
+NOTRUN idlharness-manual
+TIMEOUT idl_test setup Test timed out
+PASS idl_test validation
+Drop the support/upload directory here.

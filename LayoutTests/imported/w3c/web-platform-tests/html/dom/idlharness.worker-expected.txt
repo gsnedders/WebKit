@@ -418,7 +418,6 @@ PASS PopStateEvent interface: existence and properties of interface object
 PASS HashChangeEvent interface: existence and properties of interface object
 PASS PageTransitionEvent interface: existence and properties of interface object
 PASS BeforeUnloadEvent interface: existence and properties of interface object
-PASS ApplicationCache interface: existence and properties of interface object
 PASS ErrorEvent interface: existence and properties of interface object
 PASS ErrorEvent interface object length
 PASS ErrorEvent interface object name

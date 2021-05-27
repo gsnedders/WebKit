@@ -1,0 +1,3 @@
+
+FAIL CanvasRenderingContext2D.getImageData() does not lead to a frame being captured assert_equals: Video element did not get a frame from the canvas expected 0 but got 4
+

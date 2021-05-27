@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 pointerlock
 
 Test Description: This test checks if pointermove is dispatched correctly while in pointerlock mode.
@@ -8,8 +9,8 @@ Move your mouse.
 
 
 
-Harness Error (TIMEOUT), message = null
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
 
-PASS pointermove event received
+NOTRUN pointermove event received
 NOTRUN pointermove event received inner frame
 

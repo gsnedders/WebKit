@@ -1,8 +1,10 @@
 
+Harness Error (TIMEOUT), message = null
+
 FAIL Test seek starts on duration truncation below currentTime The object is in an invalid state.
-FAIL Test appendBuffer completes previous seek to truncated duration The object is in an invalid state.
+FAIL Test appendBuffer completes previous seek to truncated duration assert_greater_than_equal: Playback time has reached seekTo expected a number greater than or equal to 3.2745 but got 3.174227434
 FAIL Test endOfStream completes previous seek to truncated duration The object is in an invalid state.
-PASS Test setting same duration multiple times does not fire duplicate durationchange
+TIMEOUT Test setting same duration multiple times does not fire duplicate durationchange Test timed out
 PASS Test setting the duration to less than the highest starting presentation timestamp will throw
 PASS Truncating the duration throws an InvalidStateError exception when new duration is less than the highest buffered range start time of one of the track buffers
 PASS Truncating the duration throws an InvalidStateError exception when new duration is less than a buffered coded frame presentation time

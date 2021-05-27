@@ -1,0 +1,9 @@
+layer at (0,0) size 800x600
+  RenderView at (0,0) size 800x600
+layer at (0,0) size 500x500
+  RenderSVGRoot {svg} at (10,22) size 480x468
+    RenderSVGContainer {a} at (10,22) size 105x36
+      RenderSVGText {text} at (10,22) size 105x36 contains 1 chunk(s)
+        RenderSVGInlineText {#text} at (0,0) size 105x35
+          chunk 1 text run 1 at (10.00,50.00) startOffset 0 endOffset 7 width 104.12: "Drag me"
+    RenderSVGRect {rect} at (10,300) size 480x190 [fill={[type=SOLID] [color=#808080]}] [x=10.00] [y=300.00] [width=480.00] [height=190.00]

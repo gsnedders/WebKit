@@ -1,0 +1,4 @@
+
+PASS supportedEntryTypes contains 'paint'.
+PASS 'paint' entries should be observable.
+foo

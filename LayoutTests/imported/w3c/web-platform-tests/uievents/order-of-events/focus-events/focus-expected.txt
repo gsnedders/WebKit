@@ -1,3 +1,4 @@
+CONSOLE MESSAGE: Unhandled Promise Rejection: Error: unimplemented
 Click into the first text input.
 Click into the second text input.
 Click the "Done" button.
@@ -5,5 +6,11 @@ Click the "Done" button.
 
 Done
 
-PASS Focus-related events should fire in the correct order
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+TIMEOUT Focus-related events should fire in the correct order Test timed out
+
+Harness Error (FAIL), message = Unhandled rejection: unimplemented
+
+TIMEOUT Focus-related events should fire in the correct order Test timed out
 
