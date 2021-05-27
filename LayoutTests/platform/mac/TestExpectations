@@ -1292,10 +1292,6 @@ fast/text/system-font-japanese-synthetic-italic.html [ Pass ImageOnlyFailure ]
 # we should delete the test.
 fast/text/font-variations-feature-detection.html [ ImageOnlyFailure ]
 
-# <rdar://problem/33437597> Multiple imported/w3c/web-platform-tests/fetch are failing on High Sierra
-imported/w3c/web-platform-tests/fetch/api/basic/request-headers.any.worker.html [ Failure ]
-imported/w3c/web-platform-tests/fetch/api/basic/request-headers.any.html [ Failure ]
-
 # <rdar://problem/33731086>
 media/modern-media-controls/time-labels-support/elapsed-time.html [ Skip ]
 
@@ -2000,8 +1996,6 @@ webkit.org/b/215515 imported/w3c/web-platform-tests/user-timing/measure_navigati
 webkit.org/b/215723 fast/repaint/list-item-equal-style-change-no-repaint.html [ Pass Failure ]
 
 webkit.org/b/189672 [ Release ] webgl/2.0.0/conformance2/textures/canvas/tex-2d-rg32f-rg-float.html [ Pass Failure ]
-
-webkit.org/b/215786 imported/w3c/web-platform-tests/fetch/api/request/request-cache-only-if-cached.html [ Pass ]
 
 webkit.org/b/191627 imported/w3c/web-platform-tests/css/css-grid/alignment/grid-self-baseline-not-applied-if-sizing-cyclic-dependency-001.html [ Pass ]
 

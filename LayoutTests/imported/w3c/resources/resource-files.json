@@ -2761,6 +2761,7 @@
         "web-platform-tests/workers/support/sandboxed-tests.html",
         "web-platform-tests/workers/support/sync_xhr_target.xml",
         "web-platform-tests/xhr/xmlhttprequest-sync-block-defer-scripts-subframe.html",
-        "web-platform-tests/xhr/xmlhttprequest-sync-not-hang-scriptloader-subframe.html"
+        "web-platform-tests/xhr/xmlhttprequest-sync-not-hang-scriptloader-subframe.html",
+        "web-platform-tests/fetch/security/support/embedded-credential-window.sub.html"
     ]
 }
