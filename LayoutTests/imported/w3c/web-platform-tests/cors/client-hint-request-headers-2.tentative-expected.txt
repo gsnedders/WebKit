@@ -1,6 +1,0 @@
-Blocked access to external URL http://www1.localhost:8800/cors/resources/cors-makeheader.py?headers=x-print,
-Request headers
-
-
-FAIL Client hint headers are simple headers  A network error occurred.
-

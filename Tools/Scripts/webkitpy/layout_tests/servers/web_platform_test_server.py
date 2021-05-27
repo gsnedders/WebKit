@@ -95,7 +95,7 @@ class WebPlatformTestServer(http_server_base.HttpServerBase):
         self._config_filename = self._filesystem.join(self._doc_root_path, "config.json")
 
         wpt_file = self._filesystem.join(self._doc_root_path, "wpt.py")
-        self._start_cmd = ["python", wpt_file, "serve", "--config", self._config_filename]
+        self._start_cmd = ["python", wpt_file, "--py2", "serve", "--config", self._config_filename]
 
         self._mappings = []
         config = wpt_config_json(port_obj)
