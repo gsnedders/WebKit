@@ -95,13 +95,8 @@ class WebPlatformTestServer(http_server_base.HttpServerBase):
         self._doc_root_path = self._filesystem.join(self._layout_root, self._doc_root)
         self._config_filename = self._filesystem.join(self._doc_root_path, "config.json")
 
-        # FIXME https://webkit.org/b/222703
-        python_interp = sys.executable
-        if sys.version_info > (3, 0):
-            python_interp = 'python2'
-
         wpt_file = self._filesystem.join(self._doc_root_path, "wpt.py")
-        self._start_cmd = [python_interp, wpt_file, "serve", "--config", self._config_filename]
+        self._start_cmd = [sys.executable, wpt_file, "--py2", "serve", "--config", self._config_filename]
 
         self._mappings = []
         config = wpt_config_json(port_obj)
