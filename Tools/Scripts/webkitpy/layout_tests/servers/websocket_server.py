@@ -123,7 +123,7 @@ class PyWebSocket(http_server.Lighttpd):
             python_interp = 'python2'
 
         wpt_tools_base = self._filesystem.join(self._layout_tests, "imported", "w3c", "web-platform-tests", "tools")
-        pywebsocket_base = self._filesystem.join(wpt_tools_base, "pywebsocket")
+        pywebsocket_base = self._filesystem.join(wpt_tools_base, "third_party", "pywebsocket3")
         pywebsocket_deps = [self._filesystem.join(wpt_tools_base, "third_party", "six")]
         pywebsocket_script = self._filesystem.join(pywebsocket_base, 'mod_pywebsocket', 'standalone.py')
         start_cmd = [
