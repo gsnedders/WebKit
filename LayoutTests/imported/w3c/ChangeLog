@@ -1,3 +1,20 @@
+2021-06-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Update wpt/tools to last Python 2 supporting version
+        https://bugs.webkit.org/show_bug.cgi?id=226746
+
+        Reviewed by NOBODY (OOPS!).
+
+        Additionally, due to changes in the wptserve API, reimport wpt/fetch
+
+        * resources/TestRepositories: Update revision to f54724aafa, move all paths to import-expectations.json
+        * resources/import-expectations.json:
+        Moves from above; add a bunch more as "skip" that we don't import; reduce duplicates.
+        * resources/resource-files.json: from fetch reimport
+        * web-platform-tests/fetch/*: reimport
+        * web-platform-tests/tools/*: reimport
+        * web-platform-tests/wpt: reimport
+
 2021-06-07  Imanol Fernandez  <ifernandez@igalia.com>
 
         Use 3D points to map the WebXRBoundedReferenceSpace bounds transform

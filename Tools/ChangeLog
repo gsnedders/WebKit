@@ -1,3 +1,17 @@
+2021-06-07  Sam Sneddon  <gsnedders@apple.com>
+
+        Update wpt/tools to last Python 2 supporting version
+        https://bugs.webkit.org/show_bug.cgi?id=226746
+
+        Reviewed by NOBODY (OOPS!).
+
+        * Scripts/webkitpy/layout_tests/servers/web_platform_test_server.py:
+        (WebPlatformTestServer.__init__): Pass --py2 when starting the server, let WPT handle the logic
+        * Scripts/webkitpy/w3c/test_downloader.py:
+        (TestDownloader.update_import_expectations): Match Python 3 behaviour when serialising JSON
+        * Scripts/webkitpy/w3c/test_importer.py:
+        (TestImporter.import_tests): Handle the case when a path that previously contained a file is now a directory
+
 2021-06-07  Wenson Hsieh  <wenson_hsieh@apple.com>
 
         Upstream WebKit support for Live Text
