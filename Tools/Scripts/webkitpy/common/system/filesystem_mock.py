@@ -30,6 +30,7 @@ import errno
 import hashlib
 import os
 import re
+import types
 
 from webkitcorepy import UnicodeIO, string_utils
 
@@ -46,6 +47,8 @@ class MockFileSystem(object):
                 value of None is used to indicate that the file should
                 not exist.
         """
+        if isinstance(os, types.ModuleType):
+            raise Exception("foasdasd" + repr(type(os)))
         self.files = {name: string_utils.encode(contents) for name, contents in (files or {}).items()}
         self.written_files = {}
         self.last_tmpdir = None

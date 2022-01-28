@@ -39,6 +39,8 @@ import unittest
 
 from contextlib import contextmanager
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.executive_mock import MockExecutive
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.systemhost_mock import MockSystemHost
@@ -105,7 +107,7 @@ def bind_mock_apple_additions():
     VersionNameMap.map._results_cache = {}
 
 
-class PortTestCase(unittest.TestCase):
+class PortTestCase(unittest.TestCase, TestCaseMixin):
     """Tests that all Port implementations must pass."""
     HTTP_PORTS = (8000, 8080, 8443)
     WEBSOCKET_PORTS = (8880,)
@@ -116,6 +118,9 @@ class PortTestCase(unittest.TestCase):
     port_maker = TestWebKitPort
     port_name = None
     disable_setup = False
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def make_port(self, host=None, port_name=None, options=None, os_name=None, os_version=None, **kwargs):
         host = host or MockSystemHost(os_name=(os_name or self.os_name), os_version=(os_version or self.os_version))

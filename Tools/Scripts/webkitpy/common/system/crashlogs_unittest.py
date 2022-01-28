@@ -24,6 +24,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitcorepy import string_utils
 
 from webkitpy.common.system.crashlogs import CrashLogs
@@ -295,8 +297,11 @@ quit:
 """.format(process_name=process_name, pid=pid)
 
 
-class CrashLogsTest(unittest.TestCase):
+class CrashLogsTest(unittest.TestCase, TestCaseMixin):
     DARWIN_MOCK_CRASH_DIRECTORY = '/Users/mock/Library/Logs/DiagnosticReports'
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def create_crash_logs_darwin(self):
         if not SystemHost().platform.is_mac():

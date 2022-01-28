@@ -46,6 +46,9 @@ import shutil
 import unittest
 
 from datetime import date
+
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitcorepy import Version
 
 from webkitpy.common.checkout.checkout import Checkout
@@ -1811,8 +1814,11 @@ class GitSVNTest(SCMTest):
 
 # We need to split off more of these SCM tests to use mocks instead of the filesystem.
 # This class is the first part of that.
-class GitTestWithMock(unittest.TestCase):
+class GitTestWithMock(unittest.TestCase, TestCaseMixin):
     maxDiff = None
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def make_scm(self, logging_executive=False):
         # We do this should_log dance to avoid logging when Git.__init__ runs sysctl on mac to check for 64-bit support.

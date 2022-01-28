@@ -31,12 +31,13 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.style.patchreader import PatchReader
 
 
-class PatchReaderTest(unittest.TestCase):
-
+class PatchReaderTest(unittest.TestCase, TestCaseMixin):
     """Test the PatchReader class."""
 
     class MockTextFileReader(object):
@@ -57,6 +58,7 @@ class PatchReaderTest(unittest.TestCase):
             pass
 
     def setUp(self):
+        self.setUpPyfakefs()
         file_reader = self.MockTextFileReader()
         self._file_reader = file_reader
         self._patch_checker = PatchReader(file_reader)

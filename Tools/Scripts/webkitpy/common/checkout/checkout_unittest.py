@@ -31,6 +31,8 @@ import logging
 import os
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitcorepy import string_utils
 
 from webkitpy.common.checkout.checkout import Checkout
@@ -131,10 +133,11 @@ _changelog6 = u"""2014-06-23  Daniel Bates  <dabates@apple.com>
 """
 
 
-class CommitMessageForThisCommitTest(unittest.TestCase):
+class CommitMessageForThisCommitTest(unittest.TestCase, TestCaseMixin):
     def setUp(self):
         # FIXME: This should not need to touch the filesystem, however
         # ChangeLog is difficult to mock at current.
+        self.setUpPyfakefs()
         self.filesystem = FileSystem()
         self.temp_dir = str(self.filesystem.mkdtemp(suffix="changelogs"))
         self.old_cwd = self.filesystem.getcwd()
@@ -333,7 +336,10 @@ Patch by Daniel Bates <dabates@apple.com> on 2014-06-23
         self.assertMultiLineEqual(commit_message.message(), expected_commit_message)
 
 
-class CheckoutTest(unittest.TestCase):
+class CheckoutTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def _make_checkout(self):
         return Checkout(scm=MockSCM(), filesystem=MockFileSystem(), executive=MockExecutive())
 

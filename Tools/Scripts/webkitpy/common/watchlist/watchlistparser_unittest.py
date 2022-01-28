@@ -33,15 +33,15 @@ import logging
 import sys
 
 
-from webkitpy.common import webkitunittest
+import unittest
 from webkitpy.common.watchlist.watchlistparser import WatchListParser
 
 from webkitcorepy import OutputCapture
 
 
-class WatchListParserTest(webkitunittest.TestCase):
+class WatchListParserTest(unittest.TestCase):
     def setUp(self):
-        webkitunittest.TestCase.setUp(self)
+        unittest.TestCase.setUp(self)
         self._watch_list_parser = WatchListParser()
 
     def test_bad_section(self):

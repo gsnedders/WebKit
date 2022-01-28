@@ -22,6 +22,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.host_mock import MockHost
 from webkitpy.common.test_expectations import TestExpectations
 
@@ -41,7 +43,7 @@ class MockTestExpectations(TestExpectations):
         return subtest in self.skipped_subtests(test)
 
 
-class ExpectationsTest(unittest.TestCase):
+class ExpectationsTest(unittest.TestCase, TestCaseMixin):
 
     BASIC = """
 {
@@ -192,6 +194,9 @@ class ExpectationsTest(unittest.TestCase):
         "a": 2
     }
 }"""
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def assert_exp(self, test, subtest, result):
         self.assertIn(result, self.expectations.get_expectation(test, subtest))

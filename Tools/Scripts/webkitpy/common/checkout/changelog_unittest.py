@@ -27,14 +27,17 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import os.path
 import unittest
+
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
 
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.checkout.changelog import ChangeLog, ChangeLogEntry, CommitterList, parse_bug_id_from_changelog
 from webkitcorepy import StringIO
 
 
-class ChangeLogTest(unittest.TestCase):
+class ChangeLogTest(unittest.TestCase, TestCaseMixin):
 
     _changelog_path = 'Tools/ChangeLog'
 
@@ -169,6 +172,14 @@ class ChangeLogTest(unittest.TestCase):
 
 == Rolled over to ChangeLog-2009-06-16 ==
 """
+    def setUp(self):
+        json_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))),
+            'metadata', 'contributors.json',
+        )
+        assert os.path.exists(json_path)
+        self.setUpPyfakefs()
+        self.fs.add_real_file(json_path)
 
     def test_parse_bug_id_from_changelog(self):
         commit_text = '''

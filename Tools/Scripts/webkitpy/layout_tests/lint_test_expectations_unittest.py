@@ -29,6 +29,8 @@
 import optparse
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitcorepy import StringIO
 
 from webkitpy.common.host_mock import MockHost
@@ -78,7 +80,10 @@ class FakeFactory(object):
         return sorted(self.ports.keys())
 
 
-class LintTest(unittest.TestCase):
+class LintTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_all_configurations(self):
         host = MockHost()
         host.ports_parsed = []
@@ -127,7 +132,10 @@ class LintTest(unittest.TestCase):
         self.assertIn('bar:1', logging_stream.getvalue())
 
 
-class MainTest(unittest.TestCase):
+class MainTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_success(self):
         orig_lint_fn = lint_test_expectations.lint
 
@@ -143,17 +151,18 @@ class MainTest(unittest.TestCase):
 
         stdout = StringIO()
         stderr = StringIO()
+        host = MockHost()
         try:
             lint_test_expectations.lint = interrupting_lint
-            res = lint_test_expectations.main([], stdout, stderr)
+            res = lint_test_expectations.main([], stdout, stderr, host)
             self.assertEqual(res, lint_test_expectations.INTERRUPTED_EXIT_STATUS)
 
             lint_test_expectations.lint = successful_lint
-            res = lint_test_expectations.main(['--platform', 'test'], stdout, stderr)
+            res = lint_test_expectations.main(['--platform', 'test'], stdout, stderr, host)
             self.assertEqual(res, 0)
 
             lint_test_expectations.lint = exception_raising_lint
-            res = lint_test_expectations.main([], stdout, stderr)
+            res = lint_test_expectations.main([], stdout, stderr, host)
             self.assertEqual(res, lint_test_expectations.EXCEPTIONAL_EXIT_STATUS)
         finally:
             lint_test_expectations.lint = orig_lint_fn

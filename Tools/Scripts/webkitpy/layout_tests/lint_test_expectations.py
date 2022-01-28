@@ -90,11 +90,13 @@ def lint(host, options, logging_stream):
         logger.removeHandler(handler)
 
 
-def main(argv, _, stderr):
+def main(argv, _, stderr, host=None):
     parser = optparse.OptionParser(option_list=platform_options(use_globs=True))
     options, _ = parser.parse_args(argv)
 
-    if options.platform and 'test' in options.platform:
+    if host is not None:
+        pass
+    elif options.platform and 'test' in options.platform:
         # It's a bit lame to import mocks into real code, but this allows the user
         # to run tests against the test platform interactively, which is useful for
         # debugging test failures.

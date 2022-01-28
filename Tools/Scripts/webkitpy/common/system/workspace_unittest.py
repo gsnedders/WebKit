@@ -29,6 +29,8 @@
 import logging
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.workspace import Workspace
 from webkitpy.common.system.executive_mock import MockExecutive
@@ -36,7 +38,10 @@ from webkitpy.common.system.executive_mock import MockExecutive
 from webkitcorepy import OutputCapture
 
 
-class WorkspaceTest(unittest.TestCase):
+class WorkspaceTest(unittest.TestCase, TestCaseMixin):
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def test_find_unused_filename(self):
         filesystem = MockFileSystem({

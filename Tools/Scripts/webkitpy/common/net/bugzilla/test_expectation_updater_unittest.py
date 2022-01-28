@@ -29,6 +29,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.host_mock import MockHost
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.executive_mock import MockExecutive2
@@ -146,7 +148,10 @@ class MockZip():
         return self.files[self.content][filename]
 
 
-class TestExpectationUpdaterTest(unittest.TestCase):
+class TestExpectationUpdaterTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def _exists(self, host, filename):
         return host.filesystem.exists("/mock-checkout/LayoutTests/" + filename)
 

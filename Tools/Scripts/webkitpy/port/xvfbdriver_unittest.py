@@ -30,6 +30,8 @@
 import logging
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.executive_mock import MockProcess
 from webkitpy.common.system.systemhost_mock import MockSystemHost
@@ -43,7 +45,10 @@ from webkitcorepy import OutputCapture
 _log = logging.getLogger(__name__)
 
 
-class XvfbDriverTest(unittest.TestCase):
+class XvfbDriverTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def make_driver(self, worker_number=0, xorg_running=False, executive=None, print_screen_size_process=None):
         port = Port(MockSystemHost(log_executive=True, executive=executive), 'xvfbdrivertestport', options=MockOptions(configuration='Release'))
         port._config.build_directory = lambda configuration: "/mock-build"

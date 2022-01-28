@@ -23,6 +23,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.zipfileset import ZipFileSet
 
@@ -51,8 +53,9 @@ class FakeZip(object):
         raise Exception("Can't delete from a ZipFileSet.")
 
 
-class ZipFileSetTest(unittest.TestCase):
+class ZipFileSetTest(unittest.TestCase, TestCaseMixin):
     def setUp(self):
+        self.setUpPyfakefs()
         self._filesystem = MockFileSystem()
         self._zip = ZipFileSet('blah', self._filesystem, self.make_fake_zip)
 

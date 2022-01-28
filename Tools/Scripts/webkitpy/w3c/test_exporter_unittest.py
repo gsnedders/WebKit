@@ -22,6 +22,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.host_mock import MockHost
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.executive_mock import MockExecutive2
@@ -30,8 +32,11 @@ from webkitpy.w3c.wpt_github_mock import MockWPTGitHub
 
 mock_linter = None
 
-class TestExporterTest(unittest.TestCase):
+class TestExporterTest(unittest.TestCase, TestCaseMixin):
     maxDiff = None
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     class MockBugzilla(object):
         def __init__(self):

@@ -28,6 +28,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 # Do not import changelog_unittest.ChangeLogTest directly as that will cause it to be run again.
 from webkitpy.common.checkout import changelog_unittest
 
@@ -36,7 +38,10 @@ from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.tool.steps.preparechangelogforrevert import *
 
 
-class UpdateChangeLogsForRevertTest(unittest.TestCase):
+class UpdateChangeLogsForRevertTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     _revert_entry = '''2009-08-19  Eric Seidel  <eric@webkit.org>
 
         Unreviewed, reverting r12345.

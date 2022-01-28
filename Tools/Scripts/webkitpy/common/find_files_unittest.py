@@ -31,6 +31,8 @@ import random
 import sys
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 import webkitpy.common.find_files as find_files
 
 from webkitpy.common.system.filesystem import FileSystem
@@ -74,7 +76,10 @@ class TestWinNormalize(unittest.TestCase):
         self.assert_filesystem_normalizes(FileSystem())
 
 
-class TestFindFiles(unittest.TestCase):
+class TestFindFiles(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_directory_sort_key(self):
         filenames = [chr(o) for o in range(ord("a"), ord("z") + 1)]
         fs = MockFileSystem(

@@ -31,6 +31,8 @@ import optparse
 import tempfile
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.executive import ScriptError
 from webkitpy.common.system import executive_mock
 from webkitpy.common.system.filesystem_mock import MockFileSystem
@@ -47,7 +49,10 @@ from webkitscmpy import mocks
 def cmp(a, b):
     return (a > b) - (a < b)
 
-class PortTest(unittest.TestCase):
+class PortTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def make_port(self, executive=None, with_tests=False, port_name=None, **kwargs):
         host = MockHost(create_stub_repository_files=True)
         if executive:

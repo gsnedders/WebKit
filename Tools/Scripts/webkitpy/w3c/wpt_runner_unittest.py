@@ -22,6 +22,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.config.ports_mock import MockPort
 from webkitpy.common.host_mock import MockHost
 from webkitpy.w3c.wpt_runner import WPTRunner, parse_args
@@ -92,7 +94,7 @@ EXPECTED_TEST_MANIFESTS = {
 }
 
 
-class WPTRunnerTest(unittest.TestCase):
+class WPTRunnerTest(unittest.TestCase, TestCaseMixin):
 
     class MockTestDownloader(object):
         @staticmethod
@@ -144,6 +146,9 @@ class WPTRunnerTest(unittest.TestCase):
 
             self.runner = WPTRunner(self.port, self.host, "wptrunner_unittest", options,
                 WPTRunnerTest.MockTestDownloader, WPTRunnerTest.MockWebDriver.create, spawn_wpt_func)
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def test_prepare_wpt_checkout(self):
         # Tests the prepare_wpt_checkout() method with no WPT checkout specified in options.

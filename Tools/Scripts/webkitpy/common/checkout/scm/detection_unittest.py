@@ -31,6 +31,8 @@
 import logging
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.checkout.scm.detection import SCMDetector
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.executive_mock import MockExecutive
@@ -38,7 +40,10 @@ from webkitpy.common.system.executive_mock import MockExecutive
 from webkitcorepy import OutputCapture
 
 
-class SCMDetectorTest(unittest.TestCase):
+class SCMDetectorTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_detect_scm_system(self):
         filesystem = MockFileSystem()
         executive = MockExecutive(should_log=True)

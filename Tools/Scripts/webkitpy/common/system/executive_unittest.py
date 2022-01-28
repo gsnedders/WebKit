@@ -43,6 +43,8 @@ third_party_py = os.path.join(script_dir, "webkitpy", "thirdparty", "autoinstall
 if third_party_py not in sys.path:
     sys.path.insert(0, third_party_py)
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.executive import Executive, ScriptError
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 
@@ -78,8 +80,13 @@ def command_line(cmd, *args):
     return [sys.executable, __file__, '--' + cmd] + list(args)
 
 
-class ExecutiveTest(unittest.TestCase):
+class ExecutiveTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+        self.fs.pause()
+
     def assert_interpreter_for_content(self, intepreter, content):
+        self.fs.resume()
         fs = MockFileSystem()
 
         tempfile, temp_name = fs.open_binary_tempfile('')

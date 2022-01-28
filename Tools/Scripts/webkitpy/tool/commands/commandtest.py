@@ -29,14 +29,20 @@
 
 import logging
 
-from webkitpy.common.webkitunittest import TestCase
+from unittest import TestCase
 from webkitpy.tool.mocktool import MockOptions, MockTool
 
 from webkitcorepy import OutputCapture
 
 
 class CommandsTest(TestCase):
-    def assert_execute_outputs(self, command, args=[], expected_stdout="", expected_stderr="", expected_exception=None, expected_logs=None, options=MockOptions(), tool=MockTool()):
+    def assert_execute_outputs(self, command, args=[], expected_stdout="", expected_stderr="", expected_exception=None, expected_logs=None, options=None, tool=None):
+        if options is None:
+            options = MockOptions()
+
+        if tool is None:
+            tool = MockTool()
+
         options.blocks = None
         if getattr(options, "cc", None) == None:
             options.cc = 'MOCK cc'

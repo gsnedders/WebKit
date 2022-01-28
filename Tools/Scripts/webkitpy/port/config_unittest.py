@@ -30,6 +30,8 @@
 import sys
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.executive import Executive, ScriptError
 from webkitpy.common.system.executive_mock import MockExecutive2
 from webkitpy.common.system.filesystem import FileSystem
@@ -41,8 +43,9 @@ from webkitcorepy import OutputCapture
 import webkitpy.port.config as config
 
 
-class ConfigTest(unittest.TestCase):
+class ConfigTest(unittest.TestCase, TestCaseMixin):
     def setUp(self):
+        self.setUpPyfakefs()
         config.clear_cached_configuration()
 
     def tearDown(self):

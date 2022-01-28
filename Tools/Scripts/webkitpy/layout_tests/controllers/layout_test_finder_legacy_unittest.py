@@ -28,6 +28,8 @@ import unittest
 
 from collections import OrderedDict
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.host_mock import MockHost
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.layout_tests.controllers.layout_test_finder_legacy import (
@@ -44,13 +46,14 @@ class MockLayoutTestFinder(LayoutTestFinder):
         return [path for path in paths if path.endswith('.html')]
 
 
-class LayoutTestFinderTests(unittest.TestCase):
+class LayoutTestFinderTests(unittest.TestCase, TestCaseMixin):
     def __init__(self, *args, **kwargs):
         super(LayoutTestFinderTests, self).__init__(*args, **kwargs)
         self.port = None
         self.finder = None
 
     def setUp(self):
+        self.setUpPyfakefs()
         host = MockHost(create_stub_repository_files=True)
         add_unit_tests_to_mock_filesystem(host.filesystem)
         self.port = TestPort(host)

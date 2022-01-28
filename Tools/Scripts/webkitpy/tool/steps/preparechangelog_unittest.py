@@ -29,6 +29,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 # Do not import changelog_unittest.ChangeLogTest directly as that will cause it to be run again.
 from webkitpy.common.checkout import changelog_unittest
 
@@ -39,7 +41,10 @@ from webkitpy.tool.steps.preparechangelog import PrepareChangeLog
 from webkitcorepy import OutputCapture
 
 
-class PrepareChangeLogTest(changelog_unittest.ChangeLogTest):
+class PrepareChangeLogTest(changelog_unittest.ChangeLogTest, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_resolve_existing_entry(self):
         step = PrepareChangeLog(MockTool(), MockOptions())
 

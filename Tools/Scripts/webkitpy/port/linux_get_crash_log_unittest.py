@@ -31,13 +31,17 @@ import os
 import sys
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.executive_mock import MockExecutive
 from webkitpy.common.system.executive_mock import MockProcess
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.port.linux_get_crash_log import GDBCrashLogGenerator
 
 
-class GDBCrashLogGeneratorTest(unittest.TestCase):
+class GDBCrashLogGeneratorTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def test_generate_crash_log(self):
         if sys.platform.startswith('win'):

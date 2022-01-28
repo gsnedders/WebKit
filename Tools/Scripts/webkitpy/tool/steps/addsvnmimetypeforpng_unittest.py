@@ -24,6 +24,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.tool.steps.addsvnmimetypeforpng import AddSvnMimetypeForPng
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.tool.mocktool import MockOptions, MockTool
@@ -41,7 +43,10 @@ class MockSCMDetector(object):
         return self._scm
 
 
-class AddSvnMimetypeForPngTest(unittest.TestCase):
+class AddSvnMimetypeForPngTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
+
     def test_run(self):
         options = MockOptions(git_commit='MOCK git commit')
 

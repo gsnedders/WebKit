@@ -30,19 +30,21 @@ import os
 import re
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
 
 from webkitpy.common.system import filesystem_mock
 from webkitpy.common.system import filesystem_unittest
 
 
-class MockFileSystemTest(unittest.TestCase, filesystem_unittest.GenericFileSystemTests):
+class MockFileSystemTest(unittest.TestCase, TestCaseMixin, filesystem_unittest.GenericFileSystemTests):
     def setUp(self):
-        self.fs = filesystem_mock.MockFileSystem()
+        self.setUpPyfakefs()
+        self.testfs = filesystem_mock.MockFileSystem()
         self.setup_generic_test_dir()
 
     def tearDown(self):
         self.teardown_generic_test_dir()
-        self.fs = None
+        self.testfs = None
 
     def quick_check(self, test_fn, good_fn, *tests):
         for test in tests:
@@ -55,8 +57,8 @@ class MockFileSystemTest(unittest.TestCase, filesystem_unittest.GenericFileSyste
             self.assertEqual(expected, actual, 'given %s, expected %s, got %s' % (repr(test), repr(expected), repr(actual)))
 
     def test_join(self):
-        self.quick_check(self.fs.join,
-                         self.fs._slow_but_correct_join,
+        self.quick_check(self.testfs.join,
+                         self.testfs._slow_but_correct_join,
                          ('',),
                          ('', 'bar'),
                          ('foo',),
@@ -68,8 +70,8 @@ class MockFileSystemTest(unittest.TestCase, filesystem_unittest.GenericFileSyste
                          )
 
     def test_normpath(self):
-        self.quick_check(self.fs.normpath,
-                         self.fs._slow_but_correct_normpath,
+        self.quick_check(self.testfs.normpath,
+                         self.testfs._slow_but_correct_normpath,
                          ('',),
                          ('/',),
                          ('.',),

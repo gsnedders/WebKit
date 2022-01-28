@@ -25,6 +25,8 @@
 
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.style.checkers.png import PNGChecker
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.systemhost_mock import MockSystemHost
@@ -43,8 +45,11 @@ class MockSCMDetector(object):
         return self._prop
 
 
-class PNGCheckerTest(unittest.TestCase):
+class PNGCheckerTest(unittest.TestCase, TestCaseMixin):
     """Tests PNGChecker class."""
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def test_init(self):
         """Test __init__() method."""

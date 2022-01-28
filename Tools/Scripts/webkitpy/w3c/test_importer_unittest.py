@@ -29,6 +29,8 @@
 import os
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.host_mock import MockHost
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.common.system.executive_mock import MockExecutive2, ScriptError
@@ -95,7 +97,9 @@ FAKE_REPOSITORIES = {
 }
 
 
-class TestImporterTest(unittest.TestCase):
+class TestImporterTest(unittest.TestCase, TestCaseMixin):
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def _parse_options(self, args):
         options, args = parse_args(args)

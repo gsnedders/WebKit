@@ -23,6 +23,8 @@
 import json
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitcorepy import string_utils, Version
 
 from webkitpy.common.system.executive_mock import MockExecutive2
@@ -506,8 +508,7 @@ simctl_json_output = """{
  ]
 }"""
 
-class SimulatedDeviceTest(unittest.TestCase):
-
+class SimulatedDeviceTest(unittest.TestCase, TestCaseMixin):
     @staticmethod
     def reset_simulated_device_manager():
         SimulatedDeviceManager.AVAILABLE_RUNTIMES = []
@@ -515,6 +516,9 @@ class SimulatedDeviceTest(unittest.TestCase):
         SimulatedDeviceManager.INITIALIZED_DEVICES = None
         SimulatedDeviceManager._device_identifier_to_name = {}
         SimulatedDeviceManager._managing_simulator_app = False
+
+    def setUp(self):
+        self.setUpPyfakefs()
 
     def tearDown(self):
         SimulatedDeviceTest.reset_simulated_device_manager()

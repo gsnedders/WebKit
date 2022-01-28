@@ -23,13 +23,15 @@
 import logging
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 from webkitpy.common.system.filesystem_mock import MockFileSystem
 from webkitpy.test.finder import Finder
 
 from webkitcorepy import OutputCapture
 
 
-class FinderTest(unittest.TestCase):
+class FinderTest(unittest.TestCase, TestCaseMixin):
     def setUp(self):
         files = {
           '/foo/bar/baz.py': '',
@@ -40,6 +42,7 @@ class FinderTest(unittest.TestCase):
           '/foo2/bar2/missing.pyc': '',
           '/tmp/another_unittest.py': '',
         }
+        self.setUpPyfakefs()
         self.fs = MockFileSystem(files)
         self.finder = Finder(self.fs)
         self.finder.add_tree('/foo', 'bar')

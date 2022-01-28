@@ -25,6 +25,8 @@ import logging
 import optparse
 import unittest
 
+from pyfakefs.fake_filesystem_unittest import TestCaseMixin
+
 import webkitpy.style.checker as checker
 
 from webkitpy.common.host import Host
@@ -37,11 +39,12 @@ from webkitpy.style.main import change_directory
 from webkitcorepy import OutputCapture
 
 
-class ChangeDirectoryTest(unittest.TestCase):
+class ChangeDirectoryTest(unittest.TestCase, TestCaseMixin):
     _original_directory = "/original"
     _checkout_root = "/WebKit"
 
     def setUp(self):
+        self.setUpPyfakefs()
         self._log = LogTesting.setUp(self)
         self.filesystem = MockFileSystem(dirs=[self._original_directory, self._checkout_root], cwd=self._original_directory)
 
