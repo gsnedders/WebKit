@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env xcrun python3
 
 # Copyright (C) 2017 Apple Inc. All rights reserved.
 #
@@ -7,13 +7,13 @@
 # are met:
 #
 # 1.  Redistributions of source code must retain the above copyright
-#     notice, this list of conditions and the following disclaimer. 
+#     notice, this list of conditions and the following disclaimer.
 # 2.  Redistributions in binary form must reproduce the above copyright
 #     notice, this list of conditions and the following disclaimer in the
-#     documentation and/or other materials provided with the distribution. 
+#     documentation and/or other materials provided with the distribution.
 # 3.  Neither the name of Apple Inc. ("Apple") nor the names of
 #     its contributors may be used to endorse or promote products derived
-#     from this software without specific prior written permission. 
+#     from this software without specific prior written permission.
 #
 # THIS SOFTWARE IS PROVIDED BY APPLE AND ITS CONTRIBUTORS "AS IS" AND ANY
 # EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -26,44 +26,217 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os, platform, subprocess
+import argparse
+import ctypes
+import ctypes.util
+import errno
+import os
+import platform
+import textwrap
+import subprocess
 
-SAFARI_FOR_WEBKIT_DEVELOPMENT='/Applications/Safari.app/Contents/MacOS/SafariForWebKitDevelopment'
 
-def check_for_valid_platform():
-    if 'Darwin' not in platform.system():
-        print('Unsupported OS, exiting.')
-        exit(1)
+libc = ctypes.CDLL(ctypes.util.find_library("c"), use_errno=True)
 
-def find_dyld_framework_path(script_path):
-    current_directory = os.path.dirname(script_path)
-    sub_directories = [name for name in os.listdir(current_directory) if os.path.isdir(name)]
-    if 'Debug' in sub_directories:
-        return current_directory + '/Debug'
-    elif 'Release' in sub_directories:
-        return current_directory + '/Release'
+SAFARI_FOR_WEBKIT_DEVELOPMENT = (
+    "/Applications/Safari.app/Contents/MacOS/SafariForWebKitDevelopment"
+)
+
+
+def hasxattr(path, attribute):
+    """returns True if path has xattr attribute"""
+    bpath = os.fsencode(path)
+    battr = attribute.encode("utf-8")  # on macOS, xattr names are always UTF-8
+    r = libc.getxattr(ctypes.c_char_p(bpath), ctypes.c_char_p(battr), None, 0, 0, 0)
+
+    # the call succeeded, we have the xattr
+    if r >= 0:
+        return True
+
+    err = ctypes.get_errno()
+
+    # the attribute doesn't exist
+    if err == errno.ENOATTR:
+        return False
+
+    # or we have a real error
+    raise OSError(err, errno.errorcode.get(err), path)
+
+
+def removexattr(path, attribute):
+    """remove xattr attribute from path"""
+    bpath = os.fsencode(path)
+    battr = attribute.encode("utf-8")  # on macOS, xattr names are always UTF-8
+    r = libc.removexattr(ctypes.c_char_p(bpath), ctypes.c_char_p(battr), 0)
+
+    if r == 0:
+        return None
+
+    assert r == -1
+    err = ctypes.get_errno()
+    raise OSError(err, errno.errorcode.get(err), path)
+
+
+def find_build_path(search_dir=None, config="auto"):
+    if search_dir is None:
+        search_dir = os.path.dirname(os.path.abspath(__file__))
+
+    opts = []
+    if config in ("auto", "debug"):
+        opts.append(os.path.join(search_dir, "Debug"))
+
+    if config in ("auto", "release"):
+        opts.append(os.path.join(search_dir, "Release"))
+
+    for p in opts:
+        if os.path.isdir(p):
+            return p
     else:
-        print('No Release or Debug framework directories found in the current folder, exiting.')
+        return None
+
+
+def find_potentially_quarantined(path):
+    exts = (".app", ".bundle", ".dylib", ".framework", ".xpc")
+    with os.scandir(path) as it:
+        return [entry.path for entry in it if entry.name.endswith(exts)]
+
+
+def check_paths_for_quarantine(paths):
+    errors = []
+    for path in paths:
+        if hasxattr(path, "com.apple.quarantine"):
+            errors.append(f"ERROR: {path} is quarantined")
+    return errors
+
+
+def scary_warning():
+    msg = (
+        "By opening this app, you will be overriding system security which can "
+        + "expose your computer and personal information to malware that may "
+        + "harm your Mac or compromise your privacy."
+    )
+    print(textwrap.fill(msg))
+
+    i = input("Do you want to continue? yes/no... ")
+    if i.strip() == "yes":
+        return True
+    else:
+        print("Didn't receive a 'yes'.")
+        return False
+
+
+def remove_from_quarantine(paths):
+    for path in paths:
+        try:
+            removexattr(path, "com.apple.quarantine")
+        except OSError as e:
+            if e.errno != errno.ENOATTR:
+                raise e
+
+
+def set_dyld_framework_path(new_env, dyld_path):
+    print(f"Setting DYLD FRAMEWORK and LIBRARY paths to {dyld_path}")
+    new_env["DYLD_FRAMEWORK_PATH"] = dyld_path
+    new_env["DYLD_LIBRARY_PATH"] = dyld_path
+
+
+def parse_args(*args, **kwargs):
+    parser = argparse.ArgumentParser(description="launch a WebKit archive")
+
+    parser.add_argument(
+        "--override-system-security",
+        action="store_true",
+        help="override system security settings",
+    )
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--binary",
+        action="store",
+        default=SAFARI_FOR_WEBKIT_DEVELOPMENT,
+        metavar="PATH",
+        help="path to the binary to run [default: SafariForWebKitDevelopment]",
+    )
+    group.add_argument(
+        "--minibrowser",
+        action="store_true",
+        dest="binary_minibrowser",  # use a flag, for we don't know the path.
+        help="set the binary to MiniBrowser.app",
+    )
+    group.add_argument(
+        "--safariforwebkitdevelopment",
+        action="store_const",
+        const=SAFARI_FOR_WEBKIT_DEVELOPMENT,
+        dest="binary",
+        help="set the binary to SafariForWebKitDevelopment",
+    )
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--debug",
+        action="store_const",
+        const="debug",
+        dest="config",
+        default="auto",
+        help="run a debug build [default: auto-selected]",
+    )
+    group.add_argument(
+        "--release",
+        action="store_const",
+        const="release",
+        dest="config",
+        default="auto",
+        help="run a release build [default: auto-selected]",
+    )
+
+    args = parser.parse_args(*args, **kwargs)
+    return args
+
+
+def main():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    args = parse_args()
+
+    if "Darwin" not in platform.system():
+        print("Unsupported OS, exiting.")
         exit(1)
 
-def run_safari_for_webkit_development():
-    subprocess.call(SAFARI_FOR_WEBKIT_DEVELOPMENT)
+    if args.override_system_security:
+        if not scary_warning():
+            exit(1)
 
-def set_dyld_framework_path(script_path):
-    dyld_path = find_dyld_framework_path(script_path)
-    print('Setting DYLD FRAMEWORK and LIBRARY paths to {}'.format(dyld_path))
-    os.environ['DYLD_FRAMEWORK_PATH'] = dyld_path
-    os.environ['DYLD_LIBRARY_PATH'] = dyld_path
-    
-def main():
-    check_for_valid_platform()
-    script_path = os.path.abspath(__file__)
-    os.chdir(os.path.dirname(script_path))
-    set_dyld_framework_path(script_path)
-    run_safari_for_webkit_development()
-    
-if __name__ == '__main__':
+    build_path = find_build_path(script_dir, args.config)
+    if build_path is None:
+        print(
+            "No Release or Debug framework directories found in the current folder, exiting."
+        )
+        exit(1)
+
+    if args.binary_minibrowser:
+        binary = f"{build_path}/MiniBrowser.app/Contents/MacOS/MiniBrowser"
+    else:
+        binary = os.path.abspath(args.binary)
+
+    paths = find_potentially_quarantined(build_path)
+
+    if args.override_system_security:
+        remove_from_quarantine(paths)
+
+    errors = check_paths_for_quarantine(paths)
+    if errors:
+        for error in errors:
+            print(error)
+        exit(1)
+
+    os.chdir(script_dir)
+    new_env = os.environ.copy()
+    set_dyld_framework_path(new_env, build_path)
+
+    os.execle(binary, binary, new_env)
+
+
+if __name__ == "__main__":
     try:
-        main()    
+        main()
     except KeyboardInterrupt:
         exit("Aborting.")

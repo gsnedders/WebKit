@@ -1,3 +1,19 @@
+2022-02-21  Sam Sneddon  <gsnedders@apple.com>
+
+        Rewrite run-webkit-archive to allow spawning other binaries
+        https://bugs.webkit.org/show_bug.cgi?id=236968
+
+        Reviewed by NOBODY (OOPS!).
+
+        This provides a CLI to run-webkit-archive, to allow a custom
+        binary to be launched. It also provides feedback when binaries
+        within the archive are still quarantined.
+
+        The most notable option is --minibrowser, which will run the
+        MiniBrowser.app within the archive.
+
+        * WebKitArchiveSupport/run-webkit-archive:
+
 2022-02-20  Sihui Liu  <sihui_liu@apple.com>
 
         Origin file may not be created after migrating data to general storage directory
