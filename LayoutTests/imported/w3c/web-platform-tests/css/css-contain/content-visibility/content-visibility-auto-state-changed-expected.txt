@@ -1,6 +1,8 @@
 
 Harness Error (TIMEOUT), message = null
 
-TIMEOUT ContentVisibilityAutoStateChanged fires when skipped Test timed out
-NOTRUN ContentVisibilityAutoStateChanged fires when not skipped
+TIMEOUT ContentVisibilityAutoStateChange fires when relevant element gains `content-visibility:auto` Test timed out
+NOTRUN ContentVisibilityAutoStateChange fires when not relevant element gains `content-visibility:auto`
+NOTRUN ContentVisibilityAutoStateChange fires when skipped
+NOTRUN ContentVisibilityAutoStateChange fires when not skipped
 

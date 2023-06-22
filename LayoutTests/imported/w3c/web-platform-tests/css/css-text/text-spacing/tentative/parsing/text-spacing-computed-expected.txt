@@ -1,10 +1,10 @@
 
-PASS Property text-spacing value 'auto'
-PASS Property text-spacing value 'none'
-PASS Property text-spacing value 'no-autospace auto'
-PASS Property text-spacing value 'auto no-autospace'
-PASS Property text-spacing value 'no-autospace space-all'
-PASS Property text-spacing value 'space-all no-autospace'
-PASS Property text-spacing value 'auto space-all'
-PASS Property text-spacing value 'space-all auto'
+FAIL Property text-spacing value 'auto' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'none' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'no-autospace auto' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'auto no-autospace' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'no-autospace space-all' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'space-all no-autospace' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'auto space-all' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
+FAIL Property text-spacing value 'space-all auto' assert_true: text-spacing doesn't seem to be supported in the computed style expected true got false
 

@@ -15,14 +15,16 @@ Focus me
  Focus me.
  Focus me.
 
+Harness Error (TIMEOUT), message = null
+
 PASS Focus element SPAN#el-1 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
 PASS Focus element SPAN#el-2 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
 PASS Focus element SPAN#el-3 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element BUTTON#el-4 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-5 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-6 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-7 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-8 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-10 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
-PASS Focus element INPUT#el-11 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+TIMEOUT Focus element BUTTON#el-4 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none" Test timed out
+NOTRUN Focus element INPUT#el-5 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+NOTRUN Focus element INPUT#el-6 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+NOTRUN Focus element INPUT#el-7 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+NOTRUN Focus element INPUT#el-8 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+NOTRUN Focus element INPUT#el-10 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
+NOTRUN Focus element INPUT#el-11 via mouse should NOT match :focus-visible as it does NOT support keyboard input - not affected by "appearance: none"
 
