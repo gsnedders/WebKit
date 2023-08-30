@@ -64,9 +64,8 @@ else:
 
 AutoInstall.register(Package('atomicwrites', Version(1, 1, 5)))
 AutoInstall.register(Package('attr', Version(20, 3, 0), pypi_name='attrs'))
-
-if sys.version_info >= (3, 12):
-    AutoInstall.register(Package('bs4', Version(4, 12, 2), pypi_name='beautifulsoup4'))
+if sys.version_info >= (3, 6):
+    AutoInstall.register(Package('bs4', Version(4, 11, 2), pypi_name='beautifulsoup4'))
 else:
     AutoInstall.register(Package('bs4', Version(4, 9, 3), pypi_name='beautifulsoup4'))
 AutoInstall.register(Package('configparser', Version(4, 0, 2)))
@@ -90,7 +89,12 @@ else:
     AutoInstall.register(Package('pyfakefs', Version(3, 7, 2)))
 
 AutoInstall.register(Package('scandir', Version(1, 10, 0)))
-AutoInstall.register(Package('soupsieve', Version(1, 9, 6)))
+
+if sys.version_info > (3,):
+    AutoInstall.register(Package('soupsieve', Version(2, 3, 1)))
+else:
+    AutoInstall.register(Package('soupsieve', Version(1, 9, 6)))
+
 AutoInstall.register(Package('selenium', Version(3, 141, 0)))
 AutoInstall.register(Package('toml', Version(0, 10, 1)))
 AutoInstall.register(Package('wcwidth', Version(0, 2, 5)))
