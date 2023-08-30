@@ -64,7 +64,7 @@ AutoInstall.register(Package('Crypto', Version(3, 10, 1), pypi_name='pycryptodom
 AutoInstall.register(Package('fakeredis', Version(1, 5, 2)))
 AutoInstall.register(Package('geomet', Version(0, 2, 1)))
 AutoInstall.register(Package('gremlinpython', Version(3, 4, 6)))
-AutoInstall.register(Package('hiredis', Version(1, 1, 0)))
+AutoInstall.register(Package('hiredis', Version(2, 2, 3)))
 AutoInstall.register(Package('isodate', Version(0, 6, 0)))
 AutoInstall.register(Package('jmespath', Version(0, 10, 0), wheel=True))
 AutoInstall.register(Package('lupa', Version(2, 0)))
@@ -77,5 +77,6 @@ AutoInstall.register(Package('tornado', Version(4, 5, 3)))
 AutoInstall.register(Package('twisted', Version(21, 2, 0), pypi_name='Twisted', implicit_deps=[
     Package('incremental', Version(21, 3, 0)),
 ]))
+
 
 name = 'resultsdbpy'
