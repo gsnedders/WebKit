@@ -89,10 +89,10 @@ AutoInstall.register(Package('webencodings', Version(0, 5, 1)))
 AutoInstall.register(Package('zipp', Version(1, 2, 0)))
 AutoInstall.register(Package('zope.interface', Version(5, 1, 0), aliases=['zope'], pypi_name='zope-interface'))
 
-if sys.version_info > (3, 0):
+if sys.version_info >= (3, 7):
     AutoInstall.register(Package('reporelaypy', Version(0, 4, 1)), local=True)
+    AutoInstall.register(Package('webkitflaskpy', Version(0, 3, 0)), local=True)
 
-AutoInstall.register(Package('webkitflaskpy', Version(0, 3, 0)), local=True)
 AutoInstall.register(Package('webkitscmpy', Version(4, 0, 0)), local=True)
 AutoInstall.register(Package('webkitbugspy', Version(0, 3, 1)), local=True)
 
