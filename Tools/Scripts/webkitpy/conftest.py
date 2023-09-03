@@ -20,11 +20,18 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import warnings
-import types
+import os
 import sys
+import types
+import warnings
 
 import pytest
+
+libraries = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'libraries')
+webkitcorepy_path = os.path.join(libraries, 'webkitcorepy')
+if webkitcorepy_path not in sys.path:
+    sys.path.insert(0, webkitcorepy_path)
+from webkitcorepy import AutoInstall
 
 
 def pytest_configure(config):
@@ -104,3 +111,7 @@ def pytest_collection_modifyitems(config, items):
         for item in items:
             if "slow" in item.keywords:
                 item.add_marker(skip_slow)
+
+
+def pytest_collection_finish(session):
+    AutoInstall.install_everything()
