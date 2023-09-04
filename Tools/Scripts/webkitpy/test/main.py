@@ -66,8 +66,8 @@ def main():
     tester.add_tree(os.path.join(_webkit_root, 'Tools', 'Scripts', 'libraries', 'webkitbugspy'), 'webkitbugspy')
     tester.add_tree(os.path.join(_webkit_root, 'Tools', 'Scripts', 'libraries', 'webkitscmpy'), 'webkitscmpy')
 
-    # The server-side code only needs to support 3.7+.
-    if sys.version_info >= (3, 7):
+    # The server-side code only needs to support 3.7+, but currently doesn't work on 3.11+.
+    if (3, 7) <= sys.version_info < (3, 11):
         tester.add_tree(os.path.join(_webkit_root, 'Tools', 'Scripts', 'libraries', 'webkitflaskpy'), 'webkitflaskpy')
         tester.add_tree(os.path.join(_webkit_root, 'Tools', 'Scripts', 'libraries', 'reporelaypy'), 'reporelaypy')
 
