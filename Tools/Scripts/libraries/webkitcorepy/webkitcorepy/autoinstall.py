@@ -51,6 +51,34 @@ else:
     from HTMLParser import HTMLParser
 
 
+PY3 = sys.version_info >= (3,)
+PY2 = not PY3
+
+
+def _build_wheel(archive, wheel_directory, temp_suffix=None):
+    print("BUILDING")
+    temp_location = tempfile.mkdtemp(suffix=temp_suffix)
+    archive.unpack(temp_location)
+
+    for candidate in os.listdir(temp_location):
+        candidate = os.path.join(temp_location, candidate)
+        if not os.path.exists(os.path.join(candidate, 'setup.py')) and not os.path.exists(os.path.join(candidate, 'setup.cfg')):
+            continue
+
+        AutoInstall.log('Building {}...'.format(archive))
+
+        old_cwd = os.getcwd()
+        try:
+            os.chdir(candidate)
+
+            from setuptools.build_meta import __legacy__ as backend
+            return backend.build_wheel(wheel_directory)
+        finally:
+            os.chdir(old_cwd)
+
+        break
+
+
 class SimplyPypiIndexPageParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
@@ -342,33 +370,36 @@ class Package(object):
         os.remove(archive.path)
         shutil.rmtree(temp_location, ignore_errors=True)
 
-    def _install_wheel(self, archive):
+    def _install_wheel(self, path):
         # https://packaging.python.org/en/latest/specifications/binary-distribution-format/#installing-a-wheel-distribution-1-0-py32-none-any-whl
 
-        assert archive.extension == "whl"
+        temp_location = tempfile.mkdtemp(suffix='{}-{}'.format(self.name, os.getpid()))
 
-        temp_location = os.path.join(tempfile.gettempdir(), '{}-{}'.format(self.name, os.getpid()))
-        archive.unpack(temp_location)
+        with zipfile.ZipFile(path, 'r') as file:
+            file.extractall(temp_location)
 
         # We might not need setup.py at all, check if we have dist-info and the library in the temporary location
         to_be_moved = os.listdir(temp_location)
-        if self.name not in to_be_moved and any(element.endswith('.dist-info') for element in to_be_moved):
-            raise OSError('Cannot install {}, could not find setup.py'.format(self.name))
         for directory in to_be_moved:
             shutil.rmtree(os.path.join(AutoInstall.directory, directory), ignore_errors=True)
             shutil.move(os.path.join(temp_location, directory), AutoInstall.directory)
+
+        shutil.rmtree(temp_location)
 
     def install(self):
         AutoInstall.register(self)
         if self.is_cached():
             return
 
+        print("attempting to install {}".format(self.name))
+
         # Make sure that setuptools, setuptools_scm, wheel and packaging are installed, since setup.py relies on them
-        if self.name not in ['setuptools', 'setuptools_scm', 'wheel', 'packaging']:
+        if self.name not in ['setuptools', 'setuptools_scm', 'wheel', 'packaging', 'toml']:
             AutoInstall.install('setuptools')
             AutoInstall.install('setuptools_scm')
             AutoInstall.install('wheel')
             AutoInstall.install('packaging')
+            AutoInstall.install('toml')
 
         # In some cases a package may check if another package is installed without actually
         # importing it, which would make the AutoInstall to miss the dependency as it would
@@ -398,10 +429,20 @@ class Package(object):
                 AutoInstall.log('Downloading {}...'.format(archive))
                 archive.download()
 
-                if archive.extension == "whl":
-                    self._install_wheel(archive)
-                else:
+                if self.name in ("setuptools", "setuptools_scm", "wheel", "packaging", "toml"):
                     self._install_sdist(archive)
+                elif archive.extension == "whl":
+                    self._install_wheel(archive.path)
+                else:
+                    wheel_directory = os.path.join(tempfile.gettempdir(), '{}-{}'.format(self.name, os.getpid()))
+                    from multiprocessing import get_context
+                    ctx = get_context('spawn')
+                    pool = ctx.Pool(1)
+                    basename = pool.apply(_build_wheel, archive, wheel_directory)
+                    pool.close()
+                    pool.join()
+                    self._install_wheel(os.path.join(wheel_directory, basename))
+                    
 
                 AutoInstall.userspace_should_own(AutoInstall.directory)
 

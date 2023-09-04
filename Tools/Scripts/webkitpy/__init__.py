@@ -68,7 +68,10 @@ if sys.version_info >= (3, 6):
     AutoInstall.register(Package('bs4', Version(4, 11, 2), pypi_name='beautifulsoup4'))
 else:
     AutoInstall.register(Package('bs4', Version(4, 9, 3), pypi_name='beautifulsoup4'))
-AutoInstall.register(Package('configparser', Version(4, 0, 2)))
+
+if sys.version_info < (3,):
+    AutoInstall.register(Package('configparser', Version(4, 0, 2)))
+
 AutoInstall.register(Package('contextlib2', Version(0, 6, 0)))
 AutoInstall.register(Package('coverage', Version(5, 2, 1)))
 AutoInstall.register(Package('funcsigs', Version(1, 0, 2)))
