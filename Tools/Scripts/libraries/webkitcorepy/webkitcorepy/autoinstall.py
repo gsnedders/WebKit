@@ -272,6 +272,22 @@ class Package(object):
             return False
         return True
 
+    def _install_wheel(self, archive):
+        # https://packaging.python.org/en/latest/specifications/binary-distribution-format/#installing-a-wheel-distribution-1-0-py32-none-any-whl
+
+        assert archive.extension == "whl"
+
+        temp_location = os.path.join(tempfile.gettempdir(), '{}-{}'.format(self.name, os.getpid()))
+        archive.unpack(temp_location)
+
+        # We might not need setup.py at all, check if we have dist-info and the library in the temporary location
+        to_be_moved = os.listdir(temp_location)
+        if self.name not in to_be_moved and any(element.endswith('.dist-info') for element in to_be_moved):
+            raise OSError('Cannot install {}, could not find setup.py'.format(self.name))
+        for directory in to_be_moved:
+            shutil.rmtree(os.path.join(AutoInstall.directory, directory), ignore_errors=True)
+            shutil.move(os.path.join(temp_location, directory), AutoInstall.directory)
+
     def install(self):
         AutoInstall.register(self)
         if self.is_cached():
@@ -312,83 +328,78 @@ class Package(object):
                 AutoInstall.log('Downloading {}...'.format(archive))
                 archive.download()
 
-                temp_location = os.path.join(tempfile.gettempdir(), '{}-{}'.format(self.name, os.getpid()))
-                archive.unpack(temp_location)
-
-                for candidate in os.listdir(temp_location):
-                    candidate = os.path.join(temp_location, candidate)
-                    if not os.path.exists(os.path.join(candidate, 'setup.py')):
-                        # If a package has a setup.cfg, we can just lay down a dummy setup.py and let setuptools handle the rest
-                        if os.path.exists(os.path.join(candidate, 'setup.cfg')):
-                            with open(os.path.join(candidate, 'setup.py'), 'w') as setup_py:
-                                setup_py.write('from setuptools import setup\n')
-                                setup_py.write('if __name__ == "__main__":\n')
-                                setup_py.write('    setup()\n')
-                        else:
-                            continue
-
-                    AutoInstall.log('Installing {}...'.format(archive))
-
-                    if self.slow_install:
-                        AutoInstall.log('{} is known to be slow to install'.format(archive))
-
-                    root_location = "/" if not sys.platform.startswith('win') else "{}/".format(os.path.splitdrive(os.path.abspath(AutoInstall.directory))[0])
-
-                    log_location = os.path.join(temp_location, 'log.txt')
-                    try:
-                        with open(log_location, 'w') as setup_log:
-                            subprocess.check_call(
-                                [
-                                    os.environ.get('AUTOINSTALL_PYTHON_EXECUTABLE', sys.executable),
-                                    os.path.join(candidate, 'setup.py'),
-                                    'install',
-                                    '--home={}'.format(AutoInstall.directory),
-                                    '--root={}'.format(root_location),
-                                    '--prefix=',
-                                    '--install-lib={}'.format(AutoInstall.directory),
-                                    '--install-scripts={}'.format(os.path.join(AutoInstall.directory, 'bin')),
-                                    '--install-data={}'.format(os.path.join(AutoInstall.directory, 'data')),
-                                    '--install-headers={}'.format(os.path.join(AutoInstall.directory, 'headers')),
-                                ],
-                                cwd=candidate,
-                                env=dict(
-                                    HTTP_PROXY=os.environ.get('HTTP_PROXY', ''),
-                                    HTTPS_PROXY=os.environ.get('HTTPS_PROXY', ''),
-                                    PATH=os.environ.get('PATH', ''),
-                                    PATHEXT=os.environ.get('PATHEXT', ''),
-                                    PYTHONPATH=AutoInstall.directory,
-                                    SYSTEMROOT=os.environ.get('SYSTEMROOT', ''),
-                                ) if not sys.platform.startswith('win')
-                                else dict(
-                                    # Windows setuptools needs environment from vcvars
-                                    os.environ,
-                                    PYTHONPATH=AutoInstall.directory,
-                                ),
-                                stdout=setup_log,
-                                stderr=setup_log,
-                            )
-
-                    except subprocess.CalledProcessError:
-                        with open(log_location, 'r') as setup_log:
-                            for line in setup_log.readlines():
-                                sys.stderr.write(line)
-                        raise
-
-                    # If we have a package inside another package (like zope.interface), the top-level package needs an __init__.py
-                    location = os.path.join(AutoInstall.directory, self.name.split('.')[0])
-                    if os.path.isdir(location) and '__init__.py' not in os.listdir(location):
-                        with open(os.path.join(location, '__init__.py'), 'w') as init:
-                            init.write('\n')
-
-                    break
+                if archive.extension == "whl":
+                    self._install_wheel(archive)
                 else:
-                    # We might not need setup.py at all, check if we have dist-info and the library in the temporary location
-                    to_be_moved = os.listdir(temp_location)
-                    if self.name not in to_be_moved and any(element.endswith('.dist-info') for element in to_be_moved):
-                        raise OSError('Cannot install {}, could not find setup.py'.format(self.name))
-                    for directory in to_be_moved:
-                        shutil.rmtree(os.path.join(AutoInstall.directory, directory), ignore_errors=True)
-                        shutil.move(os.path.join(temp_location, directory), AutoInstall.directory)
+                    temp_location = os.path.join(tempfile.gettempdir(), '{}-{}'.format(self.name, os.getpid()))
+                    archive.unpack(temp_location)
+
+                    for candidate in os.listdir(temp_location):
+                        candidate = os.path.join(temp_location, candidate)
+                        if not os.path.exists(os.path.join(candidate, 'setup.py')):
+                            # If a package has a setup.cfg, we can just lay down a dummy setup.py and let setuptools handle the rest
+                            if os.path.exists(os.path.join(candidate, 'setup.cfg')):
+                                with open(os.path.join(candidate, 'setup.py'), 'w') as setup_py:
+                                    setup_py.write('from setuptools import setup\n')
+                                    setup_py.write('if __name__ == "__main__":\n')
+                                    setup_py.write('    setup()\n')
+                            else:
+                                continue
+
+                        AutoInstall.log('Installing {}...'.format(archive))
+
+                        if self.slow_install:
+                            AutoInstall.log('{} is known to be slow to install'.format(archive))
+
+                        root_location = "/" if not sys.platform.startswith('win') else "{}/".format(os.path.splitdrive(os.path.abspath(AutoInstall.directory))[0])
+
+                        log_location = os.path.join(temp_location, 'log.txt')
+                        try:
+                            with open(log_location, 'w') as setup_log:
+                                subprocess.check_call(
+                                    [
+                                        os.environ.get('AUTOINSTALL_PYTHON_EXECUTABLE', sys.executable),
+                                        os.path.join(candidate, 'setup.py'),
+                                        'install',
+                                        '--home={}'.format(AutoInstall.directory),
+                                        '--root={}'.format(root_location),
+                                        '--prefix=',
+                                        '--install-lib={}'.format(AutoInstall.directory),
+                                        '--install-scripts={}'.format(os.path.join(AutoInstall.directory, 'bin')),
+                                        '--install-data={}'.format(os.path.join(AutoInstall.directory, 'data')),
+                                        '--install-headers={}'.format(os.path.join(AutoInstall.directory, 'headers')),
+                                    ],
+                                    cwd=candidate,
+                                    env=dict(
+                                        HTTP_PROXY=os.environ.get('HTTP_PROXY', ''),
+                                        HTTPS_PROXY=os.environ.get('HTTPS_PROXY', ''),
+                                        PATH=os.environ.get('PATH', ''),
+                                        PATHEXT=os.environ.get('PATHEXT', ''),
+                                        PYTHONPATH=AutoInstall.directory,
+                                        SYSTEMROOT=os.environ.get('SYSTEMROOT', ''),
+                                    ) if not sys.platform.startswith('win')
+                                    else dict(
+                                        # Windows setuptools needs environment from vcvars
+                                        os.environ,
+                                        PYTHONPATH=AutoInstall.directory,
+                                    ),
+                                    stdout=setup_log,
+                                    stderr=setup_log,
+                                )
+
+                        except subprocess.CalledProcessError:
+                            with open(log_location, 'r') as setup_log:
+                                for line in setup_log.readlines():
+                                    sys.stderr.write(line)
+                            raise
+
+                        # If we have a package inside another package (like zope.interface), the top-level package needs an __init__.py
+                        location = os.path.join(AutoInstall.directory, self.name.split('.')[0])
+                        if os.path.isdir(location) and '__init__.py' not in os.listdir(location):
+                            with open(os.path.join(location, '__init__.py'), 'w') as init:
+                                init.write('\n')
+
+                        break
 
                 self.do_post_install(temp_location)
 
