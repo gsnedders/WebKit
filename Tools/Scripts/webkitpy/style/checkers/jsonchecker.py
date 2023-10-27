@@ -28,6 +28,16 @@ import re
 import sys
 from collections import defaultdict
 
+try:
+    from os import scandir
+except ImportError:
+    from scandir import scandir
+
+try:
+    from pathlib import Path
+except ImportError:
+    from pathlib2 import Path
+
 import six
 
 
@@ -563,3 +573,37 @@ class JSONImportExpectationsChecker(JSONChecker):
                     5,
                     "'{}' is not a directory".format(key),
                 )
+
+        self._check_for_missing_import(
+            os.path.join(os.path.dirname(self._file_path), ".."),
+            "web-platform-tests",
+            parsed_expectations,
+        )
+
+    def _check_for_missing_import(self, import_root, path, parsed_expectations):
+        p = Path(path)
+        assert not p.is_absolute()
+
+        with scandir(os.path.join(import_root, p)) as it:
+            for entry in it:
+                if not entry.is_dir():
+                    continue
+
+                entry_path = p / entry.name
+
+                if entry_path.parts in parsed_expectations:
+                    if parsed_expectations[entry_path.parts] != "explicit-skip":
+                        continue
+
+                    self._check_for_missing_import(
+                        import_root, entry_path, parsed_expectations
+                    )
+                else:
+                    self._handle_style_error(
+                        0,
+                        "json/syntax",
+                        5,
+                        "'{}' exists but doesn't appear in import-expectations.json".format(
+                            entry_path
+                        ),
+                    )
