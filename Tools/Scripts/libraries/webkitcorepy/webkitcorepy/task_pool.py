@@ -28,10 +28,7 @@ import multiprocessing
 import signal
 import sys
 
-if sys.version_info < (3, 0):
-    import Queue
-else:
-    import queue as Queue
+import queue as Queue
 
 from webkitcorepy import OutputCapture, Timeout, log
 

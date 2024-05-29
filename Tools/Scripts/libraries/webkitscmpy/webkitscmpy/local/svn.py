@@ -87,8 +87,7 @@ class Svn(Scm):
                     branch_arg = '^/branches/{}'.format(branch)
 
                 kwargs = dict()
-                if sys.version_info >= (3, 0):
-                    kwargs = dict(encoding='utf-8')
+                kwargs = dict(encoding='utf-8')
 
                 self._last_populated[branch] = time.time()
                 log = subprocess.Popen(
@@ -527,7 +526,7 @@ class Svn(Scm):
                 cwd=self.root_path,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                **(dict(encoding='utf-8') if sys.version_info > (3, 0) else dict())
+                encoding='utf-8',
             )
             if log.poll():
                 raise self.Exception('Failed to find commits between {} and {} on {}'.format(begin, end, branch_arg))

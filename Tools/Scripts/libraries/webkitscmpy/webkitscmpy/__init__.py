@@ -57,7 +57,7 @@ AutoInstall.register(Package('xmltodict', Version(0, 11, 0)))
 AutoInstall.register(Package('markupsafe', Version(1, 1, 1), pypi_name='MarkupSafe'))
 AutoInstall.register(Package('webkitbugspy', Version(0, 8, 0)), local=True)
 
-if sys.version_info > (3, 6):
+if sys.version_info >= (3, 7):
     AutoInstall.register(Package('rapidfuzz', Version(3, 4, 0)))
 
 from webkitscmpy.contributor import Contributor

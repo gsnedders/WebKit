@@ -70,30 +70,19 @@ if sys.version_info >= (3, 7):
     AutoInstall.register(Package('websockets', Version(8, 1)))
     if sys.version_info < (3, 11):
         AutoInstall.register(Package('exceptiongroup', Version(1, 1, 0), wheel=True))
-elif sys.version_info >= (2, 7) and sys.version_info < (3,):
-    AutoInstall.register(Package('pylint', Version(0, 28, 0)))
-    AutoInstall.register(Package('logilab.common', Version(0, 58, 1), pypi_name='logilab-common', aliases=['logilab']))
-    AutoInstall.register(Package('logilab.astng', Version(0, 24, 1), pypi_name='logilab-astng', aliases=['logilab']))
-    AutoInstall.register(Package('pathlib2', Version(2, 3, 5)))
 else:
     sys.stderr.write("pytest, pylint and websockets do not support Python version! (%s)\n" % sys.version)
 
-if sys.version_info >= (3, 6):
-    AutoInstall.register(Package('importlib_metadata', Version(4, 8, 1)))
-    if sys.version_info >= (3, 9):
-        AutoInstall.register(Package('typing_extensions', Version(4, 8, 0), wheel=True))
-    else:
-        AutoInstall.register(Package('typing_extensions', Version(3, 10, 0)))
+AutoInstall.register(Package('importlib_metadata', Version(4, 8, 1)))
+if sys.version_info >= (3, 9):
+    AutoInstall.register(Package('typing_extensions', Version(4, 8, 0), wheel=True))
 else:
-    AutoInstall.register(Package('importlib_metadata', Version(1, 7, 0)))
+    AutoInstall.register(Package('typing_extensions', Version(3, 10, 0)))
 
 AutoInstall.register(Package('atomicwrites', Version(1, 1, 5)))
 AutoInstall.register(Package('attr', Version(21, 3, 0), pypi_name='attrs'))
 
-if sys.version_info >= (3, 6):
-    AutoInstall.register(Package('bs4', Version(4, 12, 0), pypi_name='beautifulsoup4'))
-else:
-    AutoInstall.register(Package('bs4', Version(4, 9, 3), pypi_name='beautifulsoup4'))
+AutoInstall.register(Package('bs4', Version(4, 12, 0), pypi_name='beautifulsoup4'))
 AutoInstall.register(Package('configparser', Version(4, 0, 2), implicit_deps=['pyparsing']))
 AutoInstall.register(Package('contextlib2', Version(0, 6, 0)))
 AutoInstall.register(Package('coverage', Version(5, 2, 1)))
@@ -116,10 +105,7 @@ else:
 
 AutoInstall.register(Package('scandir', Version(1, 10, 0)))
 
-if sys.version_info >= (3, 6):
-    AutoInstall.register(Package('soupsieve', Version(2, 2, 1)))
-else:
-    AutoInstall.register(Package('soupsieve', Version(1, 9, 6)))
+AutoInstall.register(Package('soupsieve', Version(2, 2, 1)))
 
 if sys.version_info < (3, 8):
     AutoInstall.register(Package('selenium', Version(3, 141, 0)))
@@ -132,8 +118,7 @@ AutoInstall.register(Package('webencodings', Version(0, 5, 1)))
 AutoInstall.register(Package('zipp', Version(1, 2, 0)))
 AutoInstall.register(Package('zope.interface', Version(5, 1, 0), aliases=['zope'], pypi_name='zope-interface'))
 
-if sys.version_info > (3, 0):
-    AutoInstall.register(Package('reporelaypy', Version(0, 4, 1)), local=True)
+AutoInstall.register(Package('reporelaypy', Version(0, 4, 1)), local=True)
 
 AutoInstall.register(Package('webkitflaskpy', Version(0, 3, 0)), local=True)
 AutoInstall.register(Package('webkitscmpy', Version(4, 0, 0)), local=True)
