@@ -20,6 +20,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import os
 import unittest
 
 try:
@@ -35,14 +36,17 @@ def xfail(*args, **kwargs):
 
     Note that this doesn't support raises or strict"""
 
+    if os.environ.get("PYTEST_VERSION") is not None:
+        return pytest.mark.xfail(*args, **kwargs)
+
     # shortcut if we're being called as a decorator ourselves
     if len(args) == 1 and callable(args[0]) and not kwargs:
         return unittest.expectedFailure(args[0])
 
     def decorator(func):
         conditions = args
-        reason = kwargs.get(reason, None)
-        run = kwargs.get(run, True)
+        reason = kwargs.get("reason", None)
+        run = kwargs.get("run", True)
         if "raises" in kwargs:
             raise TypeError("xfail(raises=...) is not supported")
         if "strict" in kwargs:
@@ -60,10 +64,9 @@ def xfail(*args, **kwargs):
 
 
 def slow(func):
-    try:
+    if os.environ.get("PYTEST_VERSION") is not None:
         return pytest.mark.slow(func)
-    except NameError:
-        return func
+    return func
 
 
 skip = unittest.skip
