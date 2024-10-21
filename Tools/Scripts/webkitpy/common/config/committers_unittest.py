@@ -136,6 +136,7 @@ class CommittersTest(unittest.TestCase):
         self._assert_fuzz_match('nobody, build fix', None, 17)
         self._assert_fuzz_match('NOBODY (chromium build fix)', None, 27)
 
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_ada_chan(self):
         self._assert_fuzz_match('Ada', 'Ada Chan', 0)
 
@@ -151,7 +152,7 @@ class CommittersTest(unittest.TestCase):
         self._assert_fuzz_match('ap', 'Alexey Proskuryakov', 0)
         self._assert_fuzz_match('Alexey P', 'Alexey Proskuryakov', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_alice_liu(self):
         # self._assert_fuzz_match('Alice', 'Alice Liu', 0)
         self._assert_fuzz_match('aliu', 'Alice Liu', 0)
@@ -188,7 +189,7 @@ class CommittersTest(unittest.TestCase):
         # self._assert_fuzz_match('Chris', 'Chris Blumenberg', 0)
         self._assert_fuzz_match('cblu', 'Chris Blumenberg', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_dan_bernstein(self):
         self._assert_fuzz_match('Dan', ['Dan Winship', 'Dan Bernstein'], 0)
         self._assert_fuzz_match('Dan B', 'Dan Bernstein', 0)
@@ -207,17 +208,18 @@ class CommittersTest(unittest.TestCase):
         self._assert_fuzz_match('Darin', 'Darin Adler', 0)  # Thankfully "Fisher" is longer than "Adler"
         self._assert_fuzz_match('darin', 'Darin Adler', 0)
 
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_david_harrison(self):
         self._assert_fuzz_match('Dave Harrison', 'David Harrison', 2)
         self._assert_fuzz_match('harrison', 'David Harrison', 0)
         self._assert_fuzz_match('Dr. Harrison', 'David Harrison', 4)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_david_harrison_2(self):
         self._assert_fuzz_match('Dave Harrson', 'David Harrison', 3)
         self._assert_fuzz_match('Dave Harrsion', 'David Harrison', 4)  # Damerau-Levenshtein distance is 3
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_david_hyatt(self):
         self._assert_fuzz_match('Dave Hyatt', 'David Hyatt', 2)
         self._assert_fuzz_match('Daddy Hyatt', 'David Hyatt', 3)
@@ -225,24 +227,25 @@ class CommittersTest(unittest.TestCase):
         self._assert_fuzz_match('hyatt', 'David Hyatt', 0)
         # self._assert_fuzz_match('Haytt', 'David Hyatt', 0)  # Works if we had implemented Damerau-Levenshtein distance!
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_david_kilzer(self):
         self._assert_fuzz_match('Dave Kilzer', 'David Kilzer', 2)
         self._assert_fuzz_match('David D. Kilzer', 'David Kilzer', 3)
         self._assert_fuzz_match('ddkilzer', 'David Kilzer', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_don_melton(self):
         self._assert_fuzz_match('Don', 'Don Melton', 0)
         self._assert_fuzz_match('Gramps', 'Don Melton', 0)
 
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_eric_seidel(self):
         # self._assert_fuzz_match('eric', 'Eric Seidel', 0)
         self._assert_fuzz_match('Eric S', 'Eric Seidel', 0)
         # self._assert_fuzz_match('MacDome', 'Eric Seidel', 0)
         self._assert_fuzz_match('eseidel', 'Eric Seidel', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_geoffrey_garen(self):
         # self._assert_fuzz_match('Geof', 'Geoffrey Garen', 4)
         # self._assert_fuzz_match('Geoff', 'Geoffrey Garen', 3)
@@ -255,7 +258,7 @@ class CommittersTest(unittest.TestCase):
     def integration_test_contributors_greg_bolsinga(self):
         pass  # self._assert_fuzz_match('Greg', 'Greg Bolsinga', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_holger_freyther(self):
         self._assert_fuzz_match('Holger', 'Holger Freyther', 0)
         self._assert_fuzz_match('Holger Hans Peter Freyther', 'Holger Freyther', 11)
@@ -272,16 +275,16 @@ class CommittersTest(unittest.TestCase):
         # self._assert_fuzz_match('justin', 'Justin Garcia', 0)
         self._assert_fuzz_match('justing', 'Justin Garcia', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_joseph_pecoraro(self):
         self._assert_fuzz_match('Joe Pecoraro', 'Joseph Pecoraro', 3)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_ken_kocienda(self):
         self._assert_fuzz_match('ken', 'Ken Kocienda', 0)
         self._assert_fuzz_match('kocienda', 'Ken Kocienda', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_kenneth_russell(self):
         self._assert_fuzz_match('Ken Russell', 'Kenneth Russell', 4)
 
@@ -310,7 +313,7 @@ class CommittersTest(unittest.TestCase):
         self._assert_fuzz_match('mrowe', 'Mark Rowe', 0)
         # self._assert_fuzz_match('Brian Dash', 'Mark Rowe', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_nikolas_zimmermann(self):
         # self._assert_fuzz_match('Niko', 'Nikolas Zimmermann', 1)
         self._assert_fuzz_match('Niko Zimmermann', 'Nikolas Zimmermann', 3)
@@ -357,7 +360,7 @@ class CommittersTest(unittest.TestCase):
         # self._assert_fuzz_match('Tim O.', 'Tim Omernick', 0)
         self._assert_fuzz_match('Tim O', 'Tim Omernick', 0)
 
-    @xfail
+    @xfail(reason="https://bugs.webkit.org/show_bug.cgi?id=259748")
     def integration_test_contributors_timothy_hatcher(self):
         # self._assert_fuzz_match('Tim', 'Timothy Hatcher', 0)
         # self._assert_fuzz_match('Tim H', 'Timothy Hatcher', 0)
