@@ -109,7 +109,7 @@ AutoInstall.register(Package('py', Version(1, 11, 0)))
 AutoInstall.register(Package('pycodestyle', Version(2, 5, 0)))
 
 if sys.version_info >= (3, 7):
-    AutoInstall.register(Package('pyfakefs', Version(5, 2, 4)))
+    AutoInstall.register(Package('pyfakefs', Version(5, 7, 1)))
 else:
     AutoInstall.register(Package('pyfakefs', Version(3, 7, 2)))
 
