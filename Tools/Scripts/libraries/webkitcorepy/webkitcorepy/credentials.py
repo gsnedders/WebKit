@@ -26,7 +26,7 @@ import sys
 from subprocess import CalledProcessError
 from webkitcorepy import Environment, OutputCapture, Terminal, string_utils
 
-_cache = dict()
+_cache: dict[str, tuple[str, str]] = dict()
 
 
 def credentials(url, required=True, name=None, prompt=None, key_name='password', validater=None, validate_existing_credentials=False, retry=3, save_in_keyring=None):
