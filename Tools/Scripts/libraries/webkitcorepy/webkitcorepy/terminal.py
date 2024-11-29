@@ -26,6 +26,8 @@ import logging
 import sys
 import webbrowser
 
+from typing import IO, Any
+
 if not sys.platform.startswith('win'):
     import readline
 
@@ -33,7 +35,7 @@ from webkitcorepy import Timer, run
 
 
 class Terminal(object):
-    _atty_overrides = {}
+    _atty_overrides : dict[IO[Any], bool]  = {}
     colors = True
     URL_PREFIXES = ('file://', 'http://', 'https://', 'radar://', 'rdar://')
     RING_INTERVAL = 30
@@ -224,9 +226,9 @@ class Terminal(object):
         blackBackground, redBackground, greenBackground, yellowBackground, blueBackground, magentaBackground, cyanBackground, whiteBackground = colors
 
     class Style(object):
-        top = {}
-        _disabled = set()
-        _is_styled = set()
+        top: dict[int, IO[Any]] = {}
+        _disabled: set[int] = set()
+        _is_styled: set[int] = set()
 
         @classmethod
         def enabled(cls, file):

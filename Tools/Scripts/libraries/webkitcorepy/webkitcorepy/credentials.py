@@ -26,7 +26,7 @@ import sys
 from subprocess import CalledProcessError
 from webkitcorepy import Environment, OutputCapture, Terminal, string_utils
 
-_cache = dict()
+_cache: dict[str, tuple[str, str]] = dict()
 
 
 def handle_keyring_error(error):

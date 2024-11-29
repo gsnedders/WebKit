@@ -20,8 +20,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import importlib.abc
 import importlib.machinery
+
 import json
 import logging
 import math
@@ -474,8 +477,8 @@ class AutoInstall(importlib.abc.MetaPathFinder):
     timeout = 30
     times_to_retry = 1
     version = Version(sys.version_info[0], sys.version_info[1], sys.version_info[2])
-    packages = defaultdict(list)
-    manifest = {}
+    packages: dict[str, list[Package]] = defaultdict(list)
+    manifest: dict[str, dict[str, str]] = {}
 
     # Rely on our own certificates for PyPi, since we use PyPi to standardize root certificates.
     # This is not needed in Linux platforms.

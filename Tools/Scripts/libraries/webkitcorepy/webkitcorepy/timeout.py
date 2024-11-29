@@ -32,11 +32,12 @@ from unittest import mock
 from webkitcorepy import log, string_utils
 
 ORIGINAL_SLEEP = time.sleep
+_EXCEPTION = Exception
 
 
 class Timeout(object):
     SIGALRM = getattr(signal, 'SIGALRM', None)
-    _process_to_timeout_map = collections.defaultdict(list)
+    _process_to_timeout_map: dict[int, list["Timeout.Data"]] = collections.defaultdict(list)
 
     class Data(object):
         def __init__(self, alarm_time, handler):
@@ -52,7 +53,7 @@ class Timeout(object):
                 raise ValueError('Expected {} in comparison, received {}').format(Timeout.Data, type(other))
             return self.alarm_time < other.alarm_time
 
-    class Exception(Exception):
+    class Exception(_EXCEPTION):
         pass
 
     class DisableAlarm(object):

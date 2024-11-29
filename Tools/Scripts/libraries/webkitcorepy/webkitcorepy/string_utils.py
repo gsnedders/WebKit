@@ -20,7 +20,15 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import io
+import sys
+from typing import AnyStr, overload, Type
+import warnings
+
+#from warnings import deprecated
+
 
 
 basestring = str
@@ -31,15 +39,65 @@ UnicodeIO = io.StringIO
 unicode = str
 
 
-def encode(string, encoding='utf-8', errors='strict', target_type=bytes):
+@overload
+def encode(
+    string: str,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[bytes] = bytes,
+) -> bytes: ...
+@overload
+#@deprecated("no-op webkitcorepy.string_utils.encode usage")
+def encode(
+    string: AnyStr,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = bytes,
+) -> AnyStr: ...
+def encode(
+    string: str | bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = bytes,
+) -> str | bytes:
     if type(string) == unicode and target_type == bytes:
         return string.encode(encoding, errors=errors)
+    warnings.warn(
+        "no-op webkitcorepy.string_utils.encode usage",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return string
 
 
-def decode(data, encoding='utf-8', errors='strict', target_type=unicode):
+@overload
+def decode(
+    data: bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str] = str,
+) -> str: ...
+@overload
+#@deprecated("no-op webkitcorepy.string_utils.decode usage")
+def decode(
+    data: AnyStr,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = str,
+) -> AnyStr: ...
+def decode(
+    data: str | bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = str,
+) -> str | bytes:
     if type(data) == bytes and target_type == unicode:
         return data.decode(encoding, errors=errors)
+    warnings.warn(
+        "no-op webkitcorepy.string_utils.decode usage",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return data
 
 
