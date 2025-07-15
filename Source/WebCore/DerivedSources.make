@@ -34,6 +34,10 @@ PERL := perl
 RUBY := ruby
 DELETE := rm -f
 
+# Note we do not use the -I shorthand here as the semantics it changed
+# in Python 3.11, including the new -P option which we don't want.
+PYTHON_FLAGS := -Es
+
 ifneq ($(SDKROOT),)
     SDK_FLAGS = -isysroot $(SDKROOT)
 endif
@@ -1984,7 +1988,7 @@ CSS_PROPERTY_NAME_FILES_PATTERNS = $(call to-pattern, $(CSS_PROPERTY_NAME_FILES)
 all : $(CSS_PROPERTY_NAME_FILES)
 $(CSS_PROPERTY_NAME_FILES_PATTERNS) : $(WEBCORE_CSS_PROPERTY_NAMES) $(WebCore)/css/scripts/process-css-properties.py $(FEATURE_AND_PLATFORM_DEFINE_DEPENDENCIES)
 	$(PERL) -pe '' $(WEBCORE_CSS_PROPERTY_NAMES) > CSSProperties.json
-	$(PYTHON) "$(WebCore)/css/scripts/process-css-properties.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
+	$(PYTHON) $(PYTHON_FLAGS) "$(WebCore)/css/scripts/process-css-properties.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
 
 CSS_VALUE_KEYWORD_FILES = \
     CSSValueKeywords.h \
@@ -1995,7 +1999,7 @@ CSS_VALUE_KEYWORD_FILES_PATTERNS = $(call to-pattern, $(CSS_VALUE_KEYWORD_FILES)
 all : $(CSS_VALUE_KEYWORD_FILES)
 $(CSS_VALUE_KEYWORD_FILES_PATTERNS) : $(WEBCORE_CSS_VALUE_KEYWORDS) $(WebCore)/css/scripts/process-css-values.py $(FEATURE_AND_PLATFORM_DEFINE_DEPENDENCIES)
 	$(PERL) -pe '' $(WEBCORE_CSS_VALUE_KEYWORDS) > CSSValueKeywords.in
-	$(PYTHON) "$(WebCore)/css/scripts/process-css-values.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
+	$(PYTHON) $(PYTHON_FLAGS) "$(WebCore)/css/scripts/process-css-values.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
 
 # --------
 
@@ -2016,7 +2020,7 @@ CSS_PSEUDO_SELECTOR_FILES_PATTERNS = $(call to-pattern, $(CSS_PSEUDO_SELECTOR_FI
 all : $(CSS_PSEUDO_SELECTOR_FILES)
 $(CSS_PSEUDO_SELECTOR_FILES_PATTERNS) : $(WEBCORE_CSS_PSEUDO_SELECTORS) $(WebCore)/css/scripts/process-css-pseudo-selectors.py $(FEATURE_AND_PLATFORM_DEFINE_DEPENDENCIES)
 	$(PERL) -pe '' $(WEBCORE_CSS_PSEUDO_SELECTORS) > CSSPseudoSelectors.json
-	$(PYTHON) "$(WebCore)/css/scripts/process-css-pseudo-selectors.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
+	$(PYTHON) $(PYTHON_FLAGS) "$(WebCore)/css/scripts/process-css-pseudo-selectors.py" --gperf-executable $(GPERF) --defines "$(FEATURE_AND_PLATFORM_DEFINES)"
 
 # --------
 
@@ -2034,7 +2038,7 @@ DOMJITAbstractHeapRepository.h : $(WebCore)/domjit/generate-abstract-heap.rb $(W
 all : XMLViewerCSS.h
 
 XMLViewerCSS.h : $(WebCore)/xml/XMLViewer.css
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/cssmin.py < "$(WebCore)/xml/XMLViewer.css" > XMLViewer.min.css
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/cssmin.py < "$(WebCore)/xml/XMLViewer.css" > XMLViewer.min.css
 	$(PERL) $(JavaScriptCore_SCRIPTS_DIR)/xxd.pl XMLViewer_css XMLViewer.min.css XMLViewerCSS.h
 	$(DELETE) XMLViewer.min.css
 
@@ -2045,7 +2049,7 @@ XMLViewerCSS.h : $(WebCore)/xml/XMLViewer.css
 all : XMLViewerJS.h
 
 XMLViewerJS.h : $(WebCore)/xml/XMLViewer.js
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/jsmin.py < "$(WebCore)/xml/XMLViewer.js" > XMLViewer.min.js
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/jsmin.py < "$(WebCore)/xml/XMLViewer.js" > XMLViewer.min.js
 	$(PERL) $(JavaScriptCore_SCRIPTS_DIR)/xxd.pl XMLViewer_js XMLViewer.min.js XMLViewerJS.h
 	$(DELETE) XMLViewer.min.js
 
@@ -2054,7 +2058,7 @@ XMLViewerJS.h : $(WebCore)/xml/XMLViewer.js
 # HTML entity names
 
 HTMLEntityTable.cpp : $(WebCore)/html/parser/HTMLEntityNames.in $(WebCore)/html/parser/create-html-entity-table
-	$(PYTHON) $(WebCore)/html/parser/create-html-entity-table -o HTMLEntityTable.cpp $(WebCore)/html/parser/HTMLEntityNames.in
+	$(PYTHON) $(PYTHON_FLAGS) $(WebCore)/html/parser/create-html-entity-table -o HTMLEntityTable.cpp $(WebCore)/html/parser/HTMLEntityNames.in
 
 # --------
 
@@ -2070,7 +2074,7 @@ HTTP_HEADER_NAMES_FILES_PATTERNS = $(call to-pattern, $(HTTP_HEADER_NAMES_FILES)
 
 all : $(HTTP_HEADER_NAMES_FILES)
 $(HTTP_HEADER_NAMES_FILES_PATTERNS) : $(WebCore)/platform/network/HTTPHeaderNames.in $(WebCore)/platform/network/create-http-header-name-table
-	$(PYTHON) $(WebCore)/platform/network/create-http-header-name-table $(WebCore)/platform/network/HTTPHeaderNames.in $(GPERF)
+	$(PYTHON) $(PYTHON_FLAGS) $(WebCore)/platform/network/create-http-header-name-table $(WebCore)/platform/network/HTTPHeaderNames.in $(GPERF)
 
 # --------
 
@@ -2273,7 +2277,7 @@ USER_AGENT_SCRIPTS_FILES_PATTERNS = $(call to-pattern, $(USER_AGENT_SCRIPTS_FILE
 all : $(USER_AGENT_SCRIPTS_FILES)
 
 $(USER_AGENT_SCRIPTS_FILES_PATTERNS) : $(JavaScriptCore_SCRIPTS_DIR)/make-js-file-arrays.py $(USER_AGENT_SCRIPTS)
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/make-js-file-arrays.py -n WebCore --fail-if-non-ascii $(USER_AGENT_SCRIPTS_FILES) $(USER_AGENT_SCRIPTS)
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/make-js-file-arrays.py -n WebCore --fail-if-non-ascii $(USER_AGENT_SCRIPTS_FILES) $(USER_AGENT_SCRIPTS)
 
 # --------
 
@@ -2398,7 +2402,7 @@ EVENT_NAME_FILES_PATTERNS = $(call to-pattern, $(EVENT_NAME_FILES))
 
 all : $(EVENT_NAME_FILES)
 $(EVENT_NAME_FILES_PATTERNS) : $(WebCore)/dom/make-event-names.py $(EVENT_NAME_JSON)
-	$(PYTHON) "$(WebCore)/dom/make-event-names.py" --event-names $(EVENT_NAME_JSON)
+	$(PYTHON) $(PYTHON_FLAGS) "$(WebCore)/dom/make-event-names.py" --event-names $(EVENT_NAME_JSON)
 
 # --------
 
@@ -2686,19 +2690,19 @@ WebCore_BUILTINS_WRAPPERS_PATTERNS = $(call to-pattern, $(WebCore_BUILTINS_WRAPP
 # generated should not affect other builtins when not passing '--combined' to the generator.
 
 WebCore_BUILTINS_SOURCES_LIST : $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py $(WebCore)/DerivedSources.make
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py '$(WebCore_BUILTINS_SOURCES)' $@
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py '$(WebCore_BUILTINS_SOURCES)' $@
 
 WebCore_BUILTINS_DEPENDENCIES_LIST : $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py $(WebCore)/DerivedSources.make
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py '$(BUILTINS_GENERATOR_SCRIPTS)' $@
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py '$(BUILTINS_GENERATOR_SCRIPTS)' $@
 
 $(WebCore_BUILTINS_WRAPPERS_PATTERNS) : $(WebCore_BUILTINS_SOURCES) WebCore_BUILTINS_SOURCES_LIST $(BUILTINS_GENERATOR_SCRIPTS) WebCore_BUILTINS_DEPENDENCIES_LIST
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/generate-js-builtins.py --wrappers-only --output-directory . --framework WebCore $(WebCore_BUILTINS_SOURCES)
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/generate-js-builtins.py --wrappers-only --output-directory . --framework WebCore $(WebCore_BUILTINS_SOURCES)
 
 # See comments for IDL_PATHS for a description of what this is for.
 vpath %.js $(sort $(foreach f,$(WebCore_BUILTINS_SOURCES),$(realpath $(dir $(f)))))
 
 %Builtins.h: %.js $(BUILTINS_GENERATOR_SCRIPTS) WebCore_BUILTINS_DEPENDENCIES_LIST
-	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/generate-js-builtins.py --output-directory . --framework WebCore $<
+	$(PYTHON) $(PYTHON_FLAGS) $(JavaScriptCore_SCRIPTS_DIR)/generate-js-builtins.py --output-directory . --framework WebCore $<
 
 all : $(notdir $(WebCore_BUILTINS_SOURCES:%.js=%Builtins.h)) $(WebCore_BUILTINS_WRAPPERS)
 
@@ -2722,7 +2726,7 @@ GENERATED_PROCESS_SYNC_CLIENT_OUTPUT_PATTERNS = $(subst .cpp,%cpp, $(subst .h,%h
 all : $(GENERATED_PROCESS_SYNC_CLIENT_OUTPUT_FILES)
 
 $(GENERATED_PROCESS_SYNC_CLIENT_OUTPUT_PATTERNS) : $(WebCore)/Scripts/generate-process-sync-data.py $(PROCESS_SYNC_DATA_INPUT_FILES)
-	$(PYTHON) $(WebCore)/Scripts/generate-process-sync-data.py $(PROCESS_SYNC_DATA_INPUT_FILES)
+	$(PYTHON) $(PYTHON_FLAGS) $(WebCore)/Scripts/generate-process-sync-data.py $(PROCESS_SYNC_DATA_INPUT_FILES)
 
 # ------------------------
 
@@ -2736,4 +2740,4 @@ WEBCORE_LOG_DECLARATIONS_FILES = \
 
 $(WEBCORE_LOG_DECLARATIONS_FILES) : $(WebCore)/platform/LogMessages.in
 	@echo Creating WebCore log definitions $@
-	$(PYTHON) $(WebCore)/Scripts/generate-log-declarations.py $< $(WEBCORE_LOG_DECLARATIONS_FILES)
+	$(PYTHON) $(PYTHON_FLAGS) $(WebCore)/Scripts/generate-log-declarations.py $< $(WEBCORE_LOG_DECLARATIONS_FILES)
