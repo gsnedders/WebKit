@@ -44,7 +44,7 @@ class TestInvocation final : public RefCounted<TestInvocation>, public UIScriptC
     WTF_DEPRECATED_MAKE_FAST_ALLOCATED(TestInvocation);
     WTF_MAKE_NONCOPYABLE(TestInvocation);
 public:
-    static Ref<TestInvocation> create(WKURLRef, const TestOptions&);
+    static Ref<TestInvocation> create(WKURLRef, const TestOptions&, int testSequenceNumber);
     ~TestInvocation();
 
     WKURLRef url() const { return m_url.get(); }
@@ -84,7 +84,7 @@ public:
     void dumpResourceLoadStatisticsIfNecessary();
 
 private:
-    TestInvocation(WKURLRef, const TestOptions&);
+    TestInvocation(WKURLRef, const TestOptions&, int testSequenceNumber);
 
     WKRetainPtr<WKMutableDictionaryRef> createTestSettingsDictionary();
 
@@ -106,7 +106,7 @@ private:
     bool resolveForceImmediateCompletion();
 
     void dumpResults();
-    static void dump(const char* textToStdout, const char* textToStderr = 0, bool seenError = false);
+    static void dump(const char* textToStdout, const char* textToStderr = 0, bool seenError = false, int testSequenceNumber = 0);
     enum class SnapshotResultType { WebView, WebContents };
     void dumpPixelsAndCompareWithExpected(SnapshotResultType, WKArrayRef repaintRects, WKImageRef = nullptr);
     void dumpAudio(WKDataRef);
@@ -167,6 +167,7 @@ private:
     WKRetainPtr<WKArrayRef> m_repaintRects;
     
     RefPtr<UIScriptContext> m_UIScriptContext;
+    int m_testSequenceNumber;
 };
 
 } // namespace WTR

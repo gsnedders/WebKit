@@ -845,6 +845,8 @@ private:
 #if ENABLE(WPE_PLATFORM)
     bool m_useWPELegacyAPI { false };
 #endif
+
+    int m_testSequenceNumber { 0 };
 };
 
 } // namespace WTR
