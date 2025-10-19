@@ -26,7 +26,7 @@ from webkitcorepy import NullContext
 
 
 class NullContextTest(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         with NullContext() as nc:
             self.assertFalse(bool(nc))
             self.assertFalse(True if nc else False)

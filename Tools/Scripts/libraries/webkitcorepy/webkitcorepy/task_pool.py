@@ -19,6 +19,7 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import io
 import logging
@@ -27,20 +28,30 @@ import multiprocessing
 import queue as Queue
 import signal
 import sys
+from abc import ABCMeta, abstractmethod
+from types import TracebackType
+from typing import Any, Callable, Generic, Iterable, Mapping, Sequence, TypeVar
 
-from webkitcorepy import OutputCapture, Timeout, log
+_T = TypeVar('_T')
+
+from webkitcorepy.output_capture import OutputCapture
+from webkitcorepy.subprocess_utils import monkeytype_trace
+from webkitcorepy.timeout import Timeout
+
+log = logging.getLogger('webkitcorepy')
 
 
-class _Message(object):
-    def __init__(self, who=None):
+class _Message(metaclass=ABCMeta):
+    def __init__(self, who: str | None = None) -> None:
         self.who = who or _Process.name
 
-    def __call__(self, caller):
+    @abstractmethod
+    def __call__(self, caller: "TaskPool" | None) -> object:
         raise NotImplementedError()
 
 
 class _Task(_Message):
-    def __init__(self, function, id, *args, **kwargs):
+    def __init__(self, function: Callable[..., object], id: int, *args: Any, **kwargs: Any) -> None:
         super(_Task, self).__init__()
 
         self.function = function
@@ -49,47 +60,46 @@ class _Task(_Message):
         self.kwargs = kwargs
         self.repeat = False  # Will be set by TaskPool
 
-    def __call__(self, caller):
+    def __call__(self, caller: "TaskPool" | None) -> object:
         return self.function(*self.args, **self.kwargs)
 
 
 class _Result(_Message):
-    def __init__(self, value, id, repeat=False):
+    def __init__(self, value: object, id: int, repeat: bool=False) -> None:
         super(_Result, self).__init__()
         self.value = value
         self.id = id
         self.repeat = repeat
+        self.stopped = False
 
-    def __call__(self, caller):
+    def __call__(self, caller: "TaskPool" | None) -> object:
         if caller:
             if getattr(self, 'repeat', False):
-                # For repeat tasks, only decrement count when they actually stop
-                # (not on each iteration)
-                if getattr(self, 'stopped', False):
+                if self.stopped:
                     caller.repeat_pending_count -= 1
             else:
                 caller.pending_count -= 1
-            caller.callbacks.pop(self.id, lambda value: value)(self.value)
+            caller.callbacks.pop(self.id, lambda value: value)(self.value)  # type: ignore[no-untyped-call]
         return self.value
 
 
 class _StopRepeat(_Message):
-    def __init__(self):
+    def __init__(self) -> None:
         super(_StopRepeat, self).__init__()
 
-    def __call__(self, caller):
+    def __call__(self, caller: "TaskPool" | None) -> object:
         # This message signals workers to stop repeat tasks
-        if hasattr(caller, 'stop_repeat'):
+        if caller is not None and hasattr(caller, 'stop_repeat'):
             caller.stop_repeat = True
         return None
 
 
 class _Log(_Message):
-    def __init__(self, record):
+    def __init__(self, record: logging.LogRecord) -> None:
         super(_Log, self).__init__()
         self.record = record
 
-    def __call__(self, caller):
+    def __call__(self, caller: TaskPool | None) -> None:
         logging.getLogger(self.record.name).log(self.record.levelno, '{} {}'.format(self.who, self.record.getMessage()))
 
 
@@ -97,12 +107,12 @@ class _Print(_Message):
     stdout = 1
     stderr = 2
 
-    def __init__(self, lines, stream=stdout):
+    def __init__(self, lines: list[str], stream: int=stdout) -> None:
         super(_Print, self).__init__()
         self.lines = lines
         self.stream = stream
 
-    def __call__(self, caller):
+    def __call__(self, caller: TaskPool | None) -> None:
         stream = {
             self.stdout: sys.stdout,
             self.stderr: sys.stderr,
@@ -115,12 +125,12 @@ class _State(_Message):
     STARTING, STOPPING = 1, 0
     STATES = [STARTING, STOPPING]
 
-    def __init__(self, state, mutually_exclusive_groups=None):
+    def __init__(self, state: int, mutually_exclusive_groups: Sequence[str] | None = None) -> None:
         super(_State, self).__init__()
         self.state = state
         self.mutually_exclusive_groups = mutually_exclusive_groups or []
 
-    def __call__(self, caller):
+    def __call__(self, caller: "TaskPool" | None) -> object:
         log.info('{} {}{}'.format(
             self.who, {
                 self.STARTING: 'starting',
@@ -137,11 +147,11 @@ class _State(_Message):
 
 
 class _ChildException(_Message):
-    def __init__(self, exc_info=None):
+    def __init__(self, exc_info: tuple[type[BaseException], BaseException, object] | None = None) -> None:
         super(_ChildException, self).__init__()
         self.exc_info = exc_info or sys.exc_info()
 
-    def __call__(self, caller):
+    def __call__(self, caller: TaskPool | None) -> None:
         from six import reraise
         _, exception, trace = sys.exc_info()
         if exception:
@@ -151,18 +161,22 @@ class _ChildException(_Message):
         reraise(*self.exc_info)
 
 
-class _BiDirectionalQueue(object):
-    def __init__(self, outgoing=None, incoming=None):
+_O = TypeVar("_O")
+_I = TypeVar("_I")
+        
+
+class _BiDirectionalQueue(Generic[_O, _I]):
+    def __init__(self, outgoing: "multiprocessing.Queue[_O]" | None=None, incoming: "multiprocessing.Queue[_I]" | None=None) -> None:
         self.outgoing = outgoing or multiprocessing.Queue()
         self.incoming = incoming or multiprocessing.Queue()
 
-    def send(self, object):
-        if self.outgoing._closed:
+    def send(self, object: _O) -> None:
+        try:
+            self.outgoing.put(object)
+        except ValueError:
             sys.stderr.write('Cannot send message to closed queue\n')
-            return False
-        return self.outgoing.put(object)
 
-    def receive(self, blocking=True):
+    def receive(self, blocking: bool=True) -> _I | None:
         with Timeout.DisableAlarm():
             if not blocking:
                 return self.incoming.get(block=False)
@@ -173,27 +187,30 @@ class _BiDirectionalQueue(object):
                     return self.incoming.get(timeout=difference)
                 return self.incoming.get()
             except Queue.Empty:
-                pass
+                return None
 
-    def close(self):
+    def close(self) -> None:
         with OutputCapture():
             self.outgoing.close()
             self.incoming.close()
             self.outgoing.join_thread()
             self.incoming.join_thread()
 
+            
+_V = TypeVar("_V")
 
-class _Queue(object):
-    def __init__(self, queue=None):
+
+class _Queue(Generic[_V]):
+    def __init__(self, queue: "multiprocessing.Queue[_V]" | None=None) -> None:
         self.queue = queue or multiprocessing.Queue()
 
-    def send(self, object):
-        if self.queue._closed:
+    def send(self, object: _V) -> None:
+        try:
+            self.queue.put(object)
+        except ValueError:
             sys.stderr.write('Cannot send message to closed queue\n')
-            return False
-        return self.queue.put(object)
 
-    def receive(self, blocking=True):
+    def receive(self, blocking: bool=True) -> _V | None:
         with Timeout.DisableAlarm():
             try:
                 if not blocking:
@@ -204,64 +221,59 @@ class _Queue(object):
                     return self.queue.get(timeout=difference)
                 return self.queue.get()
             except Queue.Empty:
-                pass
+                return None
 
-    def close(self):
+    def close(self) -> None:
         with OutputCapture():
             self.queue.close()
             self.queue.join_thread()
 
 
 class _DummyQueue(object):
-    def send(self, object):
+    def send(self, object: object) -> None:
         if isinstance(object, _Message):
             object(None)
-        return True
 
-    def receive(self, blocking=True):
+    def receive(self, blocking: bool=True) -> None:
         pass
 
-    def close(self):
+    def close(self) -> None:
         pass
 
 
 class _Process(object):
-    name = None
-    working = False
-    queue = None
-    stop_repeat = False
-    name = None
-    working = False
-    queue = None
-    stop_repeat = False
-    repeat_task_queue = None
+    name: str | None = None
+    working: bool = False
+    queue: "_BiDirectionalQueue[_Message, _Message] | _DummyQueue | None" = None
+    stop_repeat: bool = False
+    repeat_task_queue: "list[_Task] | None" = None
 
     class LogHandler(logging.Handler):
-        def __init__(self, queue, **kwargs):
+        def __init__(self, queue: _BiDirectionalQueue[_Message, _Message], level: int | str = 0) -> None:
             self._queue = queue
-            super(_Process.LogHandler, self).__init__(**kwargs)
+            super(_Process.LogHandler, self).__init__(level)
 
-        def emit(self, record):
+        def emit(self, record: logging.LogRecord) -> None:
             self._queue.send(_Log(record))
 
     class Stream(io.IOBase):
-        def __init__(self, handle, queue):
+        def __init__(self, handle: int, queue: _BiDirectionalQueue[_Message, _Message]) -> None:
             if not handle:
                 raise ValueError('No target streams provided')
             self.handle = handle
-            self.cache = None
+            self.cache: str | None = None
             self._queue = queue
 
-        def flush(self):
+        def flush(self) -> None:
             if self.cache is not None:
                 self._queue.send(_Print(lines=[self.cache], stream=self.handle))
                 self.cache = None
 
-        def writelines(self, lines):
+        def writelines(self, lines: Iterable[str]) -> None:  # type: ignore[override]
             for line in lines:
                 self.write(line)
 
-        def write(self, data):
+        def write(self, data: str) -> int:
             to_be_printed = []
             for c in data:
                 if c == '\n':
@@ -274,49 +286,50 @@ class _Process(object):
             return len(data)
 
         @property
-        def closed(self):
+        def closed(self) -> bool:
             return False
 
-        def close(self):
+        def close(self) -> None:
             self.flush()
 
-        def fileno(self):
+        def fileno(self) -> int:
             return self.handle
 
-        def isatty(self):
+        def isatty(self) -> bool:
             return False
 
-        def readable(self):
+        def readable(self) -> bool:
             return False
 
-        def readline(self, size=-1):
+        def readline(self, size: int | None=-1) -> bytes:
             raise NotImplementedError()
 
-        def readlines(self, hint=-1):
+        def readlines(self, hint: int = -1) -> list[bytes]:
             raise NotImplementedError()
 
-        def seek(self, offset, whence=io.SEEK_SET):
+        def seek(self, offset: int, whence: int = io.SEEK_SET) -> int:
             raise NotImplementedError()
 
-        def seekable(self):
+        def seekable(self) -> bool:
             return False
 
-        def tell(self):
+        def tell(self) -> int:
             raise NotImplementedError()
 
-        def truncate(self, size=None):
+        def truncate(self, size: int | None=None) -> int:
             raise NotImplementedError()
 
-        def writable(self):
+        def writable(self) -> bool:
             return True
 
     @classmethod
-    def handler(cls, value, _):
+    def handler(cls, value: int, _: object) -> None:
         if value in (getattr(signal, 'SIGTERM'), getattr(signal, 'SIGINT')):
             cls.working = False
 
     @classmethod
-    def main(cls, name, loglevel, setup, setupargs, setupkwargs, queue, teardown, teardownargs, teardownkwargs, mutually_exclusive_group_queues):
+    @monkeytype_trace()
+    def main(cls, name: str, loglevel: int | str, setup: Callable[..., object] | None, setupargs: Sequence[object] | None, setupkwargs: Mapping[str, object] | None, queue: "_BiDirectionalQueue[_Message, _Message]", teardown: Callable[..., object] | None, teardownargs: Sequence[object] | None, teardownkwargs: Mapping[str, object] | None, mutually_exclusive_group_queues: "Mapping[str, _Queue[_Message]]") -> None:
         from tblib import pickling_support
 
         cls.name = name
@@ -366,7 +379,7 @@ class _Process(object):
 
                     # Handle _StopRepeat message early (before checking repeat queue)
                     if isinstance(task, _StopRepeat):
-                        task(cls)  # This sets cls.stop_repeat = True
+                        task(cls)  # type: ignore[arg-type]  # This sets cls.stop_repeat = True
                         # Send final results for any queued repeat tasks
                         while cls.repeat_task_queue:
                             stopped_task = cls.repeat_task_queue.pop(0)
@@ -403,7 +416,7 @@ class _Process(object):
 
                     # Handle _StopRepeat message (applies to all workers from any queue)
                     if isinstance(task, _StopRepeat):
-                        task(cls)  # This sets cls.stop_repeat = True
+                        task(cls)  # type: ignore[arg-type]  # This sets cls.stop_repeat = True
                         # Send final "stopped" results for any queued repeat tasks
                         while cls.repeat_task_queue:
                             stopped_task = cls.repeat_task_queue.pop(0)
@@ -416,23 +429,25 @@ class _Process(object):
                         continue
 
                     # For repeat tasks, check stop condition
-                    if getattr(task, 'repeat', False):
+                    if isinstance(task, _Task) and task.repeat:
                         if not cls.stop_repeat:
                             result = task(None)
                             queue.send(_Result(value=result, id=task.id, repeat=True))
                             # Re-queue the repeat task to run again
+                            assert cls.repeat_task_queue is not None
                             cls.repeat_task_queue.append(task)
                         else:
                             # Task is stopping - send a final result with stopped=True
                             result_msg = _Result(value=None, id=task.id, repeat=True)
                             result_msg.stopped = True
                             queue.send(result_msg)
-                    else:
+                    elif isinstance(task, _Task):
                         result = task(None)
                         queue.send(_Result(value=result, id=task.id, repeat=False))
 
-            except BaseException:
-                typ, exception, traceback = sys.exc_info()
+            except BaseException as exception:
+                typ = type(exception)
+                traceback = exception.__traceback__
                 queue.send(_ChildException(exc_info=(
                     typ, typ('{} (from {})'.format(str(exception), name)), traceback,
                 )))
@@ -463,12 +478,12 @@ class TaskPool(object):
         pass
 
     def __init__(
-        self, workers=1, name=None, setup=None, teardown=None, enter_grace_period=60, exit_grace_period=5, block_size=1000,
-        setupargs=None, setupkwargs=None,
-        teardownargs=None, teardownkwargs=None,
-        force_fork=False,
-        mutually_exclusive_groups=None,
-    ):
+        self, workers: int=1, name: str | None=None, setup: Callable[..., object] | None = None, teardown: Callable[..., object] | None = None, enter_grace_period: int=60, exit_grace_period: int=5, block_size: int=1000,
+        setupargs: Sequence[object] | None = None, setupkwargs: Mapping[str, object] | None = None,
+        teardownargs: Sequence[object] | None = None, teardownkwargs: Mapping[str, object] | None = None,
+        force_fork: bool=False,
+        mutually_exclusive_groups: Iterable[str] | None = None,
+    ) -> None:
         # Ensure tblib is installed before creating child processes
         import tblib  # noqa: F401
 
@@ -480,10 +495,10 @@ class TaskPool(object):
         if workers < 1:
             raise ValueError('TaskPool requires positive number of workers')
 
-        self.queue = None
+        self.queue: _BiDirectionalQueue[_Message | None, _Message] | None = None
         self.mutually_exclusive_groups = set(mutually_exclusive_groups or [])
-        self._group_queues = dict()
-        self.workers = []
+        self._group_queues: dict[str, _Queue[_Message]] = dict()
+        self.workers: list[multiprocessing.Process] = []
 
         self._setup_args = (setup, setupargs or [], setupkwargs or {})
         self._teardown_args = (teardown, teardownargs or [], teardownkwargs or {})
@@ -491,7 +506,7 @@ class TaskPool(object):
 
         self._started = 0
 
-        self.callbacks = {}
+        self.callbacks: dict[int, Callable[[Any], None]] = {}
         self._id_count = 0
         self.pending_count = 0
         self.repeat_pending_count = 0
@@ -504,7 +519,7 @@ class TaskPool(object):
         if not self.force_fork and self._num_workers == 1 and TaskPool.Process.queue:
             raise ValueError('Illegal single-process TaskPool nesting')
 
-    def __enter__(self):
+    def __enter__(self) -> "TaskPool":
         if not self.force_fork and self._num_workers == 1:
             TaskPool.Process.queue = _DummyQueue()
             TaskPool.Process.name = TaskPool.Process.name or '{}/0'.format(self.name)
@@ -523,6 +538,7 @@ class TaskPool(object):
         for count in range(self._num_workers):
             groups_for_worker = mutually_exclusive_groups[:int(math.ceil(float(len(mutually_exclusive_groups)) / (self._num_workers - count)))]
             mutually_exclusive_groups = mutually_exclusive_groups[len(groups_for_worker):]
+            assert self.queue is not None
             self.workers.append(multiprocessing.Process(
                 target=self.Process.main,
                 args=(
@@ -534,18 +550,18 @@ class TaskPool(object):
                 ),
             ))
 
+        assert self.queue is not None
         with Timeout(seconds=self.enter_grace_period, patch=False, handler=self.Exception('Failed to start all workers')):
             for worker in self.workers:
                 worker.start()
             while self._started < len(self.workers):
-                self.queue.receive()(self)
+                msg = self.queue.receive()
+                assert msg is not None
+                msg(self)
 
         return self
 
-    def do(self, function, *args, **kwargs):
-        callback = kwargs.pop('callback', None)
-        group = kwargs.pop('group', None)
-        repeat = kwargs.pop('repeat', False)
+    def do(self, function: Callable[..., _T], *args: Any, callback: Callable[[_T], None] | None = None, group: str | None = None, repeat: bool = False, **kwargs: Any) -> None:
         if group and group not in self.mutually_exclusive_groups:
             raise ValueError("'{}' is not a recognized group".format(group))
 
@@ -555,7 +571,7 @@ class TaskPool(object):
                 callback(result)
             return
 
-        queue = self._group_queues.get(group, self.queue)
+        queue = self._group_queues[group] if group is not None else self.queue
 
         if callback:
             self.callbacks[self._id_count] = callback
@@ -576,17 +592,21 @@ class TaskPool(object):
         if not self._id_count % self.block_size:
             while self.pending_count > 2 * self._num_workers:
                 try:
-                    self.queue.receive(blocking=False)(self)
+                    msg = self.queue.receive(blocking=False)
+                    assert msg is not None
+                    msg(self)
                 except Queue.Empty:
                     break
 
-    def wait(self):
+    def wait(self) -> None:
         if not self.queue:
             return
 
         # Wait for regular tasks to complete first
         while self.pending_count > 0:
-            self.queue.receive()(self)
+            msg = self.queue.receive()
+            assert msg is not None
+            msg(self)
 
         # If we have repeat tasks, signal them to stop
         if self._has_repeat_tasks:
@@ -609,9 +629,11 @@ class TaskPool(object):
             self.queue.send(None)
 
         while self._started:
-            self.queue.receive()(self)
+            msg = self.queue.receive()
+            assert msg is not None
+            msg(self)
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None:
         if not self.queue:
             TaskPool.Process.working = False
             try:
@@ -637,7 +659,9 @@ class TaskPool(object):
             with Timeout(seconds=self.exit_grace_period):
                 try:
                     while self._started:
-                        self.queue.receive()(self)
+                        msg = self.queue.receive()
+                        assert msg is not None
+                        msg(self)
                 except Exception:
                     if inflight[1]:
                         log.critical('Some workers failed to gracefully shut down, but in-flight exception taking precedence')

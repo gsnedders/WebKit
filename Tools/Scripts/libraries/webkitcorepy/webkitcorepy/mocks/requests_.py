@@ -19,35 +19,41 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import json
+from types import TracebackType
+from typing import Any, Callable, Iterator, Mapping, Sequence
 from unittest import mock
+
+from requests.structures import CaseInsensitiveDict
 
 from webkitcorepy import string_utils
 from webkitcorepy.mocks import ContextStack
+from webkitcorepy.mocks.context_stack import ContextStack
 
 
 class Response(object):
     @staticmethod
-    def fromText(data, url=None, headers=None):
+    def fromText(data: str, url: str | None = None, headers: Mapping[str, str] | None = None) -> "Response":
         assert isinstance(data, str)
         return Response(text=data, url=url, headers=headers)
 
     @staticmethod
-    def fromJson(data, url=None, headers=None, status_code=None):
+    def fromJson(data: list[object] | dict[str, object], url: str | None = None, headers: Mapping[str, str] | None = None, status_code: int | None = None) -> "Response":
         assert isinstance(data, list) or isinstance(data, dict)
 
-        headers = headers or {}
-        if 'Content-Type' not in headers:
-            headers['Content-Type'] = 'text/json'
+        merged_headers = dict(headers) if headers else {}
+        if 'Content-Type' not in merged_headers:
+            merged_headers['Content-Type'] = 'text/json'
 
-        return Response(text=json.dumps(data), url=url, headers=headers, status_code=status_code)
+        return Response(text=json.dumps(data), url=url, headers=merged_headers, status_code=status_code)
 
     @staticmethod
-    def create404(url=None, headers=None):
+    def create404(url: str | None = None, headers: Mapping[str, str] | None = None) -> "Response":
         return Response(status_code=404, url=url, headers=headers)
 
-    def __init__(self, status_code=None, text=None, content=None, url=None, headers=None):
+    def __init__(self, status_code: int | None = None, text: str | None=None, content: bytes | None = None, url: str | None = None, headers: Mapping[str, str] | None = None) -> None:
         if status_code is not None:
             self.status_code = status_code
         elif text is not None:
@@ -63,45 +69,45 @@ class Response(object):
             self.content = content or b''
 
         self.url = url
-        self.headers = headers or {}
+        self.headers: CaseInsensitiveDict[str] = CaseInsensitiveDict(headers or {})
 
         if 'Content-Type' not in self.headers:
             self.headers['Content-Type'] = 'text'
         if 'Content-Length' not in self.headers:
-            self.headers['Content-Length'] = len(self.content) if self.content else 0
+            self.headers['Content-Length'] = str(len(self.content) if self.content else 0)
 
     @property
-    def text(self):
+    def text(self) -> str:
         return string_utils.decode(self.content)
 
-    def json(self):
+    def json(self) -> object:
         return json.loads(self.text)
 
-    def iter_content(self, chunk_size=4096):
+    def iter_content(self, chunk_size: int=4096) -> Iterator[str]:
         for i in range(0, len(self.text), chunk_size):
             yield self.text[i:i + chunk_size]
 
-    def iter_lines(self):
+    def iter_lines(self) -> Iterator[bytes]:
         for line in self.text.splitlines() if self.text else []:
             yield string_utils.encode(line)
 
-    def __enter__(self):
+    def __enter__(self) -> "Response":
         return self
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None:
         pass
 
 
 class Requests(ContextStack):
     top = None
 
-    def __init__(self, *hosts, **kwargs):
+    def __init__(self, *hosts: Sequence[str], **kwargs: Response | Callable[..., Response]) -> None:
         super(Requests, self).__init__(cls=Requests)
         self.hosts = hosts
-        self._temp_patches = None
+        self._temp_patches: list[mock._patch[Any]] = []
         self._responses = kwargs
 
-    def request(self, method, url, **kwargs):
+    def request(self, method: str, url: str, **kwargs: Any) -> Response:
         stripped_url = url.split('://')[-1]
         candidate = self._responses.get('/'.join(stripped_url.split('/')[1:]))
         if isinstance(candidate, Response):
@@ -110,14 +116,14 @@ class Requests(ContextStack):
             return candidate(method, url, **kwargs)
         return Response.create404(url)
 
-    def __enter__(self):
+    def __enter__(self) -> "Requests":
         # Allow requests to be managed via autoinstall
         import requests
 
         this = self
 
         class Session(requests.Session):
-            def request(self, method, url, **kwargs):
+            def request(self, method: str, url: str, **kwargs: Any) -> "Response | requests.Response":  # type: ignore[override]
                 for host in this.hosts:
                     for candidate in ['https://{}'.format(host), 'http://{}'.format(host)]:
                         if url == candidate:
@@ -140,8 +146,8 @@ class Requests(ContextStack):
             patch.__enter__()
         return super(Requests, self).__enter__()
 
-    def __exit__(self, *args, **kwargs):
-        super(Requests, self).__exit__(*args, **kwargs)
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None:
+        super(Requests, self).__exit__(exc_type, exc_val, exc_tb)
         for patch in reversed(self._temp_patches):
-            patch.__exit__(*args, **kwargs)
-        self._temp_patches = None
+            patch.__exit__(exc_type, exc_val, exc_tb)
+        self._temp_patches = []

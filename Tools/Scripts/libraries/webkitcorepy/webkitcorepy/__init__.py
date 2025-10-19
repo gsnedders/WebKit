@@ -27,34 +27,33 @@ if sys.version_info < (3, 9):  # noqa: UP036
 
 import logging
 import platform
-
 from logging import NullHandler
 
-log = logging.getLogger('webkitcorepy')
+log: logging.Logger = logging.getLogger('webkitcorepy')
 log.addHandler(NullHandler())
 
-from webkitcorepy.version import Version
-from webkitcorepy.string_utils import BytesIO, StringIO, UnicodeIO, unicode
-from webkitcorepy.timeout import Timeout
-from webkitcorepy.subprocess_utils import TimeoutExpired, CompletedProcess, run, Thread
-from webkitcorepy.output_capture import LoggerCapture, OutputCapture, OutputDuplicate
-from webkitcorepy.task_pool import TaskPool
-from webkitcorepy.timer import Timer
-from webkitcorepy.terminal import Terminal
-from webkitcorepy.environment import Environment
-from webkitcorepy.credentials import credentials, delete_credentials
-from webkitcorepy.measure_time import MeasureTime
-from webkitcorepy.nested_fuzzy_dict import NestedFuzzyDict
-from webkitcorepy.call_by_need import CallByNeed
-from webkitcorepy.editor import Editor
-from webkitcorepy.file_lock import FileLock
-from webkitcorepy.null_context import NullContext
-from webkitcorepy.filtered_call import filtered_call
-from webkitcorepy.partial_proxy import PartialProxy
+from webkitcorepy.call_by_need import CallByNeed as CallByNeed
+from webkitcorepy.credentials import credentials as credentials, delete_credentials as delete_credentials
+from webkitcorepy.editor import Editor as Editor
+from webkitcorepy.environment import Environment as Environment
+from webkitcorepy.file_lock import FileLock as FileLock
+from webkitcorepy.filtered_call import filtered_call as filtered_call
+from webkitcorepy.measure_time import MeasureTime as MeasureTime
+from webkitcorepy.nested_fuzzy_dict import NestedFuzzyDict as NestedFuzzyDict
+from webkitcorepy.null_context import NullContext as NullContext
+from webkitcorepy.output_capture import LoggerCapture as LoggerCapture, OutputCapture as OutputCapture, OutputDuplicate as OutputDuplicate
+from webkitcorepy.partial_proxy import PartialProxy as PartialProxy
+from webkitcorepy.string_utils import BytesIO as BytesIO, StringIO as StringIO, UnicodeIO as UnicodeIO, unicode as unicode
+from webkitcorepy.subprocess_utils import CompletedProcess as CompletedProcess, Thread as Thread, TimeoutExpired as TimeoutExpired, run as run
+from webkitcorepy.task_pool import TaskPool as TaskPool
+from webkitcorepy.terminal import Terminal as Terminal
+from webkitcorepy.timeout import Timeout as Timeout
+from webkitcorepy.timer import Timer as Timer
+from webkitcorepy.version import Version as Version
 
 version = Version(1, 0, 2)
 
-from webkitcorepy.autoinstall import Package, AutoInstall
+from webkitcorepy.autoinstall import AutoInstall as AutoInstall, Package as Package
 
 if sys.version_info >= (3, 12):
     AutoInstall.register(Package('setuptools', Version(68, 1, 2), aliases=['_distutils_hack', 'pkg_resources']))

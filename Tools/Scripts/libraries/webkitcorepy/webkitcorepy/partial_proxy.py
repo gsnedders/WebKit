@@ -20,28 +20,32 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
+from types import TracebackType
+from typing import Any, Sequence
 from unittest import mock
 
-from webkitcorepy import mocks
+from webkitcorepy.mocks.context_stack import ContextStack
 
 
-class PartialProxy(mocks.ContextStack):
+class PartialProxy(ContextStack):
     top = None
 
-    def __init__(self, hosts, http, https):
+    def __init__(self, hosts: Sequence[str], http: str, https: str) -> None:
         super(PartialProxy, self).__init__(cls=PartialProxy)
         self.hosts = hosts
         self.http = http
         self.https = https
 
-        self._temp_patches = None
+        self._temp_patches: list[mock._patch[Any]] | None = None
 
-    def __enter__(self):
+    def __enter__(self) -> "PartialProxy":
         # Allow requests to be managed via autoinstall
         import requests
 
         class Session(requests.Session):
-            def request(self, method, url, **kwargs):
+            def request(self, method: str, url: str, *args: Any, **kwargs: Any) -> requests.Response:  # type: ignore[override]
                 split = url.split('/')
                 protocol = split[0]
                 host = split[2] if len(split) >= 3 else None
@@ -57,7 +61,7 @@ class PartialProxy(mocks.ContextStack):
                             break
                         current = current.previous
 
-                return super(Session, self).request(method, url, **kwargs)
+                return super(Session, self).request(method, url, *args, **kwargs)
 
         self._temp_patches = [
             mock.patch('requests.Session', new=Session),
@@ -73,8 +77,9 @@ class PartialProxy(mocks.ContextStack):
             patch.__enter__()
         return super(PartialProxy, self).__enter__()
 
-    def __exit__(self, *args, **kwargs):
-        super(PartialProxy, self).__exit__(*args, **kwargs)
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None:
+        super(PartialProxy, self).__exit__(exc_type, exc_val, exc_tb)
+        assert self._temp_patches is not None
         for patch in reversed(self._temp_patches):
-            patch.__exit__(*args, **kwargs)
+            patch.__exit__(exc_type, exc_val, exc_tb)
         self._temp_patches = None

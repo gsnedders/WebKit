@@ -19,23 +19,31 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
+
+from types import TracebackType
+from typing import ContextManager, ClassVar, Optional, Type, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
 
 
 class ContextStack(object):
+    top: ClassVar[Optional["ContextStack"]] = None  # Class attribute that will be set by subclasses
 
-    def __init__(self, cls):
-        self.previous = None
-        self.patches = []
+    def __init__(self, cls: Type["ContextStack"]) -> None:
+        self.previous: Optional["ContextStack"] = None
+        self.patches: list[ContextManager[object]] = []
         self.cls = cls
 
-    def __enter__(self):
+    def __enter__(self) -> Self:
         self.previous = self.top
         self.cls.top = self
         for patch in self.patches:
             patch.__enter__()
         return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None:
         for patch in reversed(self.patches):
             patch.__exit__(exc_type, exc_value, traceback)
         self.cls.top = self.previous

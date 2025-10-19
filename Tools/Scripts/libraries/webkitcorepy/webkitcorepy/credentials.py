@@ -19,22 +19,27 @@
 # CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import getpass
 import sys
-
 from subprocess import CalledProcessError
-from webkitcorepy import Environment, OutputCapture, Terminal, string_utils
+from typing import Callable
 
-_cache = dict()
+import webkitcorepy.string_utils as string_utils
+from webkitcorepy.environment import Environment
+from webkitcorepy.output_capture import OutputCapture
+from webkitcorepy.terminal import Terminal
+
+_cache: dict[str, tuple[str, str]] = dict()
 
 
-def handle_keyring_error(error):
+def handle_keyring_error(error: Exception) -> None:
     sys.stderr.write('Could not access credentials from keychain. Please run `security unlock-keychain` before re-running this command.\n')
     sys.exit(1)
 
 
-def credentials(url, required=True, name=None, prompt=None, key_name='password', validater=None, validate_existing_credentials=False, retry=3, save_in_keyring=None):
+def credentials(url: str, required: bool=True, name: str | None=None, prompt: str | None=None, key_name: str='password', validater: Callable[[str, str], bool] | None=None, validate_existing_credentials: bool=False, retry: int=3, save_in_keyring: bool | None=None) -> tuple[str | None, str | None]:
     global _cache
 
     ignore_entry = False
@@ -42,7 +47,7 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
     if _cache.get(name):
         if not validate_existing_credentials:
             return _cache[name]
-        elif validater and validater(*_cache.get(name)):
+        elif validater and validater(*_cache[name]):
             return _cache[name]
 
         # If we've failed the validation check, invalidate cache and ignore the current keychain entry
@@ -56,11 +61,14 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
         _cache[name] = (username, key)
         return username, key
 
+    have_keyring = False
     with OutputCapture():
         try:
             import keyring
         except (CalledProcessError, ImportError):
-            keyring = None
+            pass
+        else:
+            have_keyring = True
 
     username_prompted = False
     key_prompted = False
@@ -71,13 +79,13 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
         if attempt:
             sys.stderr.write('Ignoring keychain values and re-prompting user\n')
         if not username:
-            try:
-                if keyring and not attempt:
+            if have_keyring and not attempt:
+                try:
                     username = keyring.get_password(url, 'username')
-            except (RuntimeError, AttributeError):
-                pass
-            except keyring.errors.KeyringError as e:
-                handle_keyring_error(e)
+                except (RuntimeError, AttributeError):
+                    pass
+                except keyring.errors.KeyringError as e:
+                    handle_keyring_error(e)
 
             if not username and required:
                 if not sys.stderr.isatty() or not sys.stdin.isatty():
@@ -90,13 +98,13 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
                 username_prompted = True
 
         if not key and username:
-            try:
-                if keyring and not attempt:
+            if have_keyring and not attempt:
+                try:
                     key = keyring.get_password(url, username)
-            except (RuntimeError, AttributeError):
-                pass
-            except keyring.errors.KeyringError as e:
-                handle_keyring_error(e)
+                except (RuntimeError, AttributeError):
+                    pass
+                except keyring.errors.KeyringError as e:
+                    handle_keyring_error(e)
 
             if not key and required:
                 if not sys.stderr.isatty() or not sys.stdin.isatty():
@@ -105,7 +113,7 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
                 key_prompted = True
 
         should_validate = validater and (username_prompted or key_prompted or validate_existing_credentials)
-        if username and key and (not should_validate or validater(username, key)):
+        if username and key and (not should_validate or (validater and validater(username, key))):
             _cache[name] = (username, key)
             break
 
@@ -121,12 +129,14 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
         sys.stderr.write("Exhausted attempts to prompt user for '{}' credentials\n".format(url))
         sys.exit(1)
 
-    if keyring and (username_prompted or key_prompted):
+    if have_keyring and (username_prompted or key_prompted):
         if save_in_keyring or (save_in_keyring is None and Terminal.choose(
             'Store username and {} in system keyring for {}?'.format(key_name, url),
             default='Yes',
         ) == 'Yes'):
             sys.stderr.write('Storing credentials...\n')
+            assert username is not None
+            assert key is not None
             try:
                 keyring.set_password(url, 'username', username)
                 keyring.set_password(url, username, key)
@@ -138,7 +148,7 @@ def credentials(url, required=True, name=None, prompt=None, key_name='password',
     return username, key
 
 
-def delete_credentials(url, name=None):
+def delete_credentials(url: str, name: str | None=None) -> None:
     global _cache
 
     name = name or url.split('/')[2].replace('.', '_')

@@ -58,6 +58,10 @@ setup(
         'webkitcorepy.tests.skill_testing',
     ],
     install_requires=[
+        'json-e',
+        'keyring',
+        'packaging',
+        'pyyaml',
         'requests',
         'six',
         'tblib',

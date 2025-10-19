@@ -21,27 +21,28 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import errno
 import os
 import re
 import sys
 import time
 
-from webkitcorepy import string_utils
+import webkitcorepy.string_utils as string_utils
 from webkitcorepy.timeout import Timeout
 
-if sys.platform.startswith('win'):
+if sys.platform == 'win32':
     import msvcrt
 
 
 class FileLock(object):
     INTEGER_RE = re.compile(r'^\d+$')
-    USE_WINDOWS = sys.platform.startswith('win')
-    USE_EXLOCK = not USE_WINDOWS and getattr(os, 'O_EXLOCK', False)
+    USE_EXLOCK = sys.platform != 'win32' and getattr(os, 'O_EXLOCK', False)
 
     @classmethod
-    def is_process_running(cls, pid):
-        if cls.USE_WINDOWS:
+    def is_process_running(cls, pid: int) -> bool:
+        if sys.platform == 'win32':
             raise RuntimeError('Funciton does not support Windows')
         try:
             os.kill(pid, 0)
@@ -51,20 +52,20 @@ class FileLock(object):
                 return False
             raise
 
-    def __init__(self, path, timeout=20):
+    def __init__(self, path: str, timeout: int=20) -> None:
         self.path = path
         self.timeout = timeout
-        self._descriptor = None
+        self._descriptor: int | None = None
 
     @property
-    def acquired(self):
+    def acquired(self) -> bool:
         return bool(self._descriptor)
 
-    def acquire(self):
+    def acquire(self) -> bool:
         if self._descriptor:
             raise RuntimeError('Cannot re-enter acquired FileLock')
 
-        if not self.USE_EXLOCK and not self.USE_WINDOWS and os.path.exists(self.path):
+        if not self.USE_EXLOCK and sys.platform != 'win32' and os.path.exists(self.path):
             with open(self.path) as file:
                 pid = file.readline().strip()
             if self.INTEGER_RE.match(pid) and not self.is_process_running(int(pid)):
@@ -81,7 +82,7 @@ class FileLock(object):
         start_time = time.time()
         while True:
             try:
-                if self.USE_WINDOWS:
+                if sys.platform == 'win32':
                     self._descriptor = os.open(self.path, os.O_TRUNC | os.O_CREAT)
                     msvcrt.locking(self._descriptor, msvcrt.LK_NBLCK, 32)
                 elif self.USE_EXLOCK:
@@ -99,11 +100,11 @@ class FileLock(object):
                     raise
                 time.sleep(0.01)
 
-    def release(self):
+    def release(self) -> None:
         if not self._descriptor:
             raise RuntimeError('Cannot release unclaimed lock')
         try:
-            if self.USE_WINDOWS:
+            if sys.platform == 'win32':
                 msvcrt.locking(self._descriptor, msvcrt.LK_UNLCK, 32)
             elif not self.USE_EXLOCK:
                 os.unlink(self.path)
@@ -111,11 +112,11 @@ class FileLock(object):
             os.close(self._descriptor)
             self._descriptor = None
 
-    def __enter__(self):
+    def __enter__(self) -> "FileLock":
         self.acquire()
         return self
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, *args: object, **kwargs: object) -> None:
         if not self._descriptor:
             return
         self.release()

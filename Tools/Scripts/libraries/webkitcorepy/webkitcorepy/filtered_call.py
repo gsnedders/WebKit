@@ -21,7 +21,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-def filtered_call(function, *args, **kwargs):
+from __future__ import annotations
+
+from typing import Any, Callable, TypeVar
+
+_R = TypeVar("_R")
+
+
+def filtered_call(function: Callable[..., _R], *args: Any, **kwargs: Any) -> _R:
     import inspect
 
     signature_args = inspect.signature(function).parameters.keys()

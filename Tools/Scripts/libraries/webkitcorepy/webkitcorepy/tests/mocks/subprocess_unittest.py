@@ -22,8 +22,8 @@
 
 import subprocess
 import unittest
-
 from pathlib import Path
+
 from webkitcorepy import BytesIO, OutputCapture, mocks, run
 
 
@@ -37,7 +37,7 @@ class MockSubprocess(unittest.TestCase):
         generator=lambda *args, **kwargs: mocks.ProcessCompletion(returncode=0, elapsed=int(args[1])),
     )
 
-    def test_documentation(self):
+    def test_documentation(self) -> None:
         with OutputCapture():
             with mocks.Subprocess(
                     'ls', completion=mocks.ProcessCompletion(returncode=0, stdout='file1.txt\nfile2.txt\n'),
@@ -62,19 +62,19 @@ class MockSubprocess(unittest.TestCase):
                 result = run(['command-b'])
                 assert result.returncode == -1
 
-    def test_no_file(self):
+    def test_no_file(self) -> None:
         with mocks.Subprocess(self.LS, self.SLEEP):
             with self.assertRaises(OSError):
                 run(['invalid-file'])
 
-    def test_implied_route(self):
+    def test_implied_route(self) -> None:
         with mocks.Subprocess('command', completion=mocks.ProcessCompletion(returncode=0)):
             self.assertEqual(run(['command']).returncode, 0)
 
             with self.assertRaises(OSError):
                 run(['invalid-file'])
 
-    def test_path_args(self):
+    def test_path_args(self) -> None:
         with OutputCapture():
             with mocks.Subprocess(
                     'ls', '.*', completion=mocks.ProcessCompletion(returncode=0, stdout='file1.txt\nfile2.txt\n'),
@@ -83,12 +83,13 @@ class MockSubprocess(unittest.TestCase):
                 assert result.returncode == 0
                 assert result.stdout == 'file1.txt\nfile2.txt\n'
 
-    def test_popen(self):
+    def test_popen(self) -> None:
         with mocks.Time:
             with mocks.Subprocess(self.LS, self.SLEEP):
                 ls = subprocess.Popen(['ls'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 ls.wait()
                 self.assertEqual(0, ls.poll())
+                assert ls.stdout is not None
                 self.assertEqual(b'file1.txt\nfile2.txt\n', ls.stdout.read())
 
                 sleep = subprocess.Popen(['sleep', '1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -96,7 +97,7 @@ class MockSubprocess(unittest.TestCase):
                 sleep.wait()
                 self.assertEqual(0, sleep.poll())
 
-    def test_ordered(self):
+    def test_ordered(self) -> None:
         with OutputCapture(), mocks.Subprocess(
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=0)),
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=1)),
@@ -107,7 +108,7 @@ class MockSubprocess(unittest.TestCase):
             with self.assertRaises(OSError):
                 run(['command'])
 
-    def test_argument_priority(self):
+    def test_argument_priority(self) -> None:
         with OutputCapture(), mocks.Subprocess(
             mocks.Subprocess.Route('command', '--help', completion=mocks.ProcessCompletion(returncode=0)),
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=1)),
@@ -115,7 +116,7 @@ class MockSubprocess(unittest.TestCase):
             self.assertEqual(run(['command']).returncode, 1)
             self.assertEqual(run(['command', '--help']).returncode, 0)
 
-    def test_cwd_priority(self):
+    def test_cwd_priority(self) -> None:
         with OutputCapture(), mocks.Subprocess(
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=0), cwd='/example'),
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=1)),
@@ -123,7 +124,7 @@ class MockSubprocess(unittest.TestCase):
             self.assertEqual(run(['command']).returncode, 1)
             self.assertEqual(run(['command'], cwd='/example').returncode, 0)
 
-    def test_input_priority(self):
+    def test_input_priority(self) -> None:
         with OutputCapture(), mocks.Subprocess(
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=0), input='stdin'),
             mocks.Subprocess.Route('command', completion=mocks.ProcessCompletion(returncode=1)),
@@ -134,14 +135,14 @@ class MockSubprocess(unittest.TestCase):
 
 
 class MockCheckOutput(unittest.TestCase):
-    def test_popen(self):
+    def test_popen(self) -> None:
         with mocks.Subprocess(MockSubprocess.LS):
             result = subprocess.check_output(['ls'])
             self.assertEqual(result, b'file1.txt\nfile2.txt\n')
 
 
 class MockCheckCall(unittest.TestCase):
-    def test_popen(self):
+    def test_popen(self) -> None:
         with OutputCapture() as captured:
             with mocks.Subprocess(MockSubprocess.LS):
                 result = subprocess.check_call(['ls'])
@@ -151,7 +152,7 @@ class MockCheckCall(unittest.TestCase):
 
 
 class MockRun(unittest.TestCase):
-    def test_popen(self):
+    def test_popen(self) -> None:
         with OutputCapture() as captured:
             with mocks.Subprocess(MockSubprocess.LS):
                 result = run(['ls'])

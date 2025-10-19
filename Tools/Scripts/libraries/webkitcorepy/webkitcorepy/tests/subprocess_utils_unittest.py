@@ -19,32 +19,33 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import sys
 import time
 import unittest
 
-from webkitcorepy import mocks, OutputCapture, run, TimeoutExpired, Timeout, Thread
+from webkitcorepy import OutputCapture, Thread, Timeout, TimeoutExpired, mocks, run
 
 
 class SubprocessUtils(unittest.TestCase):
 
-    def test_run(self):
+    def test_run(self) -> None:
         result = run([sys.executable, '-c', 'print("message")'], capture_output=True, encoding='utf-8')
         self.assertEqual(0, result.returncode)
         self.assertEqual(result.stdout, 'message\n')
         self.assertEqual(result.stderr, '')
 
-    def test_run_exit(self):
+    def test_run_exit(self) -> None:
         result = run([sys.executable, '-c', 'import sys;sys.exit(1)'])
         self.assertEqual(1, result.returncode)
         self.assertEqual(result.stdout, None)
         self.assertEqual(result.stderr, None)
 
-    def test_thread(self):
+    def test_thread(self) -> None:
         data = dict()
 
-        def f():
+        def f() -> None:
             data['finished'] = True
 
         t = Thread(target=f)
@@ -54,10 +55,10 @@ class SubprocessUtils(unittest.TestCase):
         self.assertEqual(t.poll(), 0)
         self.assertTrue(data.get('finished', False))
 
-    def test_killed_thread(self):
+    def test_killed_thread(self) -> None:
         data = dict()
 
-        def f():
+        def f() -> None:
             data['iteration'] = 0
             for x in range(10):
                 if Thread.terminated():
@@ -73,18 +74,18 @@ class SubprocessUtils(unittest.TestCase):
         self.assertEqual(t.poll(), 1)
         self.assertNotEqual(data.get('iteration', 9), 9)
 
-    def test_run_timeout(self):
+    def test_run_timeout(self) -> None:
         with OutputCapture(), self.assertRaises(TimeoutExpired):
             run([sys.executable, '-c', 'import time;time.sleep(2)'], timeout=1)
 
-    def test_run_timeout_context(self):
+    def test_run_timeout_context(self) -> None:
         with OutputCapture(), self.assertRaises(TimeoutExpired):
             with Timeout(1):
                 run([sys.executable, '-c', 'import time;time.sleep(2)'])
 
-    def test_input(self):
-        def callback(*args, **kwargs):
-            print(kwargs['input'])
+    def test_input(self) -> None:
+        def callback(*args: str, cwd: str | None = None, input: bytes | None = None, env: dict[str, str] | None = None) -> mocks.ProcessCompletion:
+            print(input)
             return mocks.ProcessCompletion(returncode=0)
 
         with OutputCapture() as captured, mocks.Subprocess('command', generator=callback):
@@ -92,9 +93,9 @@ class SubprocessUtils(unittest.TestCase):
 
         self.assertEqual(captured.stdout.getvalue(), "b'stdin content'\n")
 
-    def test_input_text(self):
-        def callback(*args, **kwargs):
-            print(kwargs['input'])
+    def test_input_text(self) -> None:
+        def callback(*args: str, cwd: str | None = None, input: bytes | None = None, env: dict[str, str] | None = None) -> mocks.ProcessCompletion:
+            print(input)
             return mocks.ProcessCompletion(returncode=0)
 
         with OutputCapture() as captured, mocks.Subprocess('command', generator=callback):

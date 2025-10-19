@@ -26,13 +26,13 @@ from webkitcorepy import filtered_call
 
 
 class FilteredCallTestCase(unittest.TestCase):
-    def function(self, a, b=None, c=None):
+    def function(self, a: object, b: object = None, c: object = None) -> None:
         self.assertTrue(a)
         self.assertEqual(b, 'b')
         self.assertEqual(c, 'c')
 
-    def test_passthrough(self):
+    def test_passthrough(self) -> None:
         filtered_call(self.function, True, b='b', c='c')
 
-    def test_filtered(self):
+    def test_filtered(self) -> None:
         filtered_call(self.function, True, b='b', c='c', d='d')

@@ -26,24 +26,24 @@ from webkitcorepy import CallByNeed
 
 
 class TestCallByNeed(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         obj = CallByNeed(lambda: 'resolved')
         self.assertIsNone(obj._value)
         self.assertEqual(obj.value, 'resolved')
 
-    def test_string_conversion(self):
+    def test_string_conversion(self) -> None:
         self.assertEqual(
             str(CallByNeed(lambda: 'resolved')),
             'resolved',
         )
 
-    def test_attribute_forwarding(self):
+    def test_attribute_forwarding(self) -> None:
         self.assertEqual(
             CallByNeed(lambda: 'resolved', type=str).lower(),
             'resolved',
         )
 
-    def test_failed_attribute_forwarding(self):
+    def test_failed_attribute_forwarding(self) -> None:
         with self.assertRaises(AttributeError):
             CallByNeed(lambda: 'resolved', type=str).bad_attribute
 

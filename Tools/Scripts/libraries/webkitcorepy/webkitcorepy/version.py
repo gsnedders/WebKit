@@ -19,15 +19,17 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import re
+from typing import Iterable, Iterator
 
 
 class Version(object):
     MATCHES_RE = re.compile(r'(?P<operator>==|!=|>|<|>=|<=)? *(?P<version>\d+(\.\d+)?(\.\d+)?(\.\*)?)')
 
     @classmethod
-    def from_string(cls, string):
+    def from_string(cls, string: str) -> "Version":
         if not isinstance(string, str):
             raise TypeError('Version.from_string requires a str')
 
@@ -41,7 +43,7 @@ class Version(object):
             raise ValueError("Invalid version string") from None
 
     @classmethod
-    def from_iterable(cls, val):
+    def from_iterable(cls, val: Iterable[int | str]) -> "Version":
         try:
             return cls(*val)
         except TypeError:
@@ -49,21 +51,37 @@ class Version(object):
             raise ValueError("Too many iterable items") from None
 
     @staticmethod
-    def from_name(name):
+    def from_name(name: str) -> "Version":
         from webkitpy.common.version_name_map import VersionNameMap
-        return VersionNameMap.map().from_name(name)[1]
+        result = VersionNameMap.map().from_name(name)[1]
+        assert isinstance(result, Version)
+        return result
 
-    def __init__(self, major=0, minor=0, tiny=0, micro=0, nano=0):
+    def __init__(
+        self,
+        major: int | str = 0,
+        minor: int | str = 0,
+        tiny: int | str = 0,
+        micro: int | str = 0,
+        nano: int | str = 0,
+    ) -> None:
         self.major = int(major)
         self.minor = int(minor)
         self.tiny = int(tiny)
         self.micro = int(micro)
         self.nano = int(nano)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return 5
 
-    def __getitem__(self, key):
+    def __iter__(self) -> Iterator[int]:
+        yield self.major
+        yield self.minor
+        yield self.tiny
+        yield self.micro
+        yield self.nano
+
+    def __getitem__(self, key: int | str) -> int:
         if isinstance(key, int):
             if key == 0:
                 return self.major
@@ -78,35 +96,38 @@ class Version(object):
             raise IndexError('Version key must be between 0 and 4')
         elif isinstance(key, str):
             if key in ('major', 'minor', 'tiny', 'micro', 'nano'):
-                return getattr(self, key)
+                result = getattr(self, key)
+                assert isinstance(result, int)
+                return result
             raise KeyError('Version key must be major, minor, tiny, micro or nano')
         raise TypeError('Expected version key to be string or integer')
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: int | str, value: int | str) -> None:
         if isinstance(key, int):
             if key == 0:
                 self.major = int(value)
-                return self.major
+                return
             elif key == 1:
                 self.minor = int(value)
-                return self.minor
+                return
             elif key == 2:
                 self.tiny = int(value)
-                return self.tiny
+                return
             elif key == 3:
                 self.micro = int(value)
-                return self.micro
+                return
             elif key == 4:
                 self.nano = int(value)
-                return self.nano
+                return
             raise IndexError('Version key must be between 0 and 4')
         elif isinstance(key, str):
             if key in ('major', 'minor', 'tiny', 'micro', 'nano'):
-                return setattr(self, key, value)
+                setattr(self, key, value)
+                return
             raise KeyError('Version key must be major, minor, tiny, micro or nano')
         raise TypeError('Expected version key to be string or integer')
 
-    def matches(self, expressions):
+    def matches(self, expressions: str) -> bool:
         does_match = None
         for expression in expressions.split(','):
             match = self.MATCHES_RE.search(expression)
@@ -139,7 +160,7 @@ class Version(object):
 
         return True if does_match is None else does_match
 
-    def _strip_zeros(self):
+    def _strip_zeros(self) -> list[int]:
         """Return the version components as a list with trailing zero components removed.
 
         Iterates from the end of the component list and records how many consecutive
@@ -159,45 +180,65 @@ class Version(object):
         return parts[:len(parts) - i]
 
     # 11.2 is in 11, but 11 is not in 11.2
-    def __contains__(self, version):
+    def __contains__(self, version: object) -> bool:
         if not isinstance(version, Version):
             raise TypeError('__contains__ requires a Version')
         stripped = tuple(self._strip_zeros())
-        other = tuple(version)[:len(stripped)]
+        other: tuple[int, ...] = tuple(version)[:len(stripped)]
         return stripped == other
 
-    def __str__(self):
+    def __str__(self) -> str:
         parts = self._strip_zeros()
         return '.'.join(map(str, parts))
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         parts = self._strip_zeros()
         return f'Version({", ".join(map(str, parts))})'
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(tuple(self))
 
-    def __eq__(self, other):
-        if other is None:
-            return False
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Version):
+            return NotImplemented
         return tuple(self) == tuple(other)
 
-    def __lt__(self, other):
+    def __lt__(self, other: object) -> bool:
         if other is None:
             return False
-        return tuple(self) < tuple(other)
+        if not isinstance(other, Iterable):
+            return NotImplemented
+        try:
+            return tuple(self) < tuple(other)
+        except TypeError:
+            return NotImplemented
 
-    def __le__(self, other):
+    def __le__(self, other: object) -> bool:
         if other is None:
             return False
-        return tuple(self) <= tuple(other)
+        if not isinstance(other, Iterable):
+            return NotImplemented
+        try:
+            return tuple(self) <= tuple(other)
+        except TypeError:
+            return NotImplemented
 
-    def __gt__(self, other):
+    def __gt__(self, other: object) -> bool:
         if other is None:
             return True
-        return tuple(self) > tuple(other)
+        if not isinstance(other, Iterable):
+            return NotImplemented
+        try:
+            return tuple(self) > tuple(other)
+        except TypeError:
+            return NotImplemented
 
-    def __ge__(self, other):
+    def __ge__(self, other: object) -> bool:
         if other is None:
             return True
-        return tuple(self) >= tuple(other)
+        if not isinstance(other, Iterable):
+            return NotImplemented
+        try:
+            return tuple(self) >= tuple(other)
+        except TypeError:
+            return NotImplemented

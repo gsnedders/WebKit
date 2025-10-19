@@ -23,7 +23,6 @@
 import io
 import logging
 import sys
-import typing
 import unittest
 from unittest.mock import patch
 
@@ -31,7 +30,7 @@ from webkitcorepy import OutputCapture, Terminal, mocks
 
 
 class TerminalTests(unittest.TestCase):
-    def test_choose_basic(self):
+    def test_choose_basic(self) -> None:
         with mocks.Terminal.input('y'), OutputCapture() as captured:
             self.assertEqual('Yes', Terminal.choose('Continue'))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/No): \n')
@@ -44,7 +43,7 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual('Yes', Terminal.choose('Continue'))
         self.assertEqual(captured.stdout.getvalue(), "Continue (Yes/No): \n'huh' is not an option\nContinue (Yes/No): \n")
 
-    def test_choose_strict(self):
+    def test_choose_strict(self) -> None:
         with mocks.Terminal.input('Yes'), OutputCapture() as captured:
             self.assertEqual('Yes', Terminal.choose('Continue', strict=True))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/No): \n')
@@ -61,7 +60,7 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual('No', Terminal.choose('Continue', strict=True))
         self.assertEqual(captured.stdout.getvalue(), "Continue (Yes/No): \n'y' is not an option\nContinue (Yes/No): \n")
 
-    def test_choose_default(self):
+    def test_choose_default(self) -> None:
         with mocks.Terminal.input('y'), OutputCapture() as captured:
             self.assertEqual('Yes', Terminal.choose('Continue', default='Other'))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/No): \n')
@@ -74,7 +73,7 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual('Other', Terminal.choose('Continue', default='Other'))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/No): \n')
 
-    def test_choose_triple(self):
+    def test_choose_triple(self) -> None:
         with mocks.Terminal.input('y'), OutputCapture() as captured:
             self.assertEqual('Yes', Terminal.choose('Continue', options=('Yes', 'No', 'Maybe')))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/No/Maybe): \n')
@@ -91,13 +90,13 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual('No', Terminal.choose('Continue', options=('Yes', 'No', 'Maybe'), default='No'))
         self.assertEqual(captured.stdout.getvalue(), 'Continue (Yes/[No]/Maybe): \n')
 
-    def test_choose_number(self):
+    def test_choose_number(self) -> None:
         with mocks.Terminal.input('2'), OutputCapture() as captured:
             self.assertEqual('Beta', Terminal.choose('Pick', options=('Alpha', 'Beta', 'Charlie', 'Delta'), numbered=True))
         self.assertEqual(captured.stdout.getvalue(), 'Pick:\n    1) Alpha\n    2) Beta\n    3) Charlie\n    4) Delta\n: \n')
 
-    def test_interrupt(self):
-        def do_interrupt(output):
+    def test_interrupt(self) -> None:
+        def do_interrupt(output: str) -> None:
             print(output)
             raise KeyboardInterrupt
 
@@ -109,7 +108,7 @@ class TerminalTests(unittest.TestCase):
         self.assertEqual(caught.exception.code, 1)
         self.assertEqual(captured.stderr.getvalue(), '\nUser interrupted program\n')
 
-    def test_interrupt_decorator(self):
+    def test_interrupt_decorator(self) -> None:
         with OutputCapture() as captured, self.assertRaises(SystemExit) as caught:
             with Terminal.disable_keyboard_interrupt_stacktracktrace(logging.root.level - 1):
                 raise KeyboardInterrupt
@@ -120,7 +119,7 @@ class TerminalTests(unittest.TestCase):
             with Terminal.disable_keyboard_interrupt_stacktracktrace(logging.root.level):
                 raise KeyboardInterrupt
 
-    def test_assert_writeable_stream(self):
+    def test_assert_writeable_stream(self) -> None:
         for file_like in (
             io.BytesIO(),
             io.StringIO(),
@@ -131,19 +130,18 @@ class TerminalTests(unittest.TestCase):
 
         for file_like in (
             sys.stdin,
-            typing.IO(),
+            object(),
         ):
             with self.assertRaises(ValueError):
                 Terminal.assert_writeable_stream(file_like)
 
-    def test_override_atty(self):
+    def test_override_atty(self) -> None:
         for file_like in (
             io.BytesIO(),
             io.StringIO(),
             sys.stdin,
             sys.stdout,
             sys.stderr,
-            typing.IO(),
         ):
             original = Terminal.isatty(file_like)
 

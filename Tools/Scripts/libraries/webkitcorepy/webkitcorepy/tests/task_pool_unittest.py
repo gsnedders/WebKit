@@ -21,22 +21,25 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import logging
-import time
 import sys
+import time
 import unittest
 
-from webkitcorepy import OutputCapture, TaskPool, Timeout, log as logger
+from webkitcorepy import OutputCapture, TaskPool, Timeout
+
+logger = logging.getLogger('webkitcorepy')
 
 
-def setup(arg='Setting up'):
+
+def setup(arg: str='Setting up') -> None:
     logger.warning(arg)
 
 
-def teardown(arg='Tearing down'):
+def teardown(arg: str='Tearing down') -> None:
     logger.warning(arg)
 
 
-def action(argument, include_worker=False):
+def action(argument: str, include_worker: bool=False) -> str:
     print('{}action({})'.format(
         '{} '.format(TaskPool.Process.name) if include_worker else '',
         argument,
@@ -44,28 +47,28 @@ def action(argument, include_worker=False):
     return argument
 
 
-def log(level, value):
+def log(level: int, value: str) -> str:
     logger.log(level, value)
     return value
 
 
-def wait(seconds):
+def wait(seconds: float) -> float:
     logger.info('waiting {} seconds...'.format(seconds))
     time.sleep(seconds)
     logger.info('waited {} seconds!'.format(seconds))
     return seconds
 
 
-def exception(value):
+def exception(value: str) -> None:
     raise RuntimeError(value)
 
 
-def simple_repeat_task():
+def simple_repeat_task() -> str:
     """A simple repeat task that just returns a constant value."""
     return 'repeat_task_executed'
 
 
-def printing_repeat_task(marker):
+def printing_repeat_task(marker: str) -> str:
     """A repeat task that prints a marker for counting."""
     print('REPEAT_MARKER_{}'.format(marker))
     time.sleep(0.01)
@@ -75,7 +78,7 @@ def printing_repeat_task(marker):
 class TaskPoolUnittest(unittest.TestCase):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
-    def test_single_no_fork(self):
+    def test_single_no_fork(self) -> None:
         with OutputCapture(level=logging.WARNING) as captured:
             with TaskPool(workers=1, force_fork=False) as pool:
                 pool.do(action, 'a')
@@ -85,7 +88,7 @@ class TaskPoolUnittest(unittest.TestCase):
         self.assertEqual(captured.stdout.getvalue(), 'action(a)\n')
         self.assertEqual(captured.webkitcorepy.log.getvalue(), '1\n')
 
-    def test_callback(self):
+    def test_callback(self) -> None:
         sequence = []
 
         with OutputCapture():
@@ -98,7 +101,7 @@ class TaskPoolUnittest(unittest.TestCase):
             ''.join(sorted(sequence)),
         )
 
-    def test_exception_no_fork(self):
+    def test_exception_no_fork(self) -> None:
         with OutputCapture(level=logging.INFO) as captured:
             with self.assertRaises(RuntimeError):
                 with TaskPool(workers=1, force_fork=False) as pool:
@@ -107,7 +110,7 @@ class TaskPoolUnittest(unittest.TestCase):
         self.assertEqual(captured.webkitcorepy.log.getvalue(), '')
 
     if sys.platform != 'cygwin':
-        def test_single(self):
+        def test_single(self) -> None:
             with OutputCapture(level=logging.WARNING) as captured:
                 with TaskPool(workers=1, force_fork=True) as pool:
                     pool.do(action, 'a')
@@ -117,7 +120,7 @@ class TaskPoolUnittest(unittest.TestCase):
             self.assertEqual(captured.stdout.getvalue(), 'action(a)\n')
             self.assertEqual(captured.webkitcorepy.log.getvalue(), 'worker/0 1\n')
 
-        def test_multiple(self):
+        def test_multiple(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=4) as pool:
                     for character in self.alphabet:
@@ -131,7 +134,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 sorted(['worker/{} starting'.format(number) for number in range(4)] + ['worker/{} stopping'.format(number) for number in range(4)]),
             )
 
-        def test_exception(self):
+        def test_exception(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with self.assertRaises(RuntimeError):
                     with TaskPool(workers=1, force_fork=True) as pool:
@@ -142,7 +145,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ['worker/0 starting', 'worker/0 stopping'],
             )
 
-        def test_setup(self):
+        def test_setup(self) -> None:
             with OutputCapture() as captured:
                 with TaskPool(workers=4, setup=setup) as pool:
                     for character in self.alphabet:
@@ -153,7 +156,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ['worker/{} Setting up'.format(x) for x in range(4)],
             )
 
-        def test_setup_arguments(self):
+        def test_setup_arguments(self) -> None:
             with OutputCapture() as captured:
                 with TaskPool(workers=4, setup=setup, setupargs=['Setup argument']) as pool:
                     for character in self.alphabet:
@@ -164,7 +167,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ['worker/{} Setup argument'.format(x) for x in range(4)],
             )
 
-        def test_teardown(self):
+        def test_teardown(self) -> None:
             with OutputCapture() as captured:
                 with TaskPool(workers=4, teardown=teardown) as pool:
                     for character in self.alphabet:
@@ -175,7 +178,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ['worker/{} Tearing down'.format(x) for x in range(4)],
             )
 
-        def test_teardown_arguments(self):
+        def test_teardown_arguments(self) -> None:
             with OutputCapture() as captured:
                 with TaskPool(workers=4, teardown=teardown, teardownargs=['Teardown argument']) as pool:
                     for character in self.alphabet:
@@ -186,7 +189,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ['worker/{} Teardown argument'.format(x) for x in range(4)],
             )
 
-        def test_mutually_exclusive_group(self):
+        def test_mutually_exclusive_group(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=4, mutually_exclusive_groups=['group']) as pool:
                     for character in self.alphabet:
@@ -214,7 +217,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ]
             )
 
-        def test_mutually_exclusive_group_single_worker(self):
+        def test_mutually_exclusive_group_single_worker(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=1, mutually_exclusive_groups=['group']) as pool:
                     for character in self.alphabet:
@@ -234,7 +237,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ]
             )
 
-        def test_mutually_exclusive_groups(self):
+        def test_mutually_exclusive_groups(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=4, mutually_exclusive_groups=[
                     'alpha', 'bravo', 'charlie', 'delta', 'echo', 'foxtrot',
@@ -264,7 +267,7 @@ class TaskPoolUnittest(unittest.TestCase):
                 ],
             )
 
-            logging_by_worker = {}
+            logging_by_worker: dict[str, list[str]] = {}
             for line in captured.stdout.getvalue().splitlines():
                 worker = line.split(' ')[0]
                 if worker not in logging_by_worker:
@@ -288,14 +291,14 @@ class TaskPoolUnittest(unittest.TestCase):
                 'worker/3 action(f)',
             )
 
-        def test_invalid_group(self):
+        def test_invalid_group(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=2) as pool:
                     with self.assertRaises(ValueError):
                         pool.do(action, 'a', group='invalid')
                     pool.wait()
 
-        def test_mutually_exclusive_group_hang(self):
+        def test_mutually_exclusive_group_hang(self) -> None:
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=2, mutually_exclusive_groups=['group']) as pool:
                     for character in self.alphabet:
@@ -310,7 +313,7 @@ class TaskPoolUnittest(unittest.TestCase):
 
             self.assertEqual(len(captured.stdout.getvalue().splitlines()), 26)
 
-        def test_repeat_task_with_groups(self):
+        def test_repeat_task_with_groups(self) -> None:
             """Test that repeat tasks run continuously in groups while regular tasks execute."""
 
             with OutputCapture(level=logging.INFO) as captured:
@@ -328,7 +331,7 @@ class TaskPoolUnittest(unittest.TestCase):
             repeat_count = stdout_output.count('REPEAT_MARKER_TEST')
             self.assertGreater(repeat_count, 1, "Repeat task should execute multiple times (got {})".format(repeat_count))
 
-        def test_repeat_task_multiple_groups(self):
+        def test_repeat_task_multiple_groups(self) -> None:
             """Test that multiple repeat tasks in different groups run simultaneously."""
 
             with OutputCapture(level=logging.INFO) as captured:
@@ -350,7 +353,7 @@ class TaskPoolUnittest(unittest.TestCase):
                     self.assertGreater(group1_count, 1, "Repeat task in group1 should execute multiple times (got {})".format(group1_count))
                     self.assertGreater(group2_count, 1, "Repeat task in group2 should execute multiple times (got {})".format(group2_count))
 
-        def test_repeat_task_with_regular_grouped_tasks(self):
+        def test_repeat_task_with_regular_grouped_tasks(self) -> None:
             """Test repeat tasks alongside regular grouped tasks."""
 
             with OutputCapture(level=logging.INFO) as captured:
@@ -382,7 +385,7 @@ class TaskPoolUnittest(unittest.TestCase):
             repeat_count = stdout_output.count('REPEAT_MARKER_REGULAR')
             self.assertGreater(repeat_count, 1, "Repeat task should execute multiple times (got {})".format(repeat_count))
 
-        def test_repeat_task_pool_state_tracking_forked(self):
+        def test_repeat_task_pool_state_tracking_forked(self) -> None:
             """Test that TaskPool correctly tracks repeat task state in forked mode."""
             with OutputCapture(level=logging.INFO) as captured:
                 with TaskPool(workers=4, force_fork=True, mutually_exclusive_groups=['test_group']) as pool:

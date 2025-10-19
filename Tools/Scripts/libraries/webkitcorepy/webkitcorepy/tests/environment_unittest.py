@@ -22,13 +22,14 @@
 
 import os
 
-from webkitcorepy import testing, Environment
+from webkitcorepy import Environment, testing
 
 
 class TestEnvironment(testing.PathTestCase):
     basepath = 'mock/secrets'
 
-    def test_basic(self):
+    def test_basic(self) -> None:
+        assert self.path is not None
         try:
             with open(os.path.join(self.path, 'KEY'), 'w') as file:
                 file.write('value\n')
@@ -36,7 +37,8 @@ class TestEnvironment(testing.PathTestCase):
         finally:
             Environment._instance = None
 
-    def test_scoped(self):
+    def test_scoped(self) -> None:
+        assert self.path is not None
         try:
             with open(os.path.join(self.path, 'KEY'), 'w') as file:
                 file.write('value ')
@@ -50,7 +52,8 @@ class TestEnvironment(testing.PathTestCase):
         finally:
             Environment._instance = None
 
-    def test_list(self):
+    def test_list(self) -> None:
+        assert self.path is not None
         try:
             with open(os.path.join(self.path, 'KEY_A'), 'w') as file:
                 file.write('value_a')
@@ -73,7 +76,8 @@ class TestEnvironment(testing.PathTestCase):
         finally:
             Environment._instance = None
 
-    def test_secure(self):
+    def test_secure(self) -> None:
+        assert self.path is not None
         try:
             with open(os.path.join(self.path, 'KEY'), 'w') as file:
                 file.write('value ')

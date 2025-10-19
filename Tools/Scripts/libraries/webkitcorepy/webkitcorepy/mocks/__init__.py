@@ -20,11 +20,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from webkitcorepy.mocks.context_stack import ContextStack
-from webkitcorepy.mocks.time_ import Time
-from webkitcorepy.mocks.subprocess import ProcessCompletion, Subprocess
-
-from webkitcorepy.mocks.requests_ import Response, Requests
-from webkitcorepy.mocks.terminal import Terminal
-from webkitcorepy.mocks.file_lock import FileLock
-from webkitcorepy.mocks.environment import Environment
+from webkitcorepy.mocks.context_stack import ContextStack as ContextStack
+from webkitcorepy.mocks.environment import Environment as Environment
+from webkitcorepy.mocks.file_lock import FileLock as FileLock
+from webkitcorepy.mocks.requests_ import Requests as Requests, Response as Response
+from webkitcorepy.mocks.subprocess import ProcessCompletion as ProcessCompletion, Subprocess as Subprocess
+from webkitcorepy.mocks.terminal import Terminal as Terminal
+from webkitcorepy.mocks.time_ import Time as Time

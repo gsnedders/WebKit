@@ -24,18 +24,21 @@ import logging
 import sys
 import unittest
 
-from webkitcorepy import log, LoggerCapture, OutputCapture, OutputDuplicate
+from webkitcorepy import LoggerCapture, OutputCapture, OutputDuplicate
+
+log = logging.getLogger('webkitcorepy')
+
 
 
 class LoggerCaptureTest(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         with LoggerCapture(log) as capturer, LoggerCapture():
             log.info('Hidden')
             log.warn('Printed')
 
         self.assertEqual(capturer.log.getvalue(), 'Printed\n')
 
-    def test_level(self):
+    def test_level(self) -> None:
         with LoggerCapture(log, level=logging.INFO) as capturer, LoggerCapture():
             log.debug('Hidden')
             log.info('Printed 1')
@@ -43,7 +46,7 @@ class LoggerCaptureTest(unittest.TestCase):
 
         self.assertEqual(capturer.log.getvalue(), 'Printed 1\nPrinted 2\n')
 
-    def test_multiple_entry(self):
+    def test_multiple_entry(self) -> None:
         with LoggerCapture(log, level=logging.INFO) as capturer, LoggerCapture():
             log.info('Level 1')
             with capturer:
@@ -53,7 +56,7 @@ class LoggerCaptureTest(unittest.TestCase):
 
 
 class OutputCaptureTest(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         with OutputCapture() as capturer:
             log.info('Hidden')
             log.warn('Printed')
@@ -64,7 +67,7 @@ class OutputCaptureTest(unittest.TestCase):
         self.assertEqual(capturer.stdout.getvalue(), 'stdout\n')
         self.assertEqual(capturer.stderr.getvalue(), 'stderr\n')
 
-    def test_multiple_entry(self):
+    def test_multiple_entry(self) -> None:
         with OutputCapture() as captured:
             sys.stdout.write('Line 1\n')
             log.warn('Log 1')
@@ -77,7 +80,7 @@ class OutputCaptureTest(unittest.TestCase):
 
 
 class OutputDuplicateTest(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         with OutputCapture() as capturer:
             with OutputDuplicate() as duplicator:
                 log.info('Hidden')
@@ -91,7 +94,7 @@ class OutputDuplicateTest(unittest.TestCase):
         self.assertEqual(capturer.stdout.getvalue(), 'stdout\n')
         self.assertEqual(capturer.stderr.getvalue(), 'stderr\n')
 
-    def test_multiple_entry(self):
+    def test_multiple_entry(self) -> None:
         with OutputCapture(level=logging.INFO) as captuered:
             with OutputDuplicate() as duplicator:
                 log.info('Log 1')

@@ -19,46 +19,48 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import argparse
 import logging
+from typing import Any, Callable, Sequence
 
-from webkitcorepy import log
+log = logging.getLogger('webkitcorepy')
 
 
 class NoAction(argparse.Action):
-    def __init__(self, option_strings, dest, **kwargs):
+    def __init__(self, option_strings: Sequence[str], dest: str, **kwargs: Any) -> None:
         super(NoAction, self).__init__(option_strings, dest, nargs=0, **kwargs)
 
-    def __call__(self, parser, namespace, values, option_string=None):
+    def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: str | Sequence[Any] | None, option_string: str | None = None) -> None:
         setattr(namespace, self.dest, not any((
-            option_string.startswith('--no-'),
-            option_string.startswith('--un'),
-            option_string.startswith('--skip-'),
+            option_string.startswith('--no-') if option_string else False,
+            option_string.startswith('--un') if option_string else False,
+            option_string.startswith('--skip-') if option_string else False,
         )))
 
 
-def CountAction(value=1):
+def CountAction(value: int = 1) -> type[argparse.Action]:
     class Action(argparse.Action):
-        def __init__(self, option_strings, dest, **kwargs):
+        def __init__(self, option_strings: Sequence[str], dest: str, **kwargs: Any) -> None:
             super(Action, self).__init__(option_strings, dest, nargs=0, **kwargs)
 
-        def __call__(self, parser, namespace, values, option_string):
+        def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: str | Sequence[Any] | None, option_string: str | None = None) -> None:
             setattr(namespace, self.dest, getattr(namespace, self.dest) + value)
 
     return Action
 
 
-def CallbackAction(action, callback=lambda namespace: None):
-    class Action(action):
-        def __call__(self, parser, namespace, values, option_strings):
-            super(Action, self).__call__(parser, namespace, values, option_strings)
+def CallbackAction(action_class: type[argparse.Action], callback: Callable[[argparse.Namespace], None] = lambda namespace: None) -> type[argparse.Action]:
+    class Action(action_class):  # type: ignore[valid-type,misc]
+        def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: str | Sequence[Any] | None, option_string: str | None = None) -> None:
+            super(Action, self).__call__(parser, namespace, values, option_string)
             callback(namespace)
 
     return Action
 
 
-def LoggingGroup(parser, loggers=None, default=logging.WARNING, help='{} amount of logging'):
+def LoggingGroup(parser: argparse.ArgumentParser, loggers: Sequence[logging.Logger] | None = None, default: int = logging.WARNING, help: str = '{} amount of logging') -> argparse._ArgumentGroup:
     if not isinstance(parser, argparse.ArgumentParser):
         raise ValueError('Provided parser is not a {}'.format(type(argparse.ArgumentParser)))
 
@@ -67,7 +69,7 @@ def LoggingGroup(parser, loggers=None, default=logging.WARNING, help='{} amount 
     for logger in loggers:
         logger.setLevel(default)
 
-    def verbose_callback(namespace):
+    def verbose_callback(namespace: argparse.Namespace) -> None:
         verbosity = getattr(namespace, 'verbose')
         log_level = default - verbosity * 10
 

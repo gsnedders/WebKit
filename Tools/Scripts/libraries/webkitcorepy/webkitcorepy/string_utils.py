@@ -20,7 +20,24 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import io
+import sys
+import warnings
+from typing import Sequence, TYPE_CHECKING, overload
+
+# Conditional import for deprecated decorator
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+elif TYPE_CHECKING:
+    from typing_extensions import deprecated
+else:
+    def deprecated(msg):
+        def decorator(func):
+            return func
+        return decorator
+
 
 
 basestring = str
@@ -31,19 +48,85 @@ UnicodeIO = io.StringIO
 unicode = str
 
 
-def encode(string, encoding='utf-8', errors='strict', target_type=bytes):
+@overload
+def encode(
+    string: str,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[bytes] = bytes,
+) -> bytes: ...
+@overload
+@deprecated("no-op webkitcorepy.string_utils.encode usage")
+def encode(
+    string: bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = bytes,
+) -> bytes: ...
+@overload
+@deprecated("no-op webkitcorepy.string_utils.encode usage")
+def encode(
+    string: str,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str] = str,
+) -> str: ...
+def encode(
+    string: str | bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = bytes,
+) -> str | bytes:
     if type(string) == unicode and target_type == bytes:
         return string.encode(encoding, errors=errors)
+    warnings.warn(
+        "no-op webkitcorepy.string_utils.encode usage",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return string
 
 
-def decode(data, encoding='utf-8', errors='strict', target_type=unicode):
+@overload
+def decode(
+    data: bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str] = str,
+) -> str: ...
+@overload
+@deprecated("no-op webkitcorepy.string_utils.decode usage")
+def decode(
+    data: str,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = str,
+) -> str: ...
+@overload
+@deprecated("no-op webkitcorepy.string_utils.decode usage")
+def decode(
+    data: bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[bytes] = bytes,
+) -> bytes: ...
+def decode(
+    data: str | bytes,
+    encoding: str = "utf-8",
+    errors: str = "strict",
+    target_type: type[str | bytes] = str,
+) -> str | bytes:
     if type(data) == bytes and target_type == unicode:
         return data.decode(encoding, errors=errors)
+    warnings.warn(
+        "no-op webkitcorepy.string_utils.decode usage",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return data
 
 
-def ordinal(number):
+def ordinal(number: int) -> str:
     number = int(number)
     if 10 < number % 100 < 20:
         return '{}th'.format(number)
@@ -56,7 +139,7 @@ def ordinal(number):
     )
 
 
-def pluralize(number, string, plural=None):
+def pluralize(number: int | float, string: str, plural: str | None = None) -> str:
     if number == 1:
         return '1 {}'.format(string)
     if plural:
@@ -64,7 +147,7 @@ def pluralize(number, string, plural=None):
     return '{} {}s'.format(number, string)
 
 
-def join(list, conjunction='and'):
+def join(list: Sequence[str], conjunction: str='and') -> str:
     if not list:
         return 'Nothing'
     if len(list) == 1:
@@ -73,8 +156,8 @@ def join(list, conjunction='and'):
     return '{}{}{}'.format(', '.join(list[:-1]), conjunctionWithSerialCommaIfNeeded, list[-1])
 
 
-def split(string, conjunctions=None):
-    conjunctions = ['and', 'or']
+def split(string: str, conjunctions: Sequence[str] | None=None) -> list[str]:
+    conjunctions = conjunctions or ['and', 'or']
     if not string:
         return []
 
@@ -86,13 +169,13 @@ def split(string, conjunctions=None):
     return [word.strip() for clause in result for word in clause.split(',') if word.strip()]
 
 
-def out_of(number, base):
+def out_of(number: int | str, base: int | str) -> str:
     number = str(number)
     base = str(base)
     return '[{}{}/{}]'.format(' ' * (len(base) - len(number)), number, base)
 
 
-def elapsed(seconds):
+def elapsed(seconds: float) -> str:
     if seconds <= 0:
         return 'no time'
     elif seconds < 1:

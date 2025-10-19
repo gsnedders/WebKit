@@ -19,33 +19,35 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
+import logging
 import time
 
-from webkitcorepy import log
+log = logging.getLogger('webkitcorepy')
 
 
 class MeasureTime(object):
-    def __init__(self, log=False, name=None):
-        self.started = None
-        self.ended = None
+    def __init__(self, log: bool=False, name: str | None=None) -> None:
+        self.started: float | None = None
+        self.ended: float | None = None
         self.log = log
         self.name = name
 
     @property
-    def elapsed(self):
+    def elapsed(self) -> float | None:
         if not self.started:
             return None
         if not self.ended:
             return time.time() - self.started
         return self.ended - self.started
 
-    def __enter__(self):
+    def __enter__(self) -> "MeasureTime":
         self.ended = None
         self.started = time.time()
         return self
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, *args: object, **kwargs: object) -> None:
         self.ended = time.time()
         if self.log and self.name:
             log.critical('{}: {} seconds elapsed'.format(self.name, self.elapsed or 'No'))

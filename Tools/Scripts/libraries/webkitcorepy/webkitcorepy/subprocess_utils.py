@@ -19,21 +19,34 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
 import math
 import subprocess
 import sys
-import time
 import threading
+import time
+from contextlib import contextmanager
+from types import TracebackType
+from collections.abc import Iterable, Mapping
+from typing import Any, Callable, Generator
 
-from webkitcorepy import Timeout
+from webkitcorepy.timeout import Timeout
+
+
+@contextmanager
+def monkeytype_trace() -> Generator[None, None, None]:
+    import monkeytype
+    with monkeytype.trace():
+        yield
+
 
 TimeoutExpired = subprocess.TimeoutExpired
 CompletedProcess = subprocess.CompletedProcess
 
 
 # Allows native integration with the Timeout context
-def run(*popenargs, **kwargs):
+def run(*popenargs: Any, **kwargs: Any) -> subprocess.CompletedProcess[str]:
     timeout = kwargs.pop('timeout', None)
     capture_output = kwargs.pop('capture_output', False)
 
@@ -54,27 +67,40 @@ def run(*popenargs, **kwargs):
 
 class Thread(threading.Thread):
     @classmethod
-    def terminated(cls):
+    def terminated(cls) -> bool:
         return getattr(threading.current_thread(), '_terminated', False)
 
-    def __init__(self, *args, **kwargs):
-        super(Thread, self).__init__(*args, **kwargs)
+    def __init__(
+        self,
+        group: None = None,
+        target: Callable[..., object] | None = None,
+        name: str | None = None,
+        args: Iterable[Any] = (),
+        kwargs: Mapping[str, Any] | None = None,
+        *,
+        daemon: bool | None = None,
+    ) -> None:
+        super(Thread, self).__init__(group=group, target=target, name=name, args=args, kwargs=kwargs, daemon=daemon)
         self._terminated = False
 
-    def poll(self):
+    def run(self) -> None:
+        with monkeytype_trace():
+            super().run()
+
+    def poll(self) -> int | None:
         return None if self.is_alive() else {True: 1, False: 0}.get(self._terminated, -1)
 
-    def terminate(self):
+    def terminate(self) -> None:
         self._terminated = True
 
-    def kill(self):
+    def kill(self) -> None:
         self._terminated = True
 
-    def __enter__(self):
+    def __enter__(self) -> "Thread":
         self.start()
         return self
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None:
         with Timeout.DisableAlarm():
             current_time = time.time()
             Timeout.check(current_time=current_time)

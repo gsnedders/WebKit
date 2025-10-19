@@ -23,9 +23,9 @@
 import io
 import json
 import os
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Mapping, MutableMapping
 from enum import Enum, auto
-from typing import Callable, Dict, IO, List, Optional, Tuple, Union
+from typing import Callable, Dict, IO, List, Optional, Tuple, Union, cast
 
 
 class Config(dict[str, 'Config.Values']):
@@ -39,9 +39,9 @@ class Config(dict[str, 'Config.Values']):
     @classmethod
     def render(cls, value: 'Config.Values', context: Optional[Dict[str, Union['Config.Values', Callable[..., 'Config.Values']]]] = None) -> 'Config.Values':
         import jsone
-        from jsone.render import parse as jsone_parse
+        from jsone.render import parse as jsone_parse  # type: ignore[import-untyped]
 
-        def dynamic_pop(jsone_context: Mapping[str, Union['Config.Values', Callable[..., 'Config.Values']]], collection: Union[List['Config.Values'], Mapping[str, 'Config.Values']], *args: Union[int, str]) -> 'Config.Values':
+        def dynamic_pop(jsone_context: Mapping[str, Union['Config.Values', Callable[..., 'Config.Values']]], collection: Union[List['Config.Values'], MutableMapping[str, 'Config.Values']], *args: Union[int, str]) -> 'Config.Values':
             """Pop an item from a mapping or list which matches some criteria, usable as a jsone built-in.
 
             For mappings, requires a key argument.
@@ -64,42 +64,47 @@ class Config(dict[str, 'Config.Values']):
                             return collection.pop(i)
                     raise ValueError(f'No item in list matches filter: {filter_expr!r}')
                 return collection.pop(int(args[0])) if args else collection.pop(0)
-            if isinstance(collection, Mapping):
+            if isinstance(collection, MutableMapping):
                 if not args:
                     raise TypeError('pop() on a mapping requires a key argument')
-                return collection.pop(args[0])
+                key = args[0]
+                if not isinstance(key, str):
+                    raise TypeError('pop() on a mapping requires a string key')
+                return collection.pop(key)
             raise TypeError('pop() requires a list or mapping')
 
-        # Treat pop as a jsone built-in so we can apply a filter against it
-        dynamic_pop._jsone_builtin = True
+        setattr(dynamic_pop, '_jsone_builtin', True)
 
         context = dict(context or {})
         context.setdefault('pop', dynamic_pop)
 
         if not isinstance(value, Mapping):
-            return jsone.render(value, context=context)
+            return cast('Config.Values', jsone.render(value, context=context))
 
         if cls.CONTEXT_SYMBOL in value:
             result = Config()
             context = dict(**context)
-            context.update(cls.render(value[cls.CONTEXT_SYMBOL], context=context))
+            rendered_context = cls.render(value[cls.CONTEXT_SYMBOL], context=context)
+            if isinstance(rendered_context, Mapping):
+                context.update(rendered_context)
             for key, content in value.items():
                 if key == cls.CONTEXT_SYMBOL:
                     continue
-                result[key] = cls.render(content, context=context)
-                if isinstance(result[key], list):
-                    context[key] = [x for x in result[key]]
-                elif isinstance(result[key], Mapping):
-                    result[key] = dict(**result[key])
-                    context[key] = dict(**result[key])
+                rendered = cls.render(content, context=context)
+                result[key] = rendered
+                if isinstance(rendered, list):
+                    context[key] = [x for x in rendered]
+                elif isinstance(rendered, Mapping):
+                    result[key] = dict(**rendered)
+                    context[key] = dict(**rendered)
                 else:
-                    context[key] = result[key]
+                    context[key] = rendered
             return result
 
-        result = jsone.render(value, context=context)
-        if isinstance(result, Mapping):
-            return Config(**result)
-        return result
+        raw_result: Config.Values = jsone.render(value, context=context)
+        if isinstance(raw_result, Mapping):
+            return Config(raw_result)
+        return raw_result
 
     @classmethod
     def loads(cls, string: str, mode: Optional['Config.Mode'] = None) -> 'Config':
@@ -114,28 +119,30 @@ class Config(dict[str, 'Config.Values']):
             elif ext in ('.yaml', '.yml'):
                 mode = cls.Mode.YAML
         if mode is cls.Mode.JSON:
-            result = cls.render(json.load(file))
+            rendered = cls.render(json.load(file))
         else:
             import yaml
 
             # yaml.safe_load_all returns a generator, not a sequence.
             documents = list(yaml.safe_load_all(file))
             if not documents:
-                result = cls()
+                rendered = cls()
             elif len(documents) == 1:
                 if not isinstance(documents[0], dict):
                     raise TypeError('yaml sub-document is not a dictionary')
-                result = cls.render(documents[0])
+                rendered = cls.render(documents[0])
             else:
                 data = {cls.CONTEXT_SYMBOL: documents[0]}
                 for doc in documents[1:]:
                     if not isinstance(doc, dict):
                         raise TypeError('yaml sub-document is not a dictionary')
                     data.update(doc)
-                result = cls.render(data)
+                rendered = cls.render(data)
             mode = cls.Mode.YAML
-        result.mode = mode
-        return result
+        if not isinstance(rendered, Config):
+            rendered = cls(rendered) if isinstance(rendered, Mapping) else cls()
+        rendered.mode = mode
+        return rendered
 
     def __init__(self, mapping: Union[Mapping[str, 'Config.Values'], Iterable[Tuple[str, 'Config.Values']], None] = None, **kwargs: 'Config.Values') -> None:
         super().__init__(**kwargs) if mapping is None else super().__init__(mapping, **kwargs)

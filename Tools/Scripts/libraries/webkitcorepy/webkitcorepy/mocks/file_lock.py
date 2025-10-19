@@ -22,25 +22,25 @@
 
 
 class FileLock(object):
-    def __init__(self, path, timeout=20):
+    def __init__(self, path: str, timeout: int=20) -> None:
         self.path = path
         self.timeout = timeout
         self._acquired = False
 
     @property
-    def acquired(self):
+    def acquired(self) -> bool:
         return self._acquired
 
-    def acquire(self):
+    def acquire(self) -> bool:
         self._acquired = True
         return True
 
-    def release(self):
+    def release(self) -> None:
         self._acquired = False
 
-    def __enter__(self):
+    def __enter__(self) -> "FileLock":
         self.acquire()
         return self
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, *args: object, **kwargs: object) -> None:
         self.release()

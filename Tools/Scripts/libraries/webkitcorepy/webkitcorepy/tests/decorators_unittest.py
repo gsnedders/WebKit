@@ -20,6 +20,8 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import time
 import unittest
 
@@ -31,40 +33,40 @@ class TestMemoize(unittest.TestCase):
 
     @staticmethod
     @decorators.Memoize()
-    def increment_cache():
+    def increment_cache() -> int:
         TestMemoize.count += 1
         return TestMemoize.count
 
     @staticmethod
     @decorators.Memoize(cached=False)
-    def increment_no_cache():
+    def increment_no_cache() -> int:
         TestMemoize.count += 1
         return TestMemoize.count
 
     @staticmethod
     @decorators.Memoize(timeout=10)
-    def increment_timeout_cache():
+    def increment_timeout_cache() -> int:
         TestMemoize.count += 1
         return TestMemoize.count
 
     @staticmethod
     @decorators.Memoize()
-    def increment_and_raise():
+    def increment_and_raise() -> None:
         TestMemoize.count += 1
         raise ValueError('EXCEPTION')
 
     @staticmethod
     @decorators.Memoize()
-    def increment_with_args(timeout=None, cached=None):
+    def increment_with_args(timeout: object = None, cached: object = None) -> tuple[object, object]:
         return timeout, cached
 
     @staticmethod
     @decorators.Memoize(cached=False)
-    def increment_with_arg(arg=None):
+    def increment_with_arg(arg: object = None) -> int:
         TestMemoize.count += 1
         return TestMemoize.count
 
-    def test_cached(self):
+    def test_cached(self) -> None:
         with mocks.Time:
             TestMemoize.count = 0
             TestMemoize.increment_cache.clear()
@@ -79,14 +81,14 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(TestMemoize.increment_cache(timeout=10), 3)
             self.assertEqual(TestMemoize.increment_cache(), 3)
 
-    def test_not_cached(self):
+    def test_not_cached(self) -> None:
         TestMemoize.count = 0
         self.assertEqual(TestMemoize.increment_no_cache(), 1)
         self.assertEqual(TestMemoize.increment_no_cache(), 2)
 
         self.assertEqual(TestMemoize.increment_no_cache(cached=True), 2)
 
-    def test_timeout_cached(self):
+    def test_timeout_cached(self) -> None:
         with mocks.Time:
             TestMemoize.count = 0
             TestMemoize.increment_timeout_cache.clear()
@@ -99,11 +101,11 @@ class TestMemoize(unittest.TestCase):
             time.sleep(8)
             self.assertEqual(TestMemoize.increment_timeout_cache(timeout=5), 3)
 
-    def test_exception(self):
+    def test_exception(self) -> None:
         with self.assertRaises(ValueError):
             TestMemoize.increment_and_raise()
 
-    def test_conflicting_args(self):
+    def test_conflicting_args(self) -> None:
         self.assertEqual(TestMemoize.increment_with_args(
             timeout='timeout',
             cached='cached',
@@ -114,7 +116,7 @@ class TestMemoize(unittest.TestCase):
             cached='cached-new',
         ), ('timeout-new', 'cached-new'))
 
-    def test_override(self):
+    def test_override(self) -> None:
         TestMemoize.count = 0
         TestMemoize.increment_with_arg.clear()
         self.assertEqual(TestMemoize.increment_with_arg(arg='x'), 1)
@@ -125,11 +127,52 @@ class TestMemoize(unittest.TestCase):
 class TestHybrid(unittest.TestCase):
 
     @decorators.hybridmethod
-    def is_type(context):
+    def is_type(context: type[TestHybrid] | TestHybrid) -> bool:
         return isinstance(context, type)
 
-    def test_type(self):
+    def test_type(self) -> None:
         self.assertTrue(TestHybrid.is_type())
 
-    def test_instance(self):
+    def test_instance(self) -> None:
         self.assertFalse(self.is_type())
+
+
+class TestMemoizeHybrid(unittest.TestCase):
+    count: int = 0
+
+    def setUp(self) -> None:
+        type(self).count = 0
+
+        # Clear the cache both ways just to be sure.
+        self.increment_cache.clear()
+        type(self).increment_cache.clear()
+
+    @decorators.hybridmethod
+    @decorators.Memoize()
+    def increment_cache(_: type[TestMemoizeHybrid] | TestMemoizeHybrid) -> int:
+        TestMemoizeHybrid.count += 1
+        return TestMemoizeHybrid.count
+
+    def test_cached(self) -> None:
+        instance_method = self.increment_cache
+        class_method = type(self).increment_cache
+
+        # Calling the method with (self,).
+        self.assertEqual(instance_method(), 1)
+        self.assertEqual(instance_method(), 1)
+
+        # Calling the method with (cls,).
+        self.assertEqual(class_method(), 2)
+        self.assertEqual(class_method(), 2)
+
+        # Clear the cache from the instance_method.
+        type(self).count = 10
+        instance_method.clear()
+        self.assertEqual(class_method(), 11)
+        self.assertEqual(instance_method(), 12)
+
+        # Clear the cache from the class_method.
+        type(self).count = 20
+        class_method.clear()
+        self.assertEqual(instance_method(), 21)
+        self.assertEqual(class_method(), 22)

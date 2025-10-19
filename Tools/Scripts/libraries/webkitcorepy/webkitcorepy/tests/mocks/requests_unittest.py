@@ -20,8 +20,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import requests
 import unittest
+from typing import Any
+
+import requests
 
 from webkitcorepy import mocks
 
@@ -29,32 +31,32 @@ from webkitcorepy import mocks
 class MockRequests(unittest.TestCase):
 
     class Example(mocks.Requests):
-        def request(self, method, url, **kwargs):
+        def request(self, method: str, url: str, **kwargs: Any) -> mocks.Response:
             if url in ['https://{}/text'.format(host) for host in self.hosts]:
                 return mocks.Response.fromText(data='text content', url=url)
             if url in ['https://{}/json'.format(host) for host in self.hosts]:
                 return mocks.Response.fromJson(data=dict(content='json'), url=url)
             return mocks.Response.create404(url)
 
-    def test_basic(self):
+    def test_basic(self) -> None:
         with mocks.Requests('webkit.org'):
             self.assertEqual(requests.get('https://webkit.org').status_code, 404)
 
-    def test_fallback(self):
+    def test_fallback(self) -> None:
         with mocks.Requests('webkit.org'):
             with mocks.Requests('bugs.webkit.org'):
                 self.assertEqual(requests.get('https://webkit.org').status_code, 404)
 
-    def test_text(self):
+    def test_text(self) -> None:
         with self.Example('webkit.org'):
             response = requests.get('https://webkit.org/text')
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.text, 'text content')
-            self.assertDictEqual(response.headers, {'Content-Length': 12, 'Content-Type': 'text'})
+            self.assertEqual(response.headers, {'Content-Length': '12', 'Content-Type': 'text'})
 
-    def test_json(self):
+    def test_json(self) -> None:
         with self.Example('webkit.org'):
             response = requests.get('https://webkit.org/json')
             self.assertEqual(response.status_code, 200)
             self.assertDictEqual(response.json(), dict(content='json'))
-            self.assertDictEqual(response.headers, {'Content-Length': 19, 'Content-Type': 'text/json'})
+            self.assertEqual(response.headers, {'Content-Length': '19', 'Content-Type': 'text/json'})

@@ -19,49 +19,67 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+from __future__ import annotations
 
-from webkitcorepy.string_utils import unicode
+from collections.abc import Iterator, MutableMapping
+from typing import TypeVar, overload
+
+VT = TypeVar("VT")
+_T = TypeVar("_T")
 
 
-class NestedFuzzyDict(object):
+class AmbiguousKeyError(KeyError):
+    """Raised when a key matches multiple entries in the NestedFuzzyDict."""
+
+    pass
+
+
+class NestedFuzzyDict(MutableMapping[str, VT]):
     @classmethod
-    def assert_valid_key(cls, key):
-        if not any((isinstance(key, str), isinstance(key, unicode), isinstance(key, bytes))):
-            raise ValueError("'{}' is not a valid key for a NestedDict".format(type(key)))
+    def assert_valid_key(cls, key: object) -> None:
+        if not isinstance(key, str):
+            raise ValueError(f"'{type(key)}' is not a valid key for a NestedDict")
 
-    def __init__(self, primary_size=None, **kwargs):
+    def __init__(self, primary_size: int | None = None, **kwargs: VT) -> None:
         self.primary_size = int(primary_size or 6)
-        self._data = dict()
+        self._data: dict[str, dict[str, VT]] = dict()
         self.update(dict(**kwargs))
 
-    def getitem(self, keyname, value=None):
+    def __getitem__(self, keyname: str) -> VT:
         self.assert_valid_key(keyname)
-        key_a, key_b = keyname[:self.primary_size], keyname[self.primary_size:]
-        found = None
+        key_a, key_b = keyname[: self.primary_size], keyname[self.primary_size :]
+        found = False
         for key, result in self._data.get(key_a, dict()).items():
             if key.startswith(key_b):
                 if found:
-                    raise KeyError("Multiple values match '{}'".format(keyname))
-                found = key_a + key
+                    raise AmbiguousKeyError(f"Multiple values match '{keyname}'")
+                found = True
                 value = result
-        return found, value
-
-    def __getitem__(self, keyname):
-        key, value = self.getitem(keyname)
-        if key:
+        if found:
             return value
-        raise KeyError(keyname)
+        else:
+            raise KeyError(keyname)
 
-    def get(self, keyname, value=None):
-        return self.getitem(keyname, value)[1]
+    @overload
+    def get(self, keyname: str) -> VT | None: ...
+    @overload
+    def get(self, keyname: str, default: VT | _T) -> VT | _T: ...
+    def get(self, keyname: str, default: VT | _T | None = None) -> VT | _T | None:
+        try:
+            return self[keyname]
+        except AmbiguousKeyError:
+            raise
+        except KeyError:
+            return default
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: str, value: VT) -> None:
         self.assert_valid_key(key)
-        self._data.setdefault(key[:self.primary_size], dict())[key[self.primary_size:]] = value
+        key_a, key_b = key[: self.primary_size], key[self.primary_size :]
+        self._data.setdefault(key_a, {})[key_b] = value
 
-    def __delitem__(self, keyname):
+    def __delitem__(self, keyname: str) -> None:
         self.assert_valid_key(keyname)
-        key_a, key_b = keyname[:self.primary_size], keyname[self.primary_size:]
+        key_a, key_b = keyname[: self.primary_size], keyname[self.primary_size :]
         to_remove = []
         for key, result in self._data.get(key_a, dict()).items():
             if key.startswith(key_b):
@@ -73,43 +91,31 @@ class NestedFuzzyDict(object):
         if not self._data.get(key_a, True):
             del self._data[key_a]
 
-    def __contains__(self, keyname):
-        key_a, key_b = keyname[:self.primary_size], keyname[self.primary_size:]
+    def __contains__(self, keyname: object) -> bool:
+        if not isinstance(keyname, str):
+            return False
+        key_a, key_b = keyname[: self.primary_size], keyname[self.primary_size :]
         for key, result in self._data.get(key_a, dict()).items():
             if key.startswith(key_b):
                 return True
         return False
 
-    def update(self, data):
-        for key, value in data.items():
-            self[key] = value
-
-    def __len__(self):
+    def __len__(self) -> int:
         return sum([len(values) for values in self._data.values()])
 
-    def keys(self):
+    def __iter__(self) -> Iterator[str]:
         for key_a, values in self._data.items():
             for key_b in values.keys():
                 yield key_a + key_b
 
-    def values(self):
-        for values in self._data.values():
-            for value in values.values():
-                yield value
-
-    def items(self):
-        for key_a, values in self._data.items():
-            for key_b, value in values.items():
-                yield key_a + key_b, value
-
-    def dict(self):
+    def dict(self) -> dict[str, VT]:
         result = dict()
         for key, value in self.items():
             result[key] = value
         return result
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.dict().__repr__()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.dict().__str__()

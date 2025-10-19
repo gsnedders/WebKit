@@ -21,21 +21,22 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import unittest
+from typing import Any
 from unittest.mock import patch
 
 
 class DummySession(object):
     PROXIES = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         DummySession.PROXIES = None
 
-    def request(self, method, url, **kwargs):
+    def request(self, method: str, url: str, **kwargs: Any) -> None:
         DummySession.PROXIES = kwargs.get('proxies', None)
 
 
 class PartialProxyTest(unittest.TestCase):
-    def test_session(self):
+    def test_session(self) -> None:
         # Some imports must be done within mock contexts because we're attempting to
         # test an override of request.Session with an override of request.Session
         with patch('requests.Session', new=DummySession):
@@ -48,6 +49,7 @@ class PartialProxyTest(unittest.TestCase):
             ):
                 import requests
                 requests.get('https://bugs.webkit.org')
+                assert DummySession.PROXIES is not None
                 self.assertDictEqual(DummySession.PROXIES, dict(
                     http='http://proxy.webkit.org:80',
                     https='https://proxy.webkit.org:443',

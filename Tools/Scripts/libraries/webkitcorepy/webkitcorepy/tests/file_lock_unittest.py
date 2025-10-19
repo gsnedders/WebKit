@@ -20,6 +20,8 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import logging
 import os
 import shutil
@@ -27,10 +29,11 @@ import tempfile
 import time
 import unittest
 
-from webkitcorepy import OutputCapture, FileLock, TaskPool, mocks, log as logger
+from webkitcorepy import FileLock, OutputCapture, TaskPool
 
+logger = logging.getLogger('webkitcorepy')
 
-def action(path, marker):
+def action(path: str, marker: str) -> int:
     with FileLock(path, timeout=10):
         print('Action {} - 1'.format(marker))
         print('Action {} - 2'.format(marker))
@@ -43,17 +46,19 @@ def action(path, marker):
 
 class FileLockTestCase(unittest.TestCase):
 
-    def __init__(self, *args, **kwargs):
-        super(FileLockTestCase, self).__init__(*args, **kwargs)
-        self.path = None
+    def __init__(self, methodName: str = "runTest") -> None:
+        super(FileLockTestCase, self).__init__(methodName)
+        self.path: str | None = None
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.path = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
+        assert self.path is not None
         shutil.rmtree(self.path, ignore_errors=True)
 
-    def test_basic(self):
+    def test_basic(self) -> None:
+        assert self.path is not None
         path = os.path.join(self.path, 'example-{}.lock'.format(os.getpid()))
         lock = FileLock(path, timeout=0)
 
@@ -66,7 +71,8 @@ class FileLockTestCase(unittest.TestCase):
             self.assertTrue(lock.acquired)
         self.assertFalse(lock.acquired)
 
-    def test_locked(self):
+    def test_locked(self) -> None:
+        assert self.path is not None
         path = os.path.join(self.path, 'example-{}.lock'.format(os.getpid()))
         lock_a = FileLock(path, timeout=0)
         lock_b = FileLock(path, timeout=0)
@@ -88,7 +94,8 @@ class FileLockTestCase(unittest.TestCase):
         self.assertFalse(lock_a.acquired)
         self.assertFalse(lock_b.acquired)
 
-    def test_locked_timeout(self):
+    def test_locked_timeout(self) -> None:
+        assert self.path is not None
         path = os.path.join(self.path, 'example-{}.lock'.format(os.getpid()))
         lock_a = FileLock(path, timeout=0)
         lock_b = FileLock(path, timeout=1)
@@ -111,7 +118,8 @@ class FileLockTestCase(unittest.TestCase):
         self.assertFalse(lock_a.acquired)
         self.assertFalse(lock_b.acquired)
 
-    def test_double(self):
+    def test_double(self) -> None:
+        assert self.path is not None
         path = os.path.join(self.path, 'example-{}.lock'.format(os.getpid()))
         lock = FileLock(path, timeout=0)
 
@@ -124,7 +132,8 @@ class FileLockTestCase(unittest.TestCase):
             self.assertTrue(lock.acquired)
         self.assertFalse(lock.acquired)
 
-    def test_race(self):
+    def test_race(self) -> None:
+        assert self.path is not None
         path = os.path.join(self.path, 'example-{}.lock'.format(os.getpid()))
 
         with OutputCapture(level=logging.INFO) as captured:

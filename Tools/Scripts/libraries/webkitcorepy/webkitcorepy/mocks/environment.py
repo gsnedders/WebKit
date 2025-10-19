@@ -29,7 +29,7 @@ from webkitcorepy.mocks import ContextStack
 class Environment(ContextStack):
     top = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: str) -> None:
         super(Environment, self).__init__(cls=Environment)
         self.environ = kwargs
 

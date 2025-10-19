@@ -27,7 +27,7 @@ from webkitcorepy import LoggerCapture, MeasureTime, mocks
 
 
 class MeasureTimeTests(unittest.TestCase):
-    def test_basic(self):
+    def test_basic(self) -> None:
         with mocks.Time, LoggerCapture() as captured:
             with MeasureTime() as measured:
                 self.assertEqual(measured.elapsed, 0)
@@ -36,13 +36,13 @@ class MeasureTimeTests(unittest.TestCase):
             self.assertEqual(measured.elapsed, 1)
         self.assertEqual(captured.log.getvalue(), '')
 
-    def test_log(self):
+    def test_log(self) -> None:
         with mocks.Time, LoggerCapture() as captured:
             with MeasureTime(log=True):
                 time.sleep(1)
         self.assertEqual(captured.log.getvalue(), '1.0 seconds elapsed\n')
 
-    def test_log_name(self):
+    def test_log_name(self) -> None:
         with mocks.Time, LoggerCapture() as captured:
             with MeasureTime(name='Example', log=True):
                 time.sleep(1)

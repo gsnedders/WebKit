@@ -20,55 +20,64 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import bisect
 import collections
+import logging
 import math
 import os
 import signal
 import threading
 import time
+from types import FrameType
+from types import TracebackType
+from typing import Callable, NoReturn
 from unittest import mock
 
-from webkitcorepy import log, string_utils
+import webkitcorepy.string_utils as string_utils
+
+log = logging.getLogger('webkitcorepy')
 
 ORIGINAL_SLEEP = time.sleep
+_EXCEPTION = Exception
 
 
-class Timeout(object):
+class Timeout:
     SIGALRM = getattr(signal, 'SIGALRM', None)
-    _process_to_timeout_map = collections.defaultdict(list)
+    _process_to_timeout_map: dict[int, list[Timeout.Data]] = collections.defaultdict(list)
 
-    class Data(object):
-        def __init__(self, alarm_time, handler):
+    class Data:
+        def __init__(self, alarm_time: float, handler: Callable[[int | None, FrameType | None], object]) -> None:
             self.alarm_time = alarm_time
             self.handler = handler
             self.thread_id = threading.current_thread().ident
             self.triggered = False
 
-        def __lt__(self, other):
+        def __lt__(self, other: object) -> bool:
             if not other:
                 return False
             if not isinstance(other, Timeout.Data):
-                raise ValueError('Expected {} in comparison, received {}').format(Timeout.Data, type(other))
+                raise ValueError('Expected {} in comparison, received {}'.format(Timeout.Data, type(other)))
             return self.alarm_time < other.alarm_time
 
-    class Exception(Exception):
+    class Exception(_EXCEPTION):
         pass
 
-    class DisableAlarm(object):
-        def __init__(self, patch=True):
+    class DisableAlarm:
+        def __init__(self, patch: bool=True) -> None:
             if patch:
-                self._patch = mock.patch('time.sleep', new=ORIGINAL_SLEEP)
+                self._patch: mock._patch[Callable[[float], None]] | None = mock.patch('time.sleep', new=ORIGINAL_SLEEP)
             else:
                 self._patch = None
 
-        def __enter__(self):
+        def __enter__(self) -> None:
             if Timeout.SIGALRM:
                 signal.alarm(0)
             if self._patch:
                 self._patch.__enter__()
 
-        def __exit__(self, exc_type, exc_value, traceback):
+        def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None:
             if self._patch:
                 self._patch.__exit__(exc_type, exc_value, traceback)
 
@@ -77,11 +86,11 @@ class Timeout(object):
                 Timeout.bind()
 
     @classmethod
-    def default_handler(cls, signum, frame):
+    def default_handler(cls, signum: int | None, frame: FrameType | None) -> None:
         raise cls.Exception('Timeout alarm was triggered')
 
     @classmethod
-    def current(cls):
+    def current(cls) -> Data | None:
         for element in cls._process_to_timeout_map[os.getpid()]:
             if element.triggered:
                 continue
@@ -92,12 +101,12 @@ class Timeout(object):
         return None
 
     @classmethod
-    def deadline(cls):
+    def deadline(cls) -> float | None:
         current = cls.current()
         return current.alarm_time if current else None
 
     @classmethod
-    def difference(cls, current_time=None):
+    def difference(cls, current_time: float | None=None) -> float | None:
         current = cls.current()
         if not current:
             return None
@@ -105,23 +114,25 @@ class Timeout(object):
         return current.alarm_time - current_time if current.alarm_time - current_time > 0 else 0
 
     @classmethod
-    def check(cls, current_time=None):
+    def check(cls, current_time: float | None=None) -> None:
         if cls.difference(current_time=current_time) != 0:
             return
         current = cls.current()
+        if not current:
+            return
         current.triggered = True
         cls.bind()
         current.handler(Timeout.SIGALRM, None)
 
     @classmethod
-    def bind(cls):
+    def bind(cls) -> None:
         current = cls.current()
         if not current:
             if Timeout.SIGALRM:
                 signal.alarm(0)
             return
 
-        def handler(signum, frame):
+        def handler(signum: int | None, frame: FrameType | None) -> None:
             assert signum == Timeout.SIGALRM
             if current.thread_id != threading.current_thread().ident:
                 log.critical('Using both alarms and threading in the same process, this is unsupported')
@@ -137,52 +148,54 @@ class Timeout(object):
             signal.alarm(int(math.ceil(current.alarm_time - current_time)))
 
     @classmethod
-    def sleep(cls, seconds):
+    def sleep(cls, seconds: float) -> None:
         difference = cls.difference()
         if difference is not None and seconds >= difference:
             log.error('Request to sleep {} exceeded the current timeout threshold'.format(string_utils.pluralize(seconds, 'second')))
             current = cls.current()
+            assert current is not None  # This is implied by different being not None.
             current.triggered = True
             cls.bind()
             current.handler(Timeout.SIGALRM, None)
         return ORIGINAL_SLEEP(seconds)
 
-    def __init__(self, seconds=1, handler=None, patch=True):
+    def __init__(self, seconds: int=1, handler: Callable[[int | None, FrameType | None], object] | BaseException | None = None, patch: bool=True) -> None:
         if seconds <= 0:
             raise ValueError('Timeouts must be positive')
 
         if isinstance(handler, BaseException):
             exception = handler
 
-            def exception_handler(signum, frame):
+            def exception_handler(signum: int | None, frame: FrameType | None) -> NoReturn:
                 raise exception
 
             handler = exception_handler
 
         self._timeout = seconds
         self._handler = handler if handler else self.default_handler
-        self.data = None
+        self.data: Timeout.Data | None = None
 
         if patch:
-            self._patch = mock.patch('time.sleep', new=self.sleep)
+            self._patch: mock._patch[Callable[[float], None]] | None = mock.patch('time.sleep', new=self.sleep)
         else:
             self._patch = None
 
-    def __enter__(self):
-        with self.DisableAlarm(patch=self._patch):
+    def __enter__(self) -> Timeout:
+        with self.DisableAlarm(patch=self._patch is not None):
             self.data = self.Data(time.time() + self._timeout, self._handler)
             bisect.insort(self._process_to_timeout_map[os.getpid()], self.data)
 
-        if self._patch:
+        if self._patch is not None:
             self._patch.__enter__()
         return self
 
-    def __exit__(self, *args, **kwargs):
-        if self._patch:
-            self._patch.__exit__(*args, **kwargs)
+    def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None:
+        if self._patch is not None:
+            self._patch.__exit__(exc_type, exc_value, traceback)
 
-        with self.DisableAlarm(patch=self._patch):
+        with self.DisableAlarm(patch=self._patch is not None):
             if not self._process_to_timeout_map[os.getpid()]:
                 raise RuntimeError('No timeout registered')
+            assert self.data is not None
             self._process_to_timeout_map[os.getpid()].remove(self.data)
             self.data = None

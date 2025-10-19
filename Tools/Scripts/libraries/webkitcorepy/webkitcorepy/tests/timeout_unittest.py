@@ -20,8 +20,8 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import time
 import threading
+import time
 import unittest
 
 from webkitcorepy import OutputCapture, Timeout, mocks
@@ -29,40 +29,45 @@ from webkitcorepy import OutputCapture, Timeout, mocks
 
 class TimeoutTests(unittest.TestCase):
 
-    def asssertIsClose(self, a, b, percentage=1):
+    def asssertIsClose(self, a: float, b: float, percentage: float = 1) -> None:
         percentage = percentage * .01
         if abs(a - b) > min(abs(percentage * a), abs(percentage * b)):
             self.assertEqual(a, b)
 
-    def test_current_timeout(self):
+    def test_current_timeout(self) -> None:
         self.assertEqual(None, Timeout.current())
         with Timeout(1) as tmp:
             self.assertEqual(tmp.data, Timeout.current())
         self.assertEqual(None, Timeout.current())
 
-    def test_invalid_timeout(self):
+    def test_invalid_timeout(self) -> None:
         self.assertRaises(ValueError, Timeout, 0)
 
-    def test_timeout_data(self):
+    def test_timeout_data(self) -> None:
         tmp = Timeout(1)
         self.assertEqual(None, tmp.data)
         with tmp:
             self.assertNotEqual(None, tmp.data)
+            assert tmp.data is not None
             self.assertEqual(threading.current_thread().ident, tmp.data.thread_id)
             self.assertTrue(time.time() + 1 >= tmp.data.alarm_time)
         self.assertEqual(None, tmp.data)
 
-    def test_difference(self):
+    def test_difference(self) -> None:
         with mocks.Time:
             with Timeout(1):
-                self.asssertIsClose(Timeout.difference(), 1)
+                difference = Timeout.difference()
+                assert difference is not None
+                self.asssertIsClose(difference, 1)
 
-    def test_deadline(self):
+    def test_deadline(self) -> None:
         with mocks.Time:
             with Timeout(1):
-                self.asssertIsClose(Timeout.deadline(), time.time() + 1)
+                deadline = Timeout.deadline()
+                assert deadline is not None
+                self.asssertIsClose(deadline, time.time() + 1)
 
-    def test_check(self):
+    def test_check(self) -> None:
         with mocks.Time, OutputCapture() as capturer:
             with Timeout(1):
                 Timeout.check()
@@ -70,7 +75,7 @@ class TimeoutTests(unittest.TestCase):
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), 'Request to sleep 1 second exceeded the current timeout threshold\n')
 
-    def test_nested_inner_precedence(self):
+    def test_nested_inner_precedence(self) -> None:
         tmp_outer = Timeout(2)
         tmp_inner = Timeout(1)
         with tmp_outer:
@@ -80,7 +85,7 @@ class TimeoutTests(unittest.TestCase):
             self.assertEqual(tmp_outer.data, Timeout.current())
         self.assertEqual(None, Timeout.current())
 
-    def test_nested_outer_precedence(self):
+    def test_nested_outer_precedence(self) -> None:
         tmp_outer = Timeout(1)
         tmp_inner = Timeout(2)
         with tmp_outer:
@@ -90,28 +95,28 @@ class TimeoutTests(unittest.TestCase):
             self.assertEqual(tmp_outer.data, Timeout.current())
         self.assertEqual(None, Timeout.current())
 
-    def test_no_timeout(self):
+    def test_no_timeout(self) -> None:
         with mocks.Time, OutputCapture() as capturer:
             with Timeout(2):
                 time.sleep(1)
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), '')
 
-    def test_basic_timeout(self):
+    def test_basic_timeout(self) -> None:
         with mocks.Time, OutputCapture() as capturer, self.assertRaises(Timeout.Exception):
             with Timeout(1):
                 time.sleep(2)
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), 'Request to sleep 2 seconds exceeded the current timeout threshold\n')
 
-    def test_exception_constructor_timeout(self):
+    def test_exception_constructor_timeout(self) -> None:
         with mocks.Time, OutputCapture() as capturer, self.assertRaises(RuntimeError):
             with Timeout(1, RuntimeError('This should be raised')):
                 time.sleep(2)
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), 'Request to sleep 2 seconds exceeded the current timeout threshold\n')
 
-    def test_nested_inner_timeout(self):
+    def test_nested_inner_timeout(self) -> None:
         with mocks.Time, OutputCapture() as capturer, self.assertRaises(Timeout.Exception):
             with Timeout(3, RuntimeError("This shouldn't be raised")):
                 with Timeout(1):
@@ -119,7 +124,7 @@ class TimeoutTests(unittest.TestCase):
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), 'Request to sleep 2 seconds exceeded the current timeout threshold\n')
 
-    def test_nested_outer_timeout(self):
+    def test_nested_outer_timeout(self) -> None:
         with mocks.Time, OutputCapture() as capturer, self.assertRaises(Timeout.Exception):
             with Timeout(1):
                 with Timeout(3, RuntimeError("This shouldn't be raised")):
@@ -127,7 +132,7 @@ class TimeoutTests(unittest.TestCase):
 
         self.assertEqual(capturer.webkitcorepy.log.getvalue(), 'Request to sleep 2 seconds exceeded the current timeout threshold\n')
 
-    def test_single_trigger(self):
+    def test_single_trigger(self) -> None:
         with mocks.Time, OutputCapture():
             with Timeout(1):
                 with self.assertRaises(Timeout.Exception):

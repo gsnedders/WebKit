@@ -26,7 +26,7 @@ from webkitcorepy import NestedFuzzyDict
 
 
 class TestNestedFuzzyDict(unittest.TestCase):
-    def test_constructor(self):
+    def test_constructor(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         self.assertEqual(sorted(list(d.values())), sorted((1, 2, 3)))
         self.assertEqual(sorted(list(d.keys())), sorted(('value_a', 'value_b', 'other_value')))
@@ -35,7 +35,7 @@ class TestNestedFuzzyDict(unittest.TestCase):
             sorted((('value_a', 1), ('value_b', 2), ('other_value', 3))),
         )
 
-    def test_index(self):
+    def test_index(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         self.assertEqual(d['value_a'], 1)
         self.assertEqual(d['value_b'], 2)
@@ -47,7 +47,7 @@ class TestNestedFuzzyDict(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.assertEqual(d['value'], None)
 
-    def test_get(self):
+    def test_get(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         self.assertEqual(d.get('value_a'), 1)
         self.assertEqual(d.get('value_b'), 2)
@@ -57,39 +57,29 @@ class TestNestedFuzzyDict(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.assertEqual(d.get('value_'), None)
 
-    def test_getitem(self):
-        d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
-        self.assertEqual(d.getitem('value_a'), ('value_a', 1))
-        self.assertEqual(d.getitem('value_b'), ('value_b', 2))
-        self.assertEqual(d.getitem('other_'), ('other_value', 3))
-        self.assertEqual(d.getitem('nothing'), (None, None))
-
-        with self.assertRaises(KeyError):
-            self.assertEqual(d.getitem('value_'), (None, None))
-
-    def test_set(self):
-        d = NestedFuzzyDict()
+    def test_set(self) -> None:
+        d: NestedFuzzyDict[int] = NestedFuzzyDict()
         self.assertEqual(d.get('somelongvalue'), None)
         d['somelongvalue'] = 1
         self.assertEqual(d.get('somelongvalue'), 1)
         self.assertEqual(d.get('somelong'), 1)
 
-    def test_delitem(self):
+    def test_delitem(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         del d['other_value']
         self.assertEqual(len(d), 2)
         del d['value_']
         self.assertEqual(len(d), 0)
 
-    def test_contains(self):
+    def test_contains(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         self.assertTrue('value_a' in d)
         self.assertTrue('value_' in d)
         self.assertFalse('content' in d)
 
-    def test_len(self):
+    def test_len(self) -> None:
         self.assertEqual(len(NestedFuzzyDict(value_a=1, value_b=2, other_value=3)), 3)
 
-    def test_dict(self):
+    def test_dict(self) -> None:
         d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
         self.assertDictEqual(d.dict(), dict(value_a=1, value_b=2, other_value=3))

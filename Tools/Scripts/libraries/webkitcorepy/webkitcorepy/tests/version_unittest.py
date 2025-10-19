@@ -28,7 +28,7 @@ from webkitcorepy import Version
 
 class VersionTestCase(unittest.TestCase):
 
-    def test_from_string(self):
+    def test_from_string(self) -> None:
         v = Version.from_string('1.2.3.4.5')
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 2)
@@ -42,7 +42,7 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = Version.from_string('x')
 
-    def test_from_list(self):
+    def test_from_list(self) -> None:
         v = Version.from_iterable([1, 2, 3, 4, 5])
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 2)
@@ -53,7 +53,7 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = Version.from_iterable([1, 2, 3, 4, 5, 6, 7])
 
-    def test_from_tuple(self):
+    def test_from_tuple(self) -> None:
         v = Version.from_iterable((1, 2, 3))
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 2)
@@ -62,7 +62,7 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = Version.from_iterable((1, 2, 3, 4, 5, 6, 7))
 
-    def test_from_iterator(self):
+    def test_from_iterator(self) -> None:
         v = Version.from_iterable(iter([1, 2, 3]))
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 2)
@@ -71,7 +71,7 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = Version.from_iterable(iter([1, 2, 3, 4, 5, 6, 7]))
 
-    def test_int_constructor(self):
+    def test_int_constructor(self) -> None:
         v = Version(1)
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 0)
@@ -79,7 +79,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertEqual(v.micro, 0)
         self.assertEqual(v.nano, 0)
 
-    def test_string_constructor(self):
+    def test_string_constructor(self) -> None:
         v = Version("1")
         self.assertEqual(v.major, 1)
         self.assertEqual(v.minor, 0)
@@ -96,11 +96,11 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = Version("1.2.3.4.5.6.7")
 
-    def test_len(self):
+    def test_len(self) -> None:
         self.assertEqual(len(Version(1, 2, 3, 4, 5)), 5)
         self.assertEqual(len(Version()), 5)
 
-    def test_set_by_int(self):
+    def test_set_by_int(self) -> None:
         v = Version()
         v[0] = 1
         self.assertEqual(v.major, 1)
@@ -113,7 +113,7 @@ class VersionTestCase(unittest.TestCase):
         v[4] = 5
         self.assertEqual(v.nano, 5)
 
-    def test_set_by_string(self):
+    def test_set_by_string(self) -> None:
         v = Version()
         v['major'] = 1
         self.assertEqual(v.major, 1)
@@ -126,7 +126,7 @@ class VersionTestCase(unittest.TestCase):
         v['nano'] = 5
         self.assertEqual(v.nano, 5)
 
-    def test_get_by_int(self):
+    def test_get_by_int(self) -> None:
         v = Version(1, 2, 3, 4, 5)
         self.assertEqual(v[0], v.major)
         self.assertEqual(v[1], v.minor)
@@ -144,7 +144,7 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(IndexError):
             _ = v[5]
 
-    def test_get_by_string(self):
+    def test_get_by_string(self) -> None:
         v = Version(1, 2, 3, 4, 5)
         self.assertEqual(v['major'], v.major)
         self.assertEqual(v['minor'], v.minor)
@@ -158,11 +158,11 @@ class VersionTestCase(unittest.TestCase):
         with self.assertRaises(KeyError):
             _ = v['matches']
 
-    def test_iterable(self):
+    def test_iterable(self) -> None:
         self.assertEqual(list(iter(Version(1, 2, 3, 4, 5))), [1, 2, 3, 4, 5])
         self.assertEqual(list(iter(Version(1))), [1, 0, 0, 0, 0])
 
-    def test_string(self):
+    def test_string(self) -> None:
         self.assertEqual(str(Version(1, 2, 3)), '1.2.3')
         self.assertEqual(str(Version(1, 2, 0)), '1.2')
         self.assertEqual(str(Version(1, 2)), '1.2')
@@ -174,7 +174,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertEqual(str(Version(623, 2, 7, 10, 3)), '623.2.7.10.3')
         self.assertEqual(str(Version(1, 0, 0, 0, 1)), '1.0.0.0.1')
 
-    def test_representation(self):
+    def test_representation(self) -> None:
         self.assertEqual(repr(Version(1, 2, 3)), 'Version(1, 2, 3)')
         self.assertEqual(repr(Version(1, 2, 0)), 'Version(1, 2)')
         self.assertEqual(repr(Version(1, 2)), 'Version(1, 2)')
@@ -186,7 +186,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertEqual(repr(Version(623, 2, 7, 10, 3)), 'Version(623, 2, 7, 10, 3)')
         self.assertEqual(repr(Version(1, 0, 0, 0, 1)), 'Version(1, 0, 0, 0, 1)')
 
-    def test_hash(self):
+    def test_hash(self) -> None:
         self.assertEqual(Version(1).__hash__(), Version(1, 0, 0).__hash__())
 
         # From the Python 3.13 docs:
@@ -196,7 +196,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertLessEqual(Version(1).__hash__(), max_hash)
         self.assertLessEqual(Version(2025, 4, 7).__hash__(), max_hash)
 
-    def test_contained_in(self):
+    def test_contained_in(self) -> None:
         self.assertTrue(Version(11, 1) in Version(11))
         self.assertTrue(Version(11, 1, 2) in Version(11, 1))
         self.assertFalse(Version(11) in Version(11, 1))
@@ -212,7 +212,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertTrue(Version(11, 1) in Version(11, 1, 0))
         self.assertTrue(Version(11, 1, 0) in Version(11, 1))
 
-    def test_compare_versions(self):
+    def test_compare_versions(self) -> None:
         self.assertEqual(Version(1, 2, 3), Version(1, 2, 3))
         self.assertGreater(Version(1, 2, 4), Version(1, 2, 3))
         self.assertGreater(Version(1, 3, 2), Version(1, 2, 3))
@@ -223,7 +223,7 @@ class VersionTestCase(unittest.TestCase):
         self.assertLess(None, Version(1, 2, 3))
         self.assertLessEqual(None, Version(1, 2, 3))
 
-    def test_matches(self):
+    def test_matches(self) -> None:
         version = Version(1, 2, 3)
         self.assertTrue(version.matches(''))
         self.assertTrue(version.matches('1.*'))

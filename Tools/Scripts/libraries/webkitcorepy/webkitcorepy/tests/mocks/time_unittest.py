@@ -27,16 +27,16 @@ from webkitcorepy import mocks
 
 
 class MockTime(unittest.TestCase):
-    def test_decorator(self):
+    def test_decorator(self) -> None:
         @mocks.Time
-        def action():
+        def action() -> None:
             original = time.time()
             time.sleep(10)
             self.assertGreaterEqual(time.time(), original + 10)
 
         action()
 
-    def test_context_manager(self):
+    def test_context_manager(self) -> None:
         original = time.time()
 
         with mocks.Time:

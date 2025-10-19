@@ -20,7 +20,9 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from webkitcorepy.testing.llm_test_runner import LLMTestRunner
-from webkitcorepy.testing.path_test_case import PathTestCase, TestCase
-from webkitcorepy.testing.python_test_runner import PythonTestRunner
-from webkitcorepy.testing.test_runner import TestRunner
+from unittest import TestCase as TestCase
+
+from webkitcorepy.testing.llm_test_runner import LLMTestRunner as LLMTestRunner
+from webkitcorepy.testing.path_test_case import PathTestCase as PathTestCase
+from webkitcorepy.testing.python_test_runner import PythonTestRunner as PythonTestRunner
+from webkitcorepy.testing.test_runner import TestRunner as TestRunner

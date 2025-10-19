@@ -20,35 +20,42 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
 
-class CallByNeed(object):
-    def __init__(self, callback, type=None):
-        self._callback = callback
-        self._value = None
+from typing import Any, Callable, Generic, TypeVar, cast
+
+_T = TypeVar("_T")
+
+
+class CallByNeed(Generic[_T]):
+    def __init__(self, callback: Callable[[], _T], type: type[_T] | None = None) -> None:
+        self._callback: Callable[[], _T] | None = callback
+        self._value: _T | None = None
         self.type = type
 
-    def __getattribute__(self, name):
-        if name in dir(type(self)) or name in {'_callback', '_value'}:
-            return object.__getattribute__(self, name)
-        typ = object.__getattribute__(self, 'type')
-        if typ is None or name in dir(typ):
-            return object.__getattribute__(self, 'value').__getattribute__(name)
-        raise AttributeError("'{}' object has no attribute '{}'".format(typ.__name__, name))
+    def __getattr__(self, name: str) -> Any:
+        if self.type is not None and name not in dir(self.type):
+            raise AttributeError("'{}' object has no attribute '{}'".format(self.type.__name__, name))
+        return getattr(self.value, name)
 
     @property
-    def value(self):
-        if self._callback:
-            self._value = self._callback()
+    def value(self) -> _T:
+        cb = self._callback
+        if cb is not None:
             self._callback = None
-        return self._value
+            result = cb()
+            self._value = result
+            return result
+        return cast(_T, self._value)
 
-    def __call__(self, *args, **kwargs):
-        if callable(self.value):
-            return self.value(*args, **kwargs)
-        return self.value
+    def __call__(self, *args: Any, **kwargs: Any) -> _T:
+        val = self.value
+        if callable(val):
+            return cast(_T, val(*args, **kwargs))
+        return val
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.value.__repr__()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.value)

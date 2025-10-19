@@ -20,20 +20,22 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import annotations
+
 import unittest
 from unittest.mock import patch
 
 from webkitcorepy import mocks
 
 
-def to_be_replaced():
+def to_be_replaced() -> str | None:
     return None
 
 
 class ExampleStack(mocks.ContextStack):
     top = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         super(ExampleStack, self).__init__(cls=ExampleStack)
         self.patches.append(patch(
             'webkitcorepy.tests.mocks.context_stack_unittest.to_be_replaced',
@@ -41,7 +43,7 @@ class ExampleStack(mocks.ContextStack):
         ))
 
     @classmethod
-    def height(cls):
+    def height(cls) -> int:
         count = 0
         current = cls.top
         while current:
@@ -52,7 +54,7 @@ class ExampleStack(mocks.ContextStack):
 
 class ContextStack(unittest.TestCase):
 
-    def test_stacking(self):
+    def test_stacking(self) -> None:
         stack_1 = ExampleStack()
         stack_2 = ExampleStack()
 
@@ -61,18 +63,21 @@ class ContextStack(unittest.TestCase):
         with stack_1:
             self.assertEqual(1, ExampleStack.height())
             self.assertEqual(ExampleStack.top, stack_1)
+            assert ExampleStack.top is not None
             self.assertIsNone(ExampleStack.top.previous)
 
             with stack_2:
                 self.assertEqual(2, ExampleStack.height())
                 self.assertEqual(ExampleStack.top, stack_2)
+                assert ExampleStack.top is not None
                 self.assertEqual(ExampleStack.top.previous, stack_1)
 
             self.assertEqual(1, ExampleStack.height())
             self.assertEqual(ExampleStack.top, stack_1)
+            assert ExampleStack.top is not None
             self.assertIsNone(ExampleStack.top.previous)
 
-    def test_patch(self):
+    def test_patch(self) -> None:
         stack_1 = ExampleStack()
         stack_2 = ExampleStack()
 
