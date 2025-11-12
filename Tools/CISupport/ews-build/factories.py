@@ -325,6 +325,7 @@ class ServicesFactory(Factory):
         self.addStep(RunBuildbotCheckConfigForBuildWebKit())
         self.addStep(RunEWSUnitTests())
         self.addStep(RunBuildbotCheckConfigForEWS())
+        self.addStep(RunSharedUnitTests())
         self.addStep(RunResultsdbpyTests())
 
 

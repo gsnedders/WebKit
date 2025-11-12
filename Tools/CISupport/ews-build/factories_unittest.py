@@ -791,6 +791,7 @@ class TestExpectedBuildSteps(unittest.TestCase):
             'buildbot-check-config-for-build-webkit',
             'ews-unit-tests',
             'buildbot-check-config-for-ews',
+            'Shared-unit-tests',
             'resultsdbpy-unit-tests'
         ],
         'Commit-Queue': [
