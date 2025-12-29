@@ -140,11 +140,14 @@ class Version(object):
         return True if does_match is None else does_match
 
     def _strip_zeros(self):
-        parts = list(self)
+        parts = list(iter(self))
         for i, part in enumerate(reversed(parts)):
             if part != 0:
                 break
         return parts[:-i]
+
+    def __iter__(self):
+        return iter((self.major, self.minor, self.tiny, self.micro, self.nano))
 
     # 11.2 is in 11, but 11 is not in 11.2
     def __contains__(self, version):

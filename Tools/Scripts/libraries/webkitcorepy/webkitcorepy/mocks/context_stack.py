@@ -21,11 +21,19 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-class ContextStack(object):
+from contextlib import AbstractContextManager
+from typing import Protocol, Optional, Type, MutableSequence, ClassVar, TYPE_CHECKING
 
-    def __init__(self, cls):
-        self.previous = None
-        self.patches = []
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+
+class ContextStack(object):
+    top: ClassVar[Optional[ContextStack]] = None
+
+    def __init__(self, cls: Type["Self"]):
+        self.previous: Optional[ContextStack] = None
+        self.patches: MutableSequence[AbstractContextManager[object, Optional[bool]]] = []
         self.cls = cls
 
     def __enter__(self):
