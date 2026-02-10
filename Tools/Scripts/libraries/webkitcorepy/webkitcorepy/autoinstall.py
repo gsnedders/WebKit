@@ -653,7 +653,7 @@ class AutoInstall(importlib.abc.MetaPathFinder):
     def register(cls, package, local=False):
         if isinstance(package, Package):
             if cls.packages.get(package.name):
-                if cls.packages.get(package.name)[0].version != package.version:
+                if package.name not in cls.local_packages and cls.packages.get(package.name)[0].version != package.version:
                     raise ValueError('Registered version of {} uses {}, but requested version uses {}'.format(package.name, cls.packages.get(package.name)[0].version, package.version))
                 return cls.packages.get(package.name)
         else:
