@@ -574,7 +574,6 @@ class AutoInstall(importlib.abc.MetaPathFinder):
         except (IOError, OSError, ValueError):
             pass
 
-        sys.path.insert(0, directory)
         cls.directory = directory
 
     @classmethod
