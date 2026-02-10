@@ -40,6 +40,7 @@ import zipfile
 from collections import defaultdict
 from contextlib import contextmanager
 from logging import NullHandler
+from typing import Optional
 from webkitcorepy import log
 from webkitcorepy.version import Version
 from webkitcorepy.file_lock import FileLock
@@ -633,7 +634,7 @@ class AutoInstall(importlib.abc.MetaPathFinder):
         cls.timeout = math.ceil(timeout)
 
     @classmethod
-    def _find_local(cls, package: Package) -> str | None:
+    def _find_local(cls, package: Package) -> Optional[str]:
         containing_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         libraries = os.path.dirname(containing_path)
         checkout_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(libraries))))
