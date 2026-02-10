@@ -475,6 +475,7 @@ class AutoInstall(importlib.abc.MetaPathFinder):
     times_to_retry = 1
     version = Version(sys.version_info[0], sys.version_info[1], sys.version_info[2])
     packages = defaultdict(list)
+    local_packages = set()
     manifest = {}
 
     # Rely on our own certificates for PyPi, since we use PyPi to standardize root certificates.
@@ -632,6 +633,22 @@ class AutoInstall(importlib.abc.MetaPathFinder):
         cls.timeout = math.ceil(timeout)
 
     @classmethod
+    def _find_local(cls, package: Package) -> str | None:
+        containing_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        libraries = os.path.dirname(containing_path)
+        checkout_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(libraries))))
+        for candidate in [
+            containing_path,
+            os.path.join(libraries, package.pypi_name),
+            os.path.join(checkout_root, 'Internal', 'Tools', 'Scripts', 'libraries', package.pypi_name),
+        ]:
+            if not os.path.isdir(os.path.join(candidate, package.name)):
+                continue
+            return candidate
+
+        return None
+
+    @classmethod
     def register(cls, package, local=False):
         if isinstance(package, Package):
             if cls.packages.get(package.name):
@@ -644,31 +661,16 @@ class AutoInstall(importlib.abc.MetaPathFinder):
         if not isinstance(local, bool):
             raise ValueError('Expected local to be bool, not {}'.format(type(local)))
 
-        # If inside the WebKit checkout, a local library is likely checked in at Tools/Scripts/libraries.
-        # When we detect such a library, we should not register it to be auto-installed
         if local:
             if package.name == 'autoinstalled':
                 raise ValueError("local package name 'autoinstalled' is forbidden")
-            containing_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            libraries = os.path.dirname(containing_path)
-            checkout_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(libraries))))
-            for candidate in [
-                containing_path,
-                os.path.join(libraries, package.pypi_name),
-                os.path.join(checkout_root, 'Internal', 'Tools', 'Scripts', 'libraries', package.pypi_name),
-            ]:
-                if not os.path.isdir(os.path.join(candidate, package.name)):
-                    continue
-                if candidate in sys.path:
-                    return [package]
-                sys.path.insert(0, candidate)
-                return [package]
-            else:
+            if cls._find_local(package) is None:
                 raise ValueError("unable find local package {}".format(package.name))
-        assert not local  # this should follow from the above
-
-        if package.version is None:
-            raise ValueError("trying to install non-local package {} with unspecified version".format(package.name))
+            cls.local_packages |= {package.name} | set(package.aliases)
+        else:
+            if package.version is None:
+                raise ValueError("trying to install non-local package {} with unspecified version".format(package.name))
+            cls.local_packages -= {package.name} | set(package.aliases)
 
         for alias in package.aliases:
             cls.packages[alias].append(package)
@@ -683,8 +685,12 @@ class AutoInstall(importlib.abc.MetaPathFinder):
         if isinstance(package, str):
             # we want this to throw if it hasn't been previously registered; in the case
             # that this is being called from cls.find_module it should always exist
+            if package in cls.local_packages:
+                raise ValueError(f"cannot install local package {package!r}")
             packages = cls.packages[package]
         else:
+            if package.name in cls.local_packages:
+                raise ValueError(f"cannot install local package {package!r}")
             packages = cls.register(package)
         return all([to_install.install() for to_install in packages])
 
@@ -699,10 +705,24 @@ class AutoInstall(importlib.abc.MetaPathFinder):
 
     @classmethod
     def find_spec(cls, fullname, path=None, target=None):
-        if not cls.enabled() or path is not None:
+        if path is not None:
             return None
 
-        name = fullname.split('.')[0]
+        name = fullname.split('.', 1)[0]
+
+        # Local packages are imported regardless of enablement
+        if name in cls.local_packages:
+            directory = cls._find_local(Package(name))
+            if directory is None:
+                return None
+            return importlib.machinery.PathFinder.find_spec(
+                fullname, [directory], target
+            )
+
+        if not cls.enabled():
+            return None
+
+        name = fullname.split('.', 1)[0]
         if not cls.packages.get(name) or not cls.directory:
             return None
 
