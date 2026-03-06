@@ -42,6 +42,10 @@ from .factories import (APITestsFactory, BindingsFactory, BuildFactory, CommitQu
 
 from .utils import get_custom_suffix
 from Shared.jsone_utils import jsone_context
+from webkitcorepy import AutoInstall, Package, Version
+
+AutoInstall.install(Package('jsone', Version(4, 8, 2), pypi_name='json-e'))
+import jsone
 
 custom_suffix = get_custom_suffix()
 
@@ -52,7 +56,14 @@ STEP_NAME_LENGTH_LIMIT = 50
 
 def loadBuilderConfig(c, is_test_mode_enabled=False, setup_main_schedulers=True, setup_force_schedulers=True, master_prefix_path=os.path.dirname(os.path.abspath(__file__))):
     with open(os.path.join(master_prefix_path, 'config.json')) as config_json:
-        config = json.load(config_json)
+        raw_config = json.load(config_json)
+
+    # Render json-e templates
+    ctx = jsone_context()
+    workers_rendered = jsone.render(raw_config['workers'], ctx)
+    builders_rendered = jsone.render(raw_config['builders'], ctx)
+    schedulers_rendered = jsone.render(raw_config['schedulers'], {**ctx, 'builders': builders_rendered})
+    config = {**raw_config, 'workers': workers_rendered, 'builders': builders_rendered, 'schedulers': schedulers_rendered}
     if is_test_mode_enabled:
         passwords = {}
     else:

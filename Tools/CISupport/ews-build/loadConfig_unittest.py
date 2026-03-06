@@ -41,6 +41,17 @@ class ConfigDotJSONTest(unittest.TestCase):
         with open(os.path.join(cwd, 'config.json'), 'r') as config:
             return json.load(config)
 
+    def _render_config(self):
+        import jsone
+        cwd = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(cwd, 'config.json')) as f:
+            raw_config = json.load(f)
+        ctx = loadConfig.jsone_context()
+        builders = jsone.render(raw_config['builders'], ctx)
+        schedulers = jsone.render(raw_config['schedulers'], {**ctx, 'builders': builders})
+        workers = jsone.render(raw_config['workers'], ctx)
+        return {'workers': workers, 'builders': builders, 'schedulers': schedulers}
+
     def get_builder_from_config(self, config, builder_name):
         for builder in config['builders']:
             if builder_name == builder.get('name'):
@@ -54,6 +65,17 @@ class ConfigDotJSONTest(unittest.TestCase):
         cwd = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(cwd, 'config.json'), 'r') as config:
             self.assertTrue('\t' not in config.read(), 'Tab character found in config.json, please use spaces instead of tabs.')
+
+    def test_jsone_rendering_produces_flat_arrays(self):
+        rendered = self._render_config()
+        self.assertIsInstance(rendered['workers'], list)
+        self.assertIsInstance(rendered['builders'], list)
+        self.assertIsInstance(rendered['schedulers'], list)
+        for w in rendered['workers']:
+            self.assertIn('name', w)
+            self.assertIn('platform', w)
+        for b in rendered['builders']:
+            self.assertIn('name', b)
 
     def test_builder_keys(self):
         config = self.get_config()
