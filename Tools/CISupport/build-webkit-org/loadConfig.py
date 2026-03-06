@@ -35,6 +35,7 @@ from buildbot.worker import Worker
 
 from .factories import *
 from . import wkbuild
+from Shared.jsone_utils import jsone_context
 
 main_filter = ChangeFilter(branch=["main", None])
 

@@ -200,6 +200,14 @@ class TestcheckWorkersAndBuildersForConsistency(unittest.TestCase):
         loadConfig.checkWorkersAndBuildersForConsistency({}, [self.ews101, {'name': 'ews102', 'platform': 'mac-sierra'}], [self.WK2Builder])
 
 
+class TestJsoneContext(unittest.TestCase):
+    def test_jsone_context_imported(self):
+        ctx = loadConfig.jsone_context()
+        self.assertIn('to_entries', ctx)
+        self.assertIn('group_by', ctx)
+        self.assertIn('lowercase', ctx)
+
+
 if __name__ == '__main__':
     from steps_unittest_old import BuildBotConfigLoader
     BuildBotConfigLoader()._add_dependent_modules_to_sys_modules()
