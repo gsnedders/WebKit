@@ -36,6 +36,10 @@ from buildbot.worker import Worker
 from .factories import *
 from . import wkbuild
 from Shared.jsone_utils import jsone_context
+from webkitcorepy import AutoInstall, Package, Version
+
+AutoInstall.install(Package('jsone', Version(4, 8, 2), pypi_name='json-e'))
+import jsone
 
 main_filter = ChangeFilter(branch=["main", None])
 
@@ -51,7 +55,14 @@ def loadBuilderConfig(c, is_test_mode_enabled=False, setup_main_schedulers=True,
     if not master_prefix_path:
         master_prefix_path = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(master_prefix_path, 'config.json')) as config_json:
-        config = json.load(config_json)
+        raw_config = json.load(config_json)
+
+    # Render json-e templates
+    ctx = jsone_context()
+    workers_rendered = jsone.render(raw_config['workers'], ctx)
+    builders_rendered = jsone.render(raw_config['builders'], ctx)
+    schedulers_rendered = jsone.render(raw_config['schedulers'], {**ctx, 'builders': builders_rendered})
+    config = {**raw_config, 'workers': workers_rendered, 'builders': builders_rendered, 'schedulers': schedulers_rendered}
     if is_test_mode_enabled:
         passwords = {}
     else:
@@ -98,7 +109,7 @@ def loadBuilderConfig(c, is_test_mode_enabled=False, setup_main_schedulers=True,
         factoryName = builder.pop('factory')
         factory = globals()[factoryName]
         factorykwargs = {}
-        for key in ['platform', 'configuration', 'architectures', 'triggers', 'additionalArguments', 'device_model']:
+        for key in ['platform', 'configuration', 'architectures', 'triggers', 'additionalArguments', 'device_model', 'triggered_by']:
             value = builder.pop(key, None)
             if value:
                 factorykwargs[key] = value

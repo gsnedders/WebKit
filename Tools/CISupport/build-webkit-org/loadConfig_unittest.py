@@ -36,6 +36,17 @@ class ConfigDotJSONTest(unittest.TestCase):
         with open(os.path.join(cwd, 'config.json')) as f:
             return json.load(f)
 
+    def _render_config(self):
+        import jsone
+        cwd = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(cwd, 'config.json')) as f:
+            raw_config = json.load(f)
+        ctx = loadConfig.jsone_context()
+        builders = jsone.render(raw_config['builders'], ctx)
+        schedulers = jsone.render(raw_config['schedulers'], {**ctx, 'builders': builders})
+        workers = jsone.render(raw_config['workers'], ctx)
+        return {'workers': workers, 'builders': builders, 'schedulers': schedulers}
+
     def test_configuration(self):
         cwd = os.path.dirname(os.path.abspath(__file__))
         loadConfig.loadBuilderConfig({}, is_test_mode_enabled=True, master_prefix_path=cwd)
@@ -45,11 +56,22 @@ class ConfigDotJSONTest(unittest.TestCase):
         with open(os.path.join(cwd, 'config.json'), 'r') as config:
             self.assertTrue('\t' not in config.read(), 'Tab character found in config.json, please use spaces instead of tabs.')
 
+    def test_jsone_rendering_produces_flat_arrays(self):
+        rendered = self._render_config()
+        self.assertIsInstance(rendered['workers'], list)
+        self.assertIsInstance(rendered['builders'], list)
+        self.assertIsInstance(rendered['schedulers'], list)
+        for w in rendered['workers']:
+            self.assertIn('name', w)
+            self.assertIn('platform', w)
+        for b in rendered['builders']:
+            self.assertIn('name', b)
+
     def test_builder_keys(self):
         config = self.get_config()
         valid_builder_keys = ['additionalArguments', 'architectures', 'builddir', 'configuration', 'description',
                               'defaultProperties', 'device_model', 'env', 'factory', 'icon', 'locks', 'name', 'platform', 'properties',
-                              'remotes', 'runTests', 'shortname', 'tags', 'triggers', 'workernames', 'workerbuilddir']
+                              'remotes', 'runTests', 'shortname', 'tags', 'triggered_by', 'triggers', 'workernames', 'workerbuilddir']
         for builder in config.get('builders', []):
             for key in builder:
                 self.assertTrue(key in valid_builder_keys, f"Unexpected key {key} for builder {builder.get('name')}")
