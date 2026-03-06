@@ -312,5 +312,13 @@ class TestPrioritizeBuilders(unittest.TestCase):
         )
 
 
+class TestJsoneContext(unittest.TestCase):
+    def test_jsone_context_imported(self):
+        ctx = loadConfig.jsone_context()
+        self.assertIn('to_entries', ctx)
+        self.assertIn('group_by', ctx)
+        self.assertIn('lowercase', ctx)
+
+
 if __name__ == '__main__':
     unittest.main()

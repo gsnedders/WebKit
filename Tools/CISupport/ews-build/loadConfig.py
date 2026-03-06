@@ -41,6 +41,7 @@ from .factories import (APITestsFactory, BindingsFactory, BuildFactory, CommitQu
                         macOSWK1Factory, macOSWK2Factory, ServicesFactory, SaferCPPStaticAnalyzerFactory, UnsafeMergeQueueFactory, watchOSBuildFactory)
 
 from .utils import get_custom_suffix
+from Shared.jsone_utils import jsone_context
 
 custom_suffix = get_custom_suffix()
 
