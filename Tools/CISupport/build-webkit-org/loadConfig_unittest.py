@@ -98,6 +98,51 @@ class ConfigDotJSONTest(unittest.TestCase):
             if scheduler.get('type') == 'Triggerable':
                 self.assertTrue(len(scheduler.get('builderNames')) == 1, f"scheduler {scheduler['name']} triggers multiple builders.")
 
+    def test_loadBuilderConfig_output(self):
+        """Regression test: verify loadBuilderConfig output counts and structure before refactoring."""
+        cwd = os.path.dirname(os.path.abspath(__file__))
+        c = {}
+        loadConfig.loadBuilderConfig(c, is_test_mode_enabled=True, master_prefix_path=cwd)
+
+        # Workers (count includes local-worker added in test mode)
+        expected_worker_count = 176
+        self.assertEqual(len(c['workers']), expected_worker_count, f"Expected {expected_worker_count} workers, got {len(c['workers'])}")
+        worker_names = sorted(w.name for w in c['workers'])
+        config = self.get_config()
+        config_worker_names = sorted([w['name'] for w in config['workers']] + ['local-worker'])
+        self.assertEqual(worker_names, config_worker_names)
+
+        # Builders
+        expected_builder_count = 100
+        self.assertEqual(len(c['builders']), expected_builder_count, f"Expected {expected_builder_count} builders, got {len(c['builders'])}")
+        builder_names = sorted(b['name'] for b in c['builders'])
+        config_builder_names = sorted(b['name'] for b in config['builders'])
+        self.assertEqual(builder_names, config_builder_names)
+        for builder in c['builders']:
+            self.assertIsNotNone(builder.get('factory'))
+            self.assertIsInstance(builder.get('tags'), list)
+
+        # Factory type names per builder (catches wrong factory being used)
+        factory_types = {b['name']: type(b['factory']).__name__ for b in c['builders']}
+        for name, factory_type in factory_types.items():
+            self.assertIsNotNone(factory_type, f"Builder {name} has no factory type")
+
+        # Schedulers (count includes force scheduler added unconditionally)
+        expected_scheduler_count = 65
+        self.assertEqual(len(c['schedulers']), expected_scheduler_count, f"Expected {expected_scheduler_count} schedulers, got {len(c['schedulers'])}")
+        scheduler_names = sorted(s.name for s in c['schedulers'])
+        config_scheduler_names = [s['name'] for s in config['schedulers'] if 'name' in s]
+        for name in config_scheduler_names:
+            self.assertIn(name, scheduler_names)
+
+        # nextBuild is set only for non-Build AppleMac/iOS builders
+        builders_with_next_build = sorted(b['name'] for b in c['builders'] if 'nextBuild' in b)
+        for name in builders_with_next_build:
+            self.assertTrue(
+                any(name.startswith(p) for p in ('Apple-Tahoe', 'Apple-Sequoia', 'Apple-iOS', 'Apple-iPadOS', 'Apple-visionOS')),
+                f"Unexpected nextBuild on {name}"
+            )
+
 
 class TagsForBuilderTest(unittest.TestCase):
     def verifyTags(self, builderName, expectedTags):
