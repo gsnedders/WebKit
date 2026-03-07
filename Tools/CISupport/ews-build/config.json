@@ -414,144 +414,44 @@
         "workernames": ["playstation-ews-001", "playstation-ews-002", "playstation-ews-003", "playstation-ews-004", "playstation-ews-005", "playstation-ews-006", "playstation-ews-007", "playstation-ews-008", "playstation-ews-009"] }
     ]
   ] },
-  "schedulers": [
-    {
-      "type": "Try_Userpass", "name": "try", "port": 5555,
-      "builderNames": [
-            "Bindings-Tests-EWS", "GTK-Build-EWS", "iOS-26-Build-EWS", "iOS-26-Simulator-Build-EWS",
-            "JSC-ARMv7-32bits-Build-EWS", "JSC-Tests-EWS", "JSC-Tests-O3-Debug-arm64-EWS",
-            "macOS-Tahoe-Debug-Build-EWS", "macOS-Sequoia-Release-Build-EWS", "macOS-Safer-CPP-Checks-EWS", "Apple-iOS-26-Safer-CPP-Checks-EWS",
-            "Services-EWS", "Style-EWS", "tvOS-26-Build-EWS", "tvOS-26-Simulator-Build-EWS", "visionOS-26-Build-EWS", "visionOS-26-Simulator-Build-EWS",
-            "watchOS-26-Build-EWS", "watchOS-26-Simulator-Build-EWS", "WPE-Build-EWS", "WebKitPerl-Tests-EWS", "WebKitPy-Tests-EWS", "PlayStation-Build-EWS", "Win-Build-EWS",
-            "GTK-GTK3-LibWebRTC-Build-EWS"
+  "schedulers": {
+    "$let": {
+      "queue_builders": ["Commit-Queue", "Merge-Queue", "Safe-Merge-Queue", "Unsafe-Merge-Queue"]
+    },
+    "in": {
+      "$let": {
+        "ews_builders": {
+          "$map": {"$eval": "builders"},
+          "each(b)": {
+            "$if": "!('triggered_by' in b) && !(b.name in queue_builders)",
+            "then": {"$eval": "b.name"}
+          }
+        }
+      },
+      "in": {
+      "$flatten": [
+        [
+          {"type": "Try_Userpass", "name": "try", "port": 5555,
+           "builderNames": {"$eval": "ews_builders"}},
+          {"type": "Try_Userpass", "name": "try_commitqueue", "port": 5557,
+           "builderNames": ["Commit-Queue"]},
+          {"type": "AnyBranchScheduler", "name": "pull_request",
+           "builderNames": {"$eval": "ews_builders"}},
+          {"type": "AnyBranchScheduler", "name": "merge_queue",
+           "builderNames": ["Merge-Queue"]},
+          {"type": "AnyBranchScheduler", "name": "unsafe_merge_queue",
+           "builderNames": ["Unsafe-Merge-Queue"]},
+          {"type": "Periodic", "name": "safe-merge-queue", "periodicBuildTimer": 900,
+           "builderNames": ["Safe-Merge-Queue"]}
+        ],
+        {"$map": {"$eval": "builders"},
+         "each(b)": {
+          "$if": "('triggers' in b) || ('triggered_by' in b)",
+          "then": {"type": "Triggerable", "name": {"$eval": "lowercase(b.name)"},
+                   "builderNames": [{"$eval": "b.name"}]}
+        }}
       ]
-    },
-    {
-      "type": "Try_Userpass", "name": "try_commitqueue", "port": 5557,
-      "builderNames": ["Commit-Queue"]
-    },
-    {
-      "type": "AnyBranchScheduler", "name": "pull_request",
-      "builderNames": [
-            "Bindings-Tests-EWS", "GTK-Build-EWS", "iOS-26-Build-EWS", "iOS-26-Simulator-Build-EWS",
-            "JSC-ARMv7-32bits-Build-EWS", "JSC-Tests-EWS", "JSC-Tests-O3-Debug-arm64-EWS",
-            "macOS-Tahoe-Debug-Build-EWS", "macOS-Sequoia-Release-Build-EWS", "macOS-Safer-CPP-Checks-EWS", "Apple-iOS-26-Safer-CPP-Checks-EWS",
-            "Services-EWS", "Style-EWS", "tvOS-26-Build-EWS", "tvOS-26-Simulator-Build-EWS", "visionOS-26-Build-EWS", "visionOS-26-Simulator-Build-EWS",
-            "watchOS-26-Build-EWS", "watchOS-26-Simulator-Build-EWS", "WPE-Build-EWS", "WebKitPerl-Tests-EWS", "WebKitPy-Tests-EWS", "PlayStation-Build-EWS", "Win-Build-EWS",
-            "GTK-GTK3-LibWebRTC-Build-EWS"
-      ]
-    },
-    {
-      "type": "AnyBranchScheduler", "name": "merge_queue",
-      "builderNames": ["Merge-Queue"]
-    },
-    {
-      "type": "AnyBranchScheduler", "name": "unsafe_merge_queue",
-      "builderNames": ["Unsafe-Merge-Queue"]
-    },
-    {
-      "type": "Periodic", "name": "safe-merge-queue", "periodicBuildTimer": 900,
-      "builderNames": ["Safe-Merge-Queue"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-sequoia-release-build-ews",
-      "builderNames": ["macOS-Sequoia-Release-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-sequoia-release-wk1-tests-ews",
-      "builderNames": ["macOS-Sequoia-Release-WK1-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-sequoia-release-wk2-tests-ews",
-      "builderNames": ["macOS-Sequoia-Release-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-sequoia-release-wk2-intel-tests-ews",
-      "builderNames": ["macOS-Sequoia-Release-WK2-Intel-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-release-wk2-stress-tests-ews",
-      "builderNames": ["macOS-Release-WK2-Stress-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-tahoe-debug-build-ews",
-      "builderNames": ["macOS-Tahoe-Debug-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-tahoe-debug-api-tests-ews",
-      "builderNames": ["macOS-Tahoe-Debug-API-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "macos-tahoe-debug-wk2-tests-ews",
-      "builderNames": ["macOS-Tahoe-Debug-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "ios-26-simulator-build-ews",
-      "builderNames": ["iOS-26-Simulator-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "ios-26-simulator-wk2-tests-ews",
-      "builderNames": ["iOS-26-Simulator-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "ios-26-simulator-wpt-wk2-tests-ews",
-      "builderNames": ["iOS-26-Simulator-WPT-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "api-tests-ios-simulator-ews",
-      "builderNames": ["API-Tests-iOS-Simulator-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "api-tests-macos-ews",
-      "builderNames": ["API-Tests-macOS-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "gtk-build-ews",
-      "builderNames": ["GTK-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "api-tests-gtk-ews",
-      "builderNames": ["API-Tests-GTK-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "gtk-wk2-tests-ews",
-      "builderNames": ["GTK-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "visionos-26-simulator-build-ews",
-      "builderNames": ["visionOS-26-Simulator-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "visionos-26-simulator-wk2-tests-ews",
-      "builderNames": ["visionOS-26-Simulator-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "win-build-ews",
-      "builderNames": ["Win-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "win-tests-ews",
-      "builderNames": ["Win-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "wpe-build-ews",
-      "builderNames": ["WPE-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "wpe-wk2-tests-ews",
-      "builderNames": ["WPE-WK2-Tests-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "api-tests-wpe-ews",
-      "builderNames": ["API-Tests-WPE-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "jsc-armv7-32bits-build-ews",
-      "builderNames": ["JSC-ARMv7-32bits-Build-EWS"]
-    },
-    {
-      "type": "Triggerable", "name": "jsc-armv7-32bits-tests-ews",
-      "builderNames": ["JSC-ARMv7-32bits-Tests-EWS"]
+      }
     }
-  ]
+  }
 }
