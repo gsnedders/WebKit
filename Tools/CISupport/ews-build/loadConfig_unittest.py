@@ -37,9 +37,7 @@ class ConfigDotJSONTest(unittest.TestCase):
     DUPLICATED_TRIGGERS = ['try', 'pull_request']
 
     def get_config(self):
-        cwd = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(cwd, 'config.json'), 'r') as config:
-            return json.load(config)
+        return self._render_config()
 
     def _render_config(self):
         import jsone

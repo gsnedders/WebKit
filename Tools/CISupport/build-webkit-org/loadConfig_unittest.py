@@ -32,9 +32,7 @@ from . import loadConfig
 
 class ConfigDotJSONTest(unittest.TestCase):
     def get_config(self):
-        cwd = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(cwd, 'config.json')) as f:
-            return json.load(f)
+        return self._render_config()
 
     def _render_config(self):
         import jsone
