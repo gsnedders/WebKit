@@ -61,7 +61,10 @@ class BWOConfigLoader(BaseConfigLoader):
         super().__init__(_factories)
 
     def get_factory_kwargs_keys(self):
-        return super().get_factory_kwargs_keys() | {'device_model', 'triggered_by'}
+        return super().get_factory_kwargs_keys() | {'device_model'}
+
+    def get_builder_discard_keys(self):
+        return {'triggered_by'}
 
     def get_builder_next_build(self, builder, factory_name, platform):
         if (platform.startswith('mac') or platform.startswith('ios')) and factory_name != 'BuildFactory':

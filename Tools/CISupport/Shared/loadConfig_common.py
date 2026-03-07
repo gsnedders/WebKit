@@ -50,6 +50,10 @@ class BaseConfigLoader(ABC):
     def get_factory_kwargs_keys(self):
         return {'platform', 'configuration', 'architectures', 'triggers', 'additionalArguments'}
 
+    def get_builder_discard_keys(self):
+        """Keys to remove from builder dict but not pass to factory."""
+        return set()
+
     def get_builder_next_build(self, builder, factory_name, platform):
         """Return nextBuild callback for this builder, or None for buildbot default."""
         return None
@@ -104,6 +108,8 @@ class BaseConfigLoader(ABC):
                 value = builder.pop(key, None)
                 if value:
                     factorykwargs[key] = value
+            for key in self.get_builder_discard_keys():
+                builder.pop(key, None)
             builder['factory'] = factory(**factorykwargs)
             if is_test_mode_enabled:
                 builder['workernames'].append('local-worker')
