@@ -37,6 +37,7 @@ def jsone_context():
         'startswith': lambda s, prefix: s.startswith(prefix),
         'endswith': lambda s, suffix: s.endswith(suffix),
         'lowercase': lambda s: s.lower(),
+        'zfill': lambda n, width: str(n).zfill(width),
         'group_by': _jsone_group_by,
     }
 
