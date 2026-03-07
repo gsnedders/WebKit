@@ -176,7 +176,7 @@ class ConfigDotJSONTest(unittest.TestCase):
             self.assertIsNotNone(factory_type, f"Builder {name} has no factory type")
 
         # Schedulers (count includes try_build scheduler added unconditionally)
-        expected_scheduler_count = 31
+        expected_scheduler_count = 32
         self.assertEqual(len(c['schedulers']), expected_scheduler_count, f"Expected {expected_scheduler_count} schedulers, got {len(c['schedulers'])}")
         scheduler_names = sorted(s.name for s in c['schedulers'])
         config_scheduler_names = [s['name'] for s in config['schedulers']]
