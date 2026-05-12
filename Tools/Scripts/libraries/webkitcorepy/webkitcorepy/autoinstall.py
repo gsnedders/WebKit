@@ -643,7 +643,7 @@ class AutoInstall(importlib.abc.MetaPathFinder):
             cls._verify_index()
 
         if cls.ca_cert_path:
-            os.environ[cls.CA_CERT_PATH_ENV_VAR] = ca_cert_path
+            os.environ[cls.CA_CERT_PATH_ENV_VAR] = cls.ca_cert_path
 
         return cls.index
 
