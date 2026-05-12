@@ -21,6 +21,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import io
+import warnings
 
 
 basestring = str
@@ -34,12 +35,14 @@ unicode = str
 def encode(string, encoding='utf-8', errors='strict', target_type=bytes):
     if type(string) == unicode and target_type == bytes:
         return string.encode(encoding, errors=errors)
+    warnings.warn('no-op webkitcorepy.string_utils.encode usage', DeprecationWarning, stacklevel=2)
     return string
 
 
 def decode(data, encoding='utf-8', errors='strict', target_type=unicode):
     if type(data) == bytes and target_type == unicode:
         return data.decode(encoding, errors=errors)
+    warnings.warn('no-op webkitcorepy.string_utils.decode usage', DeprecationWarning, stacklevel=2)
     return data
 
 
