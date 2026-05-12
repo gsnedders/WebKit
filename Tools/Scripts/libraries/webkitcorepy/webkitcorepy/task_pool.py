@@ -157,10 +157,12 @@ class _BiDirectionalQueue(object):
         self.incoming = incoming or multiprocessing.Queue()
 
     def send(self, object):
-        if self.outgoing._closed:
+        try:
+            self.outgoing.put(object)
+            return None
+        except ValueError:
             sys.stderr.write('Cannot send message to closed queue\n')
             return False
-        return self.outgoing.put(object)
 
     def receive(self, blocking=True):
         with Timeout.DisableAlarm():
@@ -188,10 +190,12 @@ class _Queue(object):
         self.queue = queue or multiprocessing.Queue()
 
     def send(self, object):
-        if self.queue._closed:
+        try:
+            self.queue.put(object)
+            return None
+        except ValueError:
             sys.stderr.write('Cannot send message to closed queue\n')
             return False
-        return self.queue.put(object)
 
     def receive(self, blocking=True):
         with Timeout.DisableAlarm():
