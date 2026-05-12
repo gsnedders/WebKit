@@ -30,7 +30,7 @@ class AmbiguousKeyError(KeyError):
 class NestedFuzzyDict(object):
     @classmethod
     def assert_valid_key(cls, key):
-        if not any((isinstance(key, str), isinstance(key, unicode), isinstance(key, bytes))):
+        if not any((isinstance(key, str), isinstance(key, unicode))):
             raise ValueError("'{}' is not a valid key for a NestedDict".format(type(key)))
 
     def __init__(self, primary_size=None, **kwargs):
