@@ -178,8 +178,8 @@ class Version(object):
         return hash(tuple(self))
 
     def __eq__(self, other):
-        if other is None:
-            return False
+        if not isinstance(other, Version):
+            return NotImplemented
         return tuple(self) == tuple(other)
 
     def __lt__(self, other):
