@@ -105,8 +105,8 @@ class Package(object):
                 response = None
                 try:
                     response = AutoInstall._request(self.link)
-                    if not response or response.code != 200:
-                        raise IOError('Failed to retrieve Python module with response code {}'.format(response.code))
+                    if not response or response.status != 200:
+                        raise IOError('Failed to retrieve Python module with response code {}'.format(response.status))
                     with open(self.path, 'wb') as file:
                         while True:
                             data = response.read(2 ** 13)
@@ -193,7 +193,7 @@ class Package(object):
             response = None
             try:
                 response = AutoInstall._request('https://{}/{}'.format(AutoInstall.index, path))
-                if response.code != 200:
+                if response.status != 200:
                     raise ValueError('The package {} was not found on {}'.format(self.pypi_name, AutoInstall.index))
 
                 packages = SimplyPypiIndexPageParser.parse(response.read().decode("UTF-8"))
