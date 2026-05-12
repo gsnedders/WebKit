@@ -23,6 +23,10 @@
 from webkitcorepy.string_utils import unicode
 
 
+class AmbiguousKeyError(KeyError):
+    pass
+
+
 class NestedFuzzyDict(object):
     @classmethod
     def assert_valid_key(cls, key):
@@ -41,7 +45,7 @@ class NestedFuzzyDict(object):
         for key, result in self._data.get(key_a, dict()).items():
             if key.startswith(key_b):
                 if found:
-                    raise KeyError("Multiple values match '{}'".format(keyname))
+                    raise AmbiguousKeyError("Multiple values match '{}'".format(keyname))
                 found = True
                 value = result
         if found:
@@ -51,6 +55,8 @@ class NestedFuzzyDict(object):
     def get(self, keyname, value=None):
         try:
             return self[keyname]
+        except AmbiguousKeyError:
+            raise
         except KeyError:
             return value
 
