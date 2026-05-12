@@ -24,7 +24,7 @@ import os
 import sys
 import unittest
 
-from webkitcorepy import AutoInstall, string_utils
+from webkitcorepy import AutoInstall
 from webkitcorepy.testing.test_runner import TestRunner
 
 
@@ -97,13 +97,8 @@ class PythonTestRunner(TestRunner):
             to_run = self._tests[test]
             to_run.run(result=result)
         except KeyError:
-            result.errors.append((test, "No test named '{}'\n".format(test)))
+            sys.stderr.write("No test named '{}'\n".format(test))
         return result
-
-    def id(self, test):
-        if isinstance(test, string_utils.basestring):
-            return test
-        return test.id()
 
     def run(self, args):
         if AutoInstall.enabled():

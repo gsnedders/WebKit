@@ -75,9 +75,6 @@ class TestRunner(object):
     def run_test(self, test):
         raise NotImplementedError('Subclass must implement')
 
-    def id(self, test):
-        return test
-
     def run(self, args):
         tm = time.time
         start_time = tm()
@@ -138,7 +135,7 @@ class TestRunner(object):
                 print('{}{}'.format(' ' * self.INDENT, string_utils.pluralize(len(value), attribute)))
                 if args.log_level < logging.WARNING:
                     for part in value:
-                        print('{}{}'.format(' ' * self.INDENT * 2, self.id(part[0])))
+                        print('{}{}'.format(' ' * self.INDENT * 2, part[0].id()))
                         if args.log_level >= logging.INFO or not part[1]:
                             continue
                         print()
@@ -152,12 +149,12 @@ class TestRunner(object):
         print('SUCCESS')
         return 0
 
-    def main(self, *args, **kwargs):
+    def main(self, *args):
         args = self.parser.parse_args(args)
         args.log_level = getattr(args, 'log_level', log.level)
 
         if args.log_level < logging.INFO:
-            log.debug('Found {} tests...'.format(len(list(self.tests()))))
+            log.debug('Found {} tests...'.format(len(list(self.tests(args)))))
             log.debug('{} tests match filters'.format(len(list(self.tests(args)))))
 
         if args.list:
