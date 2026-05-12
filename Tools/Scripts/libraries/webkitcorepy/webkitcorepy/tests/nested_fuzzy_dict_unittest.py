@@ -57,16 +57,6 @@ class TestNestedFuzzyDict(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.assertEqual(d.get('value_'), None)
 
-    def test_getitem(self):
-        d = NestedFuzzyDict(value_a=1, value_b=2, other_value=3)
-        self.assertEqual(d.getitem('value_a'), ('value_a', 1))
-        self.assertEqual(d.getitem('value_b'), ('value_b', 2))
-        self.assertEqual(d.getitem('other_'), ('other_value', 3))
-        self.assertEqual(d.getitem('nothing'), (None, None))
-
-        with self.assertRaises(KeyError):
-            self.assertEqual(d.getitem('value_'), (None, None))
-
     def test_set(self):
         d = NestedFuzzyDict()
         self.assertEqual(d.get('somelongvalue'), None)

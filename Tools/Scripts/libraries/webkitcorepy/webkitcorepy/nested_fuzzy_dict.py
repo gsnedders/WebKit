@@ -34,26 +34,25 @@ class NestedFuzzyDict(object):
         self._data = dict()
         self.update(dict(**kwargs))
 
-    def getitem(self, keyname, value=None):
+    def __getitem__(self, keyname):
         self.assert_valid_key(keyname)
         key_a, key_b = keyname[:self.primary_size], keyname[self.primary_size:]
-        found = None
+        found = False
         for key, result in self._data.get(key_a, dict()).items():
             if key.startswith(key_b):
                 if found:
                     raise KeyError("Multiple values match '{}'".format(keyname))
-                found = key_a + key
+                found = True
                 value = result
-        return found, value
-
-    def __getitem__(self, keyname):
-        key, value = self.getitem(keyname)
-        if key:
+        if found:
             return value
         raise KeyError(keyname)
 
     def get(self, keyname, value=None):
-        return self.getitem(keyname, value)[1]
+        try:
+            return self[keyname]
+        except KeyError:
+            return value
 
     def __setitem__(self, key, value):
         self.assert_valid_key(key)
