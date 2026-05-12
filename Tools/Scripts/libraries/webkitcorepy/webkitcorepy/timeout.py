@@ -109,6 +109,8 @@ class Timeout(object):
         if cls.difference(current_time=current_time) != 0:
             return
         current = cls.current()
+        if not current:
+            return
         current.triggered = True
         cls.bind()
         current.handler(Timeout.SIGALRM, None)
