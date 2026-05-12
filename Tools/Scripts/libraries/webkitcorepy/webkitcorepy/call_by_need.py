@@ -27,9 +27,7 @@ class CallByNeed(object):
         self._value = None
         self.type = type
 
-    def __getattribute__(self, name):
-        if name in dir(type(self)) or name in {'_callback', '_value'}:
-            return object.__getattribute__(self, name)
+    def __getattr__(self, name):
         typ = object.__getattribute__(self, 'type')
         if typ is None or name in dir(typ):
             return object.__getattribute__(self, 'value').__getattribute__(name)
