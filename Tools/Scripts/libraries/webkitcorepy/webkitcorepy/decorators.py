@@ -21,17 +21,17 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import time
-from collections import defaultdict
 
 
 class Memoize(object):
     def __init__(self, timeout=None, cached=True):
-        self._cache = defaultdict(dict)
-        self._last_called = defaultdict(dict)
         self.timeout = timeout
         self.cached = cached
 
     def __call__(self, function):
+        cache = {}
+        last_called = {}
+
         def decorator(*args, **kwargs):
             fargs = function.__code__.co_varnames[:function.__code__.co_argcount]
 
@@ -44,26 +44,26 @@ class Memoize(object):
                 cached = kwargs.pop('cached', cached)
 
             keyargs = args + tuple(sorted([(key, value) for key, value in kwargs.items()]))
-            last_called = self._last_called[function].get(keyargs, 0)
-            is_cached = keyargs in self._cache[function]
+            lc = last_called.get(keyargs, 0)
+            is_cached = keyargs in cache
             if not cached:
                 is_cached = False
-            if timeout and timeout < time.time() - last_called:
+            if timeout and timeout < time.time() - lc:
                 is_cached = False
             if is_cached:
-                return self._cache[function].get(keyargs, None)
+                return cache.get(keyargs, None)
 
             value = function(*args, **kwargs)
-            self._last_called[function][keyargs] = time.time()
-            self._cache[function][keyargs] = value
+            last_called[keyargs] = time.time()
+            cache[keyargs] = value
             return value
 
-        decorator.clear = self.clear
-        return decorator
+        def clear():
+            cache.clear()
+            last_called.clear()
 
-    def clear(self):
-        self._cache = defaultdict(dict)
-        self._last_called = defaultdict(dict)
+        decorator.clear = clear
+        return decorator
 
 
 class hybridmethod(object):
