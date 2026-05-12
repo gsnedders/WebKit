@@ -57,11 +57,26 @@ class PopenBase(object):
 
         self.returncode = None
 
-        self.stdin = string_utils.BytesIO() if stdin is None or stdin == subprocess.PIPE else stdin
-        self.stdout = string_utils.BytesIO() if stdout == subprocess.PIPE else (None if stdout == subprocess.DEVNULL else stdout)
-        self._stdout_type = bytes if stdout == subprocess.PIPE else str
-        self._stdout_devnull = (stdout == subprocess.DEVNULL)
-        if stderr == subprocess.STDOUT:
+        self.stdin = string_utils.BytesIO() if stdin is None or stdin == subprocess.PIPE or stdin == 0 else stdin
+        if isinstance(stdin, int) and stdin not in (0, subprocess.PIPE):
+            raise TypeError("Mock Popen does not support file descriptor {} for stdin".format(stdin))
+
+        if stdout == subprocess.PIPE:
+            self.stdout = string_utils.BytesIO()
+            self._stdout_type = bytes
+            self._stdout_devnull = False
+        elif stdout is None or stdout == subprocess.DEVNULL or stdout == 1:
+            self.stdout = None
+            self._stdout_type = str
+            self._stdout_devnull = (stdout == subprocess.DEVNULL)
+        elif isinstance(stdout, int):
+            raise TypeError("Mock Popen does not support file descriptor {} for stdout".format(stdout))
+        else:
+            self.stdout = stdout
+            self._stdout_type = str
+            self._stdout_devnull = False
+
+        if stderr == subprocess.STDOUT or stderr == 1:
             self.stderr = self.stdout
             self._stderr_type = self._stdout_type
             self._stderr_devnull = self._stdout_devnull
@@ -69,10 +84,12 @@ class PopenBase(object):
             self.stderr = string_utils.BytesIO()
             self._stderr_type = bytes
             self._stderr_devnull = False
-        elif stderr == subprocess.DEVNULL:
+        elif stderr is None or stderr == subprocess.DEVNULL or stderr == 2:
             self.stderr = None
             self._stderr_type = str
-            self._stderr_devnull = True
+            self._stderr_devnull = (stderr == subprocess.DEVNULL)
+        elif isinstance(stderr, int):
+            raise TypeError("Mock Popen does not support file descriptor {} for stderr".format(stderr))
         else:
             self.stderr = stderr
             self._stderr_type = str
@@ -165,7 +182,7 @@ class Popen(PopenBase):
         if (text is not None and universal_newlines is not None and bool(universal_newlines) != bool(text)):
             raise subprocess.SubprocessError('Cannot disambiguate when both text and universal_newlines are supplied but different. Pass one or the other.')
 
-        self.text_mode = encoding or errors or text or universal_newlines
+        self.text_mode = bool(encoding or errors or text or universal_newlines)
 
         if self.stdin is not None and text:
             self.stdin = io.TextIOWrapper(self.stdin, write_through=True, line_buffering=(bufsize == 1), encoding=encoding, errors=errors)
