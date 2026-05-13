@@ -69,6 +69,7 @@ from webkitpy.common.system.executive import ScriptError
 from webkitpy.common.version_name_map import PUBLIC_TABLE, INTERNAL_TABLE, VersionNameMap
 from webkitpy.common.wavediff import WaveDiff
 from webkitpy.common.webkit_finder import WebKitFinder
+from webkitpy.layout_tests.models.test import test_name_and_variant
 from webkitpy.layout_tests.models.test_configuration import TestConfiguration
 from webkitpy.port import config as port_config
 from webkitpy.port import driver
@@ -141,15 +142,7 @@ class Port(object):
     @staticmethod
     def test_name_and_variant(test_name):
         """Splits a test name into the filename part and the variant part."""
-        if '?' in test_name:
-            name, sep, variant = test_name.partition('?')
-            return (name, sep + variant)
-
-        if '#' in test_name:
-            name, sep, variant = test_name.partition('#')
-            return (name, sep + variant)
-
-        return (test_name, '')
+        return test_name_and_variant(test_name)
 
     @staticmethod
     def sanitized_variant(variant):
@@ -598,8 +591,8 @@ class Port(object):
         if self.test_isfile(test_name) or self.test_isdir(test_name):
             return True
         if '?' in test_name or '#' in test_name:
-            (base_name, variant) = Port.test_name_and_variant(test_name)
-            return self.test_isfile(base_name)
+            file_path = Port.test_name_and_variant(test_name)[0]
+            return self.test_isfile(file_path)
         return False
 
     def split_test(self, test_name):
