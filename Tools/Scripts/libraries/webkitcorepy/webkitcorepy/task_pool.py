@@ -559,7 +559,7 @@ class TaskPool(object):
                 callback(result)
             return
 
-        queue = self._group_queues.get(group, self.queue)
+        queue = self._group_queues[group] if group is not None else self.queue
 
         if callback:
             self.callbacks[self._id_count] = callback
