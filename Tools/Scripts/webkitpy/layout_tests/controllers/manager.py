@@ -319,7 +319,6 @@ class Manager(object):
             test_file,
             timeout=timeout,
             is_slow=test_is_slow,
-            needs_servers=test_file.needs_any_server,
             should_dump_jsconsolelog_in_stderr=should_dump_jsconsolelog_in_stderr,
             should_run_pixel_test=should_run_pixel_test,
         )

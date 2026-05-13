@@ -40,6 +40,7 @@ from webkitpy.layout_tests.controllers.layout_test_finder_legacy import (
     LayoutTestFinder,
     _is_reference_html_file,
 )
+from webkitpy.layout_tests.models.server_routing import ServerType
 from webkitpy.layout_tests.models.test import Test, _file_path_sort_key
 from webkitpy.port.test import (
     TestPort,
@@ -598,7 +599,7 @@ class LayoutTestFinderTestsBase(object):
         tests_found = [
             t.test_path
             for t in finder.find_tests_by_path(tests_to_find)
-            if t.is_wpt_crash_test
+            if t.is_crash_test
         ]
         self.assertEqual(
             tests_found,
@@ -614,6 +615,18 @@ class LayoutTestFinderTestsBase(object):
                 "imported/w3c/web-platform-tests/some/test-timeout-crash.html",
             ],
         )
+
+    def test_wpt_crash_requires_wpt_directory_prefix(self):
+        finder = self.finder
+        fs = finder._filesystem
+        fs.chdir(self.port.layout_tests_dir())
+        path = "weird/imported/w3c/web-platform-tests/crashtests/crash.html"
+        fs.maybe_make_directory(fs.dirname(path))
+        fs.write_text_file(path, "")
+
+        tests = list(finder.find_tests_by_path([path]))
+        self.assertEqual([t.test_path for t in tests], [path])
+        self.assertFalse(tests[0].is_crash_test)
 
     def test_preserves_order_directories(self):
         tests_to_find = ['http/tests/ssl', 'http/tests/passes']
@@ -1010,14 +1023,14 @@ class LayoutTestFinderTestsBase(object):
         self.assertEqual(
             tests,
             [
-                Test(test_path="http/tests/foo.html", is_http_test=True),
-                Test(test_path="http/tests/local/foo.html", is_http_test=True),
-                Test(test_path="some/http/tests/foo.html", is_http_test=False),
-                Test(test_path="http/some/tests/foo.html", is_http_test=False),
-                Test(test_path="httpfoo/tests/foo.html", is_http_test=False),
-                Test(test_path="http/testing/foo.html", is_http_test=False),
-                Test(test_path="http/testsfoo/bar.html", is_http_test=False),
-                Test(test_path="http/foo/bar.html", is_http_test=False),
+                Test(test_path="http/tests/foo.html", served_by=ServerType.HTTP),
+                Test(test_path="http/tests/local/foo.html", served_by=ServerType.HTTP),
+                Test(test_path="some/http/tests/foo.html", served_by=ServerType.FILE),
+                Test(test_path="http/some/tests/foo.html", served_by=ServerType.FILE),
+                Test(test_path="httpfoo/tests/foo.html", served_by=ServerType.FILE),
+                Test(test_path="http/testing/foo.html", served_by=ServerType.FILE),
+                Test(test_path="http/testsfoo/bar.html", served_by=ServerType.FILE),
+                Test(test_path="http/foo/bar.html", served_by=ServerType.FILE),
             ],
         )
 
@@ -1026,12 +1039,17 @@ class LayoutTestFinderTestsBase(object):
         fs = finder._filesystem
 
         files = [
-            "websocket/tests/foo.html",
+            "websocket/tests/standalone.html",
             "http/tests/test.html",
             "http/tests/websocket/construct-in-detached-frame.html",
             "http/tests/security/mixedContent/websocket/insecure-websocket-in-iframe.html",
             "http/tests/security/contentSecurityPolicy/connect-src-star-secure-websocket-allowed.html",
             "imported/w3c/web-platform-tests/service-workers/service-worker/websocket.https.html",
+            # Not under websocket/ or http/tests/ at all -- the substring
+            # match with no directory-boundary requirement still fires here,
+            # unlike origin/main's is_websocket_test, which is gated on
+            # being under http/tests/ (or the "websocket/" directory itself).
+            "fast/websocket-something.html",
         ]
 
         fs.chdir(self.port.layout_tests_dir())
@@ -1049,39 +1067,36 @@ class LayoutTestFinderTestsBase(object):
                 # A bare "websocket/" directory outside http/tests/ is still
                 # a websocket test, just not an HTTP one.
                 Test(
-                    test_path="websocket/tests/foo.html",
-                    is_http_test=False,
-                    is_websocket_test=True,
+                    test_path="websocket/tests/standalone.html",
+                    served_by=ServerType.WEBSOCKET,
                 ),
                 Test(
                     test_path="http/tests/test.html",
-                    is_http_test=True,
-                    is_websocket_test=False,
+                    served_by=ServerType.HTTP,
                 ),
                 Test(
                     test_path="http/tests/websocket/construct-in-detached-frame.html",
-                    is_http_test=True,
-                    is_websocket_test=True,
+                    served_by=ServerType.HTTP | ServerType.WEBSOCKET,
                 ),
                 Test(
                     test_path="http/tests/security/mixedContent/websocket/insecure-websocket-in-iframe.html",
-                    is_http_test=True,
-                    is_websocket_test=True,
+                    served_by=ServerType.HTTP | ServerType.WEBSOCKET,
                 ),
                 Test(
                     test_path="http/tests/security/contentSecurityPolicy/connect-src-star-secure-websocket-allowed.html",
-                    is_http_test=True,
-                    is_websocket_test=True,
+                    served_by=ServerType.HTTP | ServerType.WEBSOCKET,
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-tests/service-workers/service-worker/websocket.https.html",
-                    is_wpt_test=True,
-                    is_websocket_test=False,
+                    served_by=ServerType.WPT,
+                ),
+                Test(
+                    test_path="fast/websocket-something.html",
+                    served_by=ServerType.WEBSOCKET,
                 ),
                 Test(
                     test_path="http/tests/test.html?websocket",
-                    is_http_test=True,
-                    is_websocket_test=True,
+                    served_by=ServerType.HTTP | ServerType.WEBSOCKET,
                 ),
             ],
         )
@@ -1122,24 +1137,24 @@ class LayoutTestFinderTestsBase(object):
             [
                 Test(
                     test_path="imported/w3c/web-platform-tests/some/fresh.html",
-                    is_wpt_test=True,
+                    served_by=ServerType.WPT,
                 ),
-                Test(test_path="http/wpt/some/foo.html", is_wpt_test=True),
+                Test(test_path="http/wpt/some/foo.html", served_by=ServerType.WPT),
                 Test(
                     test_path="some/imported/w3c/web-platform-tests/foo.html",
-                    is_wpt_test=False,
+                    served_by=ServerType.FILE,
                 ),
                 Test(
                     test_path="imported/w3c/foo/web-platform-tests/text.html",
-                    is_wpt_test=False,
+                    served_by=ServerType.FILE,
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-testsfoo/bar.html",
-                    is_wpt_test=False,
+                    served_by=ServerType.FILE,
                 ),
-                Test(test_path="imported/w3c/foo.html", is_wpt_test=False),
-                Test(test_path="some/http/wpt/foo.html", is_wpt_test=False),
-                Test(test_path="http/wptfoo/bar.html", is_wpt_test=False),
+                Test(test_path="imported/w3c/foo.html", served_by=ServerType.FILE),
+                Test(test_path="some/http/wpt/foo.html", served_by=ServerType.FILE),
+                Test(test_path="http/wptfoo/bar.html", served_by=ServerType.FILE),
             ],
         )
 
@@ -1167,28 +1182,28 @@ class LayoutTestFinderTestsBase(object):
             [
                 Test(
                     test_path="fast/crashtests/test.html",
-                    is_wpt_test=False,
-                    is_wpt_crash_test=False,
+                    served_by=ServerType.FILE,
+                    is_crash_test=False,
                 ),
                 Test(
                     test_path="fast/css/end-of-buffer-crash.html",
-                    is_wpt_test=False,
-                    is_wpt_crash_test=False,
+                    served_by=ServerType.FILE,
+                    is_crash_test=False,
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-tests/editing/run/empty-editable-crash.html",
-                    is_wpt_test=True,
-                    is_wpt_crash_test=True,
+                    served_by=ServerType.WPT,
+                    is_crash_test=True,
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-tests/html/semantics/popovers/popover-hint-crash.tentative.html",
-                    is_wpt_test=True,
-                    is_wpt_crash_test=True,
+                    served_by=ServerType.WPT,
+                    is_crash_test=True,
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-tests/mathml/crashtests/mtd-as-multicol.html",
-                    is_wpt_test=True,
-                    is_wpt_crash_test=True,
+                    served_by=ServerType.WPT,
+                    is_crash_test=True,
                 ),
             ],
         )

@@ -124,6 +124,8 @@ class DriverTest(unittest.TestCase):
         self.assertEqual(driver.test_to_uri(DriverInput('imported/w3c/web-platform-tests/foo/bar.https.html', 1000, None, None)), 'https://localhost:9443/foo/bar.https.html')
         self.assertEqual(driver.test_to_uri(DriverInput('http/wpt/bar2.html', 1000, None, None)), 'http://localhost:8800/WebKit/bar2.html')
         self.assertEqual(driver.test_to_uri(DriverInput('http/wpt/bar2.https.html', 1000, None, None)), 'https://localhost:9443/WebKit/bar2.https.html')
+        # Driver-side behavior that the finder's classification has to agree with, unchanged by this commit.
+        self.assertEqual(driver.test_to_uri(DriverInput('websocket/tests/passes/text.html', 1000, None, None)), 'file://%s/websocket/tests/passes/text.html' % port.layout_tests_dir())
 
     def test_uri_to_test(self):
         port = self.make_port()
@@ -424,3 +426,33 @@ class DriverTest(unittest.TestCase):
             self.assertIn(str(driver._driver_tempdir), environ_driver['HOME'])
             self.assertNotIn(str(driver._driver_tempdir), environ_user['HOME'])
             self.assertTrue(port._filesystem.isdir(environ_driver['HOME']))
+
+    def test_command_from_driver_input(self):
+        # Driver is unchanged by this commit, so this pins the command format
+        # that the test routes have to stay consistent with rather than
+        # covering new behavior.
+        port = self.make_port()
+        driver = Driver(port, None, pixel_tests=False)
+        d = port.layout_tests_dir()
+        t = "'--timeout'1000"
+
+        def command_for(test_name, **kwargs):
+            return driver._command_from_driver_input(DriverInput(test_name, 1000, None, False, **kwargs))
+
+        # File tests get a bare absolute path
+        self.assertEqual(command_for('foo/bar.html'), f"{d}/foo/bar.html{t}\n")
+
+        # http/tests/local/ gets a bare path despite being under http/tests/
+        self.assertEqual(command_for('http/tests/local/foo.html'), f"{d}/http/tests/local/foo.html{t}\n")
+
+        # Websocket tests get a bare path
+        self.assertEqual(command_for('websocket/tests/passes/text.html'), f"{d}/websocket/tests/passes/text.html{t}\n")
+
+        # HTTP tests get URL + '--absolutePath' + abs path
+        self.assertEqual(command_for('http/tests/foo.html'), f"http://127.0.0.1:8000/foo.html'--absolutePath'{d}/http/tests/foo.html{t}\n")
+
+        # WPT tests get URL + '--absolutePath' + abs path
+        self.assertEqual(command_for('imported/w3c/web-platform-tests/foo/bar.html'), f"http://localhost:8800/foo/bar.html'--absolutePath'{d}/imported/w3c/web-platform-tests/foo/bar.html{t}\n")
+
+        # runInCrossOriginFrame forces HTTP URL via /root/
+        self.assertEqual(command_for('foo/bar.html', additional_header='runInCrossOriginFrame=true'), f"http://127.0.0.1:8000/root/foo/bar.html'--absolutePath'{d}/foo/bar.html{t}'--additional-header'runInCrossOriginFrame=true\n")

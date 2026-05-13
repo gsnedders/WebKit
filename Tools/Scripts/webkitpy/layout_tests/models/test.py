@@ -31,6 +31,15 @@ import re
 
 import attr
 
+from webkitpy.layout_tests.models.server_routing import ServerType
+
+
+@attr.s(frozen=True, slots=True)
+class Reference(object):
+    relation = attr.ib(type=str)  # "==" or "!="
+    path = attr.ib(type=str)  # absolute filesystem path
+
+
 _digit_re = re.compile(r"(\d+)")
 
 
@@ -38,11 +47,6 @@ def _natsort_key(string):
     split = _digit_re.split(string)
     split[1::2] = [(int(i), i) for i in split[1::2]]
     return split
-
-
-def _file_path_sort_key(test_path):
-    dirname, basename = test_path.rsplit('/', 1) if '/' in test_path else ('', test_path)
-    return (_natsort_key(dirname + '/'), _natsort_key(basename))
 
 
 def test_name_and_variant(test_name):
@@ -55,6 +59,12 @@ def test_name_and_variant(test_name):
     return (test_name[:idx], test_name[idx:])
 
 
+def _file_path_sort_key(test_path):
+    file_path = test_name_and_variant(test_path)[0]
+    dirname, basename = file_path.rsplit('/', 1) if '/' in file_path else ('', file_path)
+    return (_natsort_key(dirname + '/'), _natsort_key(basename))
+
+
 @attr.s(frozen=True, slots=True)
 class Test(object):
     """Data about a test and its expectations.
@@ -65,10 +75,8 @@ class Test(object):
     expected_image_path = attr.ib(default=None, type=str, order=False)
     expected_audio_path = attr.ib(default=None, type=str, order=False)
     reference_files = attr.ib(default=None, type=list, order=False)
-    is_http_test = attr.ib(default=False, type=bool, order=False)
-    is_websocket_test = attr.ib(default=False, type=bool, order=False)
-    is_wpt_test = attr.ib(default=False, type=bool, order=False)
-    is_wpt_crash_test = attr.ib(default=False, type=bool, order=False)
+    served_by = attr.ib(default=ServerType.FILE, type=ServerType, order=False)
+    is_crash_test = attr.ib(default=False, type=bool, order=False)
 
     @property
     def file_path(self):
@@ -80,15 +88,15 @@ class Test(object):
 
     @property
     def needs_http_server(self):
-        return self.is_http_test
+        return bool(self.served_by & ServerType.HTTP)
 
     @property
     def needs_websocket_server(self):
-        return self.is_websocket_test and (self.needs_http_server or self.needs_wpt_server)
+        return bool(self.served_by & ServerType.WEBSOCKET) and (self.needs_http_server or self.needs_wpt_server)
 
     @property
     def needs_wpt_server(self):
-        return self.is_wpt_test
+        return bool(self.served_by & ServerType.WPT)
 
     @property
     def needs_any_server(self):
