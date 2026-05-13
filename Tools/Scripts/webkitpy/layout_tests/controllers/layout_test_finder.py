@@ -29,7 +29,7 @@ from collections import OrderedDict
 
 from webkitpy.layout_tests.controllers.test_result_writer import TestResultWriter
 from webkitpy.layout_tests.models.server_routing import ServerType
-from webkitpy.layout_tests.models.test import Test
+from webkitpy.layout_tests.models.test import Reference, Test
 from webkitpy.thirdparty.wpt.manifest.sourcefile import SourceFile
 from webkitpy.w3c.common import TEMPLATED_TEST_HEADER
 
@@ -437,18 +437,29 @@ class LayoutTestFinder(object):
             assert expected_image_path is None or self.fs.isabs(expected_image_path)
             assert expected_audio_path is None or self.fs.isabs(expected_audio_path)
             assert reference_files is None or all(
-                self.fs.isabs(ref_path) for (_, ref_path) in reference_files
+                self.fs.isabs(ref.path) for ref in reference_files
             )
 
             server_type = ServerType.FILE
             for route in self.test_routes:
-                if route.test_file_dir and trimmed_path.startswith(route.test_file_dir + "/"):
+                if trimmed_path.startswith(route.test_file_dir + "/"):
                     server_type = server_type | route.server_type
                     break
             if not (server_type & ServerType.WPT) and "websocket" in trimmed_path + variant:
                 server_type = server_type | ServerType.WEBSOCKET
 
             is_crash_test = bool(server_type & ServerType.WPT) and self.is_wpt_crash_test(trimmed_path)
+
+            # Parse filename flags (e.g., test.https.html, test.h2.html, test.sub.html)
+            basename_lower = basename.lower()
+            detected_flags = set()
+            for flag in ("https", "h2", "sub"):
+                if "." + flag + "." in basename_lower:
+                    detected_flags.add(flag)
+            # HTTP tests in ssl/ directories are served over HTTPS
+            if (server_type & ServerType.HTTP) and ("/ssl/" in "/" + trimmed_path + "/"):
+                detected_flags.add("https")
+            flags = frozenset(detected_flags)
 
             yield Test(
                 test_path=trimmed_path + variant,
@@ -460,6 +471,7 @@ class LayoutTestFinder(object):
                 ),
                 served_by=server_type,
                 is_crash_test=is_crash_test,
+                flags=flags,
             )
 
     def _find_variants(self, f):
@@ -610,8 +622,8 @@ class LayoutTestFinder(object):
                     # only run the first reference
                     # (https://bugs.webkit.org/show_bug.cgi?id=270794).
                     reference_files = [
-                        ("==", self.fs.join(dirname, m + variant)) for m in sorted(matches)
-                    ] + [("!=", self.fs.join(dirname, m + variant)) for m in sorted(mismatches)]
+                        Reference(relation="==", path=self.fs.join(dirname, m + variant)) for m in sorted(matches)
+                    ] + [Reference(relation="!=", path=self.fs.join(dirname, m + variant)) for m in sorted(mismatches)]
 
         return (
             expected_text_path or expected_webarchive_path,

@@ -77,6 +77,30 @@ class TestNeedsServer(unittest.TestCase):
         self.assertTrue(t.needs_any_server)
 
 
+class TestFlags(unittest.TestCase):
+    def test_defaults(self):
+        t = Test(test_path='foo/bar.html')
+        self.assertFalse(t.https)
+        self.assertFalse(t.h2)
+        self.assertFalse(t.subdomain)
+
+    def test_each_flag_is_independent(self):
+        self.assertTrue(Test(test_path='a.https.html', flags=frozenset({'https'})).https)
+        self.assertFalse(Test(test_path='a.https.html', flags=frozenset({'https'})).h2)
+        self.assertFalse(Test(test_path='a.https.html', flags=frozenset({'https'})).subdomain)
+        self.assertTrue(Test(test_path='a.h2.html', flags=frozenset({'h2'})).h2)
+        self.assertFalse(Test(test_path='a.h2.html', flags=frozenset({'h2'})).https)
+        self.assertTrue(Test(test_path='a.sub.html', flags=frozenset({'sub'})).subdomain)
+        self.assertFalse(Test(test_path='a.sub.html', flags=frozenset({'sub'})).https)
+
+    def test_flags_do_not_affect_ordering(self):
+        t1 = Test(test_path='a.html', flags=frozenset({'https'}))
+        t2 = Test(test_path='a.html', flags=frozenset({'h2'}))
+        self.assertFalse(t1 < t2)
+        self.assertFalse(t2 < t1)
+        self.assertNotEqual(t1, t2)
+
+
 class TestFilePathAndVariant(unittest.TestCase):
     def test_no_variant(self):
         t = Test(test_path='fast/dom/foo.html')

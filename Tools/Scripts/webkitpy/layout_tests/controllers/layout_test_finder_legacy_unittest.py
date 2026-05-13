@@ -41,7 +41,7 @@ from webkitpy.layout_tests.controllers.layout_test_finder_legacy import (
     _is_reference_html_file,
 )
 from webkitpy.layout_tests.models.server_routing import ServerType
-from webkitpy.layout_tests.models.test import Test, _file_path_sort_key
+from webkitpy.layout_tests.models.test import Reference, Test, _file_path_sort_key
 from webkitpy.port.test import (
     TestPort,
     add_unit_tests_to_mock_filesystem,
@@ -1034,6 +1034,44 @@ class LayoutTestFinderTestsBase(object):
             ],
         )
 
+    def test_filename_and_directory_flags(self):
+        finder = self.finder
+        fs = finder._filesystem
+
+        expected = [
+            ("foo/a.h2.html", ServerType.FILE, {"h2"}),
+            ("foo/b.https.html", ServerType.FILE, {"https"}),
+            ("foo/c.sub.html", ServerType.FILE, {"sub"}),
+            ("foo/d.h2.https.sub.html", ServerType.FILE, {"h2", "https", "sub"}),
+            # Flags are matched case-insensitively.
+            ("foo/e.HTTPS.html", ServerType.FILE, {"https"}),
+            # A flag needs a "." on both sides: these are all plain names.
+            ("foo/f-https.html", ServerType.FILE, set()),
+            ("foo/https.html", ServerType.FILE, set()),
+            ("foo/g.httpsfoo.html", ServerType.FILE, set()),
+            # An HTTP test under ssl/ is served over HTTPS...
+            ("http/tests/ssl/h.html", ServerType.HTTP, {"https"}),
+            ("http/tests/security/ssl/i.html", ServerType.HTTP, {"https"}),
+            ("http/tests/security/j.https.html", ServerType.HTTP, {"https"}),
+            ("http/tests/security/k.html", ServerType.HTTP, set()),
+            # ...but ssl/ outside an HTTP root has no such meaning.
+            ("ssl/l.html", ServerType.FILE, set()),
+            ("foo/ssl/m.html", ServerType.FILE, set()),
+            # A directory merely containing "ssl" is not ssl/.
+            ("http/tests/sslfoo/n.html", ServerType.HTTP, set()),
+        ]
+
+        fs.chdir(self.port.layout_tests_dir())
+        for path, _, _ in expected:
+            fs.maybe_make_directory(fs.dirname(path))
+            fs.write_text_file(path, "XXX")
+
+        tests = finder.find_tests_by_path([path for path, _, _ in expected], with_expectations=True)
+        self.assertEqual(
+            tests,
+            [Test(test_path=path, served_by=served_by, flags=frozenset(flags)) for path, served_by, flags in expected],
+        )
+
     def test_is_websocket_test(self):
         finder = self.finder
         fs = finder._filesystem
@@ -1089,6 +1127,7 @@ class LayoutTestFinderTestsBase(object):
                 Test(
                     test_path="imported/w3c/web-platform-tests/service-workers/service-worker/websocket.https.html",
                     served_by=ServerType.WPT,
+                    flags={'https'},
                 ),
                 Test(
                     test_path="fast/websocket-something.html",
@@ -1375,9 +1414,9 @@ class LayoutTestFinderTestsBase(object):
                 Test(
                     test_path="foo/test.html",
                     reference_files=(
-                        (
-                            "==",
-                            fs.join(
+                        Reference(
+                            relation="==",
+                            path=fs.join(
                                 self.port.layout_tests_dir(),
                                 "foo",
                                 "test-expected.html",
@@ -1400,9 +1439,9 @@ class LayoutTestFinderTestsBase(object):
                 Test(
                     test_path="foo/test.html",
                     reference_files=(
-                        (
-                            "!=",
-                            fs.join(
+                        Reference(
+                            relation="!=",
+                            path=fs.join(
                                 self.port.layout_tests_dir(),
                                 "platform",
                                 "test-mac-snowleopard",
@@ -1436,7 +1475,7 @@ class LayoutTestFinderTestsBase(object):
         tests = finder.find_tests_by_path(["foo/test.html"], with_expectations=True)
 
         expected_reference_files = tuple(
-            (reftype, fs.join(self.port.layout_tests_dir(), "foo", refpath))
+            Reference(relation=reftype, path=fs.join(self.port.layout_tests_dir(), "foo", refpath))
             for reftype, refpath in (
                 ("==", "test-expected.html"),
                 ("==", "test-expected.svg"),
@@ -1481,7 +1520,7 @@ class LayoutTestFinderTestsBase(object):
         tests = finder.find_tests_by_path(["foo/test.html"], with_expectations=True)
 
         expected_reference_files = tuple(
-            (reftype, fs.join(self.port.layout_tests_dir(), "foo", refpath))
+            Reference(relation=reftype, path=fs.join(self.port.layout_tests_dir(), "foo", refpath))
             for reftype, refpath in (
                 ("==", "test-expected.html"),
                 ("==", "test-expected.xhtml"),
@@ -1522,7 +1561,7 @@ class LayoutTestFinderTestsBase(object):
         tests = finder.find_tests_by_path(["foo/test.html"], with_expectations=True)
 
         expected_reference_files = tuple(
-            (reftype, fs.join(self.port.layout_tests_dir(), "foo", refpath))
+            Reference(relation=reftype, path=fs.join(self.port.layout_tests_dir(), "foo", refpath))
             for reftype, refpath in (
                 ("==", "test-expected.html"),
                 ("==", "test-expected.xht"),
@@ -1563,7 +1602,7 @@ class LayoutTestFinderTestsBase(object):
         tests = finder.find_tests_by_path(["foo/test.html"], with_expectations=True)
 
         expected_reference_files = tuple(
-            (reftype, fs.join(self.port.layout_tests_dir(), "foo", refpath))
+            Reference(relation=reftype, path=fs.join(self.port.layout_tests_dir(), "foo", refpath))
             for reftype, refpath in (
                 ("==", "test-expected.html"),
                 ("==", "test-expected.svg"),

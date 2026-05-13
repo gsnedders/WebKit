@@ -29,10 +29,13 @@
 import unittest
 import optparse
 
+from webkitpy.common.host_mock import MockHost
 from webkitpy.common.system.systemhost_mock import MockSystemHost
 
 from webkitpy.port import Port, Driver, DriverInput, DriverOutput
+from webkitpy.port.driver import DriverProxy
 from webkitpy.port.server_process_mock import MockServerProcess
+from webkitpy.port.test import TestDriver, TestPort
 from webkitpy.thirdparty.mock import patch
 
 # FIXME: remove the dependency on TestWebKitPort
@@ -111,33 +114,6 @@ class DriverTest(unittest.TestCase):
     def test_profiler_and_wrapper(self):
         driver = Driver(self.make_port(MockSystemHost(os_name='linux'), MockOptions(profile=True, profiler='perf', wrapper='valgrind')), None, False)
         self.assertEqual(driver._command_wrapper(), ['valgrind', 'perf', 'record', '-g', '--output', '/mock-build/layout-test-results/test.data'])
-
-    def test_test_to_uri(self):
-        port = self.make_port()
-        driver = Driver(port, None, pixel_tests=False)
-
-        self.assertEqual(driver.test_to_uri(DriverInput('foo/bar.html', 1000, None, None)), 'file://%s/foo/bar.html' % port.layout_tests_dir())
-        self.assertEqual(driver.test_to_uri(DriverInput('foo/bar.html', 1000, None, None, additional_header='runInCrossOriginFrame=true')), 'http://127.0.0.1:8000/root/foo/bar.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('http/tests/foo.html', 1000, None, None)), 'http://127.0.0.1:8000/foo.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('http/tests/ssl/bar.html', 1000, None, None)), 'https://127.0.0.1:8443/ssl/bar.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('imported/w3c/web-platform-tests/foo/bar.html', 1000, None, None)), 'http://localhost:8800/foo/bar.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('imported/w3c/web-platform-tests/foo/bar.https.html', 1000, None, None)), 'https://localhost:9443/foo/bar.https.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('http/wpt/bar2.html', 1000, None, None)), 'http://localhost:8800/WebKit/bar2.html')
-        self.assertEqual(driver.test_to_uri(DriverInput('http/wpt/bar2.https.html', 1000, None, None)), 'https://localhost:9443/WebKit/bar2.https.html')
-        # Driver-side behavior that the finder's classification has to agree with, unchanged by this commit.
-        self.assertEqual(driver.test_to_uri(DriverInput('websocket/tests/passes/text.html', 1000, None, None)), 'file://%s/websocket/tests/passes/text.html' % port.layout_tests_dir())
-
-    def test_uri_to_test(self):
-        port = self.make_port()
-        driver = Driver(port, None, pixel_tests=False)
-        self.assertEqual(driver.uri_to_test('file://%s/foo/bar.html' % port.layout_tests_dir()), 'foo/bar.html')
-        self.assertEqual(driver.uri_to_test('http://127.0.0.1:8000/foo.html'), 'http/tests/foo.html')
-        self.assertEqual(driver.uri_to_test('https://127.0.0.1:8443/ssl/bar.html'), 'http/tests/ssl/bar.html')
-        self.assertEqual(driver.uri_to_test('https://127.0.0.1:8443/ssl/bar.https.html'), 'http/tests/ssl/bar.https.html')
-        self.assertEqual(driver.uri_to_test('http://localhost:8800/foo/bar.html'), 'imported/w3c/web-platform-tests/foo/bar.html')
-        self.assertEqual(driver.uri_to_test('http://localhost:8800/WebKit/bar2.html'), 'http/wpt/bar2.html')
-        self.assertEqual(driver.uri_to_test('https://localhost:9443/WebKit/bar2.https.html'), 'http/wpt/bar2.https.html')
-        self.assertEqual(driver.uri_to_test('http://127.0.0.1:8000/root/foo/bar.html'), 'foo/bar.html')
 
     def test_read_block(self):
         port = TestWebKitPort()
@@ -436,23 +412,58 @@ class DriverTest(unittest.TestCase):
         d = port.layout_tests_dir()
         t = "'--timeout'1000"
 
-        def command_for(test_name, **kwargs):
-            return driver._command_from_driver_input(DriverInput(test_name, 1000, None, False, **kwargs))
+        def command_for(test_name, url=None, **kwargs):
+            return driver._command_from_driver_input(DriverInput(test_name, 1000, None, False, url=url, **kwargs))
 
-        # File tests get a bare absolute path
+        # Regression guards for the pass-through cases below, which behave the
+        # same with or without a pre-resolved url.
+        # Perf-test-style test_name (full URL) is passed through unchanged.
+        self.assertEqual(command_for('http://example.com/perf.html'), f"http://example.com/perf.html{t}\n")
+        self.assertEqual(command_for('about:blank'), f"about:blank{t}\n")
+
+        # No-url fallback: bare absolute path of the test_name.
         self.assertEqual(command_for('foo/bar.html'), f"{d}/foo/bar.html{t}\n")
 
-        # http/tests/local/ gets a bare path despite being under http/tests/
-        self.assertEqual(command_for('http/tests/local/foo.html'), f"{d}/http/tests/local/foo.html{t}\n")
+        # file:// URL: bare absolute path of the test_name.
+        self.assertEqual(command_for('foo/bar.html', url=f'file://{d}/foo/bar.html'), f"{d}/foo/bar.html{t}\n")
 
-        # Websocket tests get a bare path
-        self.assertEqual(command_for('websocket/tests/passes/text.html'), f"{d}/websocket/tests/passes/text.html{t}\n")
+        # http:// URL (HTTP test): URL + '--absolutePath' + abs path.
+        self.assertEqual(command_for('http/tests/foo.html', url='http://127.0.0.1:8000/foo.html'), f"http://127.0.0.1:8000/foo.html'--absolutePath'{d}/http/tests/foo.html{t}\n")
 
-        # HTTP tests get URL + '--absolutePath' + abs path
-        self.assertEqual(command_for('http/tests/foo.html'), f"http://127.0.0.1:8000/foo.html'--absolutePath'{d}/http/tests/foo.html{t}\n")
+        # http:// URL (WPT test): URL + '--absolutePath' + abs path.
+        self.assertEqual(command_for('imported/w3c/web-platform-tests/foo/bar.html', url='http://localhost:8800/foo/bar.html'), f"http://localhost:8800/foo/bar.html'--absolutePath'{d}/imported/w3c/web-platform-tests/foo/bar.html{t}\n")
 
-        # WPT tests get URL + '--absolutePath' + abs path
-        self.assertEqual(command_for('imported/w3c/web-platform-tests/foo/bar.html'), f"http://localhost:8800/foo/bar.html'--absolutePath'{d}/imported/w3c/web-platform-tests/foo/bar.html{t}\n")
+        # runInCrossOriginFrame: when a url is supplied, it is used as-is (not auto-derived from test_name).
+        self.assertEqual(command_for('foo/bar.html', url='http://127.0.0.1:8000/root/foo/bar.html', additional_header='runInCrossOriginFrame=true'), f"http://127.0.0.1:8000/root/foo/bar.html'--absolutePath'{d}/foo/bar.html{t}'--additional-header'runInCrossOriginFrame=true\n")
 
-        # runInCrossOriginFrame forces HTTP URL via /root/
-        self.assertEqual(command_for('foo/bar.html', additional_header='runInCrossOriginFrame=true'), f"http://127.0.0.1:8000/root/foo/bar.html'--absolutePath'{d}/foo/bar.html{t}'--additional-header'runInCrossOriginFrame=true\n")
+
+class DriverProxyTest(unittest.TestCase):
+    def test_url_to_test_name_survives_pixel_tests_toggle(self):
+        # DriverProxy destroys and re-creates its wrapped Driver whenever
+        # should_run_pixel_test toggles between run_test() calls. The
+        # url_to_test_name dict is owned by the proxy (not the wrapped
+        # Driver) precisely so a URL recorded before the toggle can still be
+        # resolved afterwards.
+        host = MockHost()
+        port = TestPort(host)
+        proxy = DriverProxy(port, 0, TestDriver, pixel_tests=False, no_timeout=False)
+        driver_before_toggle = proxy._driver
+
+        proxy.run_test(
+            DriverInput('passes/text.html', 1000, None, False, url='file:///test.checkout/LayoutTests/passes/text.html'),
+            stop_when_done=False,
+        )
+
+        # A different should_run_pixel_test forces DriverProxy to stop the
+        # old Driver and create a new one.
+        proxy.run_test(
+            DriverInput('passes/image.html', 1000, None, True, url='file:///test.checkout/LayoutTests/passes/image.html'),
+            stop_when_done=False,
+        )
+
+        self.assertIsNot(proxy._driver, driver_before_toggle)
+        self.assertIs(proxy._driver._url_to_test_name, proxy._url_to_test_name)
+        self.assertEqual(
+            proxy._url_to_test_name['file:///test.checkout/LayoutTests/passes/text.html'],
+            'passes/text.html',
+        )

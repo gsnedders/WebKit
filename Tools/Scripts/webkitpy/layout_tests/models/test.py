@@ -77,6 +77,7 @@ class Test(object):
     reference_files = attr.ib(default=None, type=list, order=False)
     served_by = attr.ib(default=ServerType.FILE, type=ServerType, order=False)
     is_crash_test = attr.ib(default=False, type=bool, order=False)
+    _flags = attr.ib(default=frozenset(), type=frozenset, order=False)
 
     @property
     def file_path(self):
@@ -85,6 +86,18 @@ class Test(object):
     @property
     def variant(self):
         return test_name_and_variant(self.test_path)[1]
+
+    @property
+    def https(self):
+        return "https" in self._flags
+
+    @property
+    def h2(self):
+        return "h2" in self._flags
+
+    @property
+    def subdomain(self):
+        return "sub" in self._flags
 
     @property
     def needs_http_server(self):
