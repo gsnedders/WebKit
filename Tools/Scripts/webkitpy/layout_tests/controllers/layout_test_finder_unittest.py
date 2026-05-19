@@ -304,6 +304,124 @@ class LayoutTestFinderTestsBase(object):
         fs.maybe_make_directory(fs.dirname(full_path))
         fs.write_text_file(full_path, contents)
 
+    def _fuzzy_of(self, contents, test='fast/fuzzy/test.html', reference='fast/fuzzy/test-expected.html', query=None):
+        """Discover a non-WPT test and return its Test.fuzzy. A sibling
+        reference is needed for the test to be a reftest at all."""
+        self._add_test_file(test, contents)
+        if reference:
+            self._add_test_file(reference, '<html></html>\n')
+        (found,) = self.assertTestsFound([query or test], [query or test])
+        return found.fuzzy
+
+    def _abs(self, rel_path):
+        fs = self.port.host.filesystem
+        return fs.normpath(fs.join(self.port.layout_tests_dir(), rel_path))
+
+    MATCH = '<link rel="match" href="test-expected.html">'
+
+    def test_non_wpt_fuzzy_default_values(self):
+        for description, value, expected in (
+            ('named, with spaces', 'maxDifference = 15 ; totalPixels = 300', {None: [[15, 15], [300, 300]]}),
+            ('nameless', ' 15 ; 300 ', {None: [[15, 15], [300, 300]]}),
+            ('named ranges', 'maxDifference=5-15;totalPixels =  200 - 300 ', {None: [[5, 15], [200, 300]]}),
+            ('nameless ranges', '5-15;  200 - 300 ', {None: [[5, 15], [200, 300]]}),
+        ):
+            with self.subTest(description):
+                self.assertEqual(
+                    self._fuzzy_of('<html><head>%s<meta name=fuzzy content="%s"></head></html>\n' % (self.MATCH, value)),
+                    expected,
+                )
+
+    def test_non_wpt_fuzzy_per_reference_is_keyed_by_absolute_reference_path(self):
+        fuzzy = self._fuzzy_of(
+            '<html><head>%s'
+            '<link rel="match" href="close-match-ref.html">'
+            '<link rel="match" href="worse-match-ref.html">'
+            '<meta name=fuzzy content="5-15;200-300 ">'
+            '<meta name=fuzzy content="close-match-ref.html:5;20">'
+            '<meta name=fuzzy content="worse-match-ref.html: 15;30">'
+            '</head></html>\n' % self.MATCH
+        )
+        self.assertEqual(
+            fuzzy,
+            {
+                None: [[5, 15], [200, 300]],
+                self._abs('fast/fuzzy/close-match-ref.html'): [[5, 5], [20, 20]],
+                self._abs('fast/fuzzy/worse-match-ref.html'): [[15, 15], [30, 30]],
+            },
+        )
+
+    def test_non_wpt_fuzzy_relative_reference_is_resolved_to_an_absolute_key(self):
+        fuzzy = self._fuzzy_of(
+            '<html><head>%s'
+            '<link rel="match" href="../resources/common-ref.html">'
+            '<meta name=fuzzy content="maxDifference=15;totalPixels=300">'
+            '<meta name=fuzzy content="../resources/common-ref.html:maxDifference=5-8;totalPixels=78-84">'
+            '</head></html>\n' % self.MATCH
+        )
+        self.assertEqual(
+            fuzzy,
+            {
+                None: [[15, 15], [300, 300]],
+                self._abs('fast/resources/common-ref.html'): [[5, 8], [78, 84]],
+            },
+        )
+
+    def test_non_wpt_fuzzy_in_xml_document(self):
+        fuzzy = self._fuzzy_of(
+            '<svg width="340" height="140" xmlns="http://www.w3.org/2000/svg" xmlns:html="http://www.w3.org/1999/xhtml">'
+            '<html:meta name="fuzzy" content="maxDifference=0-1; totalPixels=0-2"/></svg>\n',
+            test='fast/fuzzy/test.svg',
+            reference='fast/fuzzy/test-expected.svg',
+        )
+        self.assertEqual(fuzzy, {None: [[0, 1], [0, 2]]})
+
+    def test_non_wpt_without_fuzzy_metadata_has_no_fuzzy(self):
+        self.assertIsNone(self._fuzzy_of('<html><head>%s</head></html>\n' % self.MATCH))
+
+    def test_non_wpt_fuzzy_needs_a_sibling_reference(self):
+        # Without a sibling reference the test isn't a reftest, so its
+        # metadata is not read.
+        self.assertIsNone(
+            self._fuzzy_of(
+                '<html><head>%s<meta name=fuzzy content="15;300"></head></html>\n' % self.MATCH,
+                reference=None,
+            )
+        )
+
+    def test_non_wpt_fuzzy_of_a_variant_comes_from_the_file_without_the_variant(self):
+        # Including a fragment before a query: splitting at the first '?'
+        # would leave '#frag' on the file name, so the file wouldn't be found.
+        for query in ('fast/fuzzy/test.html?variant', 'fast/fuzzy/test.html#frag?variant'):
+            with self.subTest(query):
+                fuzzy = self._fuzzy_of(
+                    '<html><head>%s<meta name=fuzzy content="15;300"></head></html>\n' % self.MATCH,
+                    query=query,
+                )
+                self.assertEqual(fuzzy, {None: [[15, 15], [300, 300]]})
+
+    def test_non_wpt_malformed_fuzzy_is_ignored_with_a_warning(self):
+        for description, head in (
+            ('one range', '<meta name=fuzzy content="1">'),
+            ('unknown property', '<meta name=fuzzy content="foo=1;2">'),
+            ('reference that is not linked', '<meta name=fuzzy content="other-ref.html:1;2">'),
+            ('non-integer', '<meta name=fuzzy content="a;1">'),
+        ):
+            with self.subTest(description):
+                with self.assertLogs("webkitpy.layout_tests.controllers.layout_test_finder", level=logging.WARNING) as cm:
+                    fuzzy = self._fuzzy_of('<html><head>%s%s</head></html>\n' % (self.MATCH, head))
+                self.assertIsNone(fuzzy)
+                self.assertTrue(
+                    any("Ignoring fuzzy metadata" in msg and "fast/fuzzy/test.html" in msg for msg in cm.output),
+                    cm.output,
+                )
+
+    def test_non_wpt_fuzzy_when_the_file_cannot_be_read_through_the_filesystem(self):
+        # The finder falls back to letting SourceFile read the file itself.
+        with mock.patch.object(self.finder.fs, "read_binary_file", side_effect=IOError("gone")):
+            fuzzy = self._fuzzy_of('<html><head>%s<meta name=fuzzy content="15;300"></head></html>\n' % self.MATCH)
+        self.assertEqual(fuzzy, {None: [[15, 15], [300, 300]]})
+
     def assertTestsFound(self, queries, expected_paths):
         tests = list(self.finder.get_tests(queries))
         self.assertEqual([t.test_path for t in tests], expected_paths)
@@ -514,8 +632,15 @@ class WptTestsForPathTestsBase(object):
         # backslashes under pyfakefs's Windows emulation (https://github.com/pytest-dev/pyfakefs/issues/1348).
         self.assertEqual(test.expected_text_path, baseline)
 
-    def test_reftest_fuzzy_keyed_by_relative_path(self):
-        """Fuzzy dict keys must be relative-to-test-dir strings, not abs paths."""
+    def test_reftest_fuzzy_keyed_by_absolute_path(self):
+        """Fuzzy dict keys must match Reference.path's format: absolute
+        filesystem paths (see _wpt_references_for_item's docstring). The
+        consumer, single_test_runner._fuzzy_tolerance_for_reference, looks
+        tolerances up by exactly that absolute path -- a relative-path key
+        here would never match, silently falling back to the None-default
+        tolerance (or none at all) for every WPT reftest with a per-reference
+        fuzzy value.
+        """
         self._write_wpt_file(
             "foo/reftest.html",
             '<html><head>'
@@ -530,14 +655,13 @@ class WptTestsForPathTestsBase(object):
         self.assertEqual(len(tests), 1)
         t = tests[0]
         self.assertIsNotNone(t.fuzzy)
-        # The key must be the relative path from the test's directory.
-        # (A later change in this series keys by absolute reference path
-        # instead, and rewrites this test accordingly.)
-        self.assertIn("some-ref.html", t.fuzzy,
-                      f"Expected 'some-ref.html' key in fuzzy dict, got: {list(t.fuzzy.keys())}")
-        # Must NOT be an absolute path key
-        abs_keys = [k for k in t.fuzzy if k is not None and k.startswith("/")]
-        self.assertEqual(abs_keys, [], f"Found absolute path key(s) in fuzzy dict: {abs_keys}")
+        # The key must be the same absolute path used as the Reference's own
+        # `path`, since that's what the consumer looks tolerances up by.
+        self.assertEqual(len(t.reference_files), 1)
+        ref_path = t.reference_files[0].path
+        self.assertIn(ref_path, t.fuzzy,
+                      f"Expected {ref_path!r} key in fuzzy dict, got: {list(t.fuzzy.keys())}")
+        self.assertTrue(self.filesystem.isabs(ref_path), f"Expected an absolute path, got: {ref_path!r}")
 
     def test_reftest_prefers_sibling_over_manifest_ref(self):
         """When a reftest's manifest ref AND an imported `<stem>-expected.<ext>`

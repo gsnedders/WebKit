@@ -515,6 +515,37 @@ class LayoutTestFinder(object):
                 detected_flags.add("https")
             flags = frozenset(detected_flags)
 
+            # Parse fuzzy metadata at discovery time for reftests.
+            fuzzy = None
+            if reference_files is not None:
+                rel_path = self.fs.join(dirname, basename)
+                try:
+                    contents = self.fs.read_binary_file(path)
+                except (IOError, OSError, UnicodeDecodeError):
+                    contents = None
+                try:
+                    sourcefile = SourceFile(
+                        self.layout_tests_base_dir, rel_path, "/", contents=contents
+                    )
+                    if sourcefile.fuzzy:
+                        fuzzy = {}
+                        for key, value in sourcefile.fuzzy.items():
+                            if key is None:
+                                fuzzy[None] = value
+                            else:
+                                # key is (test_url, ref_url, reftype); only ref_url matters
+                                # url_base is "/", so ref_url is like /dir/reference.html
+                                ref_url = key[1]
+                                ref_rel_path = ref_url.lstrip("/")
+                                ref_abs_path = self.fs.join(
+                                    self.layout_tests_base_dir, *ref_rel_path.split("/")
+                                )
+                                fuzzy[ref_abs_path] = value
+                except ValueError as e:
+                    # SourceFile raises ValueError for malformed fuzzy metadata
+                    # (see _wpt_tests_for_path); run the test without it.
+                    _log.warning("Ignoring fuzzy metadata of %s: %s", trimmed_path, e)
+
             yield Test(
                 test_path=trimmed_path + variant,
                 file_path=trimmed_path,
@@ -526,6 +557,7 @@ class LayoutTestFinder(object):
                 ),
                 served_by=served_by,
                 flags=flags,
+                fuzzy=fuzzy,
             )
 
     def _wpt_tests_for_path(
@@ -691,17 +723,11 @@ class LayoutTestFinder(object):
                 raw_fuzzy = getattr(item, "fuzzy", None)
                 if raw_fuzzy:
                     fuzzy = {}
-                    # `single_test_runner._fuzzy_tolerance_for_reference` looks up
-                    # tolerances by ref-path-relative-to-test-dir strings (matching
-                    # what `_fuzzy_metadata_for_file` produces from
-                    # `<meta name="fuzzy" content="bar-ref.html:5;100">` tags) or
-                    # by `None` for the default. Translate WPT's
+                    # `single_test_runner._fuzzy_tolerance_for_reference` looks
+                    # up tolerances by the Reference's `path` (an absolute
+                    # filesystem path -- see _wpt_references_for_item) or by
+                    # `None` for the default. Translate WPT's
                     # `(test_url, ref_url, reftype)` keys into that shape.
-                    # (The pre-fixup code keyed by absolute filesystem paths,
-                    # which never matched the consumer's lookup — only the
-                    # `None`-default fallback worked. Fixed here.)
-                    test_file_part, _ = test_name_and_variant(test_path)
-                    test_dirname = posixpath.dirname(test_file_part)
                     for key, value in raw_fuzzy.items():
                         if key is None:
                             fuzzy[None] = value
@@ -711,7 +737,10 @@ class LayoutTestFinder(object):
                             if ref_test_path is None:
                                 continue
                             ref_file_part, _ = test_name_and_variant(ref_test_path)
-                            fuzzy[posixpath.relpath(ref_file_part, test_dirname)] = value
+                            ref_abs_path = self.fs.join(
+                                self.layout_tests_base_dir, *ref_file_part.split("/")
+                            )
+                            fuzzy[ref_abs_path] = value
                 if fuzzy is not None:
                     kwargs["fuzzy"] = fuzzy
 
