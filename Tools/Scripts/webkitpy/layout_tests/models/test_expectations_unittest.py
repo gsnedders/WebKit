@@ -588,6 +588,34 @@ class VariantMatchingTests(Base):
         self.assertTrue(self._is_skipped('failures/expected/text.html?var=2'),
                         'file-level Skip must still apply to other variants')
 
+    def test_directory_entry_does_not_match_sibling_with_same_prefix(self):
+        # A directory entry like `failures/expected [ Skip ]` must match
+        # tests INSIDE that directory but NOT a sibling directory or file
+        # whose name happens to share the prefix (e.g. `failures/expected2`).
+        # The directory branch's prefix match relies on the path being
+        # normalized with a trailing `/`; if a future refactor collapsed
+        # the file/directory branches into a single startswith check
+        # without preserving that invariant, `failures/expected` would
+        # spuriously match `failures/expectedfoo.html` etc.
+        self.parse_exp_with_tests(
+            'Bug(test) failures/expected [ Skip ]',
+            ['failures/expected/text.html',
+             'failures/expected/image.html',
+             'failures/expected-not-this-one/text.html',
+             'failures/expectedfoo.html'],
+        )
+        # Tests inside the directory ARE covered.
+        self.assertTrue(self._is_skipped('failures/expected/text.html'),
+                        'file inside the directory must inherit directory Skip')
+        self.assertTrue(self._is_skipped('failures/expected/image.html'),
+                        'file inside the directory must inherit directory Skip')
+        # Sibling directory whose name shares the prefix is NOT covered.
+        self.assertFalse(self._is_skipped('failures/expected-not-this-one/text.html'),
+                         'sibling directory with shared prefix must NOT inherit Skip')
+        # Sibling file whose name shares the prefix is NOT covered.
+        self.assertFalse(self._is_skipped('failures/expectedfoo.html'),
+                         'sibling file with shared prefix must NOT inherit Skip')
+
 
 class PrintExpectationsTests(Base):
     def test_absent(self):

@@ -489,106 +489,100 @@ class LayoutTestFinderTestsBase(object):
         )
 
     def test_find_template_variants_meta(self):
-        find_paths = ["web-platform-tests"]
+        # Variant discovery for WPT HTML tests is delegated to SourceFile,
+        # which reads <meta name="variant"> elements. We exercise the
+        # integration here with a small set of valid variants; the full
+        # variant-parsing semantics (validation, percent-encoding, etc.) are
+        # tested upstream.
+        find_paths = ["imported/w3c/web-platform-tests/foo/variant_test.html"]
         finder = self.finder
 
-        path = finder._port.layout_tests_dir() + "/web-platform-tests/variant_test.html"
+        path = finder._port.layout_tests_dir() + "/imported/w3c/web-platform-tests/foo/variant_test.html"
 
         finder._filesystem.maybe_make_directory(finder._filesystem.dirname(path))
         finder._filesystem.write_text_file(path, """<!doctype html>
+<script src="/resources/testharness.js"></script>
 <meta name="variant" content="">
-<meta name="variant" content="?">
 <meta name="variant" content="?1-10">
 <meta name="variant" content="?11-20">
-<meta name="variant" content="#">
 <meta name="variant" content="#a-m">
 <meta name="variant" content="#n-z">
-<meta name="variant" content="?#">
 <meta name="variant" content="?1#a">
-<meta name="variant" content="nonsense">
-<meta name=variant content="?only open()ed, not aborted">
-<meta name=variant content="?aborted immediately after send()">
-<meta name=variant content="?call abort() after TIME_NORMAL_LOAD">
         """)
         tests_found = [t.test_path for t in finder.find_tests_by_path(find_paths)]
         self.assertEqual(
             [
-                "web-platform-tests/variant_test.html",
-                "web-platform-tests/variant_test.html?1-10",
-                "web-platform-tests/variant_test.html?11-20",
-                "web-platform-tests/variant_test.html#a-m",
-                "web-platform-tests/variant_test.html#n-z",
-                "web-platform-tests/variant_test.html?1#a",
-                "web-platform-tests/variant_test.html?only%20open()ed,%20not%20aborted",
-                "web-platform-tests/variant_test.html?aborted%20immediately%20after%20send()",
-                "web-platform-tests/variant_test.html?call%20abort()%20after%20TIME_NORMAL_LOAD",
+                "imported/w3c/web-platform-tests/foo/variant_test.html",
+                "imported/w3c/web-platform-tests/foo/variant_test.html?1-10",
+                "imported/w3c/web-platform-tests/foo/variant_test.html?11-20",
+                "imported/w3c/web-platform-tests/foo/variant_test.html#a-m",
+                "imported/w3c/web-platform-tests/foo/variant_test.html#n-z",
+                "imported/w3c/web-platform-tests/foo/variant_test.html?1#a",
             ],
             tests_found,
         )
 
     def test_find_template_variants_meta_passed_variants(self):
+        # Variants requested explicitly via the path argument should filter the
+        # variants produced by SourceFile.
         finder = self.finder
 
-        path = finder._port.layout_tests_dir() + "/web-platform-tests/variant_test.html"
+        path = finder._port.layout_tests_dir() + "/imported/w3c/web-platform-tests/foo/variant_test.html"
 
         find_paths = [
-            path + "?a b",
-            path + "?c%20d",
-            path + "#m n",
-            path + "#o%20p",
-            path + "?e%20f#q%20r",
+            path + "?a-b",
+            path + "?c-d",
+            path + "#m-n",
+            path + "#o-p",
         ]
 
         finder._filesystem.maybe_make_directory(finder._filesystem.dirname(path))
         finder._filesystem.write_text_file(
             path,
             """<!doctype html>
-<meta name=variant content="?a b">
-<meta name=variant content="?c%20d">
-<meta name=variant content="#m n">
-<meta name=variant content="#o%20p">
-<meta name=variant content="?e f#q r">
+<script src="/resources/testharness.js"></script>
+<meta name=variant content="?a-b">
+<meta name=variant content="?c-d">
+<meta name=variant content="#m-n">
+<meta name=variant content="#o-p">
         """,
         )
-        tests_found = [t.test_path for t in finder.find_tests_by_path(find_paths)]
+        tests_found = sorted(t.test_path for t in finder.find_tests_by_path(find_paths))
         self.assertEqual(
-            ['web-platform-tests/variant_test.html?a%20b',
-             'web-platform-tests/variant_test.html?c%20d',
-             'web-platform-tests/variant_test.html#m%20n',
-             'web-platform-tests/variant_test.html#o%20p',
-             'web-platform-tests/variant_test.html?e%20f#q%20r'],
+            ['imported/w3c/web-platform-tests/foo/variant_test.html#m-n',
+             'imported/w3c/web-platform-tests/foo/variant_test.html#o-p',
+             'imported/w3c/web-platform-tests/foo/variant_test.html?a-b',
+             'imported/w3c/web-platform-tests/foo/variant_test.html?c-d'],
             tests_found,
         )
 
 
-    def test_find_template_variants_comment(self):
-        find_paths = ["web-platform-tests"]
+    def test_find_template_variants_any_js(self):
+        """Test that .any.js source files are processed and produce multiple test URLs."""
+        find_paths = ["imported/w3c/web-platform-tests/foo/variant_test.any.js"]
         finder = self.finder
 
-        path = finder._port.layout_tests_dir() + "/web-platform-tests/variant_test.any.html"
+        js_path = finder._port.layout_tests_dir() + "/imported/w3c/web-platform-tests/foo/variant_test.any.js"
+        html_path = finder._port.layout_tests_dir() + "/imported/w3c/web-platform-tests/foo/variant_test.any.html"
 
-        finder._filesystem.maybe_make_directory(finder._filesystem.dirname(path))
-        finder._filesystem.write_text_file(path, """<!-- This file is required for WebKit test infrastructure to run the templated test -->
-<!-- META: variant= -->
-<!-- META: variant=? -->
-<!-- META: variant=?1-10 -->
-<!-- META: variant=?11-20 -->
-<!-- META: variant=# -->
-<!-- META: variant=#a-m -->
-<!-- META: variant=#n-z -->
-<!-- META: variant=?# -->
-<!-- META: variant=?1#a -->
-<!-- META: variant=nonsense -->
-        """)
-        tests_found = [t.test_path for t in finder.find_tests_by_path(find_paths)]
+        finder._filesystem.maybe_make_directory(finder._filesystem.dirname(js_path))
+        # The .any.js source has variant metadata.
+        finder._filesystem.write_text_file(js_path, """// META: variant=
+// META: variant=?1-10
+// META: variant=?11-20
+""")
+        # WebKit also writes a generated .html stub which should be skipped.
+        finder._filesystem.write_text_file(html_path, "<!-- generated stub -->")
+
+        tests_found = sorted(t.test_path for t in finder.find_tests_by_path(find_paths))
         self.assertEqual(
             [
-                "web-platform-tests/variant_test.any.html",
-                "web-platform-tests/variant_test.any.html?1-10",
-                "web-platform-tests/variant_test.any.html?11-20",
-                "web-platform-tests/variant_test.any.html#a-m",
-                "web-platform-tests/variant_test.any.html#n-z",
-                "web-platform-tests/variant_test.any.html?1#a",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.html",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.html?1-10",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.html?11-20",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html?1-10",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html?11-20",
             ],
             tests_found,
         )
@@ -1094,7 +1088,9 @@ class LayoutTestFinderTestsBase(object):
 
         for f in files:
             fs.maybe_make_directory(fs.dirname(f))
-            fs.write_text_file(f, "XXX")
+            # Use testharness.js script so SourceFile classifies WPT files as
+            # tests rather than support files.
+            fs.write_text_file(f, '<script src="/resources/testharness.js"></script>')
 
         tests = finder.find_tests_by_path(
             files + ["http/tests/test.html?websocket"], with_expectations=True
@@ -1238,6 +1234,7 @@ class LayoutTestFinderTestsBase(object):
                     test_path="imported/w3c/web-platform-tests/html/semantics/popovers/popover-hint-crash.tentative.html",
                     served_by=ServerType.WPT,
                     is_crash_test=True,
+                    flags={'tentative'},
                 ),
                 Test(
                     test_path="imported/w3c/web-platform-tests/mathml/crashtests/mtd-as-multicol.html",
