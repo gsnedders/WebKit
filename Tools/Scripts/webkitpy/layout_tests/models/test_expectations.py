@@ -252,14 +252,24 @@ class TestExpectationParser(object):
             return
 
         if not expectation_line.is_file:
-            # this is a test category, return all the tests of the category.
-            expectation_line.matching_tests = [test for test in self._full_test_list if test.startswith(expectation_line.path)]
+            # Directory (or variant-bearing path): prefix match.
+            expectation_line.matching_tests = [
+                test for test in self._full_test_list
+                if test.startswith(expectation_line.path)
+            ]
             return
 
-        # this is a test file, do a quick check if it's in the
-        # full test suite.
-        if expectation_line.path in self._full_test_list:
-            expectation_line.matching_tests.append(expectation_line.path)
+        # File expectation: match the file itself and every `<path>?...` /
+        # `<path>#...` variant of it. A bare file name in TestExpectations
+        # covers all variants of that file unless a more-specific entry
+        # overrides — _already_seen_better_match handles precedence by path
+        # length.
+        path = expectation_line.path
+        prefix_q = path + "?"
+        prefix_f = path + "#"
+        for test in self._full_test_list:
+            if test == path or test.startswith(prefix_q) or test.startswith(prefix_f):
+                expectation_line.matching_tests.append(test)
 
     # FIXME: Update the original modifiers and remove this once the old syntax is gone.
     _configuration_tokens_list = [
