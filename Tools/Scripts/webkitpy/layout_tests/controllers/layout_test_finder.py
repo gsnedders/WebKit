@@ -384,20 +384,28 @@ class LayoutTestFinder(object):
 
         for pattern, variant in fnfilter:
             compiled = re.compile(fnmatch.translate(pattern))
+            # Generated Test.test_path variants are always percent-encoded
+            # (see _percent_encoded_variant); encode the user-supplied
+            # variant once here so both match sites below compare like with
+            # like, whichever branch a given file falls into.
+            encoded_variant = self._percent_encoded_variant(variant) if variant else variant
+            wanted_variants = [encoded_variant] if encoded_variant else None
             for f in merged_items:
                 if f[-1] == "/":
                     d = f[:-1]
                     if pattern == "*" or compiled.match(d):
                         found.append(d)
-                elif pattern == "*" or compiled.match(f):
+                    continue
+                if pattern == "*" or compiled.match(f):
                     found.extend(
-                        self._tests_for_path(
-                            path,
-                            f,
-                            [variant] if variant else None,
-                            non_test_files,
-                        )
+                        self._tests_for_path(path, f, wanted_variants, non_test_files)
                     )
+                else:
+                    for t in self._tests_for_path(path, f, None, non_test_files):
+                        t_file_part, t_variant = test_name_and_variant(t.test_path)
+                        t_basename = posixpath.basename(t_file_part)
+                        if compiled.match(t_basename) and (not variant or t_variant == encoded_variant):
+                            found.append(t)
 
         return found
 
@@ -564,17 +572,12 @@ class LayoutTestFinder(object):
             wanted_variants = set(variants)
 
         if item_type not in ("testharness", "reftest", "crashtest"):
-            # Not a runnable type for WKTR. `support` gets a TEMPORARY audit
-            # warning when it's an HTML-ish file the legacy finder would have
-            # run as a synthetic test; everything else (manual, wdspec, aamtest,
-            # visual, conformancechecker, test262, print-reftest) silently
-            # yields nothing.
-            if item_type == "support" and basename.endswith(supported_reference_extensions):
-                _log.warning(
-                    "Discarding HTML-ish 'support' file that the legacy finder "
-                    "would have run as a synthetic test: %s",
-                    file_path,
-                )
+            # Not a runnable type for WKTR. `support` for HTML-ish files that
+            # the legacy finder would have run as synthetic tests silently yields
+            # nothing (warning removed — asymmetric with non-WPT silent-skip and
+            # noisy under union match). Everything else (manual, wdspec, aamtest,
+            # visual, conformancechecker, test262, print-reftest) silently yields
+            # nothing.
             return
 
         for item in items:
