@@ -40,7 +40,7 @@ from webkitpy.layout_tests.controllers.layout_test_finder import (
     LayoutTestFinder,
 )
 from webkitpy.layout_tests.models.server_routing import ServerRoute, ServerType
-from webkitpy.layout_tests.models.test import test_name_and_variant
+from webkitpy.layout_tests.models.test import Reference, test_name_and_variant
 from webkitpy.port.test import (
     TestPort,
     add_unit_tests_to_mock_filesystem,
@@ -174,6 +174,107 @@ class LayoutTestFinderTestsBase(object):
         self.assertTestsFound(
             ['imported/w3c/web-platform-tests/foo'],
             ['imported/w3c/web-platform-tests/foo/bar.any.html'],
+        )
+
+    def _native(self, path):
+        """Spell a POSIX-style fixture path with the host separator."""
+        return self.port.host.filesystem.normpath(path)
+
+    def test_baselines_and_references_discovered_independently(self):
+        from collections import OrderedDict
+
+        non_test_files_by_search_path = OrderedDict([
+            (self._native('/dir'), {
+                'foo-expected.txt',
+                'foo-expected.png',
+                'foo-expected.html',
+                'foo-expected-mismatch.svg',
+            }),
+        ])
+
+        text, image, audio = self.finder._baselines_for_test('foo.html', '', non_test_files_by_search_path)
+        self.assertEqual(text, self._native('/dir/foo-expected.txt'))
+        self.assertEqual(image, self._native('/dir/foo-expected.png'))
+        self.assertIsNone(audio)
+
+        references = self.finder._sibling_references_for_test('foo.html', '', non_test_files_by_search_path)
+        self.assertEqual(
+            [(r.relation, r.path) for r in references],
+            [('==', self._native('/dir/foo-expected.html')), ('!=', self._native('/dir/foo-expected-mismatch.svg'))],
+        )
+
+        # _expectations_for_test still glues both halves back together.
+        self.assertEqual(
+            self.finder._expectations_for_test('foo.html', '', non_test_files_by_search_path),
+            (
+                self._native('/dir/foo-expected.txt'),
+                self._native('/dir/foo-expected.png'),
+                None,
+                [Reference('==', self._native('/dir/foo-expected.html')), Reference('!=', self._native('/dir/foo-expected-mismatch.svg'))],
+            ),
+        )
+
+    def test_references_come_from_the_most_specific_directory_only(self):
+        # Directories are ordered from least to most specific, and searched
+        # from the most specific.
+        non_test_files_by_search_path = OrderedDict([
+            (self._native('/generic'), {'foo-expected.html'}),
+            (self._native('/platform'), {'foo-expected-mismatch.html'}),
+        ])
+        self.assertEqual(
+            self.finder._sibling_references_for_test('foo.html', '', non_test_files_by_search_path),
+            [Reference('!=', self._native('/platform/foo-expected-mismatch.html'))],
+        )
+
+        non_test_files_by_search_path = OrderedDict([
+            (self._native('/generic'), {'foo-expected-mismatch.html'}),
+            (self._native('/platform'), {'foo-expected.html'}),
+        ])
+        self.assertEqual(
+            self.finder._sibling_references_for_test('foo.html', '', non_test_files_by_search_path),
+            [Reference('==', self._native('/platform/foo-expected.html'))],
+        )
+
+        self.assertIsNone(
+            self.finder._sibling_references_for_test('bar.html', '', non_test_files_by_search_path)
+        )
+
+    def test_baselines_come_from_the_most_specific_directory_per_slot(self):
+        non_test_files_by_search_path = OrderedDict([
+            (self._native('/generic'), {'foo-expected.txt', 'foo-expected.png', 'foo-expected.wav'}),
+            (self._native('/platform'), {'foo-expected.png'}),
+        ])
+        self.assertEqual(
+            self.finder._baselines_for_test('foo.html', '', non_test_files_by_search_path),
+            (self._native('/generic/foo-expected.txt'), self._native('/platform/foo-expected.png'), self._native('/generic/foo-expected.wav')),
+        )
+
+    def test_text_baseline_prefers_txt_over_webarchive(self):
+        both = OrderedDict([(self._native('/dir'), {'foo-expected.txt', 'foo-expected.webarchive'})])
+        self.assertEqual(self.finder._baselines_for_test('foo.html', '', both)[0], self._native('/dir/foo-expected.txt'))
+
+        webarchive_only = OrderedDict([(self._native('/dir'), {'foo-expected.webarchive'})])
+        self.assertEqual(
+            self.finder._baselines_for_test('foo.html', '', webarchive_only)[0], self._native('/dir/foo-expected.webarchive')
+        )
+
+        # A more specific webarchive does not hide a less specific .txt.
+        layered = OrderedDict([(self._native('/generic'), {'foo-expected.txt'}), (self._native('/platform'), {'foo-expected.webarchive'})])
+        self.assertEqual(self.finder._baselines_for_test('foo.html', '', layered)[0], self._native('/generic/foo-expected.txt'))
+
+    def test_baselines_and_references_with_variant(self):
+        non_test_files_by_search_path = OrderedDict([
+            (self._native('/dir'), {'foo_foo-expected.txt', 'foo_foo-expected.png', 'foo-expected.html', 'foo-expected.txt'}),
+        ])
+        # The baseline is named after the sanitized variant...
+        self.assertEqual(
+            self.finder._baselines_for_test('foo.html', '?foo', non_test_files_by_search_path),
+            (self._native('/dir/foo_foo-expected.txt'), self._native('/dir/foo_foo-expected.png'), None),
+        )
+        # ...while the reference is the unvarianted file with the variant appended.
+        self.assertEqual(
+            self.finder._sibling_references_for_test('foo.html', '?foo', non_test_files_by_search_path),
+            [Reference('==', self._native('/dir/foo-expected.html?foo'))],
         )
 
     def _add_test_file(self, path, contents=''):
@@ -374,6 +475,16 @@ class WptTestsForPathTestsBase(object):
             t.expected_text_path.endswith(baseline_filename),
             f"Expected expected_text_path to end with {baseline_filename!r}, got: {t.expected_text_path!r}",
         )
+
+    def test_baseline_paths_use_a_single_separator(self):
+        # The baseline name carries the "/" of the WPT test path, but the path
+        # reported to callers must be normalised to the host separator.
+        self._write_wpt_file("foo/t.html", '<script src="/resources/testharness.js"></script>\n')
+        baseline = self._write_wpt_file("foo/t-expected.txt", "PASS\n")
+        (test,) = self._get_wpt_tests("foo/t.html")
+        # Compare the whole path, not its basename: os.path.basename doesn't split on
+        # backslashes under pyfakefs's Windows emulation (https://github.com/pytest-dev/pyfakefs/issues/1348).
+        self.assertEqual(test.expected_text_path, baseline)
 
     def test_reftest_fuzzy_keyed_by_relative_path(self):
         """Fuzzy dict keys must be relative-to-test-dir strings, not abs paths."""
