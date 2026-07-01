@@ -592,9 +592,46 @@ class LayoutTestFinder(object):
             if test_path is None:
                 continue
 
-            _, item_variant = test_name_and_variant(test_path)
+            test_file_part, item_variant = test_name_and_variant(test_path)
             if wanted_variants is not None and item_variant not in wanted_variants:
                 continue
+
+            if test_file_part != file_path:
+                # Generated variant from .any.js/.window.js/.worker.js. If an
+                # on-disk stub exists AND classifies as anything other than
+                # `support`, both this source and the stub will yield Test
+                # objects for the same URL — a duplicate dispatch. E.g., an
+                # importer-emitted stub inside /crashtests/ classifies as
+                # `crashtest`, not `support`, which is what makes crashtest
+                # paired stubs uniquely buggy under SourceFile-based
+                # discovery. The warning falls silent once the WebKit WPT
+                # importer stops emitting the paired stubs (or SourceFile
+                # is fixed to classify them uniformly as `support`).
+                stub_rel_slash = test_file_part[len(wpt_prefix) + 1:]
+                stub_rel = stub_rel_slash.replace("/", self.fs.sep)
+                stub_full_path = self.fs.join(wpt_base_dir, stub_rel)
+                if self.fs.exists(stub_full_path):
+                    try:
+                        stub_contents = self.fs.read_binary_file(stub_full_path)
+                    except (IOError, OSError, UnicodeDecodeError):
+                        stub_contents = None
+                    try:
+                        stub_item_type, _ = SourceFile(
+                            wpt_base_dir, stub_rel, url_base,
+                            contents=stub_contents,
+                        ).manifest_items()
+                    except ValueError:
+                        stub_item_type = None
+                    if stub_item_type is not None and stub_item_type != "support":
+                        _log.warning(
+                            "Duplicate WPT Test dispatch: %s emitted from %s "
+                            "(as %s) and from on-disk stub %s (as %s) — the "
+                            "WebKit WPT importer should either stop emitting "
+                            "the stub, or SourceFile should classify it as "
+                            "`support`.",
+                            test_path, file_path, item_type,
+                            stub_full_path, stub_item_type,
+                        )
 
             kwargs = dict(
                 test_path=test_path,

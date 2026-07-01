@@ -773,6 +773,76 @@ class WptTestsForPathTestsBase(object):
         self.assertEqual(self._process_window_js_with_variants([("test.window.js", "?b")]), [prefix + "?b"])
         self.assertEqual(self._process_window_js_with_variants([("test.window.js", "?zzz")]), [])
 
+    # -----------------------------------------------------------------------
+    # Warning: on-disk stub for a generated variant classifies as non-support
+    # -----------------------------------------------------------------------
+    def test_generated_variant_stub_non_support_warns(self):
+        """A .any.js source generates a variant whose on-disk stub classifies
+        as `crashtest` (not `support`) — both sides yield a Test for the
+        same URL, so we warn about the duplicate dispatch. Concrete case:
+        `.any.js` under /crashtests/ with the importer-emitted `.any.html`
+        stub beside it. (Symmetric non-crashtest case verified below is
+        silent.)"""
+        self._write_wpt_file(
+            "IndexedDB/crashtests/create-index.any.js",
+            "// META: global=window,worker\ntest(() => {}, 'pass');\n",
+        )
+        # Importer-emitted stub — HTML inside /crashtests/ classifies as
+        # `crashtest` per SourceFile.
+        self._write_wpt_file(
+            "IndexedDB/crashtests/create-index.any.html",
+            "<!DOCTYPE html>\n<title>crash</title>\n",
+        )
+        with self.assertLogs(
+            "webkitpy.layout_tests.controllers.layout_test_finder",
+            level=logging.WARNING,
+        ) as cm:
+            tests = self._get_wpt_tests("IndexedDB/crashtests/create-index.any.js")
+        # The .any.js still yields its testharness-classified Tests (bug
+        # remains — this warning surfaces it, doesn't fix it).
+        self.assertTrue(tests, "Expected .any.js to yield at least one Test")
+        # Warning must mention both the source and the stub, and the type each
+        # classifies as (the path alone also contains "crashtests").
+        joined = "\n".join(cm.output)
+        self.assertIn("create-index.any.js (as testharness)", joined)
+        self.assertIn("create-index.any.html (as crashtest)", joined)
+
+    def test_generated_variant_support_stub_silent(self):
+        """The mirror case: a .any.js OUTSIDE /crashtests/ with an on-disk
+        `.any.html` stub. The stub classifies as `support`, so no dup is
+        possible and the warning must NOT fire."""
+        self._write_wpt_file(
+            "foo/basic.any.js",
+            "// META: global=window,worker\ntest(() => {}, 'pass');\n",
+        )
+        # Non-crashtest importer stub — classifies as `support`.
+        self._write_wpt_file(
+            "foo/basic.any.html",
+            "<!DOCTYPE html>\n<title>basic</title>\n",
+        )
+        logger = logging.getLogger(
+            "webkitpy.layout_tests.controllers.layout_test_finder"
+        )
+        # Suppress "no logs" AssertionError from assertNoLogs (only 3.10+);
+        # instead capture at WARNING+ and assert nothing about the stub
+        # was emitted.
+        with self.assertLogs(logger, level=logging.DEBUG) as cm:
+            logger.debug("sentinel")  # ensure the context has at least one record
+            tests = self._get_wpt_tests("foo/basic.any.js")
+        warnings = [r for r in cm.records if r.levelno >= logging.WARNING]
+        stub_warnings = [
+            r for r in warnings if "Duplicate WPT Test dispatch" in r.getMessage()
+        ]
+        self.assertEqual(
+            stub_warnings, [],
+            f"Expected no dup-dispatch warnings, got: "
+            f"{[r.getMessage() for r in stub_warnings]}",
+        )
+        # Sanity: the .any.js still produces its expected variants.
+        test_paths = {t.test_path for t in tests}
+        self.assertIn(self.WPT_PREFIX + "/foo/basic.any.html", test_paths)
+        self.assertIn(self.WPT_PREFIX + "/foo/basic.any.worker.html", test_paths)
+
 
 class WptTestsForPathLinuxTests(PyFakefsLinuxTestCaseMixin, WptTestsForPathTestsBase, unittest.TestCase):
     pass
