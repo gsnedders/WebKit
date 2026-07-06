@@ -610,6 +610,11 @@ class LayoutTestFinder(object):
                 stub_rel_slash = test_file_part[len(wpt_prefix) + 1:]
                 stub_rel = stub_rel_slash.replace("/", self.fs.sep)
                 stub_full_path = self.fs.join(wpt_base_dir, stub_rel)
+                if not self.fs.exists(stub_full_path):
+                    # Skip generated variants whose variantless stub
+                    # (test_file_part) doesn't exist on disk, so that
+                    # filesystem-based existence checks stay correct.
+                    continue
                 if self.fs.exists(stub_full_path):
                     try:
                         stub_contents = self.fs.read_binary_file(stub_full_path)
