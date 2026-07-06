@@ -558,11 +558,9 @@ class LayoutTestFinderTestsBase(object):
 
 
     def test_find_template_variants_any_js(self):
-        """Test that .any.js source files are processed and produce multiple test URLs
-        for the variants whose generated basename has an on-disk stub. Generated
-        variants without a stub (e.g. .any.worker.html here, since only the
-        .any.html stub is written below) are gated by the stub-backed-variant
-        restriction in LayoutTestFinder._wpt_tests_for_path."""
+        """Test that .any.js source files are processed and produce multiple test URLs,
+        one per generated basename (.any.html, .any.worker.html) times variant, regardless
+        of whether an on-disk importer stub exists for a given generated basename."""
         find_paths = ["imported/w3c/web-platform-tests/foo/variant_test.any.js"]
         finder = self.finder
 
@@ -584,6 +582,9 @@ class LayoutTestFinderTestsBase(object):
                 "imported/w3c/web-platform-tests/foo/variant_test.any.html",
                 "imported/w3c/web-platform-tests/foo/variant_test.any.html?1-10",
                 "imported/w3c/web-platform-tests/foo/variant_test.any.html?11-20",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html?1-10",
+                "imported/w3c/web-platform-tests/foo/variant_test.any.worker.html?11-20",
             ],
             tests_found,
         )

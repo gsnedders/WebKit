@@ -169,12 +169,32 @@ class LayoutTestFinderTestsBase(object):
         self._add_test_file('fast/foo/bar.window.js', any_js)
         self._add_test_file('fast/foo/bar.worker.js', any_js)
         self._add_test_file('imported/w3c/web-platform-tests/foo/bar.any.js', any_js)
-        self._add_test_file('imported/w3c/web-platform-tests/foo/bar.any.html', '<!-- stub -->\n')
 
         self.assertTestsFound(['fast/foo'], [])
         self.assertTestsFound(
             ['imported/w3c/web-platform-tests/foo'],
             ['imported/w3c/web-platform-tests/foo/bar.any.html'],
+        )
+    def test_get_tests_discovers_stubless_generated_variant(self):
+        """LayoutTestFinder.get_tests() -- the public entry point real
+        callers like rebaselineserver.py and test_importer.py use, and the
+        one TestExpectationParser._test_exists() falls back to -- must
+        discover a stub-less generated WPT variant (.any.worker.html) from
+        just its .any.js source. Other tests exercise the lower-level
+        _wpt_tests_for_path directly; this drives the same path real callers
+        actually use.
+        """
+        self._add_test_file(
+            'imported/w3c/web-platform-tests/foo/basic.any.js',
+            '// META: global=window,worker\ntest(() => {}, "pass");\n',
+        )
+        tests = list(self.finder.get_tests(['imported/w3c/web-platform-tests/foo']))
+        self.assertEqual(
+            sorted(t.test_path for t in tests),
+            [
+                'imported/w3c/web-platform-tests/foo/basic.any' + suffix
+                for suffix in ('.html', '.serviceworker.html', '.sharedworker.html', '.worker.html')
+            ],
         )
 
     def _native(self, path):
@@ -344,13 +364,6 @@ class WptTestsForPathTestsBase(object):
         self.filesystem.write_text_file(abs_path, contents)
         return abs_path
 
-    def _write_stub(self, rel_path):
-        """Write the comment-only stub the WPT importer emits for a generated variant."""
-        return self._write_wpt_file(
-            rel_path,
-            "<!-- This file is required for WebKit test infrastructure to run the templated test -->\n",
-        )
-
     def _get_wpt_tests(self, rel_path, variants=None):
         """Run _wpt_tests_for_path for a file under the WPT prefix."""
         parts = rel_path.rsplit("/", 1)
@@ -378,14 +391,9 @@ class WptTestsForPathTestsBase(object):
         """TestharnessTest with jsshell=True must not yield a Test."""
         # An .any.js declaring global=window,jsshell produces two items:
         # one for the .any.html window variant, and one for jsshell (.any.js URL).
+        # Only the window variant should appear: the jsshell URL is the .any.js
+        # source itself, which isn't loadable in a browser.
         self._write_wpt_file("blob/Blob-bytes.any.js", "// META: global=window,jsshell\ntest(() => {}, 'blob');\n")
-
-        # Without a stub, neither is discovered.
-        self.assertEqual(self._get_wpt_tests("blob/Blob-bytes.any.js"), [])
-
-        # With the .any.html stub, only the window variant is: the jsshell URL
-        # is the .any.js source itself and must not appear.
-        self._write_stub("blob/Blob-bytes.any.html")
         self.assertEqual(
             [t.test_path for t in self._get_wpt_tests("blob/Blob-bytes.any.js")],
             [self.WPT_PREFIX + "/blob/Blob-bytes.any.html"],
@@ -420,23 +428,18 @@ class WptTestsForPathTestsBase(object):
     # Test: .any.js produces expected .any.html and .any.worker.html Tests
     # -----------------------------------------------------------------------
     def test_any_js_produces_html_and_worker_variants(self):
-        """A basic .any.js (global=window,worker) yields the variants that have
-        an on-disk stub, and only those."""
+        """A basic .any.js (global=window,worker) yields one Test for each
+        generated variant, whether or not the importer wrote a stub."""
         self._write_wpt_file("foo/basic.any.js", "// META: global=window,worker\ntest(() => {}, 'pass');\n")
-
-        # Without stubs, no variant is discovered.
-        self.assertEqual(self._get_wpt_tests("foo/basic.any.js"), [])
-
-        # global=window,worker generates .any.html, .any.worker.html,
-        # .any.sharedworker.html and .any.serviceworker.html; only the first two
-        # have a stub.
-        self._write_stub("foo/basic.any.html")
-        self._write_stub("foo/basic.any.worker.html")
         tests = self._get_wpt_tests("foo/basic.any.js")
         self.assertEqual(
             sorted(t.test_path for t in tests),
-            [self.WPT_PREFIX + "/foo/basic.any.html", self.WPT_PREFIX + "/foo/basic.any.worker.html"],
+            [
+                self.WPT_PREFIX + "/foo/basic.any" + suffix
+                for suffix in (".html", ".serviceworker.html", ".sharedworker.html", ".worker.html")
+            ],
         )
+        # All tests should be WPT server type
         for t in tests:
             self.assertEqual(t.served_by, ServerType.WPT)
 
@@ -449,26 +452,57 @@ class WptTestsForPathTestsBase(object):
         baseline lookup must resolve to the canonical '…_foo_20bar-expected.txt'
         on-disk filename.
         """
+        from collections import OrderedDict
+
+        # Write the .window.js source with a variant that contains a space.
         self._write_wpt_file(
             "foo/test.window.js",
             "// META: variant=?foo bar\ntest(() => {}, 'pass');\n",
         )
-        stub = self._write_stub("foo/test.window.html")
-
-        # The canonical on-disk form: space → %20 via _percent_encoded_variant,
-        # then % → _ via sanitized_variant. So "?foo bar" → "?foo%20bar" →
-        # "foo_20bar" → "test.window_foo_20bar-expected.txt".
+        # Write a baseline file using the canonical on-disk form: space → %20
+        # via _percent_encoded_variant, then % → _ via sanitized_variant.
+        # So "?foo bar" → "?foo%20bar" → sanitized "foo_20bar" →
+        # baseline "test.window_foo_20bar-expected.txt".
         baseline_filename = "test.window_foo_20bar-expected.txt"
-        baseline_path = self._write_wpt_file("foo/" + baseline_filename, "PASS\n")
+        dirname = self.WPT_PREFIX + "/foo"
+        layout_dir = self.filesystem.join(self.layout_tests_dir, dirname)
+        self.filesystem.maybe_make_directory(layout_dir)
+        self.filesystem.write_text_file(
+            self.filesystem.join(layout_dir, baseline_filename),
+            "PASS\n",
+        )
 
-        (t,) = self._get_wpt_tests("foo/test.window.js")
-        self.assertEqual(t.test_path, self.WPT_PREFIX + "/foo/test.window.html?foo%20bar")
-        self.assertIsNotNone(t.expected_text_path)
-        self.assertEqual(t.expected_text_path, baseline_path)
+        # Build non_test_files: include layout dir (with test file + baseline).
+        non_test_files = OrderedDict()
+        files = set()
+        for entry in self.filesystem.scandir(layout_dir):
+            if entry.is_file():
+                files.add(entry.name)
+        non_test_files[layout_dir] = files
 
-        # Without the stub the variant is not discovered at all.
-        self.filesystem.remove(stub)
-        self.assertEqual(self._get_wpt_tests("foo/test.window.js"), [])
+        tests = list(
+            self.finder._wpt_tests_for_path(dirname, "test.window.js", None, non_test_files)
+        )
+
+        # Should produce exactly one test (the .window.html variant with encoded query).
+        self.assertEqual(len(tests), 1, f"Expected 1 test, got {len(tests)}: {[t.test_path for t in tests]}")
+        t = tests[0]
+
+        # test_path must carry the percent-encoded variant.
+        self.assertTrue(
+            t.test_path.endswith("?foo%20bar"),
+            f"Expected test_path to end with '?foo%20bar', got: {t.test_path!r}",
+        )
+
+        # Baseline lookup must resolve to the canonical on-disk file.
+        self.assertIsNotNone(
+            t.expected_text_path,
+            "Expected a non-None expected_text_path (baseline should be found on disk)",
+        )
+        self.assertTrue(
+            t.expected_text_path.endswith(baseline_filename),
+            f"Expected expected_text_path to end with {baseline_filename!r}, got: {t.expected_text_path!r}",
+        )
 
     def test_baseline_paths_use_a_single_separator(self):
         # The baseline name carries the "/" of the WPT test path, but the path
@@ -543,23 +577,24 @@ class WptTestsForPathTestsBase(object):
     # -----------------------------------------------------------------------
     def test_process_directory_matches_generated_any_worker_html(self):
         """Path-spec naming a generated WPT variant (foo.any.worker.html)
-        yields that variant's Test when its stub is on disk, and nothing when
-        only foo.any.js exists. Exercises branch 2 of the union match in
-        _process_directory's inner loop.
+        must yield that variant's Test even when only foo.any.js exists
+        on disk — i.e. no importer stub. Exercises branch 2 of the union
+        match in _process_directory's inner loop.
         """
         self._write_wpt_file(
             "foo/foo.any.js",
             "// META: global=window,worker\ntest(() => {}, 'pass');\n",
         )
+        # Simulate: run-webkit-tests …/foo/foo.any.worker.html (no variant).
+        # fnfilter = [("foo.any.worker.html", "")] matches the generated basename
+        # even though only foo.any.js is on disk.
         dirname = self.WPT_PREFIX + "/foo"
         fnfilter = [("foo.any.worker.html", "")]
-
-        self.assertEqual(list(self.finder._process_directory(dirname, fnfilter=fnfilter)), [])
-
-        self._write_stub("foo/foo.any.worker.html")
-        self.assertEqual(
-            [t.test_path for t in self.finder._process_directory(dirname, fnfilter=fnfilter)],
-            [self.WPT_PREFIX + "/foo/foo.any.worker.html"],
+        tests = list(self.finder._process_directory(dirname, fnfilter=fnfilter))
+        self.assertEqual(len(tests), 1, f"Expected 1 test, got: {[t.test_path for t in tests]}")
+        self.assertTrue(
+            tests[0].test_path.endswith("foo/foo.any.worker.html"),
+            f"Expected test_path ending in foo.any.worker.html, got: {tests[0].test_path!r}",
         )
 
     # -----------------------------------------------------------------------
@@ -629,7 +664,6 @@ class WptTestsForPathTestsBase(object):
             "foo/test.window.js",
             "// META: variant=?a\n// META: variant=?b\n// META: variant=?c\ntest(() => {}, 'pass');\n",
         )
-        self._write_stub("foo/test.window.html")
         self.assertEqual(
             [t.test_path for t in self._get_wpt_tests("foo/test.window.js")],
             [self.WPT_PREFIX + "/foo/test.window.html" + v for v in ("?a", "?b", "?c")],
@@ -685,8 +719,6 @@ class WptTestsForPathTestsBase(object):
 
     def test_discovery_through_tests_for_path_dispatches_on_wpt_route(self):
         self._write_wpt_file("foo/basic.any.js", "// META: global=window,worker\ntest(() => {}, 'pass');\n")
-        for suffix in (".html", ".serviceworker.html", ".sharedworker.html", ".worker.html"):
-            self._write_stub("foo/basic.any" + suffix)
         dirname = self.WPT_PREFIX + "/foo"
         tests = list(self.finder._tests_for_path(dirname, "basic.any.js", None, OrderedDict()))
         self.assertEqual(
@@ -709,14 +741,12 @@ class WptTestsForPathTestsBase(object):
             "foo/test.window.js",
             "// META: variant=?foo bar\ntest(() => {}, 'pass');\n",
         )
-        self._write_stub("foo/test.window.html")
         # path-spec matches test.window.js on disk (branch 1), variant "?foo bar"
         dirname = self.WPT_PREFIX + "/foo"
         fnfilter = [("test.window.js", "?foo bar")]
-        self.assertEqual(
-            [t.test_path for t in self.finder._process_directory(dirname, fnfilter=fnfilter)],
-            [self.WPT_PREFIX + "/foo/test.window.html?foo%20bar"],
-        )
+        tests = list(self.finder._process_directory(dirname, fnfilter=fnfilter))
+        self.assertEqual(len(tests), 1)
+        self.assertTrue(tests[0].test_path.endswith("?foo%20bar"))
 
     def test_process_directory_branch2_unencoded_variant_matches(self):
         """Branch-2 encoding mismatch, fixed: the post-filter now compares
@@ -727,23 +757,20 @@ class WptTestsForPathTestsBase(object):
             "foo/test.window.js",
             "// META: variant=?foo bar\ntest(() => {}, 'pass');\n",
         )
-        self._write_stub("foo/test.window.html")
         # path-spec matches the generated test.window.html, not test.window.js
         # (branch 2 — must dispatch test.window.js and post-filter on generated
         # test_path basename + variant)
         dirname = self.WPT_PREFIX + "/foo"
         fnfilter = [("test.window.html", "?foo bar")]
-        self.assertEqual(
-            [t.test_path for t in self.finder._process_directory(dirname, fnfilter=fnfilter)],
-            [self.WPT_PREFIX + "/foo/test.window.html?foo%20bar"],
-        )
+        tests = list(self.finder._process_directory(dirname, fnfilter=fnfilter))
+        self.assertEqual(len(tests), 1)
+        self.assertTrue(tests[0].test_path.endswith("?foo%20bar"))
 
     def _process_window_js_with_variants(self, fnfilter):
         self._write_wpt_file(
             "foo/test.window.js",
             "// META: variant=?a\n// META: variant=?b\ntest(() => {}, 'pass');\n",
         )
-        self._write_stub("foo/test.window.html")
         return [
             t.test_path
             for t in self.finder._process_directory(self.WPT_PREFIX + "/foo", fnfilter=fnfilter)
@@ -870,11 +897,10 @@ class WptTestsForPathTestsBase(object):
             f"Expected no dup-dispatch warnings, got: "
             f"{[r.getMessage() for r in stub_warnings]}",
         )
-        # Sanity: the .any.js produces only the stub-backed variant (.any.html).
+        # Sanity: the .any.js still produces its expected variants.
         test_paths = {t.test_path for t in tests}
         self.assertIn(self.WPT_PREFIX + "/foo/basic.any.html", test_paths)
-        # The .any.worker.html stub does not exist, so it's not discovered.
-        self.assertNotIn(self.WPT_PREFIX + "/foo/basic.any.worker.html", test_paths)
+        self.assertIn(self.WPT_PREFIX + "/foo/basic.any.worker.html", test_paths)
 
 
 class WptTestsForPathLinuxTests(PyFakefsLinuxTestCaseMixin, WptTestsForPathTestsBase, unittest.TestCase):
