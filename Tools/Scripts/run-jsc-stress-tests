@@ -193,24 +193,45 @@ parser = OptionParser.new do |opts|
         exit 0
     end
 
+    opts.separator ''
+    opts.separator 'Configuration options:'
     opts.on('-j', '--jsc ARG', 'Path to JavaScriptCore build product. This option is required.') do |arg|
         jscArg = arg
     end
 
-    opts.on('--no-copy', 'Do not copy the JavaScriptCore build product before testing.') do
-        $doNotMessWithVMPath = true
+    opts.on('--debug', 'Build debug mode.') do
+        $buildType = "debug"
     end
 
-    opts.on('-o', '--output-dir ARG', "Path where to put results. Default is #{$outputDir}.") do |arg|
-        $outputDir = Pathname.new(arg)
+    opts.on('--release', 'Build release mode.') do
+        $buildType = "release"
     end
 
     opts.on('--cloop', 'Enable cloop mode.') do
         $cloop = true
     end
 
+    opts.on('--arch ARG', 'Specify architecture instead of determining from JavaScriptCore build.') do |arg|
+        $architecture = arg
+    end
+
+    opts.on('--force-architecture ARG', 'Override the architecture to run tests with (e.g. x86, x86_64, arm).') do |arg|
+        $architecture = arg unless $architecture
+        $forceArchitecture = arg
+    end
+
+    opts.separator ''
+    opts.separator 'Platform options:'
     opts.on('--platform ARG', 'Indicate the target platform we are running on.') do |arg|
         $platform = arg
+    end
+
+    opts.on('--os ARG', 'Specify os instead of determining from JavaScriptCore build (e.g. darwin, linux, windows).') do |arg|
+        $hostOS = arg
+    end
+
+    opts.on('--model ARG', 'Specify the model.') do |arg|
+        $model = arg.gsub(/\A['"]+|['"]+\Z/, '')
     end
 
     opts.on('--memory-limited', 'Indicate that we are targeting the test for a memory limited device.') do
@@ -221,50 +242,63 @@ parser = OptionParser.new do |opts|
         $jitTests = false
     end
 
-    opts.on('--force-collectContinuously', 'Enable the collectContinuously mode even if disabled on this platform.') do
-        $forceCollectContinuously = true
+    opts.separator ''
+    opts.separator 'Output options:'
+    opts.on('-o', '--output-dir ARG', "Path where to put results. Default is #{$outputDir}.") do |arg|
+        $outputDir = Pathname.new(arg)
     end
 
     opts.on('-v', '--verbose', 'Print more things while running.') do
         $verbosity += 1
     end
 
-    opts.on('--run-bundle ARG', 'Runs a bundle previously created by run-jsc-stress-tests.') do |arg|
-        $bundle = Pathname.new(arg)
+    opts.on('--report-execution-time', 'Print execution time for each test in ms.') do
+        $reportExecutionTime = true
     end
 
-    opts.on('--tarball [ARG]', 'Creates a tarball of the final bundle. Use name if supplied for tar file.') do |arg|
-        $tarball = true
-        $copyVM = true
-        $tarFileName = arg unless arg.nil? || arg == ''
+    opts.separator ''
+    opts.separator 'Test selection options:'
+    opts.on('--filter ARG', 'Only run tests whose name matches the given regular expression.') do |arg|
+        $filter = Regexp.new(arg)
     end
 
-    opts.on('--force-vm-copy', 'Force copying the VM.') do
-        $copyVM = true
+    opts.on('-q', '--quick', 'Only run with the default and no-cjit-validate modes.') do
+        $mode = :quick
     end
 
-    opts.on('--shell-runner', 'Uses the shell-based test runner instead of the default make-based runner.') do
-        $testRunnerType = :shell
+    opts.on('--basic', 'Run with default and additional basic modes.') do
+        $mode = :basic
     end
 
-    opts.on('--make-runner', 'Uses the faster make-based runner.') do
-        $testRunnerType = :make
+    opts.on('--no-slow', 'Skip slow tests.') do
+        $mode = :noSlow
     end
 
-    opts.on('--ruby-runner', 'Uses the ruby runner for machines without unix shell or make.') do
-        $testRunnerType = :ruby
+    opts.on('--jitless-wasm', 'Run the no-wasm-jit mode.') do
+        $runJITlessWasm = true
     end
 
-    opts.on('--gnu-parallel-runner', 'Uses GNU parallel runner.') do
-        $testRunnerType = :gnuparallel
+    opts.on('--force-collectContinuously', 'Enable the collectContinuously mode even if disabled on this platform.') do
+        $forceCollectContinuously = true
     end
 
-    opts.on('--gnu-parallel-chunk-size ARG', 'Chunk size for GNU parallel runner.') do |arg|
-        $gnuParallelChunkSize = arg.to_i
+    opts.separator ''
+    opts.separator 'Execution options:'
+    opts.on('-c', '--child-processes ARG', 'Specify the number of child processes.') do |arg|
+        $numChildProcesses = arg.to_i
+        $numChildProcessesSetByUser = true
     end
 
-    opts.on('--test-writer ARG', 'Specifies the test script format.') do |arg|
-        $testWriter = arg
+    opts.on('--max-timeout ARG', 'Specify a cap for the effective timeout.') do |arg|
+        $maxTimeout = arg.to_i
+    end
+
+    opts.on('--env-vars ARG', 'Add a list of environment variables to set before running jsc.') do |arg|
+        $envVars = arg.gsub(/\s+/, ' ').split(' ')
+    end
+
+    opts.on('--artifact-exec-wrapper ARG', 'Wrapper for executing a build artifact.') do |arg|
+        $artifact_exec_wrapper = arg
     end
 
     opts.on('--treat-failing-as-flaky ARG', 'Treat failing tests as flaky with format: passPercentage,maxTries,maxFailing[,maxRetrySeconds].') do |arg|
@@ -302,6 +336,39 @@ parser = OptionParser.new do |opts|
                                               :maxRetrySeconds => maxRetrySeconds)
     end
 
+    opts.on('--no-retry', 'Disable auto retry.') do
+        ITERATION_LIMITS.infraIterationsFloor = 1
+        ITERATION_LIMITS.iterationsCeiling = 1
+    end
+
+    opts.separator ''
+    opts.separator 'Test runner options:'
+    opts.on('--make-runner', 'Uses the faster make-based runner.') do
+        $testRunnerType = :make
+    end
+
+    opts.on('--shell-runner', 'Uses the shell-based test runner instead of the default make-based runner.') do
+        $testRunnerType = :shell
+    end
+
+    opts.on('--ruby-runner', 'Uses the ruby runner for machines without unix shell or make.') do
+        $testRunnerType = :ruby
+    end
+
+    opts.on('--gnu-parallel-runner', 'Uses GNU parallel runner.') do
+        $testRunnerType = :gnuparallel
+    end
+
+    opts.on('--gnu-parallel-chunk-size ARG', 'Chunk size for GNU parallel runner.') do |arg|
+        $gnuParallelChunkSize = arg.to_i
+    end
+
+    opts.on('--test-writer ARG', 'Specifies the test script format.') do |arg|
+        $testWriter = arg
+    end
+
+    opts.separator ''
+    opts.separator 'Remote and bundle options:'
     opts.on('--remote ARG', 'Specify a remote host on which to run tests.') do |arg|
         $copyVM = true
         $tarball = true
@@ -314,79 +381,26 @@ parser = OptionParser.new do |opts|
         $remoteConfigFile = arg
     end
 
-    opts.on('--report-execution-time', 'Print execution time for each test in ms.') do
-        $reportExecutionTime = true
+    opts.on('--tarball [ARG]', 'Creates a tarball of the final bundle. Use name if supplied for tar file.') do |arg|
+        $tarball = true
+        $copyVM = true
+        $tarFileName = arg unless arg.nil? || arg == ''
     end
 
-    opts.on('-c', '--child-processes ARG', 'Specify the number of child processes.') do |arg|
-        $numChildProcesses = arg.to_i
-        $numChildProcessesSetByUser = true
+    opts.on('--run-bundle ARG', 'Runs a bundle previously created by run-jsc-stress-tests.') do |arg|
+        $bundle = Pathname.new(arg)
     end
 
-    opts.on('--max-timeout ARG', 'Specify a cap for the effective timeout.') do |arg|
-        $maxTimeout = arg.to_i
+    opts.on('--no-copy', 'Do not copy the JavaScriptCore build product before testing.') do
+        $doNotMessWithVMPath = true
     end
 
-    opts.on('--filter ARG', 'Only run tests whose name matches the given regular expression.') do |arg|
-        $filter = Regexp.new(arg)
-    end
-
-    opts.on('--arch ARG', 'Specify architecture instead of determining from JavaScriptCore build.') do |arg|
-        $architecture = arg
-    end
-
-    opts.on('--force-architecture ARG', 'Override the architecture to run tests with (e.g. x86, x86_64, arm).') do |arg|
-        $architecture = arg unless $architecture
-        $forceArchitecture = arg
+    opts.on('--force-vm-copy', 'Force copying the VM.') do
+        $copyVM = true
     end
 
     opts.on('--ldd ARG', 'Use alternate ldd.') do |arg|
         $ldd = arg
-    end
-
-    opts.on('--artifact-exec-wrapper ARG', 'Wrapper for executing a build artifact.') do |arg|
-        $artifact_exec_wrapper = arg
-    end
-
-    opts.on('--os ARG', 'Specify os instead of determining from JavaScriptCore build (e.g. darwin, linux, windows).') do |arg|
-        $hostOS = arg
-    end
-
-    opts.on('--model ARG', 'Specify the model.') do |arg|
-        $model = arg.gsub(/\A['"]+|['"]+\Z/, '')
-    end
-
-    opts.on('--env-vars ARG', 'Add a list of environment variables to set before running jsc.') do |arg|
-        $envVars = arg.gsub(/\s+/, ' ').split(' ')
-    end
-
-    opts.on('-q', '--quick', 'Only run with the default and no-cjit-validate modes.') do
-        $mode = :quick
-    end
-
-    opts.on('--basic', 'Run with default and additional basic modes.') do
-        $mode = :basic
-    end
-
-    opts.on('--no-slow', 'Skip slow tests.') do
-        $mode = :noSlow
-    end
-
-    opts.on('--jitless-wasm', 'Run the no-wasm-jit mode.') do
-        $runJITlessWasm = true
-    end
-
-    opts.on('--debug', 'Build debug mode.') do
-        $buildType = "debug"
-    end
-
-    opts.on('--release', 'Build release mode.') do
-        $buildType = "release"
-    end
-
-    opts.on('--no-retry', 'Disable auto retry.') do
-        ITERATION_LIMITS.infraIterationsFloor = 1
-        ITERATION_LIMITS.iterationsCeiling = 1
     end
 end
 
