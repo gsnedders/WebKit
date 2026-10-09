@@ -21,15 +21,16 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import copy
+import json
 import os
 import shutil
 import time
 from datetime import datetime, timezone
 from unittest.mock import patch
 
-from webkitcorepy import LoggerCapture, OutputCapture, run, testing
+from webkitcorepy import LoggerCapture, NestedFuzzyDict, OutputCapture, run, testing
 from webkitcorepy.mocks import Time as MockTime
-from webkitscmpy import Commit, Contributor, local, mocks, remote
+from webkitscmpy import Commit, Contributor, local, mocks, program, remote
 
 
 class TestGit(testing.PathTestCase):
@@ -179,6 +180,85 @@ class TestGit(testing.PathTestCase):
             # Out-of-bounds commit
             with self.assertRaises(local.Git.Exception):
                 self.assertEqual(None, local.Git(self.path).commit(revision=10))
+
+    def test_cache_local_default_branch_behind_remote(self):
+        with mocks.local.Git(self.path) as mock, MockTime, LoggerCapture():
+            # Local main is one commit behind origin/main, which is what a `git fetch` without updating main leaves
+            mock.commits['main'].pop()
+            mock.head = mock.commits['main'][-1]
+
+            # Populating from another branch walks origin/main
+            repo = local.Git(self.path)
+            repo.cache.populate(branch='main', remote='origin')
+            self.assertEqual(repo.cache.to_identifier(hash='d8bce26fa65c', populate=False), '5@main')
+
+            # Populating with main checked out walks local main, which hasn't lost anything on origin/main, so dropping
+            # commits here would mean rebuilding every identifier and rewriting the cache file
+            repo.cache._last_populated = {}
+            repo.cache.populate(branch='main')
+            self.assertEqual(repo.cache.to_identifier(hash='d8bce26fa65c', populate=False), '5@main')
+            self.assertEqual(repo.cache.to_identifier(hash='bae5d1e9', populate=False), '4@main')
+
+            repo = local.Git(self.path)
+            self.assertEqual(repo.cache.to_identifier(hash='d8bce26fa65c', populate=False), '5@main')
+
+    def test_cache_local_default_branch_ahead_of_remote(self):
+        with mocks.local.Git(self.path) as mock, MockTime, LoggerCapture():
+            # A commit on main which hasn't been pushed yet, before `git-webkit pr` moves it to a branch
+            unpushed = '5d697791f2e1fb3991e441fbd79f412fcff93c75'
+            mock.commits['main'].append(Commit(
+                hash=unpushed, branch='main', identifier='6@main',
+                author=dict(name='Tim Contributor', emails=['tcontributor@example.com']),
+                timestamp=int(time.time()), message='[Testing] Existing commit\n',
+            ))
+            mock.head = mock.commits['main'][-1]
+            self.assertEqual('6@main', str(local.Git(self.path).commit(hash=unpushed)))
+
+            # Loading the cache computes every cached identifier
+            with patch.object(NestedFuzzyDict, '__setitem__', autospec=True, side_effect=NestedFuzzyDict.__setitem__) as assigned:
+                self.assertEqual('6@main', str(local.Git(self.path).commit(hash=unpushed)))
+            loading = assigned.call_count
+
+            # Looking up a commit on another branch populates it, walking origin/main first. origin/main's tip, the
+            # merge-base with main, is already cached, so only the branch's own 2 commits need identifiers
+            with patch.object(NestedFuzzyDict, '__setitem__', autospec=True, side_effect=NestedFuzzyDict.__setitem__) as assigned:
+                self.assertEqual('2.2@branch-a', str(local.Git(self.path).commit(identifier='2.2@branch-a')))
+            self.assertEqual(loading + 2, assigned.call_count)
+
+    def test_cache_commit_moved_off_default_branch_by_pull_request(self):
+        with mocks.local.Git(self.path) as mock, MockTime, LoggerCapture():
+            # A commit on main which was never pushed
+            unpushed = '5d697791f2e1fb3991e441fbd79f412fcff93c75'
+            mock.commits['main'].append(Commit(
+                hash=unpushed, branch='main', identifier='6@main',
+                author=dict(name='Tim Contributor', emails=['tcontributor@example.com']),
+                timestamp=int(time.time()), message='[Testing] Existing commit\n',
+            ))
+            mock.head = mock.commits['main'][-1]
+            self.assertEqual('6@main', str(local.Git(self.path).commit(hash=unpushed)))
+
+            # `git-webkit pr` moves the commit to a new branch with `git-webkit branch`...
+            with OutputCapture(), patch('webkitbugspy.Tracker._trackers', []):
+                self.assertEqual(0, program.main(args=('branch', '-i', 'pull-request'), path=self.path))
+            # ...then runs `git branch -f main remotes/origin/main`, which the mock ignores
+            mock.commits['main'].pop()
+
+            # Looking up a commit on another branch populates main again
+            self.assertEqual('2.2@branch-a', str(local.Git(self.path).commit(identifier='2.2@branch-a')))
+            self.assertEqual('eng/pull-request', local.Git(self.path).commit(hash=unpushed).branch)
+
+    def test_cache_file_revisions_shorter_than_hashes(self):
+        with mocks.local.Git(self.path), MockTime, LoggerCapture():
+            self.assertEqual('5@main', str(local.Git(self.path).commit(hash='d8bce26fa65c')))
+            path = os.path.join(self.path, '.git', 'identifiers.json')
+            with open(path) as file:
+                content = json.load(file)
+            content['revisions']['main'] = content['revisions']['main'][:2]
+            with open(path, 'w') as file:
+                json.dump(content, file)
+
+            # A damaged cache file should be ignored, not stop a repository from being constructed
+            self.assertEqual('5@main', str(local.Git(self.path).commit(hash='d8bce26fa65c')))
 
     def test_commit_hash(self):
         for mock in [mocks.local.Git(self.path), mocks.local.Git(self.path, git_svn=True)]:
