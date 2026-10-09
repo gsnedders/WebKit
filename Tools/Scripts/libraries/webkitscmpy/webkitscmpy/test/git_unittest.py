@@ -161,6 +161,28 @@ class TestGit(testing.PathTestCase):
                 }, local.Git(self.path).info(),
             )
 
+    def test_commit_cached_hash_leaves_default_branch_without_identifier(self):
+        with mocks.local.Git(self.path) as mock, MockTime, LoggerCapture():
+            # A commit on main which was never pushed
+            unpushed = '5d697791f2e1fb3991e441fbd79f412fcff93c75'
+            mock.commits['main'].append(Commit(
+                hash=unpushed, branch='main', identifier='6@main',
+                author=dict(name='Tim Contributor', emails=['tcontributor@example.com']),
+                timestamp=int(time.time()), message='[Testing] Existing commit\n',
+            ))
+            mock.head = mock.commits['main'][-1]
+            repository = local.Git(self.path)
+            repository.cache.populate(branch='main')
+            self.assertEqual('6@main', str(repository.commit(hash=unpushed)))
+
+            # `git-webkit pr` moves the commit to a new branch with `git checkout -b`...
+            run([local.Git.executable(), 'checkout', '-b', 'eng/pull-request'], cwd=self.path, capture_output=True)
+            # ...then runs `git branch -f main remotes/origin/main`, which the mock doesn't implement
+            mock.commits['main'].pop()
+
+            self.assertEqual('eng/pull-request', local.Git(self.path, cached=False).commit(hash=unpushed, include_identifier=False).branch)
+            self.assertEqual('eng/pull-request', repository.commit(hash=unpushed, include_identifier=False).branch)
+
     def test_commit_revision(self):
         with mocks.local.Git(self.path), MockTime, LoggerCapture():
             with self.assertRaises(local.Git.Exception):
